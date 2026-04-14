@@ -65,7 +65,6 @@ export default function Home() {
           </motion.div>
           <div className="space-y-64 pt-12">
             <motion.div style={{ opacity: useTransform(scrollYProgress, [0.15, 0.25], [0, 1]) }} className="max-w-md">
-              {/* STYLED PLACEHOLDER FOR FOUNDER PHOTO */}
               <div className="aspect-[3/4] bg-white/5 w-full mb-16 overflow-hidden border border-white/10 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-700">
                  <div className="text-[10px] uppercase tracking-[0.5em] text-white/20">Image Pending</div>
               </div>
@@ -129,7 +128,7 @@ export default function Home() {
           
           <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
             <motion.a 
-              href="https://calendly.com/YOUR_LINK" 
+              href="https://calendly.com/piyushkumar2418/30min" 
               target="_blank"
               whileHover={{ scale: 1.05, backgroundColor: "#F3D7A7", color: "#000" }}
               className="px-12 py-6 border border-[#F3D7A7] text-[#F3D7A7] rounded-full flex items-center gap-4 transition-colors"
