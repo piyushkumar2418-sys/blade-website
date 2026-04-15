@@ -27,30 +27,24 @@ const WorkItem = ({ work, aspect }: { work: any; aspect: string }) => {
       }}
       className={`group relative block ${aspect} bg-[#0a0a0a] border border-white/5 overflow-hidden rounded-lg shadow-2xl`}
     >
-      {/* 1. STATIC THUMBNAIL (Layer 20) */}
       <img 
         src={work.img} 
         alt={work.title}
         className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
       />
-
-      {/* 2. HOVER VIDEO (Layer 10) */}
       <video 
         ref={videoRef}
-        key={work.video} // Forces the browser to treat each video as a fresh stream
+        key={work.video}
         src={work.video}
         loop muted playsInline
         preload="auto"
         className="absolute inset-0 w-full h-full object-cover z-10 scale-105"
       />
-
-      {/* 3. TEXT & OVERLAYS (Layer 30+) */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/10 to-transparent z-30" />
       <div className="absolute bottom-5 left-5 z-40 text-left">
         <span className="text-[#F3D7A7] text-[8px] uppercase tracking-[0.2em] block mb-1 font-bold">{work.category}</span>
         <h4 className="text-sm md:text-base font-bold uppercase tracking-tight leading-tight text-white">{work.title}</h4>
       </div>
-      
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 opacity-0 group-hover:opacity-100 transition-all scale-75 group-hover:scale-100">
         <div className="w-12 h-12 rounded-full border border-[#F3D7A7]/40 flex items-center justify-center backdrop-blur-md bg-white/5">
           <Play fill="#F3D7A7" className="text-[#F3D7A7] ml-0.5" size={20} />
@@ -72,34 +66,10 @@ export default function Home() {
   ];
 
   const verticalWorks = [
-    { 
-      title: "Visual Dominance", 
-      category: "Reel", 
-      link: "https://www.instagram.com/reel/DDrxL2CMYCB/", 
-      video: "/preview5.mp4", 
-      img: "/thumb5.webp" 
-    },
-    { 
-      title: "Editorial Series", 
-      category: "Reel", 
-      link: "https://www.instagram.com/katemackz/", 
-      video: "/preview6.mp4", 
-      img: "/thumb6.webp" 
-    },
-    { 
-      title: "Dynamic Flow", 
-      category: "Reel", 
-      link: "https://www.instagram.com/DKTmhQqqF6M/", 
-      video: "/preview7.mp4", 
-      img: "/thumb7.jpg" 
-    },
-    { 
-      title: "Retention Edit", 
-      category: "Reel", 
-      link: "https://www.instagram.com/DTIgqVyjVcJ/", 
-      video: "/preview8.mp4", 
-      img: "/thumb8.jpeg" 
-    },
+    { title: "Visual Dominance", category: "Reel", link: "https://www.instagram.com/reel/DDrxL2CMYCB/", video: "/preview5.mp4", img: "/thumb5.webp" },
+    { title: "Editorial Series", category: "Reel", link: "https://www.instagram.com/katemackz/", video: "/preview6.mp4", img: "/thumb6.webp" },
+    { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" },
+    { title: "Retention Edit", category: "Reel", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" },
   ];
 
   return (
@@ -113,18 +83,24 @@ export default function Home() {
         <button className="px-6 py-2 border border-white/20 rounded-full text-[9px] uppercase tracking-widest hover:border-[#F3D7A7] transition-all font-bold">Inner Circle</button>
       </nav>
 
-      {/* --- HERO --- */}
-      <section className="h-screen flex flex-col justify-center items-center text-center relative z-20 px-4">
+      {/* --- HERO SECTION WITH VIDEO BACKGROUND --- */}
+      <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden">
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0 grayscale contrast-125 opacity-40">
+          <source src="/hero-bg.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/40 z-10 backdrop-blur-[2px]" />
+
         <motion.div 
+          className="relative z-20 px-4"
           style={{ 
             opacity: useTransform(scrollYProgress, [0, 0.08], [1, 0]),
             y: useTransform(scrollYProgress, [0, 0.1], [0, -50])
           }}
         >
           <h1 className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8" style={{ filter: 'drop-shadow(0 0 30px rgba(243, 215, 167, 0.2))' }}>
-            Growth,<br/><span className="relative inline-block">engineered.<motion.span animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 4, repeat: Infinity }} className="absolute inset-0 blur-3xl bg-[#F3D7A7]/20 -z-10 rounded-full" /></span>
+            Growth,<br/><span className="relative inline-block">engineered.<motion.span animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 4, repeat: Infinity }} className="absolute inset-0 blur-[80px] bg-[#F3D7A7]/20 -z-10 rounded-full" /></span>
           </h1>
-          <p className="text-white/40 text-[10px] md:text-[12px] uppercase tracking-[0.6em]">Blade Media</p>
+          <p className="text-white/40 text-[10px] md:text-[12px] uppercase tracking-[0.6em] font-bold">Blade Media</p>
         </motion.div>
       </section>
 
@@ -147,11 +123,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- DUAL GRID GALLERY --- */}
+      {/* --- PRODUCTIONS GALLERY --- */}
       <section className="min-h-screen py-24 px-6 md:px-12 bg-black/20 relative z-20">
         <div className="max-w-[1400px] mx-auto w-full relative z-30 space-y-32">
-          
-          {/* LANDSCAPE PRODUCTIONS */}
           <div>
             <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12">Selected Productions</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -160,8 +134,6 @@ export default function Home() {
               ))}
             </div>
           </div>
-
-          {/* VERTICAL REELS */}
           <div>
             <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12">Viral Originals</h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
@@ -170,7 +142,6 @@ export default function Home() {
               ))}
             </div>
           </div>
-
         </div>
       </section>
 
