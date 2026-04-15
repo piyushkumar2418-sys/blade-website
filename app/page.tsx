@@ -1,13 +1,14 @@
 "use client";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+// 1. Added Variants to the import
+import { motion, useScroll, useTransform, useInView, Variants } from "framer-motion";
 import { Play } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
 import { useRef, useState } from "react";
 
-// --- ANIMATION CONSTANTS ---
-const fadeUp = {
+// 2. Explicitly typing the constant as 'Variants'
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: { 
     opacity: 1, 
@@ -23,6 +24,16 @@ const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: n
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10%" });
 
+  // Explicitly typing inline variants to avoid the same error here
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { delay: index * 0.1, duration: 0.8, ease: "easeOut" } 
+    }
+  };
+
   return (
     <motion.a 
       ref={ref}
@@ -30,14 +41,7 @@ const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: n
       target="_blank"
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
-      variants={{
-        hidden: { opacity: 0, y: 30 },
-        visible: { 
-          opacity: 1, 
-          y: 0, 
-          transition: { delay: index * 0.1, duration: 0.8, ease: "easeOut" } 
-        }
-      }}
+      variants={itemVariants}
       onMouseEnter={() => {
         setIsHovered(true);
         videoRef.current?.play().catch(() => null);
@@ -102,7 +106,6 @@ export default function Home() {
         <motion.button initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="px-6 py-2 border border-white/20 rounded-full text-[9px] uppercase tracking-widest hover:border-[#F3D7A7] transition-all font-bold">Inner Circle</motion.button>
       </nav>
 
-      {/* --- HERO --- */}
       <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden bg-black isolate">
         <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0">
           <source src="/hero-bg.mp4?v=3" type="video/mp4" />
@@ -127,7 +130,6 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* --- FOUNDER SECTION --- */}
       <section className="min-h-screen py-24 px-6 md:px-24 border-t border-white/5 relative z-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start max-w-[1400px] mx-auto relative z-30">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="md:sticky md:top-32">
@@ -153,10 +155,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- PRODUCTIONS GALLERY --- */}
       <section className="min-h-screen py-32 px-6 md:px-12 bg-black/20 relative z-20">
         <div className="max-w-[1400px] mx-auto w-full relative z-30 space-y-40">
-          
           <div>
             <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12">Selected Productions</motion.h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -174,11 +174,9 @@ export default function Home() {
               ))}
             </div>
           </div>
-
         </div>
       </section>
 
-      {/* --- CTA --- */}
       <section className="h-screen flex flex-col justify-center items-center px-6 relative z-20 text-center">
           <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="text-5xl md:text-[7vw] font-bold tracking-tighter uppercase mb-12 text-white">Ready to scale?</motion.h2>
           <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-10 py-5 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs hover:bg-[#F3D7A7] hover:text-black transition-all">Secure a Session</motion.a>
