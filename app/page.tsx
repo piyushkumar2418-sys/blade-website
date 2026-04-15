@@ -27,11 +27,14 @@ const WorkItem = ({ work, aspect }: { work: any; aspect: string }) => {
       }}
       className={`group relative block ${aspect} bg-[#0a0a0a] border border-white/5 overflow-hidden rounded-lg shadow-2xl`}
     >
+      {/* 1. STATIC THUMBNAIL */}
       <img 
         src={work.img} 
         alt={work.title}
         className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
       />
+
+      {/* 2. HOVER VIDEO */}
       <video 
         ref={videoRef}
         key={work.video}
@@ -40,11 +43,14 @@ const WorkItem = ({ work, aspect }: { work: any; aspect: string }) => {
         preload="auto"
         className="absolute inset-0 w-full h-full object-cover z-10 scale-105"
       />
+
+      {/* 3. TEXT & OVERLAYS */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/10 to-transparent z-30" />
       <div className="absolute bottom-5 left-5 z-40 text-left">
         <span className="text-[#F3D7A7] text-[8px] uppercase tracking-[0.2em] block mb-1 font-bold">{work.category}</span>
         <h4 className="text-sm md:text-base font-bold uppercase tracking-tight leading-tight text-white">{work.title}</h4>
       </div>
+      
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 opacity-0 group-hover:opacity-100 transition-all scale-75 group-hover:scale-100">
         <div className="w-12 h-12 rounded-full border border-[#F3D7A7]/40 flex items-center justify-center backdrop-blur-md bg-white/5">
           <Play fill="#F3D7A7" className="text-[#F3D7A7] ml-0.5" size={20} />
@@ -83,10 +89,10 @@ export default function Home() {
         <button className="px-6 py-2 border border-white/20 rounded-full text-[9px] uppercase tracking-widest hover:border-[#F3D7A7] transition-all font-bold">Inner Circle</button>
       </nav>
 
-      {/* --- HERO SECTION WITH VIDEO BACKGROUND --- */}
+      {/* --- HERO SECTION WITH CACHE-BUSTED VIDEO --- */}
       <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden">
         <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0 grayscale contrast-125 opacity-40">
-          <source src="/hero-bg.mp4" type="video/mp4" />
+          <source src="/hero-bg.mp4?v=2" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-black/40 z-10 backdrop-blur-[2px]" />
 
@@ -123,9 +129,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- PRODUCTIONS GALLERY --- */}
+      {/* --- DUAL GRID GALLERY --- */}
       <section className="min-h-screen py-24 px-6 md:px-12 bg-black/20 relative z-20">
         <div className="max-w-[1400px] mx-auto w-full relative z-30 space-y-32">
+          
           <div>
             <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12">Selected Productions</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -134,6 +141,7 @@ export default function Home() {
               ))}
             </div>
           </div>
+
           <div>
             <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12">Viral Originals</h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
@@ -142,6 +150,7 @@ export default function Home() {
               ))}
             </div>
           </div>
+
         </div>
       </section>
 
