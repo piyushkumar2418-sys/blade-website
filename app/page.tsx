@@ -1,9 +1,9 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Calendar } from "lucide-react";
-import CustomCursor from "../components/CustomCursor";
-import DrawingCanvas from "../components/DrawingCanvas";
-import Scene3D from "../components/Scene3D";
+import CustomCursor from "@/components/CustomCursor";
+import DrawingCanvas from "@/components/DrawingCanvas";
+import Scene3D from "@/components/Scene3D";
 import { useRef } from "react";
 
 export default function Home() {
@@ -148,4 +148,4 @@ export default function Home() {
       </section>
     </motion.main>
   );
-} 
+}
