@@ -34,10 +34,11 @@ export default function Home() {
 
       {/* NAVBAR */}
       <nav className="fixed top-0 w-full z-[60] flex justify-between items-center px-12 py-10 mix-blend-difference">
-        <div className="font-bold tracking-tighter text-2xl" style={{ fontFamily: 'Helvetica-Bold' }}>
-          BLADE
+        <div className="flex items-center gap-2">
+          {/* BLADE LOGO ADDED HERE */}
+          <img src="/blade-logo.png" alt="Blade Media" className="h-6 md:h-8 w-auto object-contain" />
         </div>
-        <button className="px-8 py-3 border border-white/20 rounded-full text-[10px] uppercase tracking-widest hover:border-[#F3D7A7] transition-all" style={{ fontFamily: 'Helvetica-Bold' }}>
+        <button className="px-8 py-3 border border-white/20 rounded-full text-[10px] uppercase tracking-widest hover:border-[#F3D7A7] transition-all font-bold">
           Inner Circle
         </button>
       </nav>
@@ -48,7 +49,7 @@ export default function Home() {
           <h1 className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8" style={{ fontFamily: 'Helvetica-Bold' }}>
             Growth,<br/>engineered.
           </h1>
-          <p className="text-white/40 text-[12px] md:text-[14px] uppercase tracking-[0.6em] mb-16" style={{ fontFamily: 'Helvetica-Light' }}>Blade Media</p>
+          <p className="text-white/40 text-[12px] md:text-[14px] uppercase tracking-[0.6em] mb-16">Blade Media</p>
           <motion.button whileHover={{ scale: 1.05, letterSpacing: "0.5em" }} className="flex items-center gap-4 mx-auto border-b border-white/40 pb-2 hover:border-[#F3D7A7] transition-all group">
             <span className="text-[10px] uppercase tracking-[0.4em]">View Our Work</span>
             <ArrowUpRight size={14} />
@@ -60,18 +61,18 @@ export default function Home() {
       <section className="min-h-screen py-48 px-6 md:px-24 border-t border-white/5 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-start max-w-[1400px] mx-auto">
           <motion.div style={{ opacity: useTransform(scrollYProgress, [0.1, 0.15, 0.45, 0.5], [0, 1, 1, 0]) }} className="md:sticky md:top-48">
-            <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-8 block" style={{ fontFamily: 'Helvetica-Light' }}>The Visionary</span>
-            <h2 className="text-6xl md:text-8xl font-bold leading-[0.85] tracking-tighter uppercase" style={{ fontFamily: 'Helvetica-Bold' }}>Systematized <br/> Visual <br/> Dominance.</h2>
+            <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-8 block">The Visionary</span>
+            <h2 className="text-6xl md:text-8xl font-bold leading-[0.85] tracking-tighter uppercase">Systematized <br/> Visual <br/> Dominance.</h2>
           </motion.div>
           <div className="space-y-64 pt-12">
             <motion.div style={{ opacity: useTransform(scrollYProgress, [0.15, 0.25], [0, 1]) }} className="max-w-md">
               <div className="aspect-[3/4] bg-white/5 w-full mb-16 overflow-hidden border border-white/10 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-700">
                  <div className="text-[10px] uppercase tracking-[0.5em] text-white/20">Image Pending</div>
               </div>
-              <p className="text-white/60 text-xl md:text-2xl leading-relaxed mb-8" style={{ fontFamily: 'Helvetica-Light' }}>
+              <p className="text-white/60 text-xl md:text-2xl leading-relaxed mb-8">
                 We didn't learn content from a syllabus; we decoded it through an early obsession. It began at thirteen, experimentation replacing mentorship. Years spent dissecting retention, mastering the hook, and understanding the silent mechanics of distribution.
               </p>
-              <div className="flex items-center gap-4 text-[#F3D7A7] italic text-2xl" style={{ fontFamily: 'Selba-Script' }}>— The Founder&apos;s Path</div>
+              <div className="flex items-center gap-4 text-[#F3D7A7] italic text-2xl">— The Founder&apos;s Path</div>
             </motion.div>
           </div>
         </div>
@@ -81,14 +82,14 @@ export default function Home() {
       <section className="min-h-screen py-32 px-6 md:px-24 bg-black/20 relative z-10">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex justify-between items-end mb-24">
-            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter" style={{ fontFamily: 'Helvetica-Bold' }}>Selected <br/> Works</h2>
+            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter">Selected <br/> Works</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24">
             <motion.div whileHover={{ y: -10 }} className="md:col-span-7 group cursor-pointer">
               <div className="aspect-[16/10] bg-white/5 overflow-hidden mb-6 relative border border-white/5">
                 <div className="w-full h-full bg-[#111] group-hover:scale-105 transition-transform duration-700" />
               </div>
-              <h4 className="text-xl font-bold uppercase mb-1" style={{ fontFamily: 'Helvetica-Bold' }}>Visual Identity</h4>
+              <h4 className="text-xl font-bold uppercase mb-1">Visual Identity</h4>
             </motion.div>
           </div>
         </div>
@@ -102,10 +103,9 @@ export default function Home() {
             opacity: useTransform(scrollYProgress, [0.75, 0.82, 0.88, 0.92], [0, 1, 1, 0])
           }}
         >
-          <h2 className="text-4xl md:text-7xl font-bold uppercase tracking-widest mb-4" style={{ fontFamily: 'Helvetica-Bold' }}>
-            INNER CIRCLE
-          </h2>
-          <p className="max-w-xl mx-auto text-[#F3D7A7]/60 text-lg md:text-xl mb-12" style={{ fontFamily: 'Kanila' }}>
+          {/* INNER CIRCLE LOGO ADDED HERE */}
+          <img src="/inner-circle-logo.png" alt="Inner Circle" className="w-48 md:w-80 h-auto mb-8 object-contain" />
+          <p className="max-w-xl mx-auto text-[#F3D7A7]/60 text-lg md:text-xl mb-12 italic">
             The evolution of the creative mind. A high-level execution program.
           </p>
         </motion.div>
@@ -119,10 +119,10 @@ export default function Home() {
           viewport={{ once: true }}
           className="text-center max-w-4xl"
         >
-          <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.8em] mb-8 block" style={{ fontFamily: 'Helvetica-Light' }}>
+          <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.8em] mb-8 block">
             Available for Partnership
           </span>
-          <h2 className="text-5xl md:text-[8vw] font-bold leading-[0.9] tracking-tighter uppercase mb-16" style={{ fontFamily: 'Helvetica-Bold' }}>
+          <h2 className="text-5xl md:text-[8vw] font-bold leading-[0.9] tracking-tighter uppercase mb-16">
             Ready to <br/> scale?
           </h2>
           
@@ -134,7 +134,7 @@ export default function Home() {
               className="px-12 py-6 border border-[#F3D7A7] text-[#F3D7A7] rounded-full flex items-center gap-4 transition-colors"
             >
               <Calendar size={20} />
-              <span className="text-xs uppercase tracking-[0.3em] font-bold" style={{ fontFamily: 'Helvetica-Bold' }}>
+              <span className="text-xs uppercase tracking-[0.3em] font-bold">
                 Secure a Session
               </span>
             </motion.a>
