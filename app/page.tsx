@@ -37,6 +37,7 @@ const WorkItem = ({ work, aspect }: { work: any; aspect: string }) => {
       {/* 2. HOVER VIDEO (Layer 10) */}
       <video 
         ref={videoRef}
+        key={work.video} // Forces the browser to treat each video as a fresh stream
         src={work.video}
         loop muted playsInline
         preload="auto"
@@ -86,11 +87,18 @@ export default function Home() {
       img: "/thumb6.webp" 
     },
     { 
+      title: "Dynamic Flow", 
+      category: "Reel", 
+      link: "https://www.instagram.com/DKTmhQqqF6M/", 
+      video: "/preview7.mp4", 
+      img: "/thumb7.jpg" 
+    },
+    { 
       title: "Retention Edit", 
       category: "Reel", 
-      link: "https://www.instagram.com/reel/DTIgqVyjVcJ/", 
+      link: "https://www.instagram.com/DTIgqVyjVcJ/", 
       video: "/preview8.mp4", 
-      img: "/thumb8.jpeg" // Added the 'e' to match your file
+      img: "/thumb8.jpeg" 
     },
   ];
 
@@ -105,15 +113,22 @@ export default function Home() {
         <button className="px-6 py-2 border border-white/20 rounded-full text-[9px] uppercase tracking-widest hover:border-[#F3D7A7] transition-all font-bold">Inner Circle</button>
       </nav>
 
-      {/* HERO SECTION */}
-      <section className="h-screen flex flex-col justify-center items-center text-center relative z-20">
-        <h1 className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8" style={{ filter: 'drop-shadow(0 0 30px rgba(243, 215, 167, 0.2))' }}>
-          Growth,<br/><span className="relative">engineered.<motion.span animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 4, repeat: Infinity }} className="absolute inset-0 blur-3xl bg-[#F3D7A7]/20 -z-10 rounded-full" /></span>
-        </h1>
-        <p className="text-white/40 text-[10px] md:text-[12px] uppercase tracking-[0.6em]">Blade Media</p>
+      {/* --- HERO --- */}
+      <section className="h-screen flex flex-col justify-center items-center text-center relative z-20 px-4">
+        <motion.div 
+          style={{ 
+            opacity: useTransform(scrollYProgress, [0, 0.08], [1, 0]),
+            y: useTransform(scrollYProgress, [0, 0.1], [0, -50])
+          }}
+        >
+          <h1 className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8" style={{ filter: 'drop-shadow(0 0 30px rgba(243, 215, 167, 0.2))' }}>
+            Growth,<br/><span className="relative inline-block">engineered.<motion.span animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 4, repeat: Infinity }} className="absolute inset-0 blur-3xl bg-[#F3D7A7]/20 -z-10 rounded-full" /></span>
+          </h1>
+          <p className="text-white/40 text-[10px] md:text-[12px] uppercase tracking-[0.6em]">Blade Media</p>
+        </motion.div>
       </section>
 
-      {/* FOUNDER SECTION */}
+      {/* --- FOUNDER SECTION --- */}
       <section className="min-h-screen py-24 px-6 md:px-24 border-t border-white/5 relative z-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start max-w-[1400px] mx-auto relative z-30">
           <div className="md:sticky md:top-32">
@@ -125,14 +140,14 @@ export default function Home() {
                <img src="/piyush.png" alt="Piyush" className="w-full h-full object-cover grayscale" />
             </div>
             <p className="text-white/70 text-base md:text-lg leading-relaxed mb-6 italic">
-              "We didn&apos;t learn content from a syllabus; we decoded it through an early obsession."
+              "We didn&apos;t learn content from a syllabus; we decoded it through an early obsession. Years spent dissecting retention, mastering the hook, and understanding the silent mechanics of distribution."
             </p>
             <div className="text-[#F3D7A7] italic text-2xl font-bold">— Piyush</div>
           </div>
         </div>
       </section>
 
-      {/* DUAL GRID GALLERY */}
+      {/* --- DUAL GRID GALLERY --- */}
       <section className="min-h-screen py-24 px-6 md:px-12 bg-black/20 relative z-20">
         <div className="max-w-[1400px] mx-auto w-full relative z-30 space-y-32">
           
@@ -159,17 +174,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* INNER CIRCLE */}
+      {/* --- INNER CIRCLE --- */}
       <section className="h-screen flex flex-col justify-center items-center text-center relative z-20 px-6">
-        <img src="/inner-circle-logo.png" alt="Inner Circle" className="w-64 md:w-[400px] h-auto mb-2" />
-        <span className="text-[#F3D7A7] text-xs uppercase tracking-[0.6em] font-bold mb-4">Coming Soon</span>
+        <div className="relative z-30 flex flex-col items-center">
+          <img src="/inner-circle-logo.png" alt="Inner Circle" className="w-64 md:w-[400px] h-auto mb-2 object-contain" />
+          <span className="text-[#F3D7A7] text-[10px] md:text-xs uppercase tracking-[0.6em] font-bold mb-6">Coming Soon</span>
+          <p className="max-w-xl mx-auto text-white/40 text-[9px] md:text-[10px] italic tracking-[0.2em] uppercase">The evolution of the creative mind.</p>
+        </div>
       </section>
 
-      {/* CTA */}
+      {/* --- CTA --- */}
       <section className="h-screen flex flex-col justify-center items-center px-6 relative z-20 text-center">
-          <h2 className="text-5xl md:text-[7vw] font-bold tracking-tighter uppercase mb-12 text-white">Ready to <br/> scale?</h2>
-          <a href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-10 py-5 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs">Secure a Session</a>
-          <footer className="mt-24 text-[9px] uppercase tracking-[0.6em] text-white/30">© 2026 Blade Media</footer>
+          <div className="relative z-30">
+            <h2 className="text-5xl md:text-[7vw] font-bold tracking-tighter uppercase mb-12 text-white">Ready to <br/> scale?</h2>
+            <a href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-10 py-5 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs flex items-center gap-4 hover:bg-[#F3D7A7] hover:text-black transition-all mx-auto w-fit">
+              <span>Secure a Session</span>
+            </a>
+          </div>
+          <footer className="absolute bottom-10 w-full text-[9px] uppercase tracking-[0.6em] text-white/30 z-30">© 2026 Blade Media</footer>
       </section>
     </motion.main>
   );
