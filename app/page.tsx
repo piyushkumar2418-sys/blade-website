@@ -34,11 +34,15 @@ export default function Home() {
 
       {/* NAVBAR */}
       <nav className="fixed top-0 w-full z-[60] flex justify-between items-center px-12 py-10 mix-blend-difference">
-        <div className="flex items-center gap-2">
-          {/* BLADE LOGO ADDED HERE */}
-          <img src="/blade-logo.png" alt="Blade Media" className="h-6 md:h-8 w-auto object-contain" />
+        <div className="flex items-center">
+          {/* SCALED BLADE LOGO */}
+          <img 
+            src="/blade-logo.png" 
+            alt="Blade Media" 
+            className="h-12 md:h-20 w-auto object-contain relative z-[100]" 
+          />
         </div>
-        <button className="px-8 py-3 border border-white/20 rounded-full text-[10px] uppercase tracking-widest hover:border-[#F3D7A7] transition-all font-bold">
+        <button className="px-10 py-4 border border-white/20 rounded-full text-[11px] uppercase tracking-widest hover:border-[#F3D7A7] hover:text-[#F3D7A7] transition-all font-bold">
           Inner Circle
         </button>
       </nav>
@@ -61,16 +65,16 @@ export default function Home() {
       <section className="min-h-screen py-48 px-6 md:px-24 border-t border-white/5 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-start max-w-[1400px] mx-auto">
           <motion.div style={{ opacity: useTransform(scrollYProgress, [0.1, 0.15, 0.45, 0.5], [0, 1, 1, 0]) }} className="md:sticky md:top-48">
-            <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-8 block">The Visionary</span>
+            <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-8 block font-bold">The Visionary</span>
             <h2 className="text-6xl md:text-8xl font-bold leading-[0.85] tracking-tighter uppercase">Systematized <br/> Visual <br/> Dominance.</h2>
           </motion.div>
           <div className="space-y-64 pt-12">
             <motion.div style={{ opacity: useTransform(scrollYProgress, [0.15, 0.25], [0, 1]) }} className="max-w-md">
               <div className="aspect-[3/4] bg-white/5 w-full mb-16 overflow-hidden border border-white/10 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-700">
-                 <div className="text-[10px] uppercase tracking-[0.5em] text-white/20">Image Pending</div>
+                 <div className="text-[10px] uppercase tracking-[0.5em] text-white/20">System Entry Pending</div>
               </div>
               <p className="text-white/60 text-xl md:text-2xl leading-relaxed mb-8">
-                We didn't learn content from a syllabus; we decoded it through an early obsession. It began at thirteen, experimentation replacing mentorship. Years spent dissecting retention, mastering the hook, and understanding the silent mechanics of distribution.
+                We didn&apos;t learn content from a syllabus; we decoded it through an early obsession. It began at thirteen, experimentation replacing mentorship. Years spent dissecting retention, mastering the hook, and understanding the silent mechanics of distribution.
               </p>
               <div className="flex items-center gap-4 text-[#F3D7A7] italic text-2xl">— The Founder&apos;s Path</div>
             </motion.div>
@@ -103,9 +107,13 @@ export default function Home() {
             opacity: useTransform(scrollYProgress, [0.75, 0.82, 0.88, 0.92], [0, 1, 1, 0])
           }}
         >
-          {/* INNER CIRCLE LOGO ADDED HERE */}
-          <img src="/inner-circle-logo.png" alt="Inner Circle" className="w-48 md:w-80 h-auto mb-8 object-contain" />
-          <p className="max-w-xl mx-auto text-[#F3D7A7]/60 text-lg md:text-xl mb-12 italic">
+          {/* MASSIVE INNER CIRCLE LOGO */}
+          <img 
+            src="/inner-circle-logo.png" 
+            alt="Inner Circle" 
+            className="w-80 md:w-[600px] h-auto mb-10 object-contain drop-shadow-[0_0_30px_rgba(243,215,167,0.2)]" 
+          />
+          <p className="max-w-2xl mx-auto text-[#F3D7A7]/60 text-lg md:text-2xl mb-12 italic tracking-wide">
             The evolution of the creative mind. A high-level execution program.
           </p>
         </motion.div>
@@ -119,7 +127,7 @@ export default function Home() {
           viewport={{ once: true }}
           className="text-center max-w-4xl"
         >
-          <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.8em] mb-8 block">
+          <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.8em] mb-8 block font-bold">
             Available for Partnership
           </span>
           <h2 className="text-5xl md:text-[8vw] font-bold leading-[0.9] tracking-tighter uppercase mb-16">
@@ -131,17 +139,17 @@ export default function Home() {
               href="https://calendly.com/piyushkumar2418/30min" 
               target="_blank"
               whileHover={{ scale: 1.05, backgroundColor: "#F3D7A7", color: "#000" }}
-              className="px-12 py-6 border border-[#F3D7A7] text-[#F3D7A7] rounded-full flex items-center gap-4 transition-colors"
+              className="px-14 py-7 border border-[#F3D7A7] text-[#F3D7A7] rounded-full flex items-center gap-4 transition-colors"
             >
-              <Calendar size={20} />
-              <span className="text-xs uppercase tracking-[0.3em] font-bold">
+              <Calendar size={22} />
+              <span className="text-sm uppercase tracking-[0.3em] font-bold">
                 Secure a Session
               </span>
             </motion.a>
           </div>
         </motion.div>
 
-        <footer className="absolute bottom-12 w-full flex justify-between px-12 text-[8px] uppercase tracking-[0.5em] text-white/20">
+        <footer className="absolute bottom-12 w-full flex justify-between px-12 text-[9px] uppercase tracking-[0.6em] text-white/30">
           <div>© 2026 Blade Media</div>
           <div>Growth, Engineered.</div>
         </footer>
