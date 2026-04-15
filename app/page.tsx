@@ -9,7 +9,11 @@ import { useRef, useState } from "react";
 // --- ANIMATION CONSTANTS ---
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: "easeOut" } 
+  }
 };
 
 // --- STAGGERED WORK ITEM ---
@@ -28,7 +32,11 @@ const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: n
       animate={isInView ? "visible" : "hidden"}
       variants={{
         hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0, transition: { delay: index * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
+        visible: { 
+          opacity: 1, 
+          y: 0, 
+          transition: { delay: index * 0.1, duration: 0.8, ease: "easeOut" } 
+        }
       }}
       onMouseEnter={() => {
         setIsHovered(true);
@@ -44,8 +52,8 @@ const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: n
       <motion.img 
         src={work.img} 
         alt={work.title}
-        whileHover={{ scale: 1.1 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.6 }}
         className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
       />
       <video 
@@ -111,7 +119,7 @@ export default function Home() {
           <motion.h1 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
             className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8 text-white mix-blend-difference"
           >
             Growth,<br/>engineered.
@@ -140,6 +148,7 @@ export default function Home() {
             <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-white/70 text-base md:text-lg leading-relaxed mb-6 italic">
               "We didn&apos;t learn content from a syllabus; we decoded it through an early obsession. Years spent dissecting retention, mastering the hook, and understanding the silent mechanics of distribution."
             </motion.p>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-[#F3D7A7] italic text-2xl font-bold">— Piyush</motion.div>
           </div>
         </div>
       </section>
@@ -171,22 +180,8 @@ export default function Home() {
 
       {/* --- CTA --- */}
       <section className="h-screen flex flex-col justify-center items-center px-6 relative z-20 text-center">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-[7vw] font-bold tracking-tighter uppercase mb-12 text-white"
-          >
-            Ready to scale?
-          </motion.h2>
-          <motion.a 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            href="https://calendly.com/piyushkumar2418/30min" 
-            target="_blank" 
-            className="px-10 py-5 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs hover:bg-[#F3D7A7] hover:text-black transition-all"
-          >
-            Secure a Session
-          </motion.a>
+          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="text-5xl md:text-[7vw] font-bold tracking-tighter uppercase mb-12 text-white">Ready to scale?</motion.h2>
+          <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-10 py-5 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs hover:bg-[#F3D7A7] hover:text-black transition-all">Secure a Session</motion.a>
           <footer className="absolute bottom-10 w-full text-[9px] uppercase tracking-[0.6em] text-white/30 z-30">© 2026 Blade Media</footer>
       </section>
     </motion.main>
