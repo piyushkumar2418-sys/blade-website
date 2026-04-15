@@ -27,14 +27,11 @@ const WorkItem = ({ work, aspect }: { work: any; aspect: string }) => {
       }}
       className={`group relative block ${aspect} bg-[#0a0a0a] border border-white/5 overflow-hidden rounded-lg shadow-2xl`}
     >
-      {/* 1. STATIC THUMBNAIL (Layer 20) */}
       <img 
         src={work.img} 
         alt={work.title}
         className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
       />
-
-      {/* 2. HOVER VIDEO (Layer 10) */}
       <video 
         ref={videoRef}
         key={work.video}
@@ -43,14 +40,11 @@ const WorkItem = ({ work, aspect }: { work: any; aspect: string }) => {
         preload="auto"
         className="absolute inset-0 w-full h-full object-cover z-10 scale-105"
       />
-
-      {/* 3. TEXT & OVERLAYS (Layer 30+) */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/10 to-transparent z-30" />
       <div className="absolute bottom-5 left-5 z-40 text-left">
         <span className="text-[#F3D7A7] text-[8px] uppercase tracking-[0.2em] block mb-1 font-bold">{work.category}</span>
         <h4 className="text-sm md:text-base font-bold uppercase tracking-tight leading-tight text-white">{work.title}</h4>
       </div>
-      
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 opacity-0 group-hover:opacity-100 transition-all scale-75 group-hover:scale-100">
         <div className="w-12 h-12 rounded-full border border-[#F3D7A7]/40 flex items-center justify-center backdrop-blur-md bg-white/5">
           <Play fill="#F3D7A7" className="text-[#F3D7A7] ml-0.5" size={20} />
@@ -89,48 +83,36 @@ export default function Home() {
         <button className="px-6 py-2 border border-white/20 rounded-full text-[9px] uppercase tracking-widest hover:border-[#F3D7A7] transition-all font-bold">Inner Circle</button>
       </nav>
 
-      {/* --- BLENDED HERO SECTION --- */}
-      <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden bg-black">
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline 
-          className="absolute inset-0 w-full h-full object-cover z-0"
-        >
+      {/* --- RE-ENGINEERED BLEND HERO --- */}
+      <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden bg-black isolate">
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0">
           <source src="/hero-bg.mp4?v=3" type="video/mp4" />
         </video>
         
-        {/* Subtle overlay to preserve the difference effect */}
+        {/* Subtle dark overlay */}
         <div className="absolute inset-0 bg-black/20 z-10" />
 
         <motion.div 
-          className="relative z-20 px-4 select-none"
+          className="relative z-20 px-4 select-none pointer-events-none"
           style={{ 
             opacity: useTransform(scrollYProgress, [0, 0.08], [1, 0]),
             y: useTransform(scrollYProgress, [0, 0.1], [0, -50])
           }}
         >
-          <h1 
-            className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8 text-white mix-blend-difference"
-          >
+          <h1 className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8 text-white mix-blend-difference">
             Growth,<br/>
             <span className="relative inline-block">
               engineered.
-              <motion.span 
-                animate={{ opacity: [0.1, 0.3, 0.1] }}
-                transition={{ duration: 4, repeat: Infinity }}
-                className="absolute inset-0 blur-[100px] bg-[#F3D7A7]/20 -z-10 rounded-full"
-              />
+              <motion.span animate={{ opacity: [0.1, 0.2, 0.1] }} transition={{ duration: 4, repeat: Infinity }} className="absolute inset-0 blur-[100px] bg-[#F3D7A7]/20 -z-10 rounded-full" />
             </span>
           </h1>
-          <p className="text-white/60 text-[10px] md:text-[12px] uppercase tracking-[0.6em] font-bold mix-blend-difference">
+          <p className="text-white text-[10px] md:text-[12px] uppercase tracking-[0.6em] font-bold mix-blend-difference">
             Blade Media
           </p>
         </motion.div>
       </section>
 
-      {/* --- FOUNDER SECTION --- */}
+      {/* --- RESTORED FOUNDER SECTION --- */}
       <section className="min-h-screen py-24 px-6 md:px-24 border-t border-white/5 relative z-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start max-w-[1400px] mx-auto relative z-30">
           <div className="md:sticky md:top-32">
@@ -141,8 +123,9 @@ export default function Home() {
             <div className="aspect-[3/4] w-full mb-10 overflow-hidden border border-white/10 bg-[#111] shadow-2xl">
                <img src="/piyush.png" alt="Piyush" className="w-full h-full object-cover grayscale" />
             </div>
+            {/* RESTORED FULL TEXT */}
             <p className="text-white/70 text-base md:text-lg leading-relaxed mb-6 italic">
-              "We didn&apos;t learn content from a syllabus; we decoded it through an early obsession."
+              "We didn&apos;t learn content from a syllabus; we decoded it through an early obsession. Years spent dissecting retention, mastering the hook, and understanding the silent mechanics of distribution."
             </p>
             <div className="text-[#F3D7A7] italic text-2xl font-bold">— Piyush</div>
           </div>
@@ -152,7 +135,6 @@ export default function Home() {
       {/* --- DUAL GRID GALLERY --- */}
       <section className="min-h-screen py-24 px-6 md:px-12 bg-black/20 relative z-20">
         <div className="max-w-[1400px] mx-auto w-full relative z-30 space-y-32">
-          
           <div>
             <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12">Selected Productions</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -161,7 +143,6 @@ export default function Home() {
               ))}
             </div>
           </div>
-
           <div>
             <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12">Viral Originals</h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
@@ -170,7 +151,6 @@ export default function Home() {
               ))}
             </div>
           </div>
-
         </div>
       </section>
 
