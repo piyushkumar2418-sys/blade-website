@@ -6,6 +6,7 @@ import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
 import { useRef } from "react";
 
+// --- HOVER VIDEO COMPONENT (ENHANCED PLAYBACK) ---
 const WorkItem = ({ work }: { work: any }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -14,25 +15,39 @@ const WorkItem = ({ work }: { work: any }) => {
       href={work.link} 
       target="_blank"
       whileHover={{ y: -5 }} 
-      onMouseEnter={() => videoRef.current?.play().catch(e => console.log("Video play blocked"))}
+      onMouseEnter={() => {
+        if (videoRef.current) {
+          videoRef.current.play().catch(() => console.log("Playback interrupted"));
+        }
+      }}
       onMouseLeave={() => {
-        videoRef.current?.pause();
-        if (videoRef.current) videoRef.current.currentTime = 0;
+        if (videoRef.current) {
+          videoRef.current.pause();
+          videoRef.current.currentTime = 0;
+        }
       }}
       className="group relative block aspect-video bg-[#0a0a0a] border border-white/5 overflow-hidden rounded-sm"
     >
+      {/* YT THUMBNAIL AS FALLBACK */}
       <img 
         src={work.img} 
         alt={work.title}
         className="absolute inset-0 w-full h-full object-cover z-10 group-hover:opacity-0 transition-opacity duration-500 ease-in-out" 
       />
       
+      {/* VIDEO TAG WITH ENHANCED ATTRIBUTES */}
       <video 
         ref={videoRef}
         src={work.video}
-        loop muted playsInline
+        poster={work.img}
+        loop 
+        muted 
+        playsInline
+        preload="auto"
         className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-      />
+      >
+        <source src={work.video} type="video/mp4" />
+      </video>
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-70 z-20" />
       <div className="absolute bottom-3 left-3 z-30 text-left">
@@ -82,7 +97,6 @@ export default function Home() {
       <DrawingCanvas />
       <Scene3D />
 
-      {/* NAVBAR */}
       <nav className="fixed top-0 w-full z-[60] flex justify-between items-center px-8 py-6 mix-blend-difference">
         <img src="/blade-logo.png" alt="Blade Media" className="h-8 md:h-12 w-auto object-contain" />
         <button className="px-6 py-2 border border-white/20 rounded-full text-[9px] uppercase tracking-widest hover:border-[#F3D7A7] transition-all font-bold">Inner Circle</button>
