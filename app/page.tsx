@@ -86,18 +86,11 @@ export default function Home() {
       img: "/thumb6.webp" 
     },
     { 
-      title: "Dynamic Flow", 
-      category: "Reel", 
-      link: "https://www.instagram.com/DKTmhQqqF6M/", 
-      video: "/preview7.mp4", 
-      img: "/thumb7.jpg" 
-    },
-    { 
       title: "Retention Edit", 
       category: "Reel", 
-      link: "https://www.instagram.com/DTIgqVyjVcJ/", 
+      link: "https://www.instagram.com/reel/DTIgqVyjVcJ/", 
       video: "/preview8.mp4", 
-      img: "/thumb8.jpg" 
+      img: "/thumb8.jpeg" // Added the 'e' to match your file
     },
   ];
 
