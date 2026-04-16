@@ -68,10 +68,13 @@ const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: n
 
 export default function Home() {
   const containerRef = useRef(null);
-  const philosophyRef = useRef(null);
-  const isPhilosophyInView = useInView(philosophyRef, { once: true, margin: "-20%" });
+  const philosophyLeftRef = useRef(null);
+  const isPhilosophyLeftInView = useInView(philosophyLeftRef, { once: true, margin: "-20%" });
   
   const { scrollYProgress } = useScroll({ target: containerRef });
+
+  // Navigation Button Fade Logic
+  const navButtonOpacity = useTransform(scrollYProgress, [0, 0.05], [1, 0]);
 
   const youtubeWorks = [
     { title: "Nikhil Kamath", category: "YouTube", link: "https://youtu.be/YY7J1pHfSyY", video: "/preview1.mp4", img: "https://i.ytimg.com/vi/YY7J1pHfSyY/maxresdefault.jpg" },
@@ -93,11 +96,15 @@ export default function Home() {
       <Scene3D />
 
       {/* --- NAV --- */}
-      <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-10 py-8 mix-blend-difference">
-        <div className="w-32 md:w-48">
-          <img src="/blade-logo.png" alt="Blade Media" className="w-full h-auto object-contain" />
-        </div>
-        <button className="px-6 py-2 border border-white/20 rounded-full text-[9px] uppercase tracking-widest font-bold">Inner Circle</button>
+      <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-8 py-8 mix-blend-difference">
+        {/* Restored to original scale */}
+        <img src="/blade-logo.png" alt="Blade Media" className="h-8 md:h-10 w-auto object-contain" />
+        <motion.button 
+          style={{ opacity: navButtonOpacity }}
+          className="px-6 py-2 border border-white/20 rounded-full text-[9px] uppercase tracking-widest font-bold"
+        >
+          Inner Circle
+        </motion.button>
       </nav>
 
       {/* --- HERO --- */}
@@ -112,26 +119,28 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* --- PHILOSOPHY SECTION --- */}
+      {/* --- DUAL CONTENT SECTION --- */}
       <section className="min-h-screen py-24 px-6 md:px-24 border-t border-white/5 relative z-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start max-w-[1400px] mx-auto relative z-30">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="md:sticky md:top-32">
-            <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-4 block font-bold">The Visionary</span>
-            <h2 className="text-5xl md:text-7xl font-bold leading-[0.85] tracking-tighter uppercase text-white">Systematized <br/> Visual <br/> Dominance.</h2>
-          </motion.div>
           
-          <div className="max-w-xs md:max-w-md ml-auto" ref={philosophyRef}>
-            <motion.div initial={{ scale: 0.95, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} className="aspect-[3/4] w-full mb-12 overflow-hidden border border-white/10">
-               <img src="/piyush.png" alt="Piyush" className="w-full h-full object-cover grayscale" />
-            </motion.div>
-
-            {/* Premium Luxury Statement */}
+          {/* LEFT COLUMN: NEW PREMIUM STATEMENT */}
+          <div className="md:sticky md:top-32" ref={philosophyLeftRef}>
+            <motion.span 
+              initial="hidden" 
+              whileInView="visible" 
+              viewport={{ once: true }} 
+              variants={fadeUp} 
+              className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-8 block font-bold"
+            >
+              The Philosophy
+            </motion.span>
+            
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={isPhilosophyInView ? { opacity: 1, y: 0 } : {}}
+              animate={isPhilosophyLeftInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="text-white/60 text-xl md:text-2xl lg:text-3xl font-medium leading-[1.5] tracking-tight">
+              <p className="text-white/60 text-xl md:text-2xl lg:text-3xl font-medium leading-[1.5] tracking-tight max-w-lg">
                 <span className="text-white">Blade</span> exists in a space where consistency 
                 matters more than claims. Across creators and brands, it has built a 
                 reputation for delivering content that not only performs in the moment, 
@@ -140,20 +149,29 @@ export default function Home() {
               
               <motion.div 
                 initial={{ width: 0 }}
-                animate={isPhilosophyInView ? { width: "80px" } : {}}
+                animate={isPhilosophyLeftInView ? { width: "80px" } : {}}
                 transition={{ delay: 0.6, duration: 1.5, ease: "easeInOut" }}
                 className="h-[1px] bg-[#F3D7A7]/40 mt-10"
               />
-              
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={isPhilosophyInView ? { opacity: 1 } : {}}
-                transition={{ delay: 0.8 }}
-                className="text-[#F3D7A7] italic text-2xl font-bold mt-8"
-              >
-                — Piyush
-              </motion.div>
             </motion.div>
+          </div>
+
+          {/* RIGHT COLUMN: ORIGINAL VISIONARY CONTENT */}
+          <div className="max-w-xs md:max-w-md ml-auto">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-12">
+              <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-4 block font-bold">The Visionary</span>
+              <h2 className="text-5xl md:text-7xl font-bold leading-[0.85] tracking-tighter uppercase text-white">Systematized <br/> Visual <br/> Dominance.</h2>
+            </motion.div>
+
+            <motion.div initial={{ scale: 0.95, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} className="aspect-[3/4] w-full mb-10 overflow-hidden border border-white/10">
+               <img src="/piyush.png" alt="Piyush" className="w-full h-full object-cover grayscale" />
+            </motion.div>
+
+            <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-white/70 text-base md:text-lg leading-relaxed mb-6 italic">
+              "We didn&apos;t learn content from a syllabus; we decoded it through an early obsession. Years spent dissecting retention, mastering the hook, and understanding the silent mechanics of distribution."
+            </motion.p>
+            
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-[#F3D7A7] italic text-2xl font-bold">— Piyush</motion.div>
           </div>
         </div>
       </section>
@@ -189,7 +207,7 @@ export default function Home() {
 
       {/* --- CTA --- */}
       <section className="h-screen flex flex-col justify-center items-center px-6 relative z-20 text-center">
-          <h2 className="text-5xl md:text-[8vw] font-bold tracking-tighter uppercase mb-12 text-white">Ready to scale?</h2>
+          <h2 className="text-5xl md:text-[8vw] font-bold tracking-tighter uppercase mb-12 text-white text-center">Ready to scale?</h2>
           <motion.a 
             whileHover={{ scale: 1.05 }} 
             href="https://calendly.com/piyushkumar2418/30min" 
