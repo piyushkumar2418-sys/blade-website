@@ -6,17 +6,11 @@ import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
 import { useRef, useState } from "react";
 
-// --- ANIMATION VARIANTS ---
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.8, ease: "easeOut" } 
-  }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
 };
 
-// --- WORK ITEM COMPONENT ---
 const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: number }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -24,38 +18,10 @@ const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: n
   const isInView = useInView(ref, { once: true, margin: "-10%" });
 
   return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { 
-          opacity: 1, 
-          y: 0, 
-          transition: { delay: index * 0.1, duration: 0.6 } 
-        }
-      }}
-    >
-      <motion.a 
-        href={work.link} 
-        target="_blank"
-        onMouseEnter={() => { setIsHovered(true); videoRef.current?.play().catch(() => null); }}
-        onMouseLeave={() => { setIsHovered(false); videoRef.current?.pause(); if(videoRef.current) videoRef.current.currentTime = 0; }}
-        className={`group relative block ${aspect} bg-[#0a0a0a] border border-white/5 overflow-hidden rounded-sm shadow-2xl`}
-      >
-        <img 
-          src={work.img} 
-          alt={work.title}
-          className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
-        />
-        <video 
-          ref={videoRef}
-          key={work.video}
-          src={work.video}
-          loop muted playsInline
-          className="absolute inset-0 w-full h-full object-cover z-10"
-        />
+    <motion.div ref={ref} initial="hidden" animate={isInView ? "visible" : "hidden"} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { delay: index * 0.1, duration: 0.6 } } }}>
+      <motion.a href={work.link} target="_blank" onMouseEnter={() => { setIsHovered(true); videoRef.current?.play().catch(() => null); }} onMouseLeave={() => { setIsHovered(false); videoRef.current?.pause(); if(videoRef.current) videoRef.current.currentTime = 0; }} className={`group relative block ${aspect} bg-[#0a0a0a] border border-white/5 overflow-hidden rounded-sm shadow-2xl`}>
+        <img src={work.img} alt={work.title} className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`} />
+        <video ref={videoRef} key={work.video} src={work.video} loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent z-30" />
         <div className="absolute bottom-5 left-5 z-40">
           <span className="text-[#F3D7A7] text-[8px] uppercase tracking-[0.3em] block mb-1 font-bold">{work.category}</span>
@@ -89,8 +55,11 @@ export default function Home() {
       <DrawingCanvas />
       <Scene3D />
 
-      <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-8 py-8 mix-blend-difference">
-        <img src="/blade-logo.png" alt="Blade Media" className="h-8 md:h-10 w-auto object-contain" />
+      {/* --- CORRECTED NAV LOGO --- */}
+      <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-10 py-8 mix-blend-difference">
+        <div className="w-32 md:w-48">
+          <img src="/blade-logo.png" alt="Blade Media" className="w-full h-auto object-contain" />
+        </div>
         <button className="px-6 py-2 border border-white/20 rounded-full text-[9px] uppercase tracking-widest font-bold">Inner Circle</button>
       </nav>
 
@@ -143,15 +112,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- INNER CIRCLE (FORCED VISIBILITY) --- */}
+      {/* --- CORRECTED INNER CIRCLE LOGO --- */}
       <section className="min-h-screen py-32 flex flex-col justify-center items-center text-center relative z-[40] px-6 bg-black border-y border-white/5">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative z-[50] flex flex-col items-center"
-        >
-          <img src="/inner-circle-logo.png" alt="Inner Circle" className="w-64 md:w-[400px] h-auto mb-4 object-contain brightness-200" />
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="relative z-[50] flex flex-col items-center">
+          <div className="w-64 md:w-[500px] mb-8">
+            <img src="/inner-circle-logo.png" alt="Inner Circle" className="w-full h-auto object-contain" />
+          </div>
           <span className="text-[#F3D7A7] text-[10px] md:text-xs uppercase tracking-[0.6em] font-bold mb-6">Coming Soon</span>
           <p className="max-w-xl mx-auto text-white/40 text-[9px] md:text-[10px] italic tracking-[0.2em] uppercase">The evolution of the creative mind.</p>
         </motion.div>
@@ -159,13 +125,8 @@ export default function Home() {
 
       {/* --- CTA --- */}
       <section className="h-screen flex flex-col justify-center items-center px-6 relative z-20 text-center">
-          <h2 className="text-5xl md:text-[8vw] font-bold tracking-tighter uppercase mb-12 text-white text-center">Ready to scale?</h2>
-          <motion.a 
-            whileHover={{ scale: 1.05 }} 
-            href="https://calendly.com/piyushkumar2418/30min" 
-            target="_blank" 
-            className="px-12 py-6 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs mx-auto block"
-          > Secure a Session </motion.a>
+          <h2 className="text-5xl md:text-[8vw] font-bold tracking-tighter uppercase mb-12 text-white">Ready to scale?</h2>
+          <motion.a whileHover={{ scale: 1.05 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-12 py-6 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs mx-auto block"> Secure a Session </motion.a>
           <footer className="absolute bottom-10 w-full text-[9px] uppercase tracking-[0.6em] text-white/30 z-30">© 2026 Blade Media</footer>
       </section>
     </motion.main>
