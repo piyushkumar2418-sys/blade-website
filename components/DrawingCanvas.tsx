@@ -24,7 +24,7 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ color = "#F3D7A7" }) => {
     const setSize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = color === "#F3D7A7" ? "#000000" : "#ffffff";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     };
     
@@ -32,11 +32,11 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ color = "#F3D7A7" }) => {
     window.addEventListener("resize", setSize);
 
     const handleMouseMove = (e: MouseEvent) => {
+      if (color !== "#F3D7A7") return; // Only draw in Agency Mode
       ctx.globalCompositeOperation = "source-over";
       ctx.strokeStyle = getRgba(color, 0.8);
       ctx.lineWidth = 2;
       ctx.lineCap = "round";
-      ctx.lineJoin = "round";
       ctx.lineTo(e.clientX, e.clientY);
       ctx.stroke();
       ctx.beginPath();
@@ -45,7 +45,8 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ color = "#F3D7A7" }) => {
 
     let animationFrameId: number;
     const fade = () => {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.15)"; 
+      const fadeBg = color === "#F3D7A7" ? "rgba(0, 0, 0, 0.15)" : "rgba(255, 255, 255, 1)";
+      ctx.fillStyle = fadeBg; 
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       animationFrameId = requestAnimationFrame(fade);
     };
@@ -63,7 +64,7 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ color = "#F3D7A7" }) => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-[10]"
+      className={`fixed inset-0 pointer-events-none z-[10] transition-opacity duration-500 ${color === "#F3D7A7" ? "opacity-100" : "opacity-0"}`}
       style={{ filter: "blur(1px)", mixBlendMode: "screen" }}
     />
   );
