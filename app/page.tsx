@@ -68,8 +68,8 @@ const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: n
 
 export default function Home() {
   const containerRef = useRef(null);
-  const philosophyLeftRef = useRef(null);
-  const isPhilosophyLeftInView = useInView(philosophyLeftRef, { once: true, margin: "-20%" });
+  const philosophyRightRef = useRef(null);
+  const isPhilosophyRightInView = useInView(philosophyRightRef, { once: true, margin: "-20%" });
   
   const { scrollYProgress } = useScroll({ target: containerRef });
 
@@ -119,28 +119,36 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* --- DUAL CONTENT SECTION --- */}
+      {/* --- FOUNDER & PHILOSOPHY SECTION --- */}
       <section className="min-h-screen py-24 px-6 md:px-24 border-t border-white/5 relative z-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start max-w-[1400px] mx-auto relative z-30">
           
-          {/* LEFT COLUMN: NEW PREMIUM STATEMENT */}
-          <div className="md:sticky md:top-32" ref={philosophyLeftRef}>
-            <motion.span 
-              initial="hidden" 
-              whileInView="visible" 
-              viewport={{ once: true }} 
-              variants={fadeUp} 
-              className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-8 block font-bold"
-            >
-              The Philosophy
-            </motion.span>
+          {/* LEFT COLUMN: ORIGINAL TITLE LOCATION */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="md:sticky md:top-32">
+            <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-4 block font-bold">The Visionary</span>
+            <h2 className="text-5xl md:text-7xl font-bold leading-[0.85] tracking-tighter uppercase text-white">Systematized <br/> Visual <br/> Dominance.</h2>
+          </motion.div>
+          
+          {/* RIGHT COLUMN: PHOTO AND STACKED TEXTS */}
+          <div className="max-w-xs md:max-w-md ml-auto" ref={philosophyRightRef}>
+            <motion.div initial={{ scale: 0.95, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} className="aspect-[3/4] w-full mb-10 overflow-hidden border border-white/10">
+               <img src="/piyush.png" alt="Piyush" className="w-full h-full object-cover grayscale" />
+            </motion.div>
+
+            {/* Original Quote */}
+            <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-white/70 text-base md:text-lg leading-relaxed mb-6 italic">
+              "We didn&apos;t learn content from a syllabus; we decoded it through an early obsession. Years spent dissecting retention, mastering the hook, and understanding the silent mechanics of distribution."
+            </motion.p>
             
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-[#F3D7A7] italic text-2xl font-bold mb-16">— Piyush</motion.div>
+
+            {/* New Premium Statement: Capitalized Blade */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={isPhilosophyLeftInView ? { opacity: 1, y: 0 } : {}}
+              animate={isPhilosophyRightInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="text-white/60 text-xl md:text-2xl lg:text-3xl font-medium leading-[1.5] tracking-tight max-w-lg">
+              <p className="text-white/60 text-xl md:text-2xl lg:text-3xl font-medium leading-[1.5] tracking-tight">
                 <span className="text-white">Blade</span> exists in a space where consistency 
                 matters more than claims. Across creators and brands, it has built a 
                 reputation for delivering content that not only performs in the moment, 
@@ -149,29 +157,11 @@ export default function Home() {
               
               <motion.div 
                 initial={{ width: 0 }}
-                animate={isPhilosophyLeftInView ? { width: "80px" } : {}}
+                animate={isPhilosophyRightInView ? { width: "80px" } : {}}
                 transition={{ delay: 0.6, duration: 1.5, ease: "easeInOut" }}
                 className="h-[1px] bg-[#F3D7A7]/40 mt-10"
               />
             </motion.div>
-          </div>
-
-          {/* RIGHT COLUMN: ORIGINAL VISIONARY CONTENT */}
-          <div className="max-w-xs md:max-w-md ml-auto">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-12">
-              <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-4 block font-bold">The Visionary</span>
-              <h2 className="text-5xl md:text-7xl font-bold leading-[0.85] tracking-tighter uppercase text-white">Systematized <br/> Visual <br/> Dominance.</h2>
-            </motion.div>
-
-            <motion.div initial={{ scale: 0.95, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} className="aspect-[3/4] w-full mb-10 overflow-hidden border border-white/10">
-               <img src="/piyush.png" alt="Piyush" className="w-full h-full object-cover grayscale" />
-            </motion.div>
-
-            <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-white/70 text-base md:text-lg leading-relaxed mb-6 italic">
-              "We didn&apos;t learn content from a syllabus; we decoded it through an early obsession. Years spent dissecting retention, mastering the hook, and understanding the silent mechanics of distribution."
-            </motion.p>
-            
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-[#F3D7A7] italic text-2xl font-bold">— Piyush</motion.div>
           </div>
         </div>
       </section>
