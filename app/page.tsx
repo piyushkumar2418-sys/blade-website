@@ -61,8 +61,8 @@ export default function Home() {
   const { scrollYProgress } = useScroll({ target: containerRef });
   const isAgency = siteMode === "agency";
   
-  // FIXED: Button starts at opacity 1 and only fades after significant scroll (20% of page)
-  const navButtonOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  // NAV FADE: Starts visible (opacity 1) and fades after 10% scroll
+  const navButtonOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
 
   const toggleMode = () => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -107,7 +107,7 @@ export default function Home() {
         <motion.button 
           onClick={toggleMode} 
           style={{ opacity: navButtonOpacity }}
-          className={`px-8 py-3 rounded-full text-[10px] uppercase tracking-widest font-bold transition-all border shadow-sm ${
+          className={`px-8 py-3 rounded-full text-[10px] uppercase tracking-widest font-bold transition-all border shadow-sm pointer-events-auto ${
             isAgency 
             ? "border-white/20 text-white bg-white/5 hover:bg-white hover:text-black" 
             : "border-black/20 text-black bg-black/5 hover:bg-black hover:text-white"
@@ -120,7 +120,6 @@ export default function Home() {
       <AnimatePresence mode="wait">
         {isAgency ? (
           <motion.div key="agency" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            {/* --- AGENCY HERO --- */}
             <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden bg-black">
               <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-70">
                 <source src="/hero-bg.mp4?v=4" type="video/mp4" />
@@ -131,7 +130,6 @@ export default function Home() {
               </div>
             </section>
 
-            {/* --- AGENCY PHILOSOPHY --- */}
             <section className="min-h-screen py-32 px-6 md:px-24 border-t border-white/5 relative z-20">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-start max-w-[1440px] mx-auto text-left">
                 <div className="md:sticky md:top-32" ref={philosophyLeftRef}>
@@ -141,7 +139,7 @@ export default function Home() {
                   </motion.div>
                   <motion.div initial={{ opacity: 0, y: 20 }} animate={isPhilosophyLeftInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1.2 }}>
                     <p className="text-white/70 text-xl md:text-2xl lg:text-3xl font-medium leading-[1.4] tracking-tight">
-                      <span className="text-white font-bold">Blade</span> exists in a space where consistency matters more than claims. Delivered content that holds value as platforms, trends, and audiences evolve.
+                      <span className="text-white font-bold">Blade</span> exists in a space where consistency matters more than claims. Across creators and brands, it has built a reputation for delivering content that not only performs in the moment, but continues to hold value as platforms, trends, and audiences evolve.
                     </p>
                     <div className="h-[1px] bg-[#F3D7A7]/40 mt-12 w-24" />
                   </motion.div>
@@ -156,7 +154,6 @@ export default function Home() {
               </div>
             </section>
 
-            {/* --- AGENCY GALLERIES --- */}
             <section className="py-32 px-6 md:px-12 relative z-20">
               <div className="max-w-[1400px] mx-auto w-full space-y-48">
                 <div>
@@ -178,7 +175,7 @@ export default function Home() {
           /* --- INNER CIRCLE (INSTITUTION) MODE --- */
           <motion.div key="innerCircle" initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ opacity: 0 }} className="text-black bg-white min-h-screen">
             
-            {/* HERO: INSTITUTIONAL SCHOOL THEME */}
+            {/* HERO: SCHOOL THEME */}
             <header className="h-[90vh] flex flex-col justify-center px-6 md:px-24 border-b border-black/5">
               <div className="flex items-center gap-4 mb-8">
                 <Landmark size={20} className="text-[#F3D7A7]" />
@@ -189,7 +186,7 @@ export default function Home() {
               </h1>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-end">
                 <p className="text-3xl md:text-4xl text-black/90 leading-tight font-medium">
-                  An execution-first institution designed to transform raw creative potential into engineered digital dominance. <span className="block mt-8 font-black text-[#F3D7A7]">Theoretical learning ends here. Building begins.</span>
+                  An execution-first institution designed to transform raw potential into engineered digital dominance. <span className="block mt-8 font-black text-[#F3D7A7]">Theoretical learning ends here. Building begins.</span>
                 </p>
                 <div className="flex justify-end">
                   <button className="w-full md:w-auto px-16 py-8 bg-black text-white rounded-full font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-6 hover:bg-[#F3D7A7] hover:text-black transition-all">Request Admission <ArrowUpRight size={20}/></button>
@@ -197,7 +194,7 @@ export default function Home() {
               </div>
             </header>
 
-            {/* AUTHENTICITY & JOURNEY */}
+            {/* AUTHENTICITY SECTION */}
             <section className="py-40 px-6 md:px-24 grid grid-cols-1 md:grid-cols-2 gap-32 border-b border-black/5">
                 <div className="space-y-12">
                     <span className="text-[10px] font-bold uppercase tracking-widest text-black/40 block mb-12">The Pedagogy</span>
@@ -213,10 +210,10 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* VISITING FACULTY / EXPERTS */}
+            {/* EXPERTS SECTION */}
             <section className="py-40 px-6 md:px-24 bg-white">
                 <div className="max-w-[1440px] mx-auto text-left mb-24">
-                   <h2 className="text-4xl md:text-7xl font-bold uppercase tracking-tighter">Visiting <br/><span className="text-[#F3D7A7]">Practitioners.</span></h2>
+                   <h2 className="text-4xl md:text-7xl font-bold uppercase tracking-tighter text-black">Visiting <br/><span className="text-[#F3D7A7]">Practitioners.</span></h2>
                    <p className="text-xl text-black/40 uppercase tracking-widest mt-8 font-bold">Industry experts integrated into the build cycle.</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -247,7 +244,7 @@ export default function Home() {
                       { t: "The Engine", d: "Automated outreach systems and high-ticket sales psychology.", w: "03" },
                       { t: "The Scale", d: "Building team moats and delivery systems for ₹1L+ months.", w: "04" }
                     ].map((p, i) => (
-                        <div key={i} className="bg-white p-12 hover:bg-[#F3D7A7]/5 transition-all group cursor-default">
+                        <div key={i} className="bg-white p-12 hover:shadow-2xl transition-all group cursor-default">
                             <span className="text-[10px] font-bold text-black/20 block mb-12 group-hover:text-[#F3D7A7]">PHASE {p.w}</span>
                             <h3 className="text-2xl font-bold uppercase mb-6 tracking-tight leading-none">{p.t}</h3>
                             <p className="text-black/50 text-sm leading-relaxed">{p.d}</p>
@@ -259,7 +256,7 @@ export default function Home() {
             {/* THE MASTERY PROMISE */}
             <section className="py-40 px-6 md:px-24 text-center max-w-6xl mx-auto">
                 <Target size={48} className="mx-auto mb-12 text-[#F3D7A7]" strokeWidth={1} />
-                <h2 className="text-4xl md:text-8xl font-bold uppercase tracking-tighter leading-[0.8] mb-12">The Definitive <br/> Agency <br/> Ecosystem.</h2>
+                <h2 className="text-4xl md:text-8xl font-bold uppercase tracking-tighter leading-[0.8] mb-12 text-black">The Definitive <br/> Agency <br/> Ecosystem.</h2>
                 <p className="text-2xl text-black/60 leading-relaxed font-light">
                   Blade Inner Circle is not about learning how to build an agency—it's about entering the environment that already built one. This is the synthesis of art, engineering, and commerce.
                 </p>
@@ -280,9 +277,9 @@ export default function Home() {
             </section>
 
             {/* ADMISSION PANEL */}
-            <section className="py-40 px-6 md:px-24 grid grid-cols-1 md:grid-cols-2 gap-32">
-              <div className="max-w-xl">
-                <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tighter leading-[0.8] mb-12">We don’t teach.<br/><span className="text-[#F3D7A7]">We build.</span></h2>
+            <section className="py-40 px-6 md:px-24 grid grid-cols-1 md:grid-cols-2 gap-32 border-t border-black/5">
+              <div className="max-w-xl text-left">
+                <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tighter leading-[0.8] mb-12 text-black">We don’t teach.<br/><span className="text-[#F3D7A7]">We build.</span></h2>
                 <p className="text-xl text-black/60 leading-relaxed mb-16">
                    Admission is strictly reserved for those ready to trade passive consumption for active operation. Every seat is vetted for skill potential.
                 </p>
