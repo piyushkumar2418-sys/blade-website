@@ -1,6 +1,6 @@
 "use client";
-import { motion, useScroll, useTransform, useInView, Variants } from "framer-motion";
-import { Play } from "lucide-react";
+import { motion, useScroll, useTransform, useInView, Variants, AnimatePresence } from "framer-motion";
+import { Play, Lock } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
@@ -67,14 +67,22 @@ const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: n
 };
 
 export default function Home() {
+  const [siteMode, setSiteMode] = useState<"agency" | "innerCircle">("agency");
   const containerRef = useRef(null);
   const philosophyLeftRef = useRef(null);
   const isPhilosophyLeftInView = useInView(philosophyLeftRef, { once: true, margin: "-20%" });
   
   const { scrollYProgress } = useScroll({ target: containerRef });
+  const isAgency = siteMode === "agency";
 
   // Navigation Button Fade Logic
   const navButtonOpacity = useTransform(scrollYProgress, [0, 0.05], [1, 0]);
+
+  // Toggle Function
+  const toggleMode = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => setSiteMode(isAgency ? "innerCircle" : "agency"), 300);
+  };
 
   const youtubeWorks = [
     { title: "Nikhil Kamath", category: "YouTube", link: "https://youtu.be/YY7J1pHfSyY", video: "/preview1.mp4", img: "https://i.ytimg.com/vi/YY7J1pHfSyY/maxresdefault.jpg" },
@@ -90,116 +98,174 @@ export default function Home() {
   ];
 
   return (
-    <motion.main ref={containerRef} className="relative bg-black text-white overflow-x-hidden">
+    <motion.main 
+      ref={containerRef} 
+      animate={{ backgroundColor: isAgency ? "#000000" : "#ffffff" }}
+      className="relative overflow-x-hidden transition-colors duration-700"
+    >
       <CustomCursor />
-      <DrawingCanvas />
+      <DrawingCanvas color={isAgency ? "#F3D7A7" : "#000000"} />
       <Scene3D />
 
       {/* --- NAV --- */}
       <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-8 py-8 mix-blend-difference">
-        {/* Restored to original scale */}
-        <img src="/blade-logo.png" alt="Blade Media" className="h-8 md:h-10 w-auto object-contain" />
+        <img 
+          src={isAgency ? "/blade-logo.png" : "/inner-circle-logo.png"} 
+          alt="Logo" 
+          className="h-8 md:h-10 w-auto object-contain cursor-pointer"
+          onClick={() => setSiteMode("agency")}
+        />
         <motion.button 
+          onClick={toggleMode}
           style={{ opacity: navButtonOpacity }}
-          className="px-6 py-2 border border-white/20 rounded-full text-[9px] uppercase tracking-widest font-bold"
+          className={`px-6 py-2 border rounded-full text-[9px] uppercase tracking-widest font-bold transition-all ${
+            isAgency 
+            ? "border-white/20 text-white hover:border-[#F3D7A7]" 
+            : "border-black/20 text-black hover:bg-black hover:text-white"
+          }`}
         >
-          Inner Circle
+          {isAgency ? "Inner Circle" : "Back to Agency"}
         </motion.button>
       </nav>
 
-      {/* --- HERO --- */}
-      <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden bg-black isolate">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-80">
-          <source src="/hero-bg.mp4?v=4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-black/40 z-10" />
-        <motion.div className="relative z-20 px-4 select-none" style={{ opacity: useTransform(scrollYProgress, [0, 0.05], [1, 0]), y: useTransform(scrollYProgress, [0, 0.1], [0, -50]) }}>
-          <h1 className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8 text-white mix-blend-difference">Growth,<br/>engineered.</h1>
-          <p className="text-white/60 text-[10px] md:text-[12px] uppercase tracking-[0.6em] font-bold mix-blend-difference">Blade Media</p>
-        </motion.div>
-      </section>
-
-      {/* --- RE-DESIGNED DUAL CONTENT SECTION --- */}
-      <section className="min-h-screen py-24 px-6 md:px-24 border-t border-white/5 relative z-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start max-w-[1400px] mx-auto relative z-30">
-          
-          {/* LEFT COLUMN: HEADING + NEW STATEMENT (IN THE DRAWN BOX) */}
-          <div className="md:sticky md:top-32" ref={philosophyLeftRef}>
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-12">
-              <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-4 block font-bold">The Visionary</span>
-              <h2 className="text-5xl md:text-7xl font-bold leading-[0.85] tracking-tighter uppercase text-white">Systematized <br/> Visual <br/> Dominance.</h2>
-            </motion.div>
-
-            {/* NEW BRAND STATEMENT: Positioned in the box area */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isPhilosophyLeftInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-16 md:mt-24"
-            >
-              <p className="text-white/60 text-xl md:text-2xl lg:text-3xl font-medium leading-[1.5] tracking-tight max-w-lg">
-                <span className="text-white">Blade</span> exists in a space where consistency 
-                matters more than claims. Across creators and brands, it has built a 
-                reputation for delivering content that not only performs in the moment, 
-                but continues to hold value as platforms, trends, and audiences evolve.
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={siteMode}
+          initial={{ opacity: 0, filter: "blur(10px)" }}
+          animate={{ opacity: 1, filter: "blur(0px)" }}
+          exit={{ opacity: 0, filter: "blur(10px)" }}
+          transition={{ duration: 0.8 }}
+        >
+          {/* --- HERO SECTION --- */}
+          <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden isolate">
+            {isAgency && (
+              <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-80">
+                <source src="/hero-bg.mp4?v=4" type="video/mp4" />
+              </video>
+            )}
+            <div className={`absolute inset-0 z-10 ${isAgency ? "bg-black/40" : "bg-white/0"}`} />
+            <div className="relative z-20 px-4 select-none">
+              <h1 className={`text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8 transition-colors duration-700 ${isAgency ? "text-white mix-blend-difference" : "text-black"}`}>
+                {isAgency ? <>Growth,<br/>engineered.</> : <>The Elite<br/>Collective.</>}
+              </h1>
+              <p className={`text-[10px] md:text-[12px] uppercase tracking-[0.6em] font-bold ${isAgency ? "text-white/60" : "text-black/40"}`}>
+                {isAgency ? "Blade Media Agency" : "Blade Inner Circle"}
               </p>
+            </div>
+          </section>
+
+          {/* --- DUAL CONTENT SECTION --- */}
+          <section className={`min-h-screen py-24 px-6 md:px-24 border-t relative z-20 transition-colors duration-700 ${isAgency ? "border-white/5" : "border-black/5"}`}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start max-w-[1400px] mx-auto relative z-30">
               
-              <motion.div 
-                initial={{ width: 0 }}
-                animate={isPhilosophyLeftInView ? { width: "80px" } : {}}
-                transition={{ delay: 0.6, duration: 1.5, ease: "easeInOut" }}
-                className="h-[1px] bg-[#F3D7A7]/40 mt-10"
-              />
-            </motion.div>
-          </div>
+              {/* LEFT COLUMN: HEADING + STATEMENT (BOX AREA) */}
+              <div className="md:sticky md:top-32" ref={philosophyLeftRef}>
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-12">
+                  <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-4 block font-bold">
+                    {isAgency ? "The Visionary" : "The Membership"}
+                  </span>
+                  <h2 className={`text-5xl md:text-7xl font-bold leading-[0.85] tracking-tighter uppercase transition-colors duration-700 ${isAgency ? "text-white" : "text-black"}`}>
+                    {isAgency ? <>Systematized <br/> Visual <br/> Dominance.</> : <>Architecting <br/> Creative <br/> Alpha.</>}
+                  </h2>
+                </motion.div>
 
-          {/* RIGHT COLUMN: MEDIA + QUOTE (ORIGINAL LOCATION) */}
-          <div className="max-w-xs md:max-w-md ml-auto">
-            <motion.div initial={{ scale: 0.95, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} className="aspect-[3/4] w-full mb-10 overflow-hidden border border-white/10">
-               <img src="/piyush.png" alt="Piyush" className="w-full h-full object-cover grayscale" />
-            </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isPhilosophyLeftInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                  className="mt-16 md:mt-24"
+                >
+                  <p className={`text-xl md:text-2xl lg:text-3xl font-medium leading-[1.5] tracking-tight max-w-lg ${isAgency ? "text-white/60" : "text-black/60"}`}>
+                    {isAgency ? (
+                      <>
+                        <span className="text-white">Blade</span> exists in a space where consistency 
+                        matters more than claims. Across creators and brands, it has built a 
+                        reputation for delivering content that not only performs in the moment.
+                      </>
+                    ) : (
+                      <>
+                        A private ecosystem for those who refuse to be average. <span className="text-black font-bold">Inner Circle</span> is where elite strategy meets raw creative power for the future of media.
+                      </>
+                    )}
+                  </p>
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={isPhilosophyLeftInView ? { width: "80px" } : {}}
+                    transition={{ delay: 0.6, duration: 1.5 }}
+                    className="h-[1px] bg-[#F3D7A7]/40 mt-10"
+                  />
+                </motion.div>
+              </div>
 
-            <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-white/70 text-base md:text-lg leading-relaxed mb-6 italic">
-              "We didn&apos;t learn content from a syllabus; we decoded it through an early obsession. Years spent dissecting retention, mastering the hook, and understanding the silent mechanics of distribution."
-            </motion.p>
-            
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-[#F3D7A7] italic text-2xl font-bold">— Piyush</motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* --- GALLERY & FOOTER REMAIN THE SAME --- */}
-      <section className="py-32 px-6 md:px-12 bg-black/20 relative z-20">
-        <div className="max-w-[1400px] mx-auto w-full relative z-30 space-y-40">
-          <div>
-            <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12">Selected Productions</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {youtubeWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-video" index={i} /> ))}
+              {/* RIGHT COLUMN: MEDIA + QUOTE */}
+              <div className="max-w-xs md:max-w-md ml-auto">
+                <motion.div initial={{ scale: 0.95, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} className={`aspect-[3/4] w-full mb-10 overflow-hidden border ${isAgency ? "border-white/10" : "border-black/10"}`}>
+                   <img 
+                    src={isAgency ? "/piyush.png" : "/inner-circle-exclusive.png"} 
+                    alt="Piyush" 
+                    className={`w-full h-full object-cover transition-all duration-1000 ${isAgency ? "grayscale" : "contrast-110"}`} 
+                   />
+                </motion.div>
+                <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className={`text-base md:text-lg leading-relaxed mb-6 italic ${isAgency ? "text-white/70" : "text-black/70"}`}>
+                  {isAgency 
+                    ? "\"We didn't learn content from a syllabus; we decoded it through an early obsession. Years spent dissecting retention.\"" 
+                    : "\"The greatest leverage in 2026 is a mind that can synthesize high art and viral data into inevitability.\""}
+                </motion.p>
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-[#F3D7A7] italic text-2xl font-bold">— Piyush</motion.div>
+              </div>
             </div>
-          </div>
-          <div>
-            <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12 text-[#F3D7A7]">Viral Originals</h2>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-              {verticalWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} /> ))}
-            </div>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      <section className="min-h-screen py-32 flex flex-col justify-center items-center text-center relative z-[40] px-6 bg-black border-y border-white/5">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="relative z-[50] flex flex-col items-center">
-          <div className="w-64 md:w-[500px] mb-8">
-            <img src="/inner-circle-logo.png" alt="Inner Circle" className="w-full h-auto object-contain" />
-          </div>
-          <span className="text-[#F3D7A7] text-[10px] md:text-xs uppercase tracking-[0.6em] font-bold mb-6">Coming Soon</span>
-          <p className="max-w-xl mx-auto text-white/40 text-[9px] md:text-[10px] italic tracking-[0.2em] uppercase">The evolution of the creative mind.</p>
+          {/* --- MODE-SPECIFIC GALLERY/SECTION --- */}
+          {isAgency ? (
+            <section className="py-32 px-6 md:px-12 bg-black/20 relative z-20">
+              <div className="max-w-[1400px] mx-auto w-full relative z-30 space-y-40">
+                <div>
+                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12">Selected Productions</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {youtubeWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-video" index={i} /> ))}
+                  </div>
+                </div>
+                <div>
+                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12 text-[#F3D7A7]">Viral Originals</h2>
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                    {verticalWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} /> ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          ) : (
+            <section className="py-32 px-6 bg-[#f9f9f9] text-black border-y border-black/5">
+              <div className="max-w-4xl mx-auto text-center">
+                <Lock className="mx-auto mb-8 text-[#F3D7A7]" size={48} />
+                <h3 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-8">Access is Earned.</h3>
+                <p className="text-black/40 uppercase tracking-widest text-xs mb-12">Applications Opening Soon for Q3 2026</p>
+                <button className="bg-black text-white px-12 py-5 rounded-full font-bold uppercase text-[10px] tracking-[0.3em] hover:bg-[#F3D7A7] hover:text-black transition-all shadow-xl">
+                  Join the Waitlist
+                </button>
+              </div>
+            </section>
+          )}
         </motion.div>
-      </section>
+      </AnimatePresence>
 
+      {/* --- CTA --- */}
       <section className="h-screen flex flex-col justify-center items-center px-6 relative z-20 text-center">
-          <h2 className="text-5xl md:text-[8vw] font-bold tracking-tighter uppercase mb-12 text-white text-center">Ready to scale?</h2>
-          <motion.a whileHover={{ scale: 1.05 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-12 py-6 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs mx-auto block"> Secure a Session </motion.a>
-          <footer className="absolute bottom-10 w-full text-[9px] uppercase tracking-[0.6em] text-white/30 z-30">© 2026 Blade Media</footer>
+          <h2 className={`text-5xl md:text-[8vw] font-bold tracking-tighter uppercase mb-12 transition-colors duration-700 ${isAgency ? "text-white" : "text-black"}`}>
+            {isAgency ? "Ready to scale?" : "Stay Ahead."}
+          </h2>
+          <motion.a 
+            whileHover={{ scale: 1.05 }} 
+            href="#" 
+            className={`px-12 py-6 border rounded-full font-bold uppercase text-xs mx-auto block transition-all ${
+              isAgency ? "border-[#F3D7A7] text-[#F3D7A7]" : "border-black text-black"
+            }`}
+          > 
+            {isAgency ? "Secure a Session" : "Inquire for Entry"} 
+          </motion.a>
+          <footer className={`absolute bottom-10 w-full text-[9px] uppercase tracking-[0.6em] z-30 transition-colors duration-700 ${isAgency ? "text-white/30" : "text-black/30"}`}>
+            © 2026 Blade {isAgency ? "Media" : "Inner Circle"}
+          </footer>
       </section>
     </motion.main>
   );
