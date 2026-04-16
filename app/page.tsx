@@ -1,11 +1,12 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useInView, Variants, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Users, Zap, Lock } from "lucide-react";
+import { ArrowUpRight, Users, Zap, ShieldCheck, Target, Globe, Cpu, BookOpen } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
 
+// --- ANIMATION VARIANTS ---
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { 
@@ -15,6 +16,7 @@ const fadeUp: Variants = {
   }
 };
 
+// --- WORK ITEM COMPONENT ---
 const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: number }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -56,8 +58,12 @@ export default function Home() {
   const philosophyLeftRef = useRef(null);
   const isPhilosophyLeftInView = useInView(philosophyLeftRef, { once: true, margin: "-20%" });
   
+  const { scrollYProgress } = useScroll({ target: containerRef });
   const isAgency = siteMode === "agency";
   
+  // NAV FADE LOGIC: Fades button after scrolling 10% of the page
+  const navButtonOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
+
   const toggleMode = () => {
     window.scrollTo({ top: 0, behavior: 'instant' });
     setSiteMode(isAgency ? "innerCircle" : "agency");
@@ -85,7 +91,6 @@ export default function Home() {
     >
       <CustomCursor />
       
-      {/* Creative elements ONLY visible in Agency mode */}
       <AnimatePresence>
         {isAgency && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -95,20 +100,23 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* --- NAV --- */}
       <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-8 py-8 mix-blend-difference">
         <div className="cursor-pointer" onClick={() => setSiteMode("agency")}>
           <img src={isAgency ? "/blade-logo.png" : "/inner-circle-logo.png"} alt="Logo" className="h-8 md:h-10 w-auto object-contain" />
         </div>
-        <button onClick={toggleMode} className={`px-8 py-3 rounded-full text-[10px] uppercase tracking-widest font-bold transition-all border ${isAgency ? "border-white/20 text-white hover:bg-white hover:text-black" : "border-black/20 text-black hover:bg-black hover:text-white"}`}>
+        <motion.button 
+          onClick={toggleMode} 
+          style={{ opacity: navButtonOpacity }}
+          className={`px-8 py-3 rounded-full text-[10px] uppercase tracking-widest font-bold transition-all border ${isAgency ? "border-white/20 text-white hover:bg-white hover:text-black" : "border-black/20 text-black hover:bg-black hover:text-white"}`}
+        >
           {isAgency ? "The Inner Circle" : "Exit to Agency"}
-        </button>
+        </motion.button>
       </nav>
 
       <AnimatePresence mode="wait">
         {isAgency ? (
           <motion.div key="agency" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            {/* HERO */}
+            {/* --- AGENCY HERO --- */}
             <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden bg-black">
               <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-70">
                 <source src="/hero-bg.mp4?v=4" type="video/mp4" />
@@ -119,7 +127,7 @@ export default function Home() {
               </div>
             </section>
 
-            {/* RESTORED CONTENT - FULL PARAGRAPHS */}
+            {/* --- AGENCY PHILOSOPHY --- */}
             <section className="min-h-screen py-32 px-6 md:px-24 border-t border-white/5 relative z-20">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-start max-w-[1440px] mx-auto text-left">
                 <div className="md:sticky md:top-32" ref={philosophyLeftRef}>
@@ -146,7 +154,7 @@ export default function Home() {
               </div>
             </section>
 
-            {/* RESTORED GALLERIES */}
+            {/* --- AGENCY GALLERIES --- */}
             <section className="py-32 px-6 md:px-12 relative z-20">
               <div className="max-w-[1400px] mx-auto w-full space-y-48">
                 <div>
@@ -165,12 +173,14 @@ export default function Home() {
             </section>
           </motion.div>
         ) : (
-          /* --- INNER CIRCLE MODE --- */
-          <motion.div key="innerCircle" initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ opacity: 0 }} className="text-black bg-white min-h-screen pt-40 px-6 md:px-24">
-            <header className="max-w-[1440px] mx-auto text-left mb-32">
-              <span className="text-[#F3D7A7] font-bold uppercase tracking-[0.5em] text-[10px] mb-8 block">Cohort 01 Admissions Open</span>
-              <h1 className="text-[9vw] md:text-[10vw] font-bold leading-[0.85] tracking-tighter uppercase mb-16">The Modern School <br/> of Content <br/> Economics.</h1>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-end border-b border-black/10 pb-20">
+          /* --- INNER CIRCLE (INSTITUTION) MODE --- */
+          <motion.div key="innerCircle" initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ opacity: 0 }} className="text-black bg-white min-h-screen">
+            
+            {/* HERO: IDENTITY-DRIVEN */}
+            <header className="h-[90vh] flex flex-col justify-center px-6 md:px-24 border-b border-black/5">
+              <span className="text-[#F3D7A7] font-bold uppercase tracking-[0.6em] text-[10px] mb-8 block">Architectural Prospectus — 2026</span>
+              <h1 className="text-[10vw] font-bold leading-[0.85] tracking-tighter uppercase mb-16">Architecting the <br/> Content <br/> Economy.</h1>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-end">
                 <p className="text-3xl md:text-4xl text-black/90 leading-tight font-medium">A 60-day intensive cohort designed to transform skilled builders into business owners. <span className="block mt-8 font-black text-black">No lectures. Only execution.</span></p>
                 <div className="flex justify-end">
                   <button className="w-full md:w-auto px-16 py-8 bg-black text-white rounded-full font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-6 hover:bg-[#F3D7A7] hover:text-black transition-all">Request Admission <ArrowUpRight size={20}/></button>
@@ -178,21 +188,64 @@ export default function Home() {
               </div>
             </header>
 
-            <section className="py-32 max-w-[1440px] mx-auto border-b border-black/5">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-1 bg-black/5 border border-black/5">
+            {/* THESIS: THE VISION */}
+            <section className="py-40 px-6 md:px-24 max-w-7xl">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-12 block">The Thesis</span>
+                <h2 className="text-4xl md:text-7xl font-bold uppercase tracking-tighter leading-[0.9] mb-12">Information is a commodity.<br/><span className="text-black/30 text-6xl">Systems are an asset.</span></h2>
+                <p className="text-2xl md:text-3xl text-black/60 leading-relaxed max-w-4xl">
+                  Blade Inner Circle is not a library of videos. It is a private ecosystem for those who refuse to consume and choose to transform. We focus on the silent physics of high-leverage digital business.
+                </p>
+            </section>
+
+            {/* PILLARS: PROGRAM STRUCTURE */}
+            <section className="py-40 px-6 md:px-24 bg-[#F9F9F9] border-y border-black/5">
+                <div className="flex justify-between items-end mb-24 pb-8 border-b border-black/10">
+                    <h2 className="text-4xl font-bold uppercase tracking-tighter">Cohort Architecture</h2>
+                    <span className="text-black/30 text-xs font-mono tracking-widest uppercase">8-Week Execution Cycle</span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1 bg-black/5 border border-black/5">
                     {[
-                      { t: "The Craft", d: "Retention engineering & advanced content synthesis." },
-                      { t: "The Offer", d: "Niche selection & framing value as a liquid asset." },
-                      { t: "The Engine", d: "Automated outreach & sales psychological." },
-                      { t: "The Scale", d: "Building team moats & high-volume delivery systems." }
+                      { t: "The Synthesis", d: "Retention engineering and the silent mechanics of video fundamentals.", w: "01" },
+                      { t: "The Offer", d: "Niche selection and framing value as a high-leverage liquid asset.", w: "02" },
+                      { t: "The Engine", d: "Automated outreach systems and high-ticket sales psychology.", w: "03" },
+                      { t: "The Scale", d: "Building team moats and delivery systems for ₹1L+ months.", w: "04" }
                     ].map((p, i) => (
-                        <div key={i} className="bg-white p-12 hover:bg-[#F9F9F9] transition-all group">
-                            <span className="text-[10px] font-bold text-[#F3D7A7] mb-8 block">0{i+1}</span>
-                            <h3 className="text-2xl font-bold uppercase mb-6 leading-tight">{p.t}</h3>
+                        <div key={i} className="bg-white p-12 hover:bg-[#F3D7A7]/5 transition-all group">
+                            <span className="text-[10px] font-bold text-black/20 block mb-12 group-hover:text-[#F3D7A7]">PHASE {p.w}</span>
+                            <h3 className="text-2xl font-bold uppercase mb-6 tracking-tight">{p.t}</h3>
                             <p className="text-black/50 text-sm leading-relaxed">{p.d}</p>
                         </div>
                     ))}
                 </div>
+            </section>
+
+            {/* PHILOSOPHY: EXECUTION FOCUSED */}
+            <section className="py-40 px-6 md:px-24 grid grid-cols-1 md:grid-cols-2 gap-32">
+              <div className="max-w-xl">
+                <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tighter leading-[0.8] mb-12">We don’t teach.<br/><span className="text-[#F3D7A7]">We build.</span></h2>
+                <p className="text-xl text-black/60 leading-relaxed mb-16">
+                   I didn’t have mentors; I learned through experimentation. Blade Inner Circle is an interactive lab where execution is the only metric of success. Live sessions, hot seats, and real-time tracking.
+                </p>
+                <div className="grid grid-cols-2 gap-12">
+                   <div>
+                      <Users size={32} className="mb-4 text-[#F3D7A7]" />
+                      <h4 className="font-bold text-sm uppercase tracking-widest mb-2">Private Batch</h4>
+                      <p className="text-xs text-black/40 uppercase tracking-widest">10 Members Max</p>
+                   </div>
+                   <div>
+                      <ShieldCheck size={32} className="mb-4 text-[#F3D7A7]" />
+                      <h4 className="font-bold text-sm uppercase tracking-widest mb-2">Live Access</h4>
+                      <p className="text-xs text-black/40 uppercase tracking-widest">Interactive Hot-Seats</p>
+                   </div>
+                </div>
+              </div>
+              <div className="bg-black text-white p-16 flex flex-col justify-between rounded-sm shadow-2xl">
+                 <h3 className="text-4xl font-bold uppercase tracking-tighter leading-[0.8]">The Admission <br/> Process</h3>
+                 <p className="text-white/40 text-sm uppercase tracking-[0.4em] leading-relaxed mb-12">
+                    Entry is not open. Access is earned through application. We seek specialists, builders, and founders ready for intensity.
+                 </p>
+                 <button className="w-full py-6 border border-white/20 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-white hover:text-black transition-all">Start Application</button>
+              </div>
             </section>
           </motion.div>
         )}
