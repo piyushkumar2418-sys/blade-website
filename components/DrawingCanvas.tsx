@@ -8,6 +8,7 @@ interface DrawingCanvasProps {
 const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ color = "#F3D7A7" }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  // Helper to convert hex to RGBA
   const getRgba = (hex: string, opacity: number) => {
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
@@ -24,43 +25,58 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ color = "#F3D7A7" }) => {
     const setSize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      // Clear canvas on resize to prevent ghosting
+      ctx.fillStyle = color === "#F3D7A7" ? "#000000" : "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
     };
+    
     setSize();
     window.addEventListener("resize", setSize);
 
     const handleMouseMove = (e: MouseEvent) => {
       ctx.globalCompositeOperation = "source-over";
-      ctx.strokeStyle = getRgba(color, 0.5); 
+      ctx.strokeStyle = getRgba(color, 0.8); // Higher opacity for a sharper trail
       ctx.lineWidth = 2;
       ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      
       ctx.lineTo(e.clientX, e.clientY);
       ctx.stroke();
       ctx.beginPath();
       ctx.moveTo(e.clientX, e.clientY);
     };
 
+    let animationFrameId: number;
+
     const fade = () => {
-      const fadeBg = color === "#F3D7A7" ? "rgba(0, 0, 0, 0.05)" : "rgba(255, 255, 255, 0.05)";
+      // Increased alpha (0.15) ensures frames clear faster, removing the grey "fog"
+      const fadeBg = color === "#F3D7A7" 
+        ? "rgba(0, 0, 0, 0.15)"  // Pure Black fade
+        : "rgba(255, 255, 255, 0.15)"; // Pure White fade
+        
       ctx.fillStyle = fadeBg; 
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      requestAnimationFrame(fade);
+      animationFrameId = requestAnimationFrame(fade);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    const animationFrame = requestAnimationFrame(fade);
+    animationFrameId = requestAnimationFrame(fade);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", setSize);
-      cancelAnimationFrame(animationFrame);
+      cancelAnimationFrame(animationFrameId);
     };
   }, [color]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-[15]"
-      style={{ filter: "blur(1.5px)" }}
+      className="fixed inset-0 pointer-events-none z-[10]"
+      style={{ 
+        filter: "blur(1px)",
+        mixBlendMode: color === "#F3D7A7" ? "screen" : "multiply" 
+      }}
     />
   );
 };
