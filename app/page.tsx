@@ -1,12 +1,11 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useInView, Variants, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Users, Zap, Target, Lock, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Users, Zap, Target, Lock } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
 
-// --- ANIMATION VARIANTS ---
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { 
@@ -16,7 +15,6 @@ const fadeUp: Variants = {
   }
 };
 
-// --- WORK ITEM COMPONENT ---
 const WorkItem: React.FC<{ work: any; aspect: string, index: number }> = ({ work, aspect, index }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -61,7 +59,6 @@ export default function Home() {
   const { scrollYProgress } = useScroll({ target: containerRef });
   const isAgency = siteMode === "agency";
   
-  // High-performance smooth scroll to top on toggle
   const toggleMode = () => {
     window.scrollTo({ top: 0, behavior: 'instant' });
     setSiteMode(isAgency ? "innerCircle" : "agency");
@@ -88,14 +85,21 @@ export default function Home() {
       style={{ transition: "background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1)" }}
     >
       <CustomCursor />
-      <DrawingCanvas color={isAgency ? "#F3D7A7" : "#000000"} />
-      <Scene3D />
+      
+      {/* Creative elements ONLY visible in Agency mode */}
+      <AnimatePresence>
+        {isAgency && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+             <DrawingCanvas color="#F3D7A7" />
+             <Scene3D />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* --- NAVIGATION --- */}
-      <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-8 py-8">
+      <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-8 py-8 mix-blend-difference">
         <div className="flex flex-col select-none cursor-pointer" onClick={() => setSiteMode("agency")}>
-          <span className={`text-2xl font-black tracking-tighter uppercase leading-none ${isAgency ? 'text-white' : 'text-black'}`}>Blade</span>
-          <span className={`text-[8px] uppercase tracking-[0.5em] font-bold ${isAgency ? 'text-[#F3D7A7]' : 'text-black/40'}`}>
+          <span className="text-white text-2xl font-black tracking-tighter uppercase leading-none">Blade</span>
+          <span className="text-white/40 text-[8px] uppercase tracking-[0.5em] font-bold">
             {isAgency ? "Agency" : "Institution"}
           </span>
         </div>
@@ -113,16 +117,10 @@ export default function Home() {
 
       <AnimatePresence mode="wait">
         {isAgency ? (
-          <motion.div
-            key="agency"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            {/* HERO - PURE VIDEO, NO HAZE */}
+          <motion.div key="agency" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            {/* HERO - VIDEO OPACITY SET TO 0.7 */}
             <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden bg-black">
-              <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-100">
+              <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-70">
                 <source src="/hero-bg.mp4?v=4" type="video/mp4" />
               </video>
               <div className="relative z-20 px-4">
@@ -133,11 +131,11 @@ export default function Home() {
                 >
                   Growth,<br/>engineered.
                 </motion.h1>
-                <p className="text-[#F3D7A7] text-[10px] md:text-[12px] uppercase tracking-[0.8em] font-bold">The Strategic Media Partner</p>
+                <p className="text-[#F3D7A7] text-[10px] md:text-[12px] uppercase tracking-[0.8em] font-bold">Blade Media</p>
               </div>
             </section>
 
-            {/* AGENCY PHILOSOPHY - FULL WIDTH TEXT */}
+            {/* AGENCY PHILOSOPHY */}
             <section className="min-h-screen py-32 px-6 md:px-24 border-t border-white/5 relative z-20">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-start max-w-[1440px] mx-auto text-left">
                 <div className="md:sticky md:top-32" ref={philosophyLeftRef}>
@@ -197,7 +195,6 @@ export default function Home() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-black bg-white min-h-screen pt-40 px-6 md:px-24"
           >
-            {/* INSTITUTION HERO */}
             <header className="max-w-[1440px] mx-auto text-left mb-32">
               <span className="text-[#F3D7A7] font-bold uppercase tracking-[0.5em] text-[10px] mb-8 block">Cohort 01 Admissions Open</span>
               <h1 className="text-[9vw] md:text-[10vw] font-bold leading-[0.85] tracking-tighter uppercase mb-16">
@@ -205,7 +202,7 @@ export default function Home() {
               </h1>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-end border-b border-black/10 pb-20">
                 <p className="text-3xl md:text-4xl text-black/90 leading-tight font-medium">
-                  A 60-day intensive cohort designed to transform skilled builders into high-leverage business owners. 
+                  A 60-day intensive cohort designed to transform skilled builders into business owners. 
                   <span className="block mt-8 font-black text-black">No lectures. Only execution.</span>
                 </p>
                 <div className="flex justify-end">
@@ -216,7 +213,7 @@ export default function Home() {
               </div>
             </header>
 
-            {/* THE FOUR PILLARS */}
+            {/* CURRICULUM PILLARS */}
             <section className="py-32 max-w-[1440px] mx-auto">
                 <div className="flex justify-between items-end mb-16 border-l-2 border-[#F3D7A7] pl-8">
                     <h2 className="text-4xl font-bold uppercase tracking-tighter">The Pillars of Mastery</h2>
@@ -226,8 +223,8 @@ export default function Home() {
                     {[
                       { t: "The Craft", d: "Retention engineering & advanced content synthesis." },
                       { t: "The Offer", d: "Niche selection & framing value as a liquid asset." },
-                      { t: "The Engine", d: "Automated outreach & high-ticket sales psychological." },
-                      { t: "The Scale", d: "Building team moats & high-volume delivery systems." }
+                      { t: "The Engine", d: "Automated outreach & sales psychological." },
+                      { t: "The Scale", d: "Building team moats & delivery systems." }
                     ].map((p, i) => (
                         <div key={i} className="bg-white p-12 hover:bg-[#F9F9F9] transition-all group cursor-default">
                             <span className="text-[10px] font-bold text-[#F3D7A7] mb-8 block">0{i+1}</span>
@@ -267,15 +264,10 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* --- MASTER FOOTER --- */}
       <footer className="h-screen flex flex-col justify-center items-center text-center px-6 relative z-20">
-        <motion.h2 
-          whileInView={{ opacity: 1, y: 0 }} 
-          initial={{ opacity: 0, y: 20 }}
-          className={`text-6xl md:text-[9vw] font-bold tracking-tighter uppercase mb-16 ${isAgency ? "text-white" : "text-black"}`}
-        >
-          {isAgency ? "Ready to scale?" : "Stay Ahead."}
-        </motion.h2>
+        <h2 className={`text-6xl md:text-[9vw] font-bold tracking-tighter uppercase mb-16 ${isAgency ? "text-white" : "text-black"}`}>
+          Ready to scale?
+        </h2>
         <motion.a 
           whileHover={{ scale: 1.05 }} 
           href="https://calendly.com/piyushkumar2418/30min" 
@@ -289,7 +281,7 @@ export default function Home() {
           {isAgency ? "Secure a Session" : "Request Admission"} 
         </motion.a>
         <div className={`absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold ${isAgency ? "text-white/20" : "text-black/20"}`}>
-          © 2026 Blade {isAgency ? "Media Group" : "Inner Circle"}
+          © 2026 Blade
         </div>
       </footer>
     </motion.main>
