@@ -16,9 +16,6 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ color = "#F3D7A7" }) => {
   };
 
   useEffect(() => {
-    // If the color is black (Institution mode), we don't initialize the logic
-    if (color === "#000000") return;
-
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -62,9 +59,6 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ color = "#F3D7A7" }) => {
       cancelAnimationFrame(animationFrameId);
     };
   }, [color]);
-
-  // Completely hide the canvas if in Institution mode
-  if (color === "#000000") return null;
 
   return (
     <canvas

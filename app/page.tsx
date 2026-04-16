@@ -97,11 +97,12 @@ export default function Home() {
       </AnimatePresence>
 
       <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-8 py-8 mix-blend-difference">
-        <div className="flex flex-col select-none cursor-pointer" onClick={() => setSiteMode("agency")}>
-          <span className="text-white text-2xl font-black tracking-tighter uppercase leading-none">Blade</span>
-          <span className="text-white/40 text-[8px] uppercase tracking-[0.5em] font-bold">
-            {isAgency ? "Agency" : "Institution"}
-          </span>
+        <div className="cursor-pointer" onClick={() => setSiteMode("agency")}>
+          <img 
+            src={isAgency ? "/blade-logo.png" : "/inner-circle-logo.png"} 
+            alt="Logo" 
+            className="h-8 md:h-10 w-auto object-contain"
+          />
         </div>
         <button 
           onClick={toggleMode}
@@ -135,7 +136,6 @@ export default function Home() {
               </div>
             </section>
 
-            {/* AGENCY PHILOSOPHY */}
             <section className="min-h-screen py-32 px-6 md:px-24 border-t border-white/5 relative z-20">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-start max-w-[1440px] mx-auto text-left">
                 <div className="md:sticky md:top-32" ref={philosophyLeftRef}>
@@ -148,45 +148,26 @@ export default function Home() {
                     <p className="text-white/70 text-xl md:text-2xl lg:text-3xl font-medium leading-[1.4] tracking-tight">
                       <span className="text-white font-bold">Blade</span> exists in a space where consistency 
                       matters more than claims. Across creators and brands, it has built a 
-                      reputation for delivering content that not only performs in the moment, 
-                      but continues to hold value as platforms, trends, and audiences evolve.
+                      reputation for delivering content that not only performs in the moment.
                     </p>
                     <div className="h-[1px] bg-[#F3D7A7]/40 mt-12 w-24" />
                   </motion.div>
                 </div>
 
                 <div className="max-w-xs md:max-w-md ml-auto">
-                  <div className="aspect-[3/4] w-full mb-10 overflow-hidden border border-white/10 grayscale hover:grayscale-0 transition-all duration-700">
+                  <div className="aspect-[3/4] w-full mb-10 overflow-hidden border border-white/10 grayscale">
                     <img src="/piyush.png" className="w-full h-full object-cover" alt="Piyush" />
                   </div>
                   <p className="text-white/60 text-lg italic font-light leading-relaxed">
-                    "We didn't learn content from a syllabus; we decoded it through an early obsession. Years spent dissecting retention, mastering the hook, and understanding the silent mechanics of distribution."
+                    "We decoded content through an early obsession. Mastery of the silent mechanics of distribution."
                   </p>
                   <div className="text-[#F3D7A7] italic text-2xl font-bold mt-8">— Piyush</div>
                 </div>
               </div>
             </section>
-
-            {/* SELECTED WORKS */}
-            <section className="py-32 px-6 md:px-12 relative z-20">
-              <div className="max-w-[1400px] mx-auto w-full space-y-48">
-                <div>
-                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12">Selected Productions</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {youtubeWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-video" index={i} /> ))}
-                  </div>
-                </div>
-                <div>
-                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12 text-[#F3D7A7]">Viral Originals</h2>
-                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                    {verticalWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} /> ))}
-                  </div>
-                </div>
-              </div>
-            </section>
           </motion.div>
         ) : (
-          /* --- INNER CIRCLE (INSTITUTION) MODE --- */
+          /* --- INNER CIRCLE MODE --- */
           <motion.div
             key="innerCircle"
             initial={{ y: 40, opacity: 0 }}
@@ -202,7 +183,7 @@ export default function Home() {
               </h1>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-end border-b border-black/10 pb-20">
                 <p className="text-3xl md:text-4xl text-black/90 leading-tight font-medium">
-                  A 60-day intensive cohort designed to transform skilled builders into business owners. 
+                  A 60-day intensive cohort designed to transform skilled builders into high-leverage business owners. 
                   <span className="block mt-8 font-black text-black">No lectures. Only execution.</span>
                 </p>
                 <div className="flex justify-end">
@@ -213,15 +194,10 @@ export default function Home() {
               </div>
             </header>
 
-            {/* CURRICULUM PILLARS */}
             <section className="py-32 max-w-[1440px] mx-auto">
-                <div className="flex justify-between items-end mb-16 border-l-2 border-[#F3D7A7] pl-8">
-                    <h2 className="text-4xl font-bold uppercase tracking-tighter">The Pillars of Mastery</h2>
-                    <span className="text-black/30 text-xs font-mono mb-1 tracking-widest uppercase">01 / ARCHITECTURE</span>
-                </div>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-1 bg-black/5 border border-black/5">
                     {[
-                      { t: "The Craft", d: "Retention engineering & advanced content synthesis." },
+                      { t: "The Craft", d: "Retention engineering & advanced synthesis." },
                       { t: "The Offer", d: "Niche selection & framing value as a liquid asset." },
                       { t: "The Engine", d: "Automated outreach & sales psychological." },
                       { t: "The Scale", d: "Building team moats & delivery systems." }
@@ -234,39 +210,13 @@ export default function Home() {
                     ))}
                 </div>
             </section>
-
-            {/* CORE PHILOSOPHY */}
-            <section className="py-32 max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 border-t border-black/5">
-                <h2 className="text-4xl md:text-7xl font-bold uppercase tracking-tighter leading-[0.8]">We don't teach.<br/><span className="text-[#F3D7A7]">We build.</span></h2>
-                <div>
-                  <p className="text-2xl text-black/60 leading-relaxed mb-12">
-                    Information is a commodity. Systems are an asset. Blade Inner Circle is an interactive environment for those who refuse to consume and choose to transform.
-                  </p>
-                  <div className="flex flex-col gap-6">
-                    <div className="flex items-center gap-6 pb-6 border-b border-black/5">
-                      <div className="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center"><Users size={18}/></div>
-                      <div>
-                        <h4 className="font-bold text-xs uppercase tracking-widest">Small Cohorts</h4>
-                        <p className="text-[10px] text-black/40 uppercase">10 seats per batch for maximum density</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-6">
-                      <div className="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center"><Zap size={18}/></div>
-                      <div>
-                        <h4 className="font-bold text-xs uppercase tracking-widest">Execution Metrics</h4>
-                        <p className="text-[10px] text-black/40 uppercase">Tracking outputs, not video watch time</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </section>
           </motion.div>
         )}
       </AnimatePresence>
 
       <footer className="h-screen flex flex-col justify-center items-center text-center px-6 relative z-20">
         <h2 className={`text-6xl md:text-[9vw] font-bold tracking-tighter uppercase mb-16 ${isAgency ? "text-white" : "text-black"}`}>
-          Ready to scale?
+          {isAgency ? "Ready to scale?" : "The Future is Built."}
         </h2>
         <motion.a 
           whileHover={{ scale: 1.05 }} 
@@ -280,9 +230,7 @@ export default function Home() {
         > 
           {isAgency ? "Secure a Session" : "Request Admission"} 
         </motion.a>
-        <div className={`absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold ${isAgency ? "text-white/20" : "text-black/20"}`}>
-          © 2026 Blade
-        </div>
+        <div className={`absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold ${isAgency ? "text-white/20" : "text-black/20"}`}>© 2026 Blade</div>
       </footer>
     </motion.main>
   );
