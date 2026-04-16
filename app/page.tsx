@@ -1,10 +1,10 @@
 "use client";
+import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useInView, Variants, AnimatePresence } from "framer-motion";
 import { Play, Lock } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
-import { useRef, useState } from "react";
 
 // --- ANIMATION VARIANTS ---
 const fadeUp: Variants = {
@@ -75,7 +75,7 @@ export default function Home() {
   const { scrollYProgress } = useScroll({ target: containerRef });
   const isAgency = siteMode === "agency";
 
-  // Navigation Button Fade Logic
+  // Navigation Fade Logic
   const navButtonOpacity = useTransform(scrollYProgress, [0, 0.05], [1, 0]);
 
   // Toggle Function
@@ -93,8 +93,8 @@ export default function Home() {
   const verticalWorks = [
     { title: "Visual Dominance", category: "Reel", link: "https://www.instagram.com/reel/DDrxL2CMYCB/", video: "/preview5.mp4", img: "/thumb5.webp" },
     { title: "Editorial Series", category: "Reel", link: "https://www.instagram.com/katemackz/", video: "/preview6.mp4", img: "/thumb6.webp" },
-    { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" },
-    { title: "Retention Edit", category: "Reel", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" },
+    { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.jpg", img: "/thumb7.jpg" },
+    { title: "Retention Edit", category: "Reel", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.jpeg", img: "/thumb8.jpeg" },
   ];
 
   return (
@@ -104,7 +104,6 @@ export default function Home() {
       className="relative overflow-x-hidden transition-colors duration-700"
     >
       <CustomCursor />
-      {/* Dynamic Drawing Canvas trail color */}
       <DrawingCanvas color={isAgency ? "#F3D7A7" : "#000000"} />
       <Scene3D />
 
@@ -155,11 +154,11 @@ export default function Home() {
             </div>
           </section>
 
-          {/* --- DUAL CONTENT SECTION --- */}
+          {/* --- CONTENT SECTION --- */}
           <section className={`min-h-screen py-24 px-6 md:px-24 border-t relative z-20 transition-colors duration-700 ${isAgency ? "border-white/5" : "border-black/5"}`}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start max-w-[1400px] mx-auto relative z-30">
               
-              {/* LEFT COLUMN: HEADING + STATEMENT (BOX AREA) */}
+              {/* LEFT COLUMN: TITLE + BOX STATEMENT */}
               <div className="md:sticky md:top-32" ref={philosophyLeftRef}>
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-12">
                   <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-4 block font-bold">
@@ -180,19 +179,18 @@ export default function Home() {
                     {isAgency ? (
                       <>
                         <span className="text-white font-bold">Blade</span> exists in a space where consistency 
-                        matters more than claims. Across creators and brands, it has built a 
-                        reputation for delivering content that not only performs in the moment.
+                        matters more than claims. Delivered content that holds value as audiences evolve.
                       </>
                     ) : (
                       <>
-                        A private ecosystem for those who refuse to be average. <span className="text-black font-bold">Inner Circle</span> is where elite strategy meets raw creative power for the future of media.
+                        A private ecosystem for those who refuse to be average. <span className="text-black font-bold">Inner Circle</span> is where elite strategy meets raw creative power.
                       </>
                     )}
                   </p>
                   <motion.div 
                     initial={{ width: 0 }}
                     animate={isPhilosophyLeftInView ? { width: "80px" } : {}}
-                    transition={{ delay: 0.6, duration: 1.5 }}
+                    transition={{ delay: 0.6, duration: 1.5, ease: "easeInOut" }}
                     className="h-[1px] bg-[#F3D7A7]/40 mt-10"
                   />
                 </motion.div>
@@ -203,13 +201,13 @@ export default function Home() {
                 <motion.div initial={{ scale: 0.95, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} className={`aspect-[3/4] w-full mb-10 overflow-hidden border ${isAgency ? "border-white/10" : "border-black/10"}`}>
                    <img 
                     src={isAgency ? "/piyush.png" : "/inner-circle-exclusive.png"} 
-                    alt="Piyush" 
+                    alt="Portrait" 
                     className={`w-full h-full object-cover transition-all duration-1000 ${isAgency ? "grayscale" : "contrast-110"}`} 
                    />
                 </motion.div>
                 <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className={`text-base md:text-lg leading-relaxed mb-6 italic ${isAgency ? "text-white/70" : "text-black/70"}`}>
                   {isAgency 
-                    ? "\"We didn't learn content from a syllabus; we decoded it through an early obsession. Years spent dissecting retention.\"" 
+                    ? "\"We decoded content through obsession. Mastery of the silent mechanics of distribution.\"" 
                     : "\"The greatest leverage in 2026 is a mind that can synthesize high art and viral data into inevitability.\""}
                 </motion.p>
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-[#F3D7A7] italic text-2xl font-bold">— Piyush</motion.div>
@@ -217,7 +215,7 @@ export default function Home() {
             </div>
           </section>
 
-          {/* --- MODE-SPECIFIC GALLERY/SECTION --- */}
+          {/* --- GALLERY/INNER CIRCLE SECTION --- */}
           {isAgency ? (
             <section className="py-32 px-6 md:px-12 bg-black/20 relative z-20">
               <div className="max-w-[1400px] mx-auto w-full relative z-30 space-y-40">
@@ -250,14 +248,15 @@ export default function Home() {
         </motion.div>
       </AnimatePresence>
 
-      {/* --- CTA --- */}
+      {/* --- FOOTER CTA --- */}
       <section className="h-screen flex flex-col justify-center items-center px-6 relative z-20 text-center">
           <h2 className={`text-5xl md:text-[8vw] font-bold tracking-tighter uppercase mb-12 transition-colors duration-700 ${isAgency ? "text-white" : "text-black"}`}>
             {isAgency ? "Ready to scale?" : "Stay Ahead."}
           </h2>
           <motion.a 
             whileHover={{ scale: 1.05 }} 
-            href="#" 
+            href="https://calendly.com/piyushkumar2418/30min" 
+            target="_blank"
             className={`px-12 py-6 border rounded-full font-bold uppercase text-xs mx-auto block transition-all ${
               isAgency ? "border-[#F3D7A7] text-[#F3D7A7]" : "border-black text-black"
             }`}
