@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useInView, Variants, AnimatePresence } from "framer-motion";
-import { Lock } from "lucide-react";
+import { ArrowUpRight, Users, Zap, Target, Lock } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
@@ -62,7 +62,7 @@ export default function Home() {
 
   const toggleMode = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(() => setSiteMode(isAgency ? "innerCircle" : "agency"), 300);
+    setSiteMode(isAgency ? "innerCircle" : "agency");
   };
 
   const youtubeWorks = [
@@ -82,82 +82,71 @@ export default function Home() {
     <motion.main 
       ref={containerRef} 
       animate={{ backgroundColor: isAgency ? "#000000" : "#ffffff" }}
-      className="relative overflow-x-hidden transition-colors duration-700"
+      className="relative overflow-x-hidden transition-colors duration-1000"
     >
       <CustomCursor />
       <DrawingCanvas color={isAgency ? "#F3D7A7" : "#000000"} />
       <Scene3D />
 
       <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-8 py-8 mix-blend-difference">
-        <img src={isAgency ? "/blade-logo.png" : "/inner-circle-logo.png"} alt="Logo" className="h-8 md:h-10 w-auto object-contain cursor-pointer" onClick={() => setSiteMode("agency")} />
-        <motion.button onClick={toggleMode} style={{ opacity: navButtonOpacity }} className={`px-6 py-2 border rounded-full text-[9px] uppercase tracking-widest font-bold transition-all ${isAgency ? "border-white/20 text-white" : "border-black/20 text-black"}`}>
-          {isAgency ? "Inner Circle" : "Back to Agency"}
+        <div className="flex flex-col">
+          <span className="text-white text-lg font-bold tracking-tighter uppercase cursor-pointer" onClick={() => setSiteMode("agency")}>Blade</span>
+          <span className="text-white/40 text-[8px] uppercase tracking-[0.4em]">{isAgency ? "Agency" : "Institution"}</span>
+        </div>
+        <motion.button onClick={toggleMode} style={{ opacity: navButtonOpacity }} className={`px-8 py-3 border rounded-full text-[10px] uppercase tracking-widest font-bold transition-all ${isAgency ? "border-white/20 text-white hover:bg-white hover:text-black" : "border-black/20 text-black hover:bg-black hover:text-white"}`}>
+          {isAgency ? "The Inner Circle" : "Back to Media"}
         </motion.button>
       </nav>
 
       <AnimatePresence mode="wait">
-        <motion.div key={siteMode} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
-          
-          <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden isolate">
-            {isAgency && (
+        {isAgency ? (
+          <motion.div
+            key="agency"
+            initial={{ y: 0, opacity: 1 }}
+            exit={{ y: -50, opacity: 0 }}
+            transition={{ duration: 0.6, ease: "circOut" }}
+          >
+            {/* HERO - Full Opacity */}
+            <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden isolate">
               <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0">
                 <source src="/hero-bg.mp4?v=4" type="video/mp4" />
               </video>
-            )}
-            <div className="relative z-20 px-4">
-              <h1 className={`text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8 transition-colors duration-700 ${isAgency ? "text-white mix-blend-difference" : "text-black"}`}>
-                {isAgency ? <>Growth,<br/>engineered.</> : <>The Elite<br/>Collective.</>}
-              </h1>
-            </div>
-          </section>
-
-          <section className={`min-h-screen py-24 px-6 md:px-24 border-t relative z-20 ${isAgency ? "border-white/5" : "border-black/5"}`}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start max-w-[1400px] mx-auto relative z-30">
-              
-              <div className="md:sticky md:top-32" ref={philosophyLeftRef}>
-                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-12">
-                  <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-4 block font-bold">
-                    {isAgency ? "The Visionary" : "The Membership"}
-                  </span>
-                  <h2 className={`text-5xl md:text-7xl font-bold leading-[0.85] tracking-tighter uppercase ${isAgency ? "text-white" : "text-black"}`}>
-                    {isAgency ? <>Systematized <br/> Visual <br/> Dominance.</> : <>Architecting <br/> Creative <br/> Alpha.</>}
-                  </h2>
-                </motion.div>
-
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={isPhilosophyLeftInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1.2 }} className="mt-16 md:mt-24">
-                  <p className={`text-xl md:text-2xl lg:text-3xl font-medium leading-[1.5] tracking-tight ${isAgency ? "text-white/60" : "text-black/60"}`}>
-                    {isAgency ? (
-                      <>
-                        <span className="text-white font-bold">Blade</span> exists in a space where consistency 
-                        matters more than claims. Across creators and brands, it has built a 
-                        reputation for delivering content that not only performs in the moment, 
-                        but continues to hold value as platforms, trends, and audiences evolve.
-                      </>
-                    ) : (
-                      <>
-                        A private ecosystem for those who refuse to be average. <span className="text-black font-bold">Inner Circle</span> is where elite strategy meets raw creative power for the future of media.
-                      </>
-                    )}
-                  </p>
-                  <motion.div initial={{ width: 0 }} animate={isPhilosophyLeftInView ? { width: "80px" } : {}} transition={{ delay: 0.6, duration: 1.5 }} className="h-[1px] bg-[#F3D7A7]/40 mt-10" />
-                </motion.div>
+              <div className="relative z-20 px-4">
+                <h1 className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8 text-white mix-blend-difference">
+                  Growth,<br/>engineered.
+                </h1>
+                <p className="text-white/60 text-[10px] md:text-[12px] uppercase tracking-[0.6em] font-bold mix-blend-difference">Blade Media Agency</p>
               </div>
+            </section>
 
-              <div className="max-w-xs md:max-w-md ml-auto">
-                <div className={`aspect-[3/4] w-full mb-10 overflow-hidden border ${isAgency ? "border-white/10" : "border-black/10"}`}>
-                   <img src={isAgency ? "/piyush.png" : "/inner-circle-exclusive.png"} alt="Portrait" className={`w-full h-full object-cover ${isAgency ? "grayscale" : "contrast-110"}`} />
+            {/* AGENCY STATEMENT - Restored Width */}
+            <section className="min-h-screen py-24 px-6 md:px-24 border-t border-white/5 relative z-20">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start max-w-[1400px] mx-auto relative z-30">
+                <div className="md:sticky md:top-32" ref={philosophyLeftRef}>
+                  <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-12">
+                    <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-4 block font-bold">The Visionary</span>
+                    <h2 className="text-5xl md:text-7xl font-bold leading-[0.85] tracking-tighter uppercase text-white">Systematized <br/> Visual <br/> Dominance.</h2>
+                  </motion.div>
+                  <motion.div initial={{ opacity: 0, y: 20 }} animate={isPhilosophyLeftInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1.2 }} className="mt-16 md:mt-24">
+                    <p className="text-xl md:text-2xl lg:text-3xl font-medium leading-[1.5] tracking-tight text-white/60">
+                      <span className="text-white font-bold">Blade</span> exists in a space where consistency matters more than claims. Across creators and brands, it has built a reputation for delivering content that not only performs in the moment, but continues to hold value as platforms, trends, and audiences evolve.
+                    </p>
+                    <motion.div initial={{ width: 0 }} animate={isPhilosophyLeftInView ? { width: "80px" } : {}} transition={{ delay: 0.6, duration: 1.5 }} className="h-[1px] bg-[#F3D7A7]/40 mt-10" />
+                  </motion.div>
                 </div>
-                <p className={`text-base md:text-lg leading-relaxed mb-6 italic ${isAgency ? "text-white/70" : "text-black/70"}`}>
-                  {isAgency 
-                    ? "\"We didn't learn content from a syllabus; we decoded it through an early obsession. Years spent dissecting retention, mastering the hook, and understanding the silent mechanics of distribution.\"" 
-                    : "\"The greatest leverage in 2026 is a mind that can synthesize high art and viral data into inevitability.\""}
-                </p>
-                <div className="text-[#F3D7A7] italic text-2xl font-bold">— Piyush</div>
+                <div className="max-w-xs md:max-w-md ml-auto">
+                  <div className="aspect-[3/4] w-full mb-10 overflow-hidden border border-white/10 grayscale">
+                    <img src="/piyush.png" alt="Portrait" className="w-full h-full object-cover" />
+                  </div>
+                  <p className="text-base md:text-lg leading-relaxed mb-6 italic text-white/70">
+                    "We didn't learn content from a syllabus; we decoded it through an early obsession. Years spent dissecting retention, mastering the hook, and understanding the silent mechanics of distribution."
+                  </p>
+                  <div className="text-[#F3D7A7] italic text-2xl font-bold">— Piyush</div>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          {isAgency && (
+            {/* AGENCY GALLERY */}
             <section className="py-32 px-6 md:px-12 relative z-20">
               <div className="max-w-[1400px] mx-auto w-full relative z-30 space-y-40">
                 <div>
@@ -174,18 +163,92 @@ export default function Home() {
                 </div>
               </div>
             </section>
-          )}
-        </motion.div>
+          </motion.div>
+        ) : (
+          /* --- INNER CIRCLE (INSTITUTION) MODE --- */
+          <motion.div
+            key="innerCircle"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "circOut" }}
+            className="text-black bg-white"
+          >
+            {/* HERO */}
+            <section className="min-h-screen w-full flex flex-col justify-center px-6 md:px-24 pt-32">
+              <span className="text-[#F3D7A7] font-bold uppercase tracking-[0.4em] text-xs mb-6">Established 2026</span>
+              <h1 className="text-[10vw] font-bold leading-[0.85] tracking-tighter uppercase mb-12">
+                The Modern School <br/> of Content <br/> Economics.
+              </h1>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end">
+                <p className="text-2xl md:text-3xl text-black/60 leading-tight max-w-2xl">
+                  A 60-day intensive cohort designed to transform skilled builders into high-leverage business owners. 
+                  <span className="text-black block mt-4 font-bold italic">No lectures. Only execution.</span>
+                </p>
+                <div className="flex justify-end">
+                  <button className="px-12 py-6 bg-black text-white rounded-full font-bold uppercase tracking-widest text-[10px] flex items-center gap-4 hover:bg-[#F3D7A7] hover:text-black transition-all">
+                    Apply for Admission <ArrowUpRight size={16}/>
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            {/* CURRICULUM PILLARS */}
+            <section className="py-32 px-6 md:px-24 border-t border-black/5 bg-[#F9F9F9]">
+              <div className="max-w-[1400px] mx-auto">
+                <div className="flex justify-between items-center mb-24">
+                  <h2 className="text-4xl font-bold uppercase tracking-tighter">The Four Pillars</h2>
+                  <span className="text-black/30 text-[10px] uppercase font-mono tracking-widest">Architectural Overview — Batch 01</span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-1">
+                  {[
+                    { title: "The Craft", desc: "Retention engineering and high-end video synthesis." },
+                    { title: "The Offer", desc: "Niche selection and framing value as a high-leverage asset." },
+                    { title: "The Engine", desc: "Cold outreach systems and high-ticket sales psychology." },
+                    { title: "The Scale", desc: "Building team moats and delivery systems for ₹1L+ months." }
+                  ].map((pillar, i) => (
+                    <div key={i} className="bg-white p-12 border border-black/5 hover:border-[#F3D7A7] transition-all group cursor-default">
+                      <span className="text-[10px] font-bold text-black/20 block mb-8 group-hover:text-[#F3D7A7]">0{i+1}</span>
+                      <h3 className="text-2xl font-bold uppercase mb-4 tracking-tight">{pillar.title}</h3>
+                      <p className="text-black/50 text-sm leading-relaxed">{pillar.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* PHILOSOPHY */}
+            <section className="py-32 px-6 md:px-24">
+              <div className="max-w-4xl">
+                <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-12">We don’t teach. <br/> We build.</h2>
+                <p className="text-2xl text-black/60 leading-relaxed mb-12">
+                  The internet doesn't reward those with the most information; it rewards those with the best systems. 
+                  Blade Inner Circle is an interactive ecosystem for those who refuse to consume and choose to transform.
+                </p>
+                <div className="flex flex-wrap gap-12">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-[#F9F9F9] flex items-center justify-center border border-black/5"><Users size={16}/></div>
+                    <span className="text-[10px] font-bold uppercase tracking-widest">10 Members Per Batch</span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-[#F9F9F9] flex items-center justify-center border border-black/5"><Zap size={16}/></div>
+                    <span className="text-[10px] font-bold uppercase tracking-widest">Active Execution Model</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </motion.div>
+        )}
       </AnimatePresence>
       
-      <footer className="h-screen flex flex-col justify-center items-center text-center px-6">
-          <h2 className={`text-5xl md:text-[8vw] font-bold tracking-tighter uppercase mb-12 ${isAgency ? "text-white" : "text-black"}`}>
-            {isAgency ? "Ready to scale?" : "Stay Ahead."}
-          </h2>
-          <motion.a whileHover={{ scale: 1.05 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className={`px-12 py-6 border rounded-full font-bold uppercase text-xs mx-auto block ${isAgency ? "border-[#F3D7A7] text-[#F3D7A7]" : "border-black text-black"}`}> 
-            {isAgency ? "Secure a Session" : "Inquire for Entry"} 
-          </motion.a>
-          <div className={`mt-10 text-[9px] uppercase tracking-[0.6em] ${isAgency ? "text-white/30" : "text-black/30"}`}>© 2026 Blade {isAgency ? "Media" : "Inner Circle"}</div>
+      {/* FOOTER - Full Opacity */}
+      <footer className="h-screen flex flex-col justify-center items-center text-center px-6 relative z-20">
+        <h2 className={`text-5xl md:text-[8vw] font-bold tracking-tighter uppercase mb-12 ${isAgency ? "text-white" : "text-black"}`}>
+          {isAgency ? "Ready to scale?" : "Stay Ahead."}
+        </h2>
+        <motion.a whileHover={{ scale: 1.05 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className={`px-12 py-6 border rounded-full font-bold uppercase text-[10px] tracking-widest mx-auto block ${isAgency ? "border-[#F3D7A7] text-[#F3D7A7] hover:bg-[#F3D7A7] hover:text-black" : "border-black text-black hover:bg-black hover:text-white"}`}> 
+          {isAgency ? "Secure a Session" : "Request Admission"} 
+        </motion.a>
+        <div className={`mt-12 text-[9px] uppercase tracking-[0.6em] font-bold ${isAgency ? "text-white/30" : "text-black/30"}`}>© 2026 Blade {isAgency ? "Media" : "Inner Circle"}</div>
       </footer>
     </motion.main>
   );
