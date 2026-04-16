@@ -86,8 +86,8 @@ export default function Home() {
   const verticalWorks = [
     { title: "Visual Dominance", category: "Reel", link: "https://www.instagram.com/reel/DDrxL2CMYCB/", video: "/preview5.mp4", img: "/thumb5.webp" },
     { title: "Editorial Series", category: "Reel", link: "https://www.instagram.com/katemackz/", video: "/preview6.mp4", img: "/thumb6.webp" },
-    { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" }, // Changed to .mp4
-    { title: "Retention Edit", category: "Reel", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" }, // Changed to .mp4
+    { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" }, // FIXED: .mp4 extension
+    { title: "Retention Edit", category: "Reel", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" }, // FIXED: .mp4 extension
   ];
 
   return (
@@ -110,7 +110,7 @@ export default function Home() {
       {/* --- MASTER NAVIGATION --- */}
       <nav className={`fixed top-0 w-full z-[150] flex justify-between items-center px-8 py-8 ${isAgency ? 'mix-blend-difference' : ''}`}>
         <div className="cursor-pointer" onClick={() => setSiteMode("agency")}>
-          <img src={isAgency ? "/blade-logo.png" : "/inner-circle-logo.png"} alt="Logo" className="h-8 md:h-10 w-auto object-contain" />
+          <img src={isAgency ? "/blade-logo.png" : "/bic-black.png"} alt="Logo" className="h-8 md:h-10 w-auto object-contain" />
         </div>
         <motion.button 
           onClick={toggleMode} 
@@ -127,6 +127,7 @@ export default function Home() {
 
       <AnimatePresence mode="wait">
         {isAgency ? (
+          /* --- AGENCY SIDE: RESTORED FULL INTEGRITY --- */
           <motion.div key="agency" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             {/* HERO */}
             <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden bg-black">
@@ -183,6 +184,7 @@ export default function Home() {
             </section>
           </motion.div>
         ) : (
+          /* --- INNER CIRCLE SIDE --- */
           <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-black bg-white min-h-screen">
             
             {/* 1. HERO SECTION */}
@@ -209,12 +211,12 @@ export default function Home() {
 
             {/* 3. WHY BLADE INNER CIRCLE */}
             <section className="py-32 px-6 md:px-24 bg-[#F9F9F9] border-y border-black/5">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-20 text-left">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
                 <div>
                   <SectionLabel>The Difference</SectionLabel>
                   <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-12">Extracted from <br/> the trenches.</h2>
                 </div>
-                <div className="space-y-12">
+                <div className="space-y-12 text-left">
                   <div>
                     <h4 className="text-xl font-bold uppercase mb-4 text-black">Zero Theory</h4>
                     <p className="text-black/50 leading-relaxed">Everything here was decoded over thousands of hours of real-world client work at Blade Media. We share the silent mechanics that courses don't know exist.</p>
@@ -318,22 +320,25 @@ export default function Home() {
       </AnimatePresence>
 
       <footer className="h-screen flex flex-col justify-center items-center text-center px-6 relative z-20">
-        <h2 className={`text-6xl md:text-[9vw] font-bold tracking-tighter uppercase mb-16 ${isAgency ? "text-white" : "text-black"}`}>
-          {isAgency ? "Ready to scale?" : "The Future is Built."}
-        </h2>
-        <motion.a 
-          whileHover={{ scale: 1.05 }} 
-          href="https://calendly.com/piyushkumar2418/30min" 
-          target="_blank"
-          className={`px-16 py-8 border rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 ${
-            isAgency 
-            ? "border-[#F3D7A7] text-[#F3D7A7] hover:bg-[#F3D7A7] hover:text-black" 
-            : "border-black text-black hover:bg-black hover:text-white shadow-2xl"
-          }`}
-        >
-          {isAgency ? "Secure a Session" : "Request Admission"}
-        </motion.a>
-        <div className={`absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold ${isAgency ? "text-white/20" : "text-black/20"}`}>© 2026 Blade</div>
+        {/* Conditional Footer Rendering: Shows only for Agency side */}
+        {isAgency && (
+          <>
+            <h2 className="text-6xl md:text-[9vw] font-bold tracking-tighter uppercase mb-16 text-white">
+              Ready to scale?
+            </h2>
+            <motion.a 
+              whileHover={{ scale: 1.05 }} 
+              href="https://calendly.com/piyushkumar2418/30min" 
+              target="_blank"
+              className="px-16 py-8 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-[#F3D7A7] hover:text-black shadow-2xl"
+            >
+              Secure a Session
+            </motion.a>
+          </>
+        )}
+        <div className={`absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold ${isAgency ? "text-white/20" : "text-black/20"}`}>
+          © 2026 Blade
+        </div>
       </footer>
     </motion.main>
   );
