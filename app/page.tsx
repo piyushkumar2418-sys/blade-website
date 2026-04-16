@@ -6,7 +6,7 @@ import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
 import { useRef, useState } from "react";
 
-// --- ANIMATION VARIANTS (Build-Safe) ---
+// --- ANIMATION VARIANTS ---
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { 
@@ -40,7 +40,7 @@ const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: n
       <motion.a 
         href={work.link} 
         target="_blank"
-        onMouseEnter={() => { setIsHovered(true); videoRef.current?.play(); }}
+        onMouseEnter={() => { setIsHovered(true); videoRef.current?.play().catch(() => null); }}
         onMouseLeave={() => { setIsHovered(false); videoRef.current?.pause(); if(videoRef.current) videoRef.current.currentTime = 0; }}
         className={`group relative block ${aspect} bg-[#0a0a0a] border border-white/5 overflow-hidden rounded-sm shadow-2xl`}
       >
@@ -100,17 +100,8 @@ export default function Home() {
           <source src="/hero-bg.mp4?v=4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-black/40 z-10" />
-
-        <motion.div 
-          className="relative z-20 px-4 select-none"
-          style={{ 
-            opacity: useTransform(scrollYProgress, [0, 0.05], [1, 0]),
-            y: useTransform(scrollYProgress, [0, 0.1], [0, -50])
-          }}
-        >
-          <h1 className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8 text-white mix-blend-difference">
-            Growth,<br/>engineered.
-          </h1>
+        <motion.div className="relative z-20 px-4 select-none" style={{ opacity: useTransform(scrollYProgress, [0, 0.05], [1, 0]), y: useTransform(scrollYProgress, [0, 0.1], [0, -50]) }}>
+          <h1 className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8 text-white mix-blend-difference">Growth,<br/>engineered.</h1>
           <p className="text-white/60 text-[10px] md:text-[12px] uppercase tracking-[0.6em] font-bold mix-blend-difference">Blade Media</p>
         </motion.div>
       </section>
@@ -122,14 +113,8 @@ export default function Home() {
             <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-4 block font-bold">The Visionary</span>
             <h2 className="text-5xl md:text-7xl font-bold leading-[0.85] tracking-tighter uppercase text-white">Systematized <br/> Visual <br/> Dominance.</h2>
           </motion.div>
-          
           <div className="max-w-xs md:max-w-md ml-auto">
-            <motion.div 
-              initial={{ scale: 0.95, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              className="aspect-[3/4] w-full mb-10 overflow-hidden border border-white/10"
-            >
+            <motion.div initial={{ scale: 0.95, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} className="aspect-[3/4] w-full mb-10 overflow-hidden border border-white/10">
                <img src="/piyush.png" alt="Piyush" className="w-full h-full object-cover grayscale" />
             </motion.div>
             <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-white/70 text-base md:text-lg leading-relaxed mb-6 italic">
@@ -146,33 +131,41 @@ export default function Home() {
           <div>
             <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12">Selected Productions</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {youtubeWorks.map((work, i) => (
-                <WorkItem key={i} work={work} aspect="aspect-video" index={i} />
-              ))}
+              {youtubeWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-video" index={i} /> ))}
             </div>
           </div>
           <div>
             <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12 text-[#F3D7A7]">Viral Originals</h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-              {verticalWorks.map((work, i) => (
-                <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} />
-              ))}
+              {verticalWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} /> ))}
             </div>
           </div>
         </div>
       </section>
 
+      {/* --- INNER CIRCLE (FORCED VISIBILITY) --- */}
+      <section className="min-h-screen py-32 flex flex-col justify-center items-center text-center relative z-[40] px-6 bg-black border-y border-white/5">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="relative z-[50] flex flex-col items-center"
+        >
+          <img src="/inner-circle-logo.png" alt="Inner Circle" className="w-64 md:w-[400px] h-auto mb-4 object-contain brightness-200" />
+          <span className="text-[#F3D7A7] text-[10px] md:text-xs uppercase tracking-[0.6em] font-bold mb-6">Coming Soon</span>
+          <p className="max-w-xl mx-auto text-white/40 text-[9px] md:text-[10px] italic tracking-[0.2em] uppercase">The evolution of the creative mind.</p>
+        </motion.div>
+      </section>
+
       {/* --- CTA --- */}
       <section className="h-screen flex flex-col justify-center items-center px-6 relative z-20 text-center">
-          <h2 className="text-5xl md:text-[8vw] font-bold tracking-tighter uppercase mb-12 text-white">Ready to scale?</h2>
+          <h2 className="text-5xl md:text-[8vw] font-bold tracking-tighter uppercase mb-12 text-white text-center">Ready to scale?</h2>
           <motion.a 
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05 }} 
             href="https://calendly.com/piyushkumar2418/30min" 
             target="_blank" 
-            className="px-12 py-6 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs"
-          >
-            Secure a Session
-          </motion.a>
+            className="px-12 py-6 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs mx-auto block"
+          > Secure a Session </motion.a>
           <footer className="absolute bottom-10 w-full text-[9px] uppercase tracking-[0.6em] text-white/30 z-30">© 2026 Blade Media</footer>
       </section>
     </motion.main>
