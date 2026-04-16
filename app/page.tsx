@@ -86,8 +86,8 @@ export default function Home() {
   const verticalWorks = [
     { title: "Visual Dominance", category: "Reel", link: "https://www.instagram.com/reel/DDrxL2CMYCB/", video: "/preview5.mp4", img: "/thumb5.webp" },
     { title: "Editorial Series", category: "Reel", link: "https://www.instagram.com/katemackz/", video: "/preview6.mp4", img: "/thumb6.webp" },
-    { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.jpg", img: "/thumb7.jpg" },
-    { title: "Retention Edit", category: "Reel", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.jpeg", img: "/thumb8.jpeg" },
+    { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" }, // Changed to .mp4
+    { title: "Retention Edit", category: "Reel", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" }, // Changed to .mp4
   ];
 
   return (
@@ -108,7 +108,7 @@ export default function Home() {
       )}
 
       {/* --- MASTER NAVIGATION --- */}
-      <nav className="fixed top-0 w-full z-[150] flex justify-between items-center px-8 py-8 mix-blend-difference">
+      <nav className={`fixed top-0 w-full z-[150] flex justify-between items-center px-8 py-8 ${isAgency ? 'mix-blend-difference' : ''}`}>
         <div className="cursor-pointer" onClick={() => setSiteMode("agency")}>
           <img src={isAgency ? "/blade-logo.png" : "/inner-circle-logo.png"} alt="Logo" className="h-8 md:h-10 w-auto object-contain" />
         </div>
@@ -118,7 +118,7 @@ export default function Home() {
           className={`px-8 py-3 rounded-full text-[10px] uppercase tracking-widest font-bold transition-all border shadow-sm ${
             isAgency 
             ? "border-white/20 text-white bg-white/5 hover:bg-white hover:text-black" 
-            : "border-black/20 text-black bg-black/5 hover:bg-black hover:text-white"
+            : "border-black text-black bg-black/5 hover:bg-black hover:text-white"
           }`}
         >
           {isAgency ? "The Inner Circle" : "Exit to Agency"}
@@ -127,7 +127,6 @@ export default function Home() {
 
       <AnimatePresence mode="wait">
         {isAgency ? (
-          /* --- AGENCY SIDE: RESTORED FULL INTEGRITY --- */
           <motion.div key="agency" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             {/* HERO */}
             <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden bg-black">
@@ -169,7 +168,7 @@ export default function Home() {
             <section className="py-32 px-6 md:px-12 relative z-20">
               <div className="max-w-[1400px] mx-auto w-full space-y-48">
                 <div>
-                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12">Selected Productions</h2>
+                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12 text-white">Selected Productions</h2>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {youtubeWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-video" index={i} /> ))}
                   </div>
@@ -184,7 +183,6 @@ export default function Home() {
             </section>
           </motion.div>
         ) : (
-          /* --- INNER CIRCLE SIDE: RESTORED FULL SECTIONS --- */
           <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-black bg-white min-h-screen">
             
             {/* 1. HERO SECTION */}
@@ -211,7 +209,7 @@ export default function Home() {
 
             {/* 3. WHY BLADE INNER CIRCLE */}
             <section className="py-32 px-6 md:px-24 bg-[#F9F9F9] border-y border-black/5">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-20 text-left">
                 <div>
                   <SectionLabel>The Difference</SectionLabel>
                   <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-12">Extracted from <br/> the trenches.</h2>
@@ -240,7 +238,7 @@ export default function Home() {
                   { icon: <Users />, t: "Client Pipeline", d: "A repeatable system for acquisition." },
                   { icon: <LineChart />, t: "Income Path", d: "A clear trajectory to ₹1L/month." }
                 ].map((item, i) => (
-                  <div key={i} className="p-10 border border-black/5 hover:border-[#F3D7A7] transition-all group">
+                  <div key={i} className="p-10 border border-black/5 hover:border-[#F3D7A7] transition-all text-left group">
                     <div className="text-[#F3D7A7] mb-6">{item.icon}</div>
                     <h3 className="text-xl font-bold uppercase mb-4 text-black">{item.t}</h3>
                     <p className="text-sm text-black/40 leading-relaxed">{item.d}</p>
@@ -252,7 +250,7 @@ export default function Home() {
             {/* 5. THE JOURNEY (8 WEEKS) */}
             <section className="py-32 px-6 md:px-24 bg-black text-white">
               <SectionLabel>The 60-Day Build</SectionLabel>
-              <div className="space-y-24 mt-20">
+              <div className="space-y-24 mt-20 text-left">
                 {[
                   { p: "Phase 01", t: "Foundation & Synthesis", d: "Stripping away amateur habits. Mastering the silent physics of content and niche selection." },
                   { p: "Phase 02", t: "Asset Architecture", d: "Building your offer and framing your skill as a high-leverage liquid asset." },
@@ -270,17 +268,17 @@ export default function Home() {
 
             {/* 6. HOW IT WORKS */}
             <section className="py-32 px-6 md:px-24 grid grid-cols-1 md:grid-cols-3 gap-1 bg-black/5">
-              <div className="p-12 bg-white border border-black/5">
+              <div className="p-12 bg-white border border-black/5 text-left">
                 <Zap className="mb-8 text-[#F3D7A7]" />
                 <h4 className="font-bold uppercase mb-4 text-black">Live Sprints</h4>
                 <p className="text-sm text-black/40">Weekly interactive builds where we solve real-world agency bottlenecks in real-time.</p>
               </div>
-              <div className="p-12 bg-white border border-black/5">
+              <div className="p-12 bg-white border border-black/5 text-left">
                 <Target className="mb-8 text-[#F3D7A7]" />
                 <h4 className="font-bold uppercase mb-4 text-black">Hot Seats</h4>
                 <p className="text-sm text-black/40">Your systems and outreach put under the microscope for surgical feedback.</p>
               </div>
-              <div className="p-12 bg-white border border-black/5">
+              <div className="p-12 bg-white border border-black/5 text-left">
                 <ShieldCheck className="mb-8 text-[#F3D7A7]" />
                 <h4 className="font-bold uppercase mb-4 text-black">Execution Logs</h4>
                 <p className="text-sm text-black/40">Daily accountability and tracking to ensure you are building, not just watching.</p>
@@ -288,7 +286,7 @@ export default function Home() {
             </section>
 
             {/* 7. FOUNDER STORY */}
-            <section className="py-32 px-6 md:px-24 bg-white">
+            <section className="py-32 px-6 md:px-24 bg-white text-left">
               <div className="max-w-4xl">
                 <SectionLabel>The Founder</SectionLabel>
                 <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-[0.9] mb-12 text-black">I didn't have a mentor. <br/> I had deadlines.</h2>
@@ -319,7 +317,6 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* --- MASTER FOOTER --- */}
       <footer className="h-screen flex flex-col justify-center items-center text-center px-6 relative z-20">
         <h2 className={`text-6xl md:text-[9vw] font-bold tracking-tighter uppercase mb-16 ${isAgency ? "text-white" : "text-black"}`}>
           {isAgency ? "Ready to scale?" : "The Future is Built."}
