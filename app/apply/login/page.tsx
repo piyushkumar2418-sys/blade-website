@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { Chrome, Mail, ArrowRight } from "lucide-react";
+import { Globe, Mail, ArrowRight } from "lucide-react"; // Changed Chrome to Globe
 
 export default function EntryScreen() {
   return (
@@ -24,7 +24,7 @@ export default function EntryScreen() {
       >
         {/* Social Login */}
         <button className="w-full py-4 border border-black/10 rounded-sm flex items-center justify-center gap-3 hover:bg-black hover:text-white transition-all duration-500 group">
-          <開Chrome size={18} />
+          <Globe size={18} /> {/* Updated icon component here */}
           <span className="text-xs uppercase tracking-widest font-bold">Continue with Google</span>
         </button>
 
