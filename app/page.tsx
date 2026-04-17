@@ -6,86 +6,75 @@ import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
 
-// --- ANIMATION VARIANTS ---
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
-  }
-};
-
-// Variants for the spring-loaded pop-up effect
+// --- ANIMATION VARIANTS (EXACT REPLICATION) ---
 const cardVariants: Variants = {
   offscreen: {
     y: 300,
-    opacity: 0,
-    rotate: 5
   },
   onscreen: {
-    y: 0,
-    opacity: 1,
-    rotate: 0,
+    y: 50,
+    rotate: -10,
     transition: {
       type: "spring",
       bounce: 0.4,
-      duration: 1.2,
+      duration: 0.8,
     },
   },
 };
 
-// --- HELPER COMPONENT FOR BIC CONTENT ---
-const SectionLabel = ({ children }: { children: React.ReactNode }) => (
-  <div className="flex items-center gap-4 mb-8">
-    <div className="h-[1px] w-8 bg-[#F3D7A7]" />
-    <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/40">{children}</span>
-  </div>
-);
-
-// --- WORK ITEM COMPONENT (UPDATED WITH SPRING POP-UP) ---
+// --- WORK ITEM COMPONENT (FRAMER LOGIC) ---
 const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: number }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
+      className="relative flex justify-center items-center overflow-hidden pt-5 -mb-[120px]"
       initial="offscreen"
       whileInView="onscreen"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={cardVariants}
-      className="relative"
+      viewport={{ once: false, amount: 0.8 }}
     >
-      <motion.a 
-        href={work.link} 
-        target="_blank"
-        onMouseEnter={() => { setIsHovered(true); videoRef.current?.play().catch(() => null); }}
-        onMouseLeave={() => { setIsHovered(false); videoRef.current?.pause(); if(videoRef.current) videoRef.current.currentTime = 0; }}
-        className={`group relative block ${aspect} bg-[#0a0a0a] border border-white/5 overflow-hidden rounded-sm shadow-2xl cursor-none transition-transform duration-500 hover:scale-[1.02]`}
+      {/* The Splash Background Effect */}
+      <div 
+        className="absolute inset-0 z-0 opacity-20"
+        style={{
+          background: `linear-gradient(306deg, #F3D7A7, #000000)`,
+          clipPath: `path("M 0 303.5 C 0 292.454 8.995 285.101 20 283.5 L 460 219.5 C 470.085 218.033 480 228.454 480 239.5 L 500 430 C 500 441.046 491.046 450 480 450 L 20 450 C 8.954 450 0 441.046 0 430 Z")`
+        }}
+      />
+
+      <motion.div 
+        variants={cardVariants}
+        style={{ transformOrigin: "10% 60%" }}
+        className={`relative z-10 w-full max-w-[500px] ${aspect} bg-[#0a0a0a] rounded-[20px] overflow-hidden shadow-2xl border border-white/5`}
       >
-        <img 
-          src={work.img} 
-          alt={work.title} 
-          className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`} 
-        />
-        <video 
-          ref={videoRef} 
-          key={work.video} 
-          src={work.video} 
-          loop 
-          muted 
-          playsInline 
-          className="absolute inset-0 w-full h-full object-cover z-10" 
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent z-30" />
-        <div className="absolute bottom-5 left-5 z-40 text-left">
-          <span className="text-[#F3D7A7] text-[8px] uppercase tracking-[0.3em] block mb-1 font-bold">{work.category}</span>
-          <h4 className="text-sm md:text-base font-bold uppercase tracking-tight text-white">{work.title}</h4>
-        </div>
-      </motion.a>
+        <motion.a 
+          href={work.link} 
+          target="_blank"
+          onMouseEnter={() => { setIsHovered(true); videoRef.current?.play().catch(() => null); }}
+          onMouseLeave={() => { setIsHovered(false); videoRef.current?.pause(); if(videoRef.current) videoRef.current.currentTime = 0; }}
+          className="block w-full h-full cursor-none"
+        >
+          <img src={work.img} alt={work.title} className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`} />
+          <video ref={videoRef} key={work.video} src={work.video} loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent z-30" />
+          <div className="absolute bottom-10 left-10 z-40 text-left">
+            <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.3em] block mb-2 font-bold">{work.category}</span>
+            <h4 className="text-xl font-bold uppercase tracking-tight text-white">{work.title}</h4>
+          </div>
+        </motion.a>
+      </motion.div>
     </motion.div>
   );
 };
+
+// --- SECTION LABEL FOR BIC ---
+const SectionLabel = ({ children }: { children: React.ReactNode }) => (
+  <div className="flex items-center gap-4 mb-8">
+    <div className="h-[1px] w-8 bg-[#F3D7A7]" />
+    <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/40">{children}</span>
+  </div>
+);
 
 export default function Home() {
   const [siteMode, setSiteMode] = useState<"agency" | "innerCircle">("agency");
@@ -132,6 +121,7 @@ export default function Home() {
         </>
       )}
 
+      {/* --- MASTER NAVIGATION --- */}
       <nav className={`fixed top-0 w-full z-[150] flex justify-between items-center px-8 py-8 ${isAgency ? 'mix-blend-difference' : ''}`}>
         <div className="cursor-pointer" onClick={() => setSiteMode("agency")}>
           <img src={isAgency ? "/blade-logo.png" : "/bic-black.png"} alt="Logo" className="h-8 md:h-10 w-auto object-contain" />
@@ -152,6 +142,7 @@ export default function Home() {
       <AnimatePresence mode="wait">
         {isAgency ? (
           <motion.div key="agency" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            {/* HERO */}
             <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden bg-black">
               <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-70">
                 <source src="/hero-bg.mp4?v=4" type="video/mp4" />
@@ -162,6 +153,7 @@ export default function Home() {
               </div>
             </section>
 
+            {/* PHILOSOPHY */}
             <section className="min-h-screen py-32 px-6 md:px-24 border-t border-white/5 relative z-20">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-start max-w-[1440px] mx-auto text-left">
                 <div className="md:sticky md:top-32" ref={philosophyLeftRef}>
@@ -171,7 +163,7 @@ export default function Home() {
                   </motion.div>
                   <motion.div initial={{ opacity: 0, y: 20 }} animate={isPhilosophyLeftInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1.2 }}>
                     <p className="text-white/70 text-xl md:text-2xl lg:text-3xl font-medium leading-[1.4] tracking-tight">
-                      <span className="text-white font-bold">Blade</span> exists in a space where consistency matters more than claims. Across creators and brands, it has built a reputation for delivering content that not only performs in the moment, but continues to hold value as platforms, trends, and audiences evolve.
+                      <span className="text-white font-bold">Blade</span> exists in a space where consistency matters more than claims. Across creators and brands, it has built a reputation for delivering content that not only performs in the moment.
                     </p>
                     <div className="h-[1px] bg-[#F3D7A7]/40 mt-12 w-24" />
                   </motion.div>
@@ -186,26 +178,29 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="py-32 px-6 md:px-12 relative z-20">
-              <div className="max-w-[1400px] mx-auto w-full space-y-48">
-                <div>
-                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12 text-white">Selected Productions</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {youtubeWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-video" index={i} /> ))}
-                  </div>
+            {/* POP-UP VIDEO GALLERIES (THE FRAMER EFFECT) */}
+            <section className="py-32 px-6 md:px-12 relative z-20 bg-black">
+              <div className="max-w-[1400px] mx-auto w-full flex flex-col items-center">
+                <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-32 text-white">Selected Productions</h2>
+                <div className="w-full space-y-[150px] pb-[200px]">
+                  {youtubeWorks.map((work, i) => ( 
+                    <WorkItem key={i} work={work} aspect="aspect-video" index={i} /> 
+                  ))}
                 </div>
-                <div>
-                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12 text-[#F3D7A7]">Viral Originals</h2>
-                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                    {verticalWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} /> ))}
-                  </div>
+
+                <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-32 mt-64 text-[#F3D7A7]">Viral Originals</h2>
+                <div className="w-full space-y-[150px] pb-[200px]">
+                  {verticalWorks.map((work, i) => ( 
+                    <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} /> 
+                  ))}
                 </div>
               </div>
             </section>
           </motion.div>
         ) : (
+          /* --- INNER CIRCLE SIDE --- */
           <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-black bg-white min-h-screen">
-            <section className="h-screen flex flex-col justify-center px-6 md:px-24 border-b border-black/5">
+             <section className="h-screen flex flex-col justify-center px-6 md:px-24 border-b border-black/5">
               <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.5em] font-bold mb-8 block text-black/40">Blade Inner Circle</motion.span>
               <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="text-[12vw] md:text-[8vw] font-bold leading-[0.85] tracking-tighter uppercase mb-12">The School of <br/> Modern Content.</motion.h1>
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
@@ -217,7 +212,7 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="py-32 px-6 md:px-24 max-w-7xl">
+            <section className="py-32 px-6 md:px-24 max-w-7xl text-left">
               <SectionLabel>Institutional Thesis</SectionLabel>
               <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-[0.9] mb-12">Theoretical learning is a trap. <br/> <span className="text-black/20">This is an execution lab.</span></h2>
               <p className="text-xl md:text-3xl text-black/60 leading-relaxed font-light max-w-4xl">Blade Inner Circle is a 2-month intensive for those who refuse to be passive. We deploy systems. You are entering a room where revenue is the only metric.</p>
@@ -239,7 +234,7 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="py-32 px-6 md:px-24">
+            <section className="py-32 px-6 md:px-24 text-left">
               <SectionLabel>The Ledger</SectionLabel>
               <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-20 text-center text-black">Tangible Assets.</h2>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -258,7 +253,7 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="py-32 px-6 md:px-24 bg-black text-white">
+            <section className="py-32 px-6 md:px-24 bg-black text-white text-left">
               <SectionLabel>The 60-Day Build</SectionLabel>
               <div className="space-y-24 mt-20 text-left">
                 {[
@@ -276,7 +271,7 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="py-32 px-6 md:px-24 grid grid-cols-1 md:grid-cols-3 gap-1 bg-black/5">
+            <section className="py-32 px-6 md:px-24 grid grid-cols-1 md:grid-cols-3 gap-1 bg-black/5 text-left">
               {[
                 { i: <Zap />, h: "Live Sprints", d: "Weekly interactive builds where we solve real-world agency bottlenecks in real-time." },
                 { i: <Target />, h: "Hot Seats", d: "Your systems and outreach put under the microscope for surgical feedback." },
@@ -312,22 +307,11 @@ export default function Home() {
       <footer className="h-[50vh] flex flex-col justify-center items-center text-center px-6 relative z-20">
         {isAgency && (
           <>
-            <h2 className="text-6xl md:text-[9vw] font-bold tracking-tighter uppercase mb-16 text-white">
-              Ready to scale?
-            </h2>
-            <motion.a 
-              whileHover={{ scale: 1.05 }} 
-              href="https://calendly.com/piyushkumar2418/30min" 
-              target="_blank"
-              className="px-16 py-8 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-[#F3D7A7] hover:text-black shadow-2xl"
-            >
-              Secure a Session
-            </motion.a>
+            <h2 className="text-6xl md:text-[9vw] font-bold tracking-tighter uppercase mb-16 text-white">Ready to scale?</h2>
+            <motion.a whileHover={{ scale: 1.05 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-16 py-8 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-[#F3D7A7] hover:text-black shadow-2xl">Secure a Session</motion.a>
           </>
         )}
-        <div className={`absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold ${isAgency ? "text-white/20" : "text-black/20"}`}>
-          © 2026 Blade
-        </div>
+        <div className={`absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold ${isAgency ? "text-white/20" : "text-black/20"}`}>© 2026 Blade</div>
       </footer>
     </motion.main>
   );
