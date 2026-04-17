@@ -6,7 +6,7 @@ import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
 
-// --- ANIMATION VARIANTS ---
+// --- ANIMATION VARIANTS (RESTORED FADEUP) ---
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { 
@@ -191,7 +191,7 @@ export default function Home() {
                 <p className="text-2xl md:text-4xl text-black/60 leading-tight font-medium max-w-2xl">Build your agency. <br/> From skill to first income.</p>
                 <div className="flex flex-col items-start md:items-end gap-6">
                   <span className="text-[#F3D7A7] font-bold uppercase tracking-[0.3em] text-[10px] border border-[#F3D7A7]/30 px-4 py-2 text-left">Cohort 01 — Applications Open</span>
-                  <button onClick={() => window.location.href = "/apply"} className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-4">Apply for Admission <ArrowUpRight size={18}/></button>
+                  <button onClick={() => window.location.href = "/apply/login"} className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-4">Apply for Admission <ArrowUpRight size={18}/></button>
                 </div>
               </div>
             </section>
@@ -244,7 +244,7 @@ export default function Home() {
                   { p: "Phase 01", t: "Foundation & Synthesis", d: "Stripping away amateur habits. Mastering the silent physics of content and niche selection." },
                   { p: "Phase 02", t: "Asset Architecture", d: "Building your offer and framing your skill as a high-leverage asset." },
                   { p: "Phase 03", t: "The Acquisition Engine", d: "Deploying outreach systems and mastering high-ticket sales." },
-                  { p: "Phase 04", t: "Scale & Leverage", d: "Client delivery systems, team moats, and removing yourself from the fulfillment loop." }
+                  { p: "Phase 04", t: "Scale & Leverage", d: "Client delivery systems, team moats, and removing yourself from the loop." }
                 ].map((phase, i) => (
                   <div key={i} className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-b border-white/10 pb-16 text-left">
                     <span className="md:col-span-2 font-mono text-[#F3D7A7] text-sm">{phase.p}</span>
@@ -259,14 +259,14 @@ export default function Home() {
               <div className="max-w-4xl">
                 <SectionLabel>The Founder</SectionLabel>
                 <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-[0.9] mb-12 text-black text-left">I didn't have a mentor. <br/> I had deadlines.</h2>
-                <p className="text-xl md:text-2xl text-black/60 leading-relaxed font-light mb-8 text-left">I started at 13. Blade Media is the result of that experimentation. The Inner Circle exists to build the room I didn't have.</p>
+                <p className="text-xl md:text-2xl text-black/60 leading-relaxed font-light mb-8 text-left text-left">I started at 13. Blade Media is the result of that experimentation. The Inner Circle exists to build the room I didn't have.</p>
               </div>
             </section>
 
             <section className="py-40 px-6 md:px-24 text-center border-t border-black/5">
               <div className="max-w-3xl mx-auto text-center">
                 <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tighter mb-12 text-black text-center">Admission <br/> is Earned.</h2>
-                <button onClick={() => window.location.href = "/apply"} className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl">Apply Now</button>
+                <button onClick={() => window.location.href = "/apply/login"} className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl">Apply Now</button>
               </div>
             </section>
 
