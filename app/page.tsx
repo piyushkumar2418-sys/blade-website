@@ -16,6 +16,25 @@ const fadeUp: Variants = {
   }
 };
 
+// Variants for the spring-loaded pop-up effect
+const cardVariants: Variants = {
+  offscreen: {
+    y: 300,
+    opacity: 0,
+    rotate: 5
+  },
+  onscreen: {
+    y: 0,
+    opacity: 1,
+    rotate: 0,
+    transition: {
+      type: "spring",
+      bounce: 0.4,
+      duration: 1.2,
+    },
+  },
+};
+
 // --- HELPER COMPONENT FOR BIC CONTENT ---
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
   <div className="flex items-center gap-4 mb-8">
@@ -24,32 +43,40 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-// --- WORK ITEM COMPONENT (AGENCY SIDE) ---
+// --- WORK ITEM COMPONENT (UPDATED WITH SPRING POP-UP) ---
 const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: number }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-10%" });
 
   return (
     <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { delay: index * 0.1, duration: 0.6 } }
-      }}
+      initial="offscreen"
+      whileInView="onscreen"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={cardVariants}
+      className="relative"
     >
       <motion.a 
         href={work.link} 
         target="_blank"
         onMouseEnter={() => { setIsHovered(true); videoRef.current?.play().catch(() => null); }}
         onMouseLeave={() => { setIsHovered(false); videoRef.current?.pause(); if(videoRef.current) videoRef.current.currentTime = 0; }}
-        className={`group relative block ${aspect} bg-[#0a0a0a] border border-white/5 overflow-hidden rounded-sm shadow-2xl cursor-none`}
+        className={`group relative block ${aspect} bg-[#0a0a0a] border border-white/5 overflow-hidden rounded-sm shadow-2xl cursor-none transition-transform duration-500 hover:scale-[1.02]`}
       >
-        <img src={work.img} alt={work.title} className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`} />
-        <video ref={videoRef} key={work.video} src={work.video} loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-10" />
+        <img 
+          src={work.img} 
+          alt={work.title} 
+          className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`} 
+        />
+        <video 
+          ref={videoRef} 
+          key={work.video} 
+          src={work.video} 
+          loop 
+          muted 
+          playsInline 
+          className="absolute inset-0 w-full h-full object-cover z-10" 
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent z-30" />
         <div className="absolute bottom-5 left-5 z-40 text-left">
           <span className="text-[#F3D7A7] text-[8px] uppercase tracking-[0.3em] block mb-1 font-bold">{work.category}</span>
@@ -69,7 +96,6 @@ export default function Home() {
   const { scrollYProgress } = useScroll({ target: containerRef });
   const isAgency = siteMode === "agency";
   
-  // NAV FADE: Only for the toggle button
   const navButtonOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
 
   const toggleMode = () => {
@@ -99,7 +125,6 @@ export default function Home() {
     >
       <CustomCursor />
       
-      {/* AGENCY ASSETS: Kept alive only in Agency Mode */}
       {isAgency && (
         <>
           <DrawingCanvas color="#F3D7A7" />
@@ -107,7 +132,6 @@ export default function Home() {
         </>
       )}
 
-      {/* --- MASTER NAVIGATION --- */}
       <nav className={`fixed top-0 w-full z-[150] flex justify-between items-center px-8 py-8 ${isAgency ? 'mix-blend-difference' : ''}`}>
         <div className="cursor-pointer" onClick={() => setSiteMode("agency")}>
           <img src={isAgency ? "/blade-logo.png" : "/bic-black.png"} alt="Logo" className="h-8 md:h-10 w-auto object-contain" />
@@ -127,9 +151,7 @@ export default function Home() {
 
       <AnimatePresence mode="wait">
         {isAgency ? (
-          /* --- AGENCY SIDE: RESTORED FULL INTEGRITY --- */
           <motion.div key="agency" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            {/* HERO */}
             <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden bg-black">
               <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-70">
                 <source src="/hero-bg.mp4?v=4" type="video/mp4" />
@@ -140,7 +162,6 @@ export default function Home() {
               </div>
             </section>
 
-            {/* PHILOSOPHY */}
             <section className="min-h-screen py-32 px-6 md:px-24 border-t border-white/5 relative z-20">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-start max-w-[1440px] mx-auto text-left">
                 <div className="md:sticky md:top-32" ref={philosophyLeftRef}>
@@ -165,7 +186,6 @@ export default function Home() {
               </div>
             </section>
 
-            {/* GALLERIES */}
             <section className="py-32 px-6 md:px-12 relative z-20">
               <div className="max-w-[1400px] mx-auto w-full space-y-48">
                 <div>
@@ -184,10 +204,7 @@ export default function Home() {
             </section>
           </motion.div>
         ) : (
-          /* --- INNER CIRCLE SIDE --- */
           <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-black bg-white min-h-screen">
-            
-            {/* 1. HERO SECTION */}
             <section className="h-screen flex flex-col justify-center px-6 md:px-24 border-b border-black/5">
               <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.5em] font-bold mb-8 block text-black/40">Blade Inner Circle</motion.span>
               <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="text-[12vw] md:text-[8vw] font-bold leading-[0.85] tracking-tighter uppercase mb-12">The School of <br/> Modern Content.</motion.h1>
@@ -200,36 +217,28 @@ export default function Home() {
               </div>
             </section>
 
-            {/* 2. WHAT THIS IS */}
             <section className="py-32 px-6 md:px-24 max-w-7xl">
               <SectionLabel>Institutional Thesis</SectionLabel>
               <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-[0.9] mb-12">Theoretical learning is a trap. <br/> <span className="text-black/20">This is an execution lab.</span></h2>
-              <p className="text-xl md:text-3xl text-black/60 leading-relaxed font-light max-w-4xl">
-                Blade Inner Circle is a 2-month intensive for those who refuse to be passive. We don't watch videos; we deploy systems. You are entering a room where the only metric of success is the infrastructure you build and the revenue you generate.
-              </p>
+              <p className="text-xl md:text-3xl text-black/60 leading-relaxed font-light max-w-4xl">Blade Inner Circle is a 2-month intensive for those who refuse to be passive. We deploy systems. You are entering a room where revenue is the only metric.</p>
             </section>
 
-            {/* 3. WHY BLADE INNER CIRCLE */}
-            <section className="py-32 px-6 md:px-24 bg-[#F9F9F9] border-y border-black/5">
+            <section className="py-32 px-6 md:px-24 bg-[#F9F9F9] border-y border-black/5 text-left">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
-                <div>
-                  <SectionLabel>The Difference</SectionLabel>
-                  <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-12">Extracted from <br/> the trenches.</h2>
-                </div>
-                <div className="space-y-12 text-left">
+                <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-12">Extracted from <br/> the trenches.</h2>
+                <div className="space-y-12">
                   <div>
                     <h4 className="text-xl font-bold uppercase mb-4 text-black">Zero Theory</h4>
-                    <p className="text-black/50 leading-relaxed">Everything here was decoded over thousands of hours of real-world client work at Blade Media. We share the silent mechanics that courses don't know exist.</p>
+                    <p className="text-black/50 leading-relaxed">Everything decoded over thousands of hours of client work at Blade Media. We share the mechanics that courses don't know exist.</p>
                   </div>
                   <div>
                     <h4 className="text-xl font-bold uppercase mb-4 text-black">High Stakes</h4>
-                    <p className="text-black/50 leading-relaxed">This isn't a classroom. It’s a high-pressure environment designed to move you from amateur creator to agency operator in 60 days.</p>
+                    <p className="text-black/50 leading-relaxed">Designed to move you from amateur creator to agency operator in 60 days.</p>
                   </div>
                 </div>
               </div>
             </section>
 
-            {/* 4. WHAT YOU BUILD */}
             <section className="py-32 px-6 md:px-24">
               <SectionLabel>The Ledger</SectionLabel>
               <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-20 text-center text-black">Tangible Assets.</h2>
@@ -249,7 +258,6 @@ export default function Home() {
               </div>
             </section>
 
-            {/* 5. THE JOURNEY (8 WEEKS) */}
             <section className="py-32 px-6 md:px-24 bg-black text-white">
               <SectionLabel>The 60-Day Build</SectionLabel>
               <div className="space-y-24 mt-20 text-left">
@@ -268,59 +276,40 @@ export default function Home() {
               </div>
             </section>
 
-            {/* 6. HOW IT WORKS */}
             <section className="py-32 px-6 md:px-24 grid grid-cols-1 md:grid-cols-3 gap-1 bg-black/5">
-              <div className="p-12 bg-white border border-black/5 text-left">
-                <Zap className="mb-8 text-[#F3D7A7]" />
-                <h4 className="font-bold uppercase mb-4 text-black">Live Sprints</h4>
-                <p className="text-sm text-black/40">Weekly interactive builds where we solve real-world agency bottlenecks in real-time.</p>
-              </div>
-              <div className="p-12 bg-white border border-black/5 text-left">
-                <Target className="mb-8 text-[#F3D7A7]" />
-                <h4 className="font-bold uppercase mb-4 text-black">Hot Seats</h4>
-                <p className="text-sm text-black/40">Your systems and outreach put under the microscope for surgical feedback.</p>
-              </div>
-              <div className="p-12 bg-white border border-black/5 text-left">
-                <ShieldCheck className="mb-8 text-[#F3D7A7]" />
-                <h4 className="font-bold uppercase mb-4 text-black">Execution Logs</h4>
-                <p className="text-sm text-black/40">Daily accountability and tracking to ensure you are building, not just watching.</p>
-              </div>
+              {[
+                { i: <Zap />, h: "Live Sprints", d: "Weekly interactive builds where we solve real-world agency bottlenecks in real-time." },
+                { i: <Target />, h: "Hot Seats", d: "Your systems and outreach put under the microscope for surgical feedback." },
+                { i: <ShieldCheck />, h: "Execution Logs", d: "Daily accountability and tracking to ensure you are building." }
+              ].map((item, i) => (
+                <div key={i} className="p-12 bg-white border border-black/5 text-left">
+                  <div className="text-[#F3D7A7] mb-8">{item.i}</div>
+                  <h4 className="font-bold uppercase mb-4 text-black">{item.h}</h4>
+                  <p className="text-sm text-black/40">{item.d}</p>
+                </div>
+              ))}
             </section>
 
-            {/* 7. FOUNDER STORY */}
             <section className="py-32 px-6 md:px-24 bg-white text-left">
               <div className="max-w-4xl">
                 <SectionLabel>The Founder</SectionLabel>
                 <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-[0.9] mb-12 text-black">I didn't have a mentor. <br/> I had deadlines.</h2>
-                <p className="text-xl md:text-2xl text-black/60 leading-relaxed font-light mb-8">
-                  I started at 13. I learned content and agency building by failing until I didn't. Blade Media is the result of that experimentation. The Inner Circle exists because I wanted to build the room I didn't have when I started—a place of raw truth and engineered results.
-                </p>
+                <p className="text-xl md:text-2xl text-black/60 leading-relaxed font-light mb-8">I started at 13. I learned content and agency building by failing until I didn't. The Inner Circle exists to build the room I didn't have—a place of raw truth and engineered results.</p>
               </div>
             </section>
 
-            {/* 8. ADMISSION */}
             <section className="py-40 px-6 md:px-24 text-center border-t border-black/5">
               <div className="max-w-3xl mx-auto">
                 <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tighter mb-12 text-black">Admission <br/> is Earned.</h2>
                 <p className="text-black/40 text-lg uppercase tracking-widest mb-16 italic text-sm">Entry is restricted to 10 architects per batch.</p>
-                <button onClick={() => window.location.href = "/apply"} className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl">
-                  Apply Now
-                </button>
+                <button onClick={() => window.location.href = "/apply"} className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl">Apply Now</button>
               </div>
             </section>
-
-            {/* 9. FINAL STATEMENT */}
-            <footer className="py-20 px-6 text-center bg-[#F9F9F9]">
-              <p className="text-[10px] font-bold uppercase tracking-[0.8em] text-black/20">
-                Stop Consuming. Start Operating.
-              </p>
-            </footer>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <footer className="h-screen flex flex-col justify-center items-center text-center px-6 relative z-20">
-        {/* Conditional Footer Rendering: Header and Button only show for Agency */}
+      <footer className="h-[50vh] flex flex-col justify-center items-center text-center px-6 relative z-20">
         {isAgency && (
           <>
             <h2 className="text-6xl md:text-[9vw] font-bold tracking-tighter uppercase mb-16 text-white">
