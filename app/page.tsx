@@ -86,8 +86,8 @@ export default function Home() {
   const verticalWorks = [
     { title: "Visual Dominance", category: "Reel", link: "https://www.instagram.com/reel/DDrxL2CMYCB/", video: "/preview5.mp4", img: "/thumb5.webp" },
     { title: "Editorial Series", category: "Reel", link: "https://www.instagram.com/katemackz/", video: "/preview6.mp4", img: "/thumb6.webp" },
-    { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" }, // FIXED: .mp4 extension
-    { title: "Retention Edit", category: "Reel", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" }, // FIXED: .mp4 extension
+    { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" },
+    { title: "Retention Edit", category: "Reel", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" },
   ];
 
   return (
@@ -195,7 +195,7 @@ export default function Home() {
                 <p className="text-2xl md:text-4xl text-black/60 leading-tight font-medium max-w-2xl">Build your agency. <br/> From skill to first income.</p>
                 <div className="flex flex-col items-start md:items-end gap-6">
                   <span className="text-[#F3D7A7] font-bold uppercase tracking-[0.3em] text-[10px] border border-[#F3D7A7]/30 px-4 py-2">Cohort 01 — Applications Open</span>
-                  <button className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-4">Apply for Admission <ArrowUpRight size={18}/></button>
+                  <button onClick={() => window.location.href = "/apply"} className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-4">Apply for Admission <ArrowUpRight size={18}/></button>
                 </div>
               </div>
             </section>
@@ -303,8 +303,8 @@ export default function Home() {
               <div className="max-w-3xl mx-auto">
                 <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tighter mb-12 text-black">Admission <br/> is Earned.</h2>
                 <p className="text-black/40 text-lg uppercase tracking-widest mb-16 italic text-sm">Entry is restricted to 10 architects per batch.</p>
-                <button className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl">
-                  Request Admission Portfolio
+                <button onClick={() => window.location.href = "/apply"} className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl">
+                  Apply Now
                 </button>
               </div>
             </section>
@@ -320,7 +320,7 @@ export default function Home() {
       </AnimatePresence>
 
       <footer className="h-screen flex flex-col justify-center items-center text-center px-6 relative z-20">
-        {/* Conditional Footer Rendering: Shows only for Agency side */}
+        {/* Conditional Footer Rendering: Header and Button only show for Agency */}
         {isAgency && (
           <>
             <h2 className="text-6xl md:text-[9vw] font-bold tracking-tighter uppercase mb-16 text-white">
