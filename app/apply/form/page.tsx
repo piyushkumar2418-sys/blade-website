@@ -15,13 +15,11 @@ export default function ApplicationPortal() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Application Submitted:", formData);
-    // Add logic for redirecting to a "Thank You" screen
   };
 
   return (
     <div className="min-h-screen bg-white text-black flex flex-col md:flex-row">
       
-      {/* LEFT SIDE: FORM (Scrollable) */}
       <div className="w-full md:w-[60%] px-6 md:px-20 py-20 overflow-y-auto">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
@@ -34,8 +32,6 @@ export default function ApplicationPortal() {
           </header>
 
           <form onSubmit={handleSubmit} className="space-y-12">
-            
-            {/* Section 1: Core */}
             <div className="space-y-8">
               <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7]">01. Identification</h3>
               <div className="grid grid-cols-1 gap-6">
@@ -47,7 +43,6 @@ export default function ApplicationPortal() {
               </div>
             </div>
 
-            {/* Section 2: Experience */}
             <div className="space-y-8">
               <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7]">02. Professional Background</h3>
               <InputField label="What do you currently do?" placeholder="e.g. Student, Freelancer, Working Professional" />
@@ -64,7 +59,6 @@ export default function ApplicationPortal() {
               </div>
             </div>
 
-            {/* Section 3: Intent */}
             <div className="space-y-8">
               <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7]">03. Strategy & Mindset</h3>
               <TextAreaField label="Why do you want to join Blade Inner Circle?" placeholder="Your motivations..." />
@@ -72,7 +66,6 @@ export default function ApplicationPortal() {
               <TextAreaField label="What do you think is currently stopping you?" placeholder="Identify your bottleneck..." />
             </div>
 
-            {/* Section 4: Commitment */}
             <div className="space-y-8">
               <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7]">04. Commitment Clause</h3>
               <div className="space-y-4">
@@ -88,7 +81,6 @@ export default function ApplicationPortal() {
         </motion.div>
       </div>
 
-      {/* RIGHT SIDE: INFORMATION PANEL (Fixed or Sticky) */}
       <div className="w-full md:w-[40%] bg-[#F9F9F9] border-l border-black/5 px-8 md:px-16 py-20">
         <motion.div 
           initial={{ opacity: 0, x: 20 }}
@@ -96,17 +88,34 @@ export default function ApplicationPortal() {
           transition={{ delay: 0.4 }}
           className="sticky top-20 space-y-16"
         >
-          {/* Cohort Details */}
-          <div>
-            <h2 className="text-3xl font-black uppercase tracking-tighter mb-8 leading-none italic">Cohort 01<br/>May 2026</h2>
-            <ul className="space-y-6">
+          {/* REDESIGNED COHORT SECTION */}
+          <div className="relative">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="h-[1px] w-12 bg-black/10"></div>
+              <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-black/40">Admissions Open</span>
+            </div>
+            
+            <div className="flex flex-col">
+              <span className="text-8xl font-black uppercase tracking-tighter leading-none text-black">
+                C0<span className="text-[#F3D7A7]">1</span>
+              </span>
+              <div className="flex items-center gap-3 mt-4">
+                <span className="text-sm font-bold uppercase tracking-[0.3em] border-b-2 border-black pb-1">
+                  May 2026
+                </span>
+                <span className="text-[10px] opacity-30 uppercase font-medium tracking-widest leading-none">
+                  // Global Intake
+                </span>
+              </div>
+            </div>
+
+            <ul className="space-y-6 mt-12">
               <InfoItem icon={<Zap size={16}/>} text="2-Month Intensive Program" />
               <InfoItem icon={<Users size={16}/>} text="Limited to 10 vetted architects" />
               <InfoItem icon={<ShieldCheck size={16}/>} text="Live Execution Sprints" />
             </ul>
           </div>
 
-          {/* Placement Section */}
           <div className="pt-12 border-t border-black/5">
             <div className="flex items-center gap-3 mb-6 text-[#F3D7A7]">
               <GraduationCap size={20} />
@@ -122,11 +131,10 @@ export default function ApplicationPortal() {
             </div>
           </div>
 
-          {/* Institutional Note */}
           <div className="bg-black text-white p-8 rounded-sm">
             <p className="text-[10px] uppercase tracking-[0.4em] font-bold mb-2">Notice</p>
             <p className="text-xs text-white/60 leading-relaxed font-light">
-              Applicants are selected based on mindset and commitment density. You will receive a response within 48 hours of filing your portfolio.
+              Applicants are selected based on mindset and commitment density. You will receive a response within 48 hours.
             </p>
           </div>
         </motion.div>
@@ -135,7 +143,6 @@ export default function ApplicationPortal() {
   );
 }
 
-// Helper Components
 const InputField = ({ label, placeholder, type = "text" }: any) => (
   <div className="space-y-2">
     <label className="text-[10px] font-bold uppercase tracking-widest text-black/60">{label}</label>
