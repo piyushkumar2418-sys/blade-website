@@ -1,12 +1,13 @@
 "use client";
 import React, { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, useInView, Variants, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, ShieldCheck, Zap, Users, Target, Laptop, LineChart, Landmark, Microscope, GraduationCap } from "lucide-react";
+import { ArrowUpRight, ShieldCheck, Zap, Users, Target, Laptop, LineChart, Award, Eye, ArrowRight, Layers, Fingerprint, Search, Repeat, Workflow, TrendingUp, Sparkles, Globe, briefcase } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
 
-// --- ANIMATION VARIANTS (RESTORED FADEUP) ---
+// --- ANIMATION VARIANTS ---
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { 
@@ -24,7 +25,7 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-// --- WORK ITEM COMPONENT (ORIGINAL GRID STYLE) ---
+// --- WORK ITEM COMPONENT ---
 const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: number }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -61,6 +62,7 @@ const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: n
 };
 
 export default function Home() {
+  const router = useRouter();
   const [siteMode, setSiteMode] = useState<"agency" | "innerCircle">("agency");
   const containerRef = useRef(null);
   const philosophyLeftRef = useRef(null);
@@ -68,7 +70,6 @@ export default function Home() {
   
   const { scrollYProgress } = useScroll({ target: containerRef });
   const isAgency = siteMode === "agency";
-  
   const navButtonOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
 
   const toggleMode = () => {
@@ -87,6 +88,13 @@ export default function Home() {
     { title: "Editorial Series", category: "Reel", link: "https://www.instagram.com/katemackz/", video: "/preview6.mp4", img: "/thumb6.webp" },
     { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" },
     { title: "Retention Edit", category: "Reel", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" },
+  ];
+
+  const founderStats = [
+    { icon: <Eye size={18} />, label: "2.5B+ Views Generated", desc: "Market-wide reach across primary channels." },
+    { icon: <TrendingUp size={18} />, label: "₹3Cr+ Revenue Built Through Content", desc: "Capital generated through visual systems." },
+    { icon: <Award size={18} />, label: "Worked With Leading Creators & Brands", desc: "Strategic partner for top-tier creators." },
+    { icon: <Zap size={18} />, label: "5+ Years of Execution Experience", desc: "Applied experience in high-ticket markets." },
   ];
 
   return (
@@ -191,7 +199,7 @@ export default function Home() {
                 <p className="text-2xl md:text-4xl text-black/60 leading-tight font-medium max-w-2xl">Build your agency. <br/> From skill to first income.</p>
                 <div className="flex flex-col items-start md:items-end gap-6">
                   <span className="text-[#F3D7A7] font-bold uppercase tracking-[0.3em] text-[10px] border border-[#F3D7A7]/30 px-4 py-2 text-left">Cohort 01 — Applications Open</span>
-                  <button onClick={() => window.location.href = "/apply/login"} className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-4">Apply for Admission <ArrowUpRight size={18}/></button>
+                  <button onClick={() => router.push("/apply/login")} className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-4">Apply for Admission <ArrowUpRight size={18}/></button>
                 </div>
               </div>
             </section>
@@ -202,75 +210,195 @@ export default function Home() {
               <p className="text-xl md:text-3xl text-black/60 leading-relaxed font-light max-w-4xl text-left">Blade Inner Circle is a 2-month intensive for those who refuse to be passive. We deploy systems. Revenue is the only metric.</p>
             </section>
 
-            <section className="py-32 px-6 md:px-24 bg-[#F9F9F9] border-y border-black/5 text-left">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
-                <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-12 text-left text-black">Extracted from <br/> the trenches.</h2>
-                <div className="space-y-12">
-                  <div>
-                    <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">Zero Theory</h4>
-                    <p className="text-black/50 leading-relaxed text-left">Everything decoded over thousands of hours of client work at Blade Media. We share the silent mechanics.</p>
+            {/* PRACTITIONERS SECTION */}
+            <section className="py-32 px-6 md:px-24 bg-white text-left border-y border-black/5">
+              <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-start">
+                <div>
+                   <SectionLabel>The Faculty</SectionLabel>
+                   <h2 className="text-5xl font-bold uppercase tracking-tighter leading-[0.85]">Learn From <br/> <span className="text-[#F3D7A7]">Practitioners.</span></h2>
+                   <p className="text-black/40 text-lg leading-relaxed font-light mt-8">
+                     We bring in actual founders, elite creators, and top-tier freelancers. Not teachers—practitioners who are currently winning in the market. You learn through direct transfer of active systems.
+                   </p>
+                </div>
+                <div className="grid grid-cols-1 gap-px bg-black/10 border border-black/10">
+                  <div className="bg-white p-10 text-left">
+                    <h4 className="text-black text-xs font-bold uppercase tracking-widest mb-4">Founders & Operators</h4>
+                    <p className="text-sm text-black/40 leading-relaxed italic">Systems for scaling agencies to ₹10L+ monthly.</p>
                   </div>
-                  <div>
-                    <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">High Stakes</h4>
-                    <p className="text-black/50 leading-relaxed text-left">Designed to move you from amateur creator to agency operator in 60 days.</p>
+                  <div className="bg-white p-10 border-t border-black/10 text-left">
+                    <h4 className="text-black text-xs font-bold uppercase tracking-widest mb-4">Top 1% Creators</h4>
+                    <p className="text-sm text-black/40 leading-relaxed italic">The physics of virality and high-retention distribution.</p>
+                  </div>
+                  <div className="bg-white p-10 border-t border-black/10 text-left">
+                    <h4 className="text-black text-xs font-bold uppercase tracking-widest mb-4">High-Ticket Freelancers</h4>
+                    <p className="text-sm text-black/40 leading-relaxed italic">Closing global clients and mastering high-leverage skillsets.</p>
                   </div>
                 </div>
               </div>
             </section>
 
-            <section className="py-32 px-6 md:px-24 text-left">
-              <SectionLabel>The Ledger</SectionLabel>
-              <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-20 text-black text-left">Tangible Assets.</h2>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {/* CURRICULUM GRID */}
+            <section className="py-32 px-6 md:px-24 border-b border-black/5">
+              <SectionLabel>The Execution Cycle</SectionLabel>
+              <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-[0.9] mb-12 text-left text-black">A <span className="text-[#F3D7A7]">Curriculum</span> Built <br/> for the Real Market.</h2>
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-px bg-black/10 border border-black/10">
                 {[
-                  { icon: <Target />, t: "Skill Moat", d: "Mastery over retention and editing fundamentals." },
-                  { icon: <Laptop />, t: "Service Engine", d: "A high-ticket offer that clients actually need." },
-                  { icon: <Users />, t: "Client Pipeline", d: "A repeatable system for acquisition." },
-                  { icon: <LineChart />, t: "Income Path", d: "A clear trajectory to ₹1L/month." }
-                ].map((item, i) => (
-                  <div key={i} className="p-10 border border-black/5 hover:border-[#F3D7A7] transition-all text-left group">
-                    <div className="text-[#F3D7A7] mb-6">{item.icon}</div>
-                    <h3 className="text-xl font-bold uppercase mb-4 text-black text-left">{item.t}</h3>
-                    <p className="text-sm text-black/40 leading-relaxed text-left">{item.d}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="py-32 px-6 md:px-24 bg-black text-white text-left">
-              <SectionLabel>The 60-Day Build</SectionLabel>
-              <div className="space-y-24 mt-20">
-                {[
-                  { p: "Phase 01", t: "Foundation & Synthesis", d: "Stripping away amateur habits. Mastering the silent physics of content and niche selection." },
-                  { p: "Phase 02", t: "Asset Architecture", d: "Building your offer and framing your skill as a high-leverage asset." },
-                  { p: "Phase 03", t: "The Acquisition Engine", d: "Deploying outreach systems and mastering high-ticket sales." },
-                  { p: "Phase 04", t: "Scale & Leverage", d: "Client delivery systems, team moats, and removing yourself from the loop." }
+                  { t: "Synthesis", d: ["Niche selection", "Demand mapping", "Skill auditing"] },
+                  { t: "Architecture", d: ["High-ticket offers", "Service delivery", "Asset building"] },
+                  { t: "Acquisition", d: ["Cold outreach", "Lead generation", "Closing Matrix"] },
+                  { t: "Delivery", d: ["Blade Standard", "Content Velocity", "Project Flow"] },
+                  { t: "Mastery", d: ["Scale psychology", "Team building", "Agency Entities"] }
                 ].map((phase, i) => (
-                  <div key={i} className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-b border-white/10 pb-16 text-left">
-                    <span className="md:col-span-2 font-mono text-[#F3D7A7] text-sm">{phase.p}</span>
-                    <h3 className="md:col-span-4 text-3xl font-bold uppercase tracking-tighter text-left">{phase.t}</h3>
-                    <p className="md:col-span-6 text-white/40 text-lg leading-relaxed font-light text-left">{phase.d}</p>
+                  <div key={i} className="bg-white p-10 hover:bg-[#F9F9F9] transition-all group">
+                    <span className="text-[10px] font-bold text-black/20 block mb-6 font-mono tracking-widest text-left">PHASE 0{i + 1}</span>
+                    <h3 className="text-xl font-bold uppercase mb-8 text-left">{phase.t}</h3>
+                    <ul className="space-y-3 text-left">
+                      {phase.d.map((item, idx) => (
+                        <li key={idx} className="text-xs text-black/40 font-medium flex gap-2 text-left"><span className="text-[#F3D7A7]">•</span> {item}</li>
+                      ))}
+                    </ul>
                   </div>
                 ))}
               </div>
             </section>
 
-            <section className="py-32 px-6 md:px-24 bg-white text-left">
-              <div className="max-w-4xl">
-                <SectionLabel>The Founder</SectionLabel>
-                <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-[0.9] mb-12 text-black text-left">I didn't have a mentor. <br/> I had deadlines.</h2>
-                <p className="text-xl md:text-2xl text-black/60 leading-relaxed font-light mb-8 text-left text-left">I started at 13. Blade Media is the result of that experimentation. The Inner Circle exists to build the room I didn't have.</p>
+            {/* FOUNDER AUTHORITY SECTION */}
+            <section className="bg-white py-32 px-6 md:px-24 text-black text-left border-b border-black/5">
+              <div className="flex flex-col md:flex-row items-center gap-20 md:gap-32 mb-28">
+                <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1 }} className="w-full md:w-1/2">
+                  <div className="relative aspect-[4/5] bg-[#F9F9F9] overflow-hidden grayscale group border border-black/5">
+                    <img src="/piyush.png" alt="Founder" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                    <div className="absolute bottom-8 left-8 z-20">
+                      <span className="bg-black text-[#F3D7A7] text-[9px] font-bold uppercase tracking-[0.4em] px-4 py-2">System Architect</span>
+                    </div>
+                  </div>
+                </motion.div>
+                <div className="w-full md:w-1/2">
+                  <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-10">
+                    <div>
+                      <SectionLabel>The Direct Line</SectionLabel>
+                      <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-[0.85] text-left">Learn Directly <br/> From The Founder</h2>
+                    </div>
+                    <p className="text-black/60 text-xl leading-relaxed max-w-lg font-light text-left">Blade Inner Circle isn’t built on theory — it’s built on execution. Every system, framework, and approach inside the program comes directly from what’s currently working inside Blade Media.</p>
+                  </motion.div>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-black/10 border border-black/10">
+                {founderStats.map((stat, idx) => (
+                  <motion.div key={idx} className="p-10 bg-white hover:bg-[#F9F9F9] transition-all duration-500 group text-left">
+                    <div className="mb-6 text-[#F3D7A7] transition-colors duration-500">{stat.icon}</div>
+                    <h4 className="text-sm font-bold uppercase tracking-widest leading-tight mb-3 text-left">{stat.label}</h4>
+                    <p className="text-[10px] text-black/30 uppercase tracking-[0.2em] text-left">{stat.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </section>
+
+            {/* PLACEMENT PLAN SECTION */}
+            <section className="py-32 px-6 md:px-24 bg-black text-white text-left">
+              <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
+                <div>
+                   <SectionLabel>The Outcome</SectionLabel>
+                   <h2 className="text-5xl font-bold uppercase tracking-tighter leading-[0.85]">Opportunities, <br/> <span className="text-[#F3D7A7]">Not Just Learning.</span></h2>
+                   <p className="text-white/40 text-lg leading-relaxed font-light mt-8">
+                     Skill without a venue is wasted potential. We provide a direct pathway for our graduates to enter high-level roles or scale their independent agency entities.
+                   </p>
+                </div>
+                <div className="grid grid-cols-1 gap-px bg-white/10 border border-white/10">
+                  <div className="bg-black p-10 text-left hover:bg-white/5 transition-all">
+                    <h4 className="text-[#F3D7A7] text-xs font-bold uppercase tracking-widest mb-4">Internal Pipeline</h4>
+                    <p className="text-sm text-white/40 leading-relaxed font-light">Priority hiring for Blade Media's own expansion as we scale our internal editing and creative teams.</p>
+                  </div>
+                  <div className="bg-black p-10 border-t border-white/10 text-left hover:bg-white/5 transition-all">
+                    <h4 className="text-[#F3D7A7] text-xs font-bold uppercase tracking-widest mb-4">Partner Network</h4>
+                    <p className="text-sm text-white/40 leading-relaxed font-light">Direct referrals to our network of partner marketing agencies and high-growth consumer brands.</p>
+                  </div>
+                  <div className="bg-black p-10 border-t border-white/10 text-left hover:bg-white/5 transition-all">
+                    <h4 className="text-[#F3D7A7] text-xs font-bold uppercase tracking-widest mb-4">Agency Bridge</h4>
+                    <p className="text-sm text-white/40 leading-relaxed font-light">Strategic support in acquiring and retaining independent high-ticket clients using Blade's lead-gen systems.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* ADMISSIONS FILTER */}
+            <section className="bg-white py-32 px-6 md:px-24 text-left border-b border-black/5">
+              <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-start text-left">
+                <div className="text-left">
+                   <SectionLabel>The Admissions Filter</SectionLabel>
+                   <h2 className="text-5xl font-bold uppercase tracking-tighter leading-[0.85] italic mb-8 text-left">
+                     Who Is This <br /> <span className="text-[#F3D7A7]">Built For?</span>
+                   </h2>
+                   <p className="text-black/40 text-lg leading-relaxed font-medium mb-12 text-left">
+                     Admission is not a purchase. It is a selection process based on intent, hunger, and proof of work.
+                   </p>
+                </div>
+
+                <div className="grid grid-cols-1 gap-px bg-black/10 border border-black/10">
+                  <div className="bg-white p-10 text-left">
+                    <h4 className="text-[#F3D7A7] text-xs font-bold uppercase tracking-widest mb-6 text-left">The Ideal Candidate</h4>
+                    <ul className="space-y-4 font-bold uppercase text-sm tracking-tight text-left">
+                      <li className="flex gap-3 items-center text-left"><Sparkles size={14}/> Existing Freelancers</li>
+                      <li className="flex gap-3 items-center text-left"><Sparkles size={14}/> Action-Takers</li>
+                      <li className="flex gap-3 items-center text-left"><Sparkles size={14}/> System Builders</li>
+                    </ul>
+                  </div>
+                  <div className="bg-white p-10 border-t border-black/10 opacity-40 text-left">
+                    <h4 className="text-red-500 text-xs font-bold uppercase tracking-widest mb-6 text-left">Do Not Apply If</h4>
+                    <ul className="space-y-4 text-xs font-medium uppercase tracking-widest text-left">
+                      <li>Searching for "Passive Income"</li>
+                      <li>Unwilling to execute technically</li>
+                      <li>Looking for shortcuts</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* BRIDGE TO CURRICULUM */}
+            <section className="py-32 px-6 md:px-24 bg-white">
+              <div className="max-w-7xl mx-auto">
+                <div className="bg-black text-white rounded-[3rem] p-12 md:p-20 flex flex-col md:flex-row items-center justify-between gap-12 overflow-hidden relative shadow-2xl">
+                  <div className="absolute top-0 right-0 w-96 h-96 bg-[#F3D7A7]/10 blur-[100px] rounded-full -mr-32 -mt-32" />
+                  <div className="max-w-2xl relative z-10 text-left">
+                    <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.4em] mb-6 block">What you will learn</span>
+                    <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-tight mb-8 text-left text-white">
+                      The exact systems <br /> behind ₹3Cr+ in revenue.
+                    </h2>
+                    <p className="text-white/50 text-lg font-light mb-10 text-left">
+                      We’ve broken down the agency journey into five easy-to-follow phases. No fluff, just execution.
+                    </p>
+                    <button 
+                      onClick={() => router.push("/curriculum")}
+                      className="bg-white text-black px-10 py-5 rounded-full font-bold uppercase tracking-widest text-xs flex items-center gap-3 hover:bg-[#F3D7A7] transition-colors"
+                    >
+                      Explore Full Prospectus <ArrowRight size={16} />
+                    </button>
+                  </div>
+                  <div className="hidden lg:block relative z-10">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="h-32 w-32 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 flex-col gap-2 text-center text-white">
+                        <span className="text-[#F3D7A7] font-bold text-2xl">60</span>
+                        <span className="text-[8px] uppercase font-bold text-white/40 tracking-widest">Days</span>
+                      </div>
+                      <div className="h-32 w-32 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 flex-col gap-2 text-center text-white">
+                        <span className="text-[#F3D7A7] font-bold text-2xl">5</span>
+                        <span className="text-[8px] uppercase font-bold text-white/40 tracking-widest">Phases</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
 
             <section className="py-40 px-6 md:px-24 text-center border-t border-black/5">
-              <div className="max-w-3xl mx-auto text-center">
-                <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tighter mb-12 text-black text-center">Admission <br/> is Earned.</h2>
-                <button onClick={() => window.location.href = "/apply/login"} className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl">Apply Now</button>
+              <div className="max-w-3xl mx-auto">
+                <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tighter mb-12 text-black text-center text-black">Earn your <br/> entry.</h2>
+                <button onClick={() => router.push("/apply/login")} className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl">Submit Admission Request</button>
               </div>
             </section>
 
-            <footer className="py-20 px-6 text-center bg-[#F9F9F9]">
+            <footer className="py-20 px-6 text-center border-t border-black/5 bg-[#F9F9F9]">
               <p className="text-[10px] font-bold uppercase tracking-[0.8em] text-black/20 text-center">Stop Consuming. Start Operating.</p>
             </footer>
           </motion.div>
