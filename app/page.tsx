@@ -2,7 +2,7 @@
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, useInView, Variants, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, ShieldCheck, Zap, Users, Target, Laptop, LineChart, Award, Eye, ArrowRight, Layers, Fingerprint, Search, Repeat, Workflow, TrendingUp, Sparkles, Globe, briefcase } from "lucide-react";
+import { ArrowUpRight, ShieldCheck, Zap, Users, Target, Laptop, LineChart, Award, Eye, ArrowRight, Layers, Fingerprint, Search, Repeat, Workflow, TrendingUp, Sparkles, Globe, Briefcase } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
@@ -139,9 +139,9 @@ export default function Home() {
               <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-70">
                 <source src="/hero-bg.mp4?v=4" type="video/mp4" />
               </video>
-              <div className="relative z-20 px-4">
-                <h1 className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8 text-white text-center">Growth,<br/>engineered.</h1>
-                <p className="text-[#F3D7A7] text-[10px] md:text-[12px] uppercase tracking-[0.8em] font-bold text-center">Blade Media</p>
+              <div className="relative z-20 px-4 text-center">
+                <h1 className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8 text-white">Growth,<br/>engineered.</h1>
+                <p className="text-[#F3D7A7] text-[10px] md:text-[12px] uppercase tracking-[0.8em] font-bold">Blade Media</p>
               </div>
             </section>
 
@@ -174,13 +174,13 @@ export default function Home() {
             <section className="py-32 px-6 md:px-12 relative z-20">
               <div className="max-w-[1400px] mx-auto w-full space-y-48">
                 <div className="text-left">
-                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12 text-white">Selected Productions</h2>
+                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12 text-white text-left">Selected Productions</h2>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {youtubeWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-video" index={i} /> ))}
                   </div>
                 </div>
                 <div className="text-left">
-                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12 text-[#F3D7A7]">Viral Originals</h2>
+                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12 text-[#F3D7A7] text-left">Viral Originals</h2>
                   <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                     {verticalWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} /> ))}
                   </div>
@@ -196,7 +196,7 @@ export default function Home() {
               <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.5em] font-bold mb-8 block text-black/40">Blade Inner Circle</motion.span>
               <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="text-[12vw] md:text-[8vw] font-bold leading-[0.85] tracking-tighter uppercase mb-12">The School of <br/> Modern Content.</motion.h1>
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
-                <p className="text-2xl md:text-4xl text-black/60 leading-tight font-medium max-w-2xl">Build your agency. <br/> From skill to first income.</p>
+                <p className="text-2xl md:text-4xl text-black/60 leading-tight font-medium max-w-2xl text-left">Build your agency. <br/> From skill to first income.</p>
                 <div className="flex flex-col items-start md:items-end gap-6">
                   <span className="text-[#F3D7A7] font-bold uppercase tracking-[0.3em] text-[10px] border border-[#F3D7A7]/30 px-4 py-2 text-left">Cohort 01 — Applications Open</span>
                   <button onClick={() => router.push("/apply/login")} className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-4">Apply for Admission <ArrowUpRight size={18}/></button>
@@ -210,28 +210,44 @@ export default function Home() {
               <p className="text-xl md:text-3xl text-black/60 leading-relaxed font-light max-w-4xl text-left">Blade Inner Circle is a 2-month intensive for those who refuse to be passive. We deploy systems. Revenue is the only metric.</p>
             </section>
 
+            <section className="py-32 px-6 md:px-24 bg-[#F9F9F9] border-y border-black/5 text-left">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
+                <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-12 text-left text-black">Extracted from <br/> the trenches.</h2>
+                <div className="space-y-12">
+                  <div>
+                    <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">Zero Theory</h4>
+                    <p className="text-black/50 leading-relaxed text-left">Everything decoded over thousands of hours of client work at Blade Media. We share the silent mechanics.</p>
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">High Stakes</h4>
+                    <p className="text-black/50 leading-relaxed text-left">Designed to move you from amateur creator to agency operator in 60 days.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
             {/* PRACTITIONERS SECTION */}
-            <section className="py-32 px-6 md:px-24 bg-white text-left border-y border-black/5">
-              <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-start">
-                <div>
+            <section className="py-32 px-6 md:px-24 bg-white text-left border-b border-black/5">
+              <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-start text-left">
+                <div className="text-left">
                    <SectionLabel>The Faculty</SectionLabel>
-                   <h2 className="text-5xl font-bold uppercase tracking-tighter leading-[0.85]">Learn From <br/> <span className="text-[#F3D7A7]">Practitioners.</span></h2>
-                   <p className="text-black/40 text-lg leading-relaxed font-light mt-8">
+                   <h2 className="text-5xl font-bold uppercase tracking-tighter leading-[0.85] text-left">Learn From <br/> <span className="text-[#F3D7A7]">Practitioners.</span></h2>
+                   <p className="text-black/40 text-lg leading-relaxed font-light mt-8 text-left">
                      We bring in actual founders, elite creators, and top-tier freelancers. Not teachers—practitioners who are currently winning in the market. You learn through direct transfer of active systems.
                    </p>
                 </div>
                 <div className="grid grid-cols-1 gap-px bg-black/10 border border-black/10">
                   <div className="bg-white p-10 text-left">
-                    <h4 className="text-black text-xs font-bold uppercase tracking-widest mb-4">Founders & Operators</h4>
-                    <p className="text-sm text-black/40 leading-relaxed italic">Systems for scaling agencies to ₹10L+ monthly.</p>
+                    <h4 className="text-black text-xs font-bold uppercase tracking-widest mb-4 text-left">Founders & Operators</h4>
+                    <p className="text-sm text-black/40 leading-relaxed italic text-left">Systems for scaling agencies to ₹10L+ monthly.</p>
                   </div>
                   <div className="bg-white p-10 border-t border-black/10 text-left">
-                    <h4 className="text-black text-xs font-bold uppercase tracking-widest mb-4">Top 1% Creators</h4>
-                    <p className="text-sm text-black/40 leading-relaxed italic">The physics of virality and high-retention distribution.</p>
+                    <h4 className="text-black text-xs font-bold uppercase tracking-widest mb-4 text-left">Top 1% Creators</h4>
+                    <p className="text-sm text-black/40 leading-relaxed italic text-left">The physics of virality and high-retention distribution.</p>
                   </div>
                   <div className="bg-white p-10 border-t border-black/10 text-left">
-                    <h4 className="text-black text-xs font-bold uppercase tracking-widest mb-4">High-Ticket Freelancers</h4>
-                    <p className="text-sm text-black/40 leading-relaxed italic">Closing global clients and mastering high-leverage skillsets.</p>
+                    <h4 className="text-black text-xs font-bold uppercase tracking-widest mb-4 text-left">High-Ticket Freelancers</h4>
+                    <p className="text-sm text-black/40 leading-relaxed italic text-left">Closing global clients and mastering high-leverage skillsets.</p>
                   </div>
                 </div>
               </div>
@@ -273,7 +289,7 @@ export default function Home() {
                     </div>
                   </div>
                 </motion.div>
-                <div className="w-full md:w-1/2">
+                <div className="w-full md:w-1/2 text-left">
                   <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-10">
                     <div>
                       <SectionLabel>The Direct Line</SectionLabel>
@@ -296,26 +312,26 @@ export default function Home() {
 
             {/* PLACEMENT PLAN SECTION */}
             <section className="py-32 px-6 md:px-24 bg-black text-white text-left">
-              <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
+              <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-center text-left">
                 <div>
                    <SectionLabel>The Outcome</SectionLabel>
-                   <h2 className="text-5xl font-bold uppercase tracking-tighter leading-[0.85]">Opportunities, <br/> <span className="text-[#F3D7A7]">Not Just Learning.</span></h2>
-                   <p className="text-white/40 text-lg leading-relaxed font-light mt-8">
+                   <h2 className="text-5xl font-bold uppercase tracking-tighter leading-[0.85] text-left">Opportunities, <br/> <span className="text-[#F3D7A7]">Not Just Learning.</span></h2>
+                   <p className="text-white/40 text-lg leading-relaxed font-light mt-8 text-left">
                      Skill without a venue is wasted potential. We provide a direct pathway for our graduates to enter high-level roles or scale their independent agency entities.
                    </p>
                 </div>
                 <div className="grid grid-cols-1 gap-px bg-white/10 border border-white/10">
                   <div className="bg-black p-10 text-left hover:bg-white/5 transition-all">
-                    <h4 className="text-[#F3D7A7] text-xs font-bold uppercase tracking-widest mb-4">Internal Pipeline</h4>
-                    <p className="text-sm text-white/40 leading-relaxed font-light">Priority hiring for Blade Media's own expansion as we scale our internal editing and creative teams.</p>
+                    <h4 className="text-[#F3D7A7] text-xs font-bold uppercase tracking-widest mb-4 text-left">Internal Pipeline</h4>
+                    <p className="text-sm text-white/40 leading-relaxed font-light text-left">Priority hiring for Blade Media's own expansion as we scale our internal creative teams.</p>
                   </div>
                   <div className="bg-black p-10 border-t border-white/10 text-left hover:bg-white/5 transition-all">
-                    <h4 className="text-[#F3D7A7] text-xs font-bold uppercase tracking-widest mb-4">Partner Network</h4>
-                    <p className="text-sm text-white/40 leading-relaxed font-light">Direct referrals to our network of partner marketing agencies and high-growth consumer brands.</p>
+                    <h4 className="text-[#F3D7A7] text-xs font-bold uppercase tracking-widest mb-4 text-left">Partner Network</h4>
+                    <p className="text-sm text-white/40 leading-relaxed font-light text-left">Direct referrals to our network of partner agencies and high-growth brands.</p>
                   </div>
                   <div className="bg-black p-10 border-t border-white/10 text-left hover:bg-white/5 transition-all">
-                    <h4 className="text-[#F3D7A7] text-xs font-bold uppercase tracking-widest mb-4">Agency Bridge</h4>
-                    <p className="text-sm text-white/40 leading-relaxed font-light">Strategic support in acquiring and retaining independent high-ticket clients using Blade's lead-gen systems.</p>
+                    <h4 className="text-[#F3D7A7] text-xs font-bold uppercase tracking-widest mb-4 text-left">Agency Bridge</h4>
+                    <p className="text-sm text-white/40 leading-relaxed font-light text-left">Strategic support in acquiring independent high-ticket clients using Blade's lead-gen systems.</p>
                   </div>
                 </div>
               </div>
@@ -355,45 +371,9 @@ export default function Home() {
               </div>
             </section>
 
-            {/* BRIDGE TO CURRICULUM */}
-            <section className="py-32 px-6 md:px-24 bg-white">
-              <div className="max-w-7xl mx-auto">
-                <div className="bg-black text-white rounded-[3rem] p-12 md:p-20 flex flex-col md:flex-row items-center justify-between gap-12 overflow-hidden relative shadow-2xl">
-                  <div className="absolute top-0 right-0 w-96 h-96 bg-[#F3D7A7]/10 blur-[100px] rounded-full -mr-32 -mt-32" />
-                  <div className="max-w-2xl relative z-10 text-left">
-                    <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.4em] mb-6 block">What you will learn</span>
-                    <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-tight mb-8 text-left text-white">
-                      The exact systems <br /> behind ₹3Cr+ in revenue.
-                    </h2>
-                    <p className="text-white/50 text-lg font-light mb-10 text-left">
-                      We’ve broken down the agency journey into five easy-to-follow phases. No fluff, just execution.
-                    </p>
-                    <button 
-                      onClick={() => router.push("/curriculum")}
-                      className="bg-white text-black px-10 py-5 rounded-full font-bold uppercase tracking-widest text-xs flex items-center gap-3 hover:bg-[#F3D7A7] transition-colors"
-                    >
-                      Explore Full Prospectus <ArrowRight size={16} />
-                    </button>
-                  </div>
-                  <div className="hidden lg:block relative z-10">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="h-32 w-32 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 flex-col gap-2 text-center text-white">
-                        <span className="text-[#F3D7A7] font-bold text-2xl">60</span>
-                        <span className="text-[8px] uppercase font-bold text-white/40 tracking-widest">Days</span>
-                      </div>
-                      <div className="h-32 w-32 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 flex-col gap-2 text-center text-white">
-                        <span className="text-[#F3D7A7] font-bold text-2xl">5</span>
-                        <span className="text-[8px] uppercase font-bold text-white/40 tracking-widest">Phases</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
             <section className="py-40 px-6 md:px-24 text-center border-t border-black/5">
-              <div className="max-w-3xl mx-auto">
-                <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tighter mb-12 text-black text-center text-black">Earn your <br/> entry.</h2>
+              <div className="max-w-3xl mx-auto text-center">
+                <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tighter mb-12 text-black text-center">Earn your <br/> entry.</h2>
                 <button onClick={() => router.push("/apply/login")} className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl">Submit Admission Request</button>
               </div>
             </section>
