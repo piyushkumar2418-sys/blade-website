@@ -193,34 +193,37 @@ export default function Home() {
           <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-black bg-white min-h-screen">
             
             <section className="h-screen flex flex-col justify-center px-6 md:px-24 border-b border-black/5 text-left">
-              <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.5em] font-bold mb-8 block text-black/40">Blade Inner Circle</motion.span>
+              <div className="flex justify-between items-start mb-8">
+                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.5em] font-bold block text-black/40">Blade Inner Circle</motion.span>
+                <div className="px-4 py-2 border border-black/10 bg-black/5 text-black font-bold uppercase tracking-[0.3em] text-[10px]">
+                  Commencing May 2026
+                </div>
+              </div>
               <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="text-[12vw] md:text-[8vw] font-bold leading-[0.85] tracking-tighter uppercase mb-12">The School of <br/> Modern Content.</motion.h1>
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
                 <p className="text-2xl md:text-4xl text-black/60 leading-tight font-medium max-w-2xl text-left">Build your agency. <br/> From skill to first income.</p>
                 <div className="flex flex-col items-start md:items-end gap-6">
                   <span className="text-[#F3D7A7] font-bold uppercase tracking-[0.3em] text-[10px] border border-[#F3D7A7]/30 px-4 py-2 text-left">Cohort 01 — Applications Open</span>
-                  <button onClick={() => router.push("/apply/login")} className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-4">Apply for Admission <ArrowUpRight size={18}/></button>
+                  <button onClick={() => router.push("/apply/login")} className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-4">Apply now <ArrowUpRight size={18}/></button>
                 </div>
               </div>
             </section>
 
-            <section className="py-32 px-6 md:px-24 max-w-7xl text-left">
-              <SectionLabel>Institutional Thesis</SectionLabel>
-              <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-[0.9] mb-12 text-left">Theoretical learning is a trap. <br/> <span className="text-black/20">This is an execution lab.</span></h2>
-              <p className="text-xl md:text-3xl text-black/60 leading-relaxed font-light max-w-4xl text-left">Blade Inner Circle is a 2-month intensive for those who refuse to be passive. We deploy systems. Revenue is the only metric.</p>
-            </section>
-
-            <section className="py-32 px-6 md:px-24 bg-[#F9F9F9] border-y border-black/5 text-left">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
-                <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-12 text-left text-black">Extracted from <br/> the trenches.</h2>
-                <div className="space-y-12">
-                  <div>
+            <section className="py-32 px-6 md:px-24 max-w-7xl text-left border-b border-black/5">
+              <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                <div className="pr-0 md:pr-12">
+                   <SectionLabel>Institutional Thesis</SectionLabel>
+                   <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-[0.9] mb-12 text-left">Theoretical learning is a trap. <br/> <span className="text-black/20">This is an execution lab.</span></h2>
+                   <p className="text-xl md:text-2xl text-black/60 leading-relaxed font-light text-left">Blade Inner Circle is a 2-month intensive for those who refuse to be passive. We deploy systems. Revenue is the only metric.</p>
+                </div>
+                <div className="grid grid-cols-1 gap-px bg-black/10 border border-black/10">
+                  <div className="bg-white p-8 md:p-12 text-left">
                     <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">Zero Theory</h4>
-                    <p className="text-black/50 leading-relaxed text-left">Everything decoded over thousands of hours of client work at Blade Media. We share the silent mechanics.</p>
+                    <p className="text-black/50 leading-relaxed text-left text-sm md:text-base">Everything decoded over thousands of hours of client work at Blade Media. We share the silent mechanics.</p>
                   </div>
-                  <div>
+                  <div className="bg-white p-8 md:p-12 border-t border-black/10 text-left">
                     <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">High Stakes</h4>
-                    <p className="text-black/50 leading-relaxed text-left">Designed to move you from amateur creator to agency operator in 60 days.</p>
+                    <p className="text-black/50 leading-relaxed text-left text-sm md:text-base">Designed to move you from amateur creator to agency operator in 60 days.</p>
                   </div>
                 </div>
               </div>
@@ -253,31 +256,6 @@ export default function Home() {
               </div>
             </section>
 
-            {/* CURRICULUM GRID */}
-            <section className="py-32 px-6 md:px-24 border-b border-black/5">
-              <SectionLabel>The Execution Cycle</SectionLabel>
-              <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-[0.9] mb-12 text-left text-black">A <span className="text-[#F3D7A7]">Curriculum</span> Built <br/> for the Real Market.</h2>
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-px bg-black/10 border border-black/10">
-                {[
-                  { t: "Synthesis", d: ["Niche selection", "Demand mapping", "Skill auditing"] },
-                  { t: "Architecture", d: ["High-ticket offers", "Service delivery", "Asset building"] },
-                  { t: "Acquisition", d: ["Cold outreach", "Lead generation", "Closing Matrix"] },
-                  { t: "Delivery", d: ["Blade Standard", "Content Velocity", "Project Flow"] },
-                  { t: "Mastery", d: ["Scale psychology", "Team building", "Agency Entities"] }
-                ].map((phase, i) => (
-                  <div key={i} className="bg-white p-10 hover:bg-[#F9F9F9] transition-all group">
-                    <span className="text-[10px] font-bold text-black/20 block mb-6 font-mono tracking-widest text-left">PHASE 0{i + 1}</span>
-                    <h3 className="text-xl font-bold uppercase mb-8 text-left">{phase.t}</h3>
-                    <ul className="space-y-3 text-left">
-                      {phase.d.map((item, idx) => (
-                        <li key={idx} className="text-xs text-black/40 font-medium flex gap-2 text-left"><span className="text-[#F3D7A7]">•</span> {item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </section>
-
             {/* FOUNDER AUTHORITY SECTION */}
             <section className="bg-white py-32 px-6 md:px-24 text-black text-left border-b border-black/5">
               <div className="flex flex-col md:flex-row items-center gap-20 md:gap-32 mb-28">
@@ -292,7 +270,7 @@ export default function Home() {
                 <div className="w-full md:w-1/2 text-left">
                   <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-10">
                     <div>
-                      <SectionLabel>The Direct Line</SectionLabel>
+                      <SectionLabel>The Practitioner</SectionLabel>
                       <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-[0.85] text-left">Learn Directly <br/> From The Founder</h2>
                     </div>
                     <p className="text-black/60 text-xl leading-relaxed max-w-lg font-light text-left">Blade Inner Circle isn’t built on theory — it’s built on execution. Every system, framework, and approach inside the program comes directly from what’s currently working inside Blade Media.</p>
@@ -311,7 +289,7 @@ export default function Home() {
             </section>
 
             {/* PLACEMENT PLAN SECTION */}
-            <section className="py-32 px-6 md:px-24 bg-black text-white text-left">
+            <section className="py-32 px-6 md:px-24 bg-black text-white text-left border-b border-white/5">
               <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-center text-left">
                 <div>
                    <SectionLabel>The Outcome</SectionLabel>
@@ -342,7 +320,7 @@ export default function Home() {
               <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-start text-left">
                 <div className="text-left">
                    <SectionLabel>The Admissions Filter</SectionLabel>
-                   <h2 className="text-5xl font-bold uppercase tracking-tighter leading-[0.85] italic mb-8 text-left">
+                   <h2 className="text-5xl font-bold uppercase tracking-tighter leading-[0.85] mb-8 text-left">
                      Who Is This <br /> <span className="text-[#F3D7A7]">Built For?</span>
                    </h2>
                    <p className="text-black/40 text-lg leading-relaxed font-medium mb-12 text-left">
@@ -371,10 +349,46 @@ export default function Home() {
               </div>
             </section>
 
+            {/* BRIDGE TO CURRICULUM */}
+            <section className="py-32 px-6 md:px-24 bg-white border-b border-black/5">
+              <div className="max-w-7xl mx-auto">
+                <div className="bg-black text-white rounded-[3rem] p-12 md:p-20 flex flex-col md:flex-row items-center justify-between gap-12 overflow-hidden relative shadow-2xl">
+                  <div className="absolute top-0 right-0 w-96 h-96 bg-[#F3D7A7]/10 blur-[100px] rounded-full -mr-32 -mt-32" />
+                  <div className="max-w-2xl relative z-10 text-left">
+                    <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.4em] mb-6 block">What you will learn</span>
+                    <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-tight mb-8 text-left text-white text-left">
+                      The exact systems <br /> behind ₹3Cr+ in revenue.
+                    </h2>
+                    <p className="text-white/50 text-lg font-light mb-10 text-left text-left">
+                      We’ve deconstructed the entire agency journey into five easy-to-follow phases. No fluff, just execution.
+                    </p>
+                    <button 
+                      onClick={() => router.push("/curriculum")}
+                      className="bg-white text-black px-10 py-5 rounded-full font-bold uppercase tracking-widest text-xs flex items-center gap-3 hover:bg-[#F3D7A7] transition-colors"
+                    >
+                      Explore Full Prospectus <ArrowRight size={16} />
+                    </button>
+                  </div>
+                  <div className="hidden lg:block relative z-10">
+                    <div className="grid grid-cols-2 gap-4 text-white">
+                      <div className="h-32 w-32 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 flex-col gap-2 text-center">
+                        <span className="text-[#F3D7A7] font-bold text-2xl">60</span>
+                        <span className="text-[8px] uppercase font-bold text-white/40 tracking-widest">Days</span>
+                      </div>
+                      <div className="h-32 w-32 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 flex-col gap-2 text-center">
+                        <span className="text-[#F3D7A7] font-bold text-2xl">5</span>
+                        <span className="text-[8px] uppercase font-bold text-white/40 tracking-widest">Phases</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
             <section className="py-40 px-6 md:px-24 text-center border-t border-black/5">
               <div className="max-w-3xl mx-auto text-center">
-                <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tighter mb-12 text-black text-center">Earn your <br/> entry.</h2>
-                <button onClick={() => router.push("/apply/login")} className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl">Submit Admission Request</button>
+                <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tighter mb-12 text-black text-center text-black">Proof of work <br/> beats theory.</h2>
+                <button onClick={() => router.push("/apply/login")} className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl">Apply now</button>
               </div>
             </section>
 

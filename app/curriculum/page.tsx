@@ -1,82 +1,124 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Zap, Users, Trophy, Target, Globe, Rocket, Star, Briefcase } from "lucide-react";
-import CustomCursor from "@/components/CustomCursor";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, ArrowUpRight, Target, Laptop, Users, LineChart, ShieldCheck, Zap, Globe, Sparkles } from "lucide-react";
+
+// --- ANIMATION VARIANTS ---
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
+  }
+};
+
+// --- HELPER COMPONENTS ---
+const SectionLabel = ({ children, gold = false }: { children: React.ReactNode; gold?: boolean }) => (
+  <div className="flex items-center gap-4 mb-8 text-left">
+    <div className={`h-[1px] w-8 ${gold ? 'bg-[#D4AF37]' : 'bg-black/20'}`} />
+    <span className={`text-[10px] font-bold uppercase tracking-[0.4em] ${gold ? 'text-[#D4AF37]' : 'text-black/40'}`}>
+      {children}
+    </span>
+  </div>
+);
 
 export default function CurriculumPage() {
-  const journey = [
-    { title: "The Basics", desc: "Pick your niche and master the editing styles that actually go viral in 2026." },
-    { title: "Your Brand", desc: "Build a high-ticket offer and optimize your profiles to attract premium clients." },
-    { title: "Getting Clients", desc: "Master cold outreach and lead generation. Stop waiting for work to find you." },
-    { title: "Closing Deals", desc: "Learn how to talk to founders, handle objections, and sign your first ₹1L+ client." },
-    { title: "Scaling Up", desc: "Build a small team and set up systems so the business runs without you." }
+  const router = useRouter();
+
+  const framework = [
+    {
+      phase: "01",
+      title: "Synthesis & Foundation",
+      description: "Stripping away amateur habits and selecting a high-leverage skill moat.",
+      items: ["Skill selection & Market Validation", "Editing Frameworks (Retention Physics)", "Social Media Marketing Logic", "Niche Demand Mapping"]
+    },
+    {
+      phase: "02",
+      title: "Asset Architecture",
+      description: "Building the personal and professional infrastructure required to command high tickets.",
+      items: ["Offer Engineering", "Authority Personal Branding", "Profile Funnel Optimization", "Pricing & Retainer Psychology"]
+    },
+    {
+      phase: "03",
+      title: "The Acquisition Engine",
+      description: "Replacing luck with repeatable systems for booking global high-ticket clients.",
+      items: ["Cold Outreach & Calling Mastery", "Automated Lead Gen Systems", "Objection Handling Matrix", "Client Onboarding SOPs"]
+    },
+    {
+      phase: "04",
+      title: "Velocity & Scale",
+      description: "Moving from manual operator to system owner. Removing yourself from the loop.",
+      items: ["Quality Delivery Systems", "Mini-Team Construction", "Retention & Upselling Strategy", "Agency Systemization"]
+    }
   ];
 
   return (
-    <main className="bg-white text-black min-h-screen font-sans selection:bg-[#F3D7A7]">
-      <CustomCursor />
-      
-      {/* --- HERO: CLEAR & DIRECT --- */}
-      <section className="pt-32 pb-20 px-6 md:px-24">
-        <div className="max-w-5xl">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-            <span className="bg-[#F3D7A7]/20 text-black px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest">The 60-Day Roadmap</span>
-            <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-tight uppercase">
-              Become a <br /> <span className="text-[#F3D7A7]">Digital Operator.</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-black/60 max-w-2xl font-medium leading-relaxed">
-              We don't teach theory. We give you the exact systems we use at Blade Media to build your own agency and secure high-paying clients.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+    <main className="bg-white text-black min-h-screen selection:bg-[#F3D7A7]">
+      {/* MINIMAL NAVIGATION */}
+      <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-8 py-8 mix-blend-difference text-white">
+        <button 
+          onClick={() => router.push("/")}
+          className="flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest hover:text-[#D4AF37] transition-colors"
+        >
+          <ArrowLeft size={14} /> Back to Entry
+        </button>
+      </nav>
 
-      {/* --- THE 3 BIG OUTCOMES --- */}
-      <section className="py-20 px-6 md:px-24">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <OutcomeCard 
-            icon={<Rocket className="text-orange-500" />}
-            title="Start Your Agency" 
-            desc="Move from a solo freelancer to an agency owner with systems that scale."
-          />
-          <OutcomeCard 
-            icon={<Briefcase className="text-blue-500" />}
-            title="Top Placements" 
-            desc="Get priority access to jobs at leading marketing agencies and fast-growing companies."
-          />
-          <OutcomeCard 
-            icon={<Star className="text-yellow-500" />}
-            title="The 1% Community" 
-            desc="Surround yourself with a community of ambitious people doing the same work."
-          />
-        </div>
-      </section>
-
-      {/* --- THE JOURNEY: STEP BY STEP --- */}
-      <section className="py-24 px-6 md:px-24 bg-[#F9F9F9]">
+      {/* HERO SECTION */}
+      <section className="pt-40 pb-24 px-6 md:px-24 border-b border-black/5">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 uppercase">The Learning Path</h2>
-            <p className="text-black/50 text-lg">Five phases designed to take you from zero to your first ₹1,00,000 month.</p>
+          <SectionLabel gold>The Build Process</SectionLabel>
+          <motion.h1 
+            initial="hidden" animate="visible" variants={fadeUp}
+            className="text-[10vw] md:text-[7vw] font-bold uppercase leading-[0.85] tracking-tighter mb-12"
+          >
+            The Execution <br/> Framework.
+          </motion.h1>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-12 border-t border-black/5">
+            <div>
+              <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-4">Focus</h4>
+              <p className="font-bold text-xl uppercase tracking-tight">Institutional Infrastructure</p>
+            </div>
+            <div>
+              <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-4">Standard</h4>
+              <p className="font-bold text-xl uppercase tracking-tight">Practitioner-Led</p>
+            </div>
+            <div>
+              <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-4">Outcome</h4>
+              <p className="font-bold text-xl uppercase tracking-tight">₹1L/mo Trajectory</p>
+            </div>
           </div>
+        </div>
+      </section>
 
-          <div className="space-y-4">
-            {journey.map((step, i) => (
+      {/* FRAMEWORK GRID */}
+      <section className="py-24 px-6 md:px-24">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 gap-px bg-black/10 border border-black/10">
+            {framework.map((phase, i) => (
               <motion.div 
                 key={i}
-                whileHover={{ x: 10 }}
-                className="bg-white p-8 border border-black/5 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:shadow-xl transition-all"
+                initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
+                className="bg-white p-12 md:p-20 grid grid-cols-1 md:grid-cols-12 gap-12 group hover:bg-[#F9F9F9] transition-colors"
               >
-                <div className="flex items-center gap-6">
-                  <span className="text-4xl font-black text-black/5">0{i + 1}</span>
-                  <div>
-                    <h3 className="text-xl font-bold uppercase">{step.title}</h3>
-                    <p className="text-black/50 font-medium">{step.desc}</p>
-                  </div>
+                <div className="md:col-span-1">
+                  <span className="font-mono text-[#D4AF37] text-2xl font-bold">{phase.phase}</span>
                 </div>
-                <div className="h-10 w-10 rounded-full bg-[#F9F9F9] flex items-center justify-center">
-                  <ArrowUpRight size={20} className="text-black/20" />
+                <div className="md:col-span-5">
+                  <h3 className="text-3xl md:text-5xl font-bold uppercase tracking-tighter mb-6 leading-none">{phase.title}</h3>
+                  <p className="text-black/40 text-lg leading-relaxed font-medium pr-8">{phase.description}</p>
+                </div>
+                <div className="md:col-span-6 flex flex-col justify-center border-l border-black/5 md:pl-12">
+                  <ul className="space-y-4">
+                    {phase.items.map((item, idx) => (
+                      <li key={idx} className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-black/70">
+                        <div className="h-1.5 w-1.5 bg-[#D4AF37]" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </motion.div>
             ))}
@@ -84,33 +126,80 @@ export default function CurriculumPage() {
         </div>
       </section>
 
-      {/* --- CALL TO ACTION --- */}
-      <section className="py-32 px-6 text-center">
-        <div className="max-w-3xl mx-auto space-y-10">
-          <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-none">
-            Ready to change <br /> your trajectory?
-          </h2>
-          <button 
-            onClick={() => window.location.href = "/apply/login"}
-            className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform shadow-2xl"
-          >
-            Apply for Admission
-          </button>
-          <p className="text-black/30 text-xs uppercase tracking-widest">Next Batch starts May 2026</p>
+      {/* TANGIBLE LEDGER (OUTCOMES) */}
+      <section className="py-32 px-6 md:px-24 bg-black text-white">
+        <div className="max-w-7xl mx-auto">
+          <SectionLabel gold>The Tangible Ledger</SectionLabel>
+          <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter mb-20">We build assets, <br/> <span className="text-white/20">not attendance.</span></h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">
+            {[
+              { icon: <Laptop />, t: "Agency Infrastructure", d: "A fully functioning business model ready to handle scale." },
+              { icon: <Target />, t: "₹1L/mo Path", d: "A mathematically backed roadmap to six-figure consistency." },
+              { icon: <Zap />, t: "Proprietary SOPs", d: "Direct access to Blade Media's outreach and delivery systems." },
+              { icon: <ShieldCheck />, t: "Owner Mindset", d: "Transformation from a freelancer to a system builder." }
+            ].map((outcome, i) => (
+              <div key={i} className="bg-black p-10 hover:bg-white/5 transition-all">
+                <div className="text-[#D4AF37] mb-8">{outcome.icon}</div>
+                <h3 className="text-lg font-bold uppercase mb-4 tracking-tight">{outcome.t}</h3>
+                <p className="text-sm text-white/40 leading-relaxed font-light">{outcome.d}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
-    </main>
-  );
-}
 
-function OutcomeCard({ icon, title, desc }: any) {
-  return (
-    <div className="p-10 bg-white border border-black/5 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
-      <div className="h-14 w-14 bg-[#F9F9F9] rounded-2xl flex items-center justify-center mb-8">
-        {icon}
-      </div>
-      <h3 className="text-2xl font-bold mb-4 uppercase tracking-tight">{title}</h3>
-      <p className="text-black/50 leading-relaxed font-medium">{desc}</p>
-    </div>
+      {/* COMMUNITY & PLACEMENT SECTION */}
+      <section className="py-32 px-6 md:px-24 border-b border-black/5">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24">
+          <div>
+            <SectionLabel>The Network</SectionLabel>
+            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-8 leading-[0.9]">A Room of <br/> Practitioners.</h2>
+            <p className="text-black/40 text-xl leading-relaxed font-medium mb-12">Membership is restricted. The value of the Inner Circle is the high-intent environment created by founders and builders.</p>
+            <div className="space-y-6">
+              <div className="flex items-start gap-4 border-l-2 border-[#D4AF37] pl-6">
+                <h4 className="text-sm font-bold uppercase tracking-widest">Extreme Accountability</h4>
+              </div>
+              <div className="flex items-start gap-4 border-l-2 border-black/5 pl-6">
+                <h4 className="text-sm font-bold uppercase tracking-widest">Lifetime Alumni Access</h4>
+              </div>
+            </div>
+          </div>
+          <div>
+            <SectionLabel>The Opportunity</SectionLabel>
+            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-8 leading-[0.9]">Institutional <br/> Pipeline.</h2>
+            <p className="text-black/40 text-xl leading-relaxed font-medium mb-12">We don't promise jobs; we provide a high-level venue for access. Top performers are positioned for direct roles.</p>
+            <div className="grid grid-cols-1 gap-4">
+              <div className="p-8 bg-[#F9F9F9] rounded-sm">
+                <h4 className="text-black font-bold uppercase tracking-tighter text-lg mb-2">Agency Roles</h4>
+                <p className="text-xs text-black/40 uppercase tracking-widest font-bold">Direct pathways to Blade Media ecosystem.</p>
+              </div>
+              <div className="p-8 bg-[#F9F9F9] rounded-sm">
+                <h4 className="text-black font-bold uppercase tracking-tighter text-lg mb-2">Partner Network</h4>
+                <p className="text-xs text-black/40 uppercase tracking-widest font-bold">Referrals to high-growth consumer brands.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FINAL CALL */}
+      <section className="py-40 px-6 text-center">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-6xl md:text-[9vw] font-bold uppercase tracking-tighter mb-12 leading-[0.8]">Earn your <br/> entry.</h2>
+          <button 
+            onClick={() => router.push("/apply/login")}
+            className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#D4AF37] transition-all flex items-center gap-4 mx-auto shadow-2xl"
+          >
+            Submit Admission File <ArrowUpRight size={18}/>
+          </button>
+          <p className="mt-8 text-black/30 text-[10px] uppercase tracking-[0.4em] font-bold">Next Batch: Commencing May 2026</p>
+        </div>
+      </section>
+
+      <footer className="py-20 px-6 text-center border-t border-black/5 bg-[#F9F9F9]">
+        <p className="text-[10px] font-bold uppercase tracking-[0.8em] text-black/20">Blade Inner Circle — Stop Consuming. Start Operating.</p>
+      </footer>
+    </main>
   );
 }
