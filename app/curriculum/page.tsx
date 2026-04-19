@@ -5,12 +5,13 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Target, Laptop, Users, LineChart, ShieldCheck, Zap, Globe, Sparkles } from "lucide-react";
 
 // --- ANIMATION VARIANTS ---
+// Fixed TypeScript easing error using 'as const' to ensure cubic-bezier array is read-only
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { 
     opacity: 1, 
     y: 0, 
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const } 
   }
 };
 
