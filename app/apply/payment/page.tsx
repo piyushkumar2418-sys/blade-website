@@ -27,7 +27,7 @@ const fadeUp = {
 };
 
 const joiningFee = "Rs. 749";
-const valueAnchor = "Rs. 4,999";
+const originalPrice = "Rs. 4,999";
 
 const benefits = [
   {
@@ -59,22 +59,11 @@ const paymentMethods = [
     label: "UPI QR",
     shortDescription: "Scan and pay using any app.",
   },
-  {
-    icon: <Building2 size={18} />,
-    id: "bank",
-    label: "BANK TRANSFER",
-    shortDescription: "IMPS, NEFT, or Bank App.",
-  },
 ] as const;
 
 type PaymentMethodId = (typeof paymentMethods)[number]["id"];
 
 const paymentConfig = {
-  accountName: "PIYUSH KUMAR",
-  accountNumber: "50100445657418",
-  bankName: "HDFC BANK",
-  contactEmail: "admissions@bladeinnercircle.com",
-  ifsc: "HDFC0000241",
   upiId: "piyushkumar2418@okhdfcbank",
   upiName: "PIYUSH KUMAR",
 };
@@ -152,8 +141,7 @@ export default function PaymentPage() {
                 CONFIRM YOUR SEAT.
               </h1>
               <p className="mt-8 max-w-3xl text-xl leading-relaxed text-black/68">
-                Your application has been selected. Complete the joining payment of{" "}
-                <span className="font-semibold text-black">{joiningFee}</span> to secure your seat.
+                Your application has been selected. Complete the joining payment to secure your seat.
               </p>
             </div>
 
@@ -171,7 +159,7 @@ export default function PaymentPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }} className="rounded-[2rem] border border-black/10 bg-[#fbfaf6] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.06)] md:p-8">
             <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-black/45">PAYMENT DETAILS</p>
             <h2 className="mt-3 text-4xl font-bold tracking-tight text-black uppercase" style={{ fontFamily: "Helvetica-Bold, sans-serif" }}>
-              PAY AND SUBMIT PROOF.
+              SCAN AND PAY.
             </h2>
             <p className="mt-3 text-base leading-relaxed text-black/60">
               Use UPI to complete the payment, then share the transaction reference for verification.
@@ -179,11 +167,14 @@ export default function PaymentPage() {
 
             <div className="mt-8 rounded-[1.5rem] border border-black/10 bg-white p-5">
               <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-black/45">JOINING FEE</p>
-              <p className="mt-3 text-5xl font-bold tracking-tight text-black" style={{ fontFamily: "Helvetica-Bold, sans-serif" }}>{joiningFee}</p>
-              <p className="mt-4 text-sm leading-relaxed text-black/58">CHOOSE ONE OF THE UPI OPTIONS BELOW.</p>
+              <div className="mt-3 flex items-baseline gap-4">
+                <p className="text-5xl font-bold tracking-tight text-black" style={{ fontFamily: "Helvetica-Bold, sans-serif" }}>{joiningFee}</p>
+                <p className="text-xl text-black/30 line-through font-bold">{originalPrice}</p>
+              </div>
+              <p className="mt-4 text-sm leading-relaxed text-black/58">CHOOSE THE UPI OPTION BELOW.</p>
             </div>
 
-            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="mt-6 grid grid-cols-1">
               {paymentMethods.map((method) => (
                 <button
                   key={method.id}
@@ -235,7 +226,7 @@ export default function PaymentPage() {
                   {errorMessage && <div className="rounded-xl bg-red-50 p-4 text-xs text-red-600 font-bold uppercase tracking-widest">{errorMessage}</div>}
                   
                   <button onClick={handleSubmitProof} className="flex w-full items-center justify-center gap-3 rounded-full bg-black px-8 py-5 text-xs font-bold uppercase tracking-[0.35em] text-white transition-all hover:bg-[#d9b465] hover:text-black">
-                    SUBMIT FOR VERIFICATION <ArrowUpRight size={16} />
+                    APPLY NOW <ArrowUpRight size={16} />
                   </button>
                 </div>
               </>
@@ -255,7 +246,7 @@ export default function PaymentPage() {
           {benefits.map((benefit, index) => (
             <div key={index} className="rounded-[2rem] border border-black/10 bg-white p-8 shadow-[0_20px_55px_rgba(0,0,0,0.04)]">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f5ecd9] text-[#9b7328]">{benefit.icon}</div>
-              <h2 className="mt-6 text-[1.5rem] font-bold leading-tight tracking-tight text-black uppercase" style={{ fontFamily: "Helvetica-Bold, sans-serif" }}>{benefit.title}</h2>
+              <h2 className="mt-6 text-[1.5rem] font-bold leading-tight tracking-tight text-black" style={{ fontFamily: "Helvetica-Bold, sans-serif" }}>{benefit.title}</h2>
               <p className="mt-4 text-sm leading-relaxed text-black/60">{benefit.description}</p>
             </div>
           ))}
@@ -293,35 +284,7 @@ function PaymentMethodPanel({ selectedMethod, qrImageUrl, onCopy, copiedField, o
       </div>
     );
   }
-
-  return (
-    <div className="mt-8 rounded-[1.75rem] border border-black/10 bg-white p-8">
-      <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-black/45">BANK TRANSFER</p>
-      <h3 className="mt-3 text-2xl font-bold uppercase tracking-tight text-black uppercase" style={{ fontFamily: "Helvetica-Bold, sans-serif" }}>IMPS / NEFT DETAILS</h3>
-      <div className="mt-6 space-y-4">
-        <DetailRow label="BANK" value={paymentConfig.bankName} onCopy={() => onCopy(paymentConfig.bankName, "bank")} copied={copiedField === "bank"} />
-        <DetailRow label="A/C HOLDER" value={paymentConfig.accountName} onCopy={() => onCopy(paymentConfig.accountName, "name")} copied={copiedField === "name"} />
-        <DetailRow label="A/C NUMBER" value={paymentConfig.accountNumber} onCopy={() => onCopy(paymentConfig.accountNumber, "acc")} copied={copiedField === "acc"} />
-        <DetailRow label="IFSC" value={paymentConfig.ifsc} onCopy={() => onCopy(paymentConfig.ifsc, "ifsc")} copied={copiedField === "ifsc"} />
-      </div>
-    </div>
-  );
-}
-
-function DetailRow({ label, value, onCopy, copied }: any) {
-  return (
-    <div className="flex items-center justify-between rounded-xl border border-black/5 bg-[#faf8f2] px-4 py-3">
-      <div>
-        <p className="text-[9px] font-bold uppercase tracking-widest text-black/40 uppercase">{label}</p>
-        <p className="text-sm font-bold text-black uppercase">{value}</p>
-      </div>
-      {onCopy && (
-        <button onClick={onCopy} className="rounded-full bg-white p-2 text-black shadow-sm hover:bg-[#d9b465] transition-all">
-          {copied ? <CheckCircle2 size={14} /> : <Copy size={14} />}
-        </button>
-      )}
-    </div>
-  );
+  return null;
 }
 
 function InputField({ label, value, onChange, placeholder, type = "text" }: any) {
