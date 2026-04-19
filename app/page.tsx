@@ -21,7 +21,7 @@ const fadeUp: Variants = {
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
   <div className="flex items-center gap-4 mb-8 text-left">
     <div className="h-[1px] w-8 bg-[#F3D7A7]" />
-    <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/40">{children}</span>
+    <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/55">{children}</span>
   </div>
 );
 
@@ -194,7 +194,7 @@ export default function Home() {
             
             <section className="h-screen flex flex-col justify-center px-6 md:px-24 border-b border-black/5 text-left">
               <div className="flex justify-between items-start mb-8">
-                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.5em] font-bold block text-black/40">Blade Inner Circle</motion.span>
+                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.5em] font-bold block text-black/55">Blade Inner Circle</motion.span>
                 <div className="px-4 py-2 border border-black/10 bg-black/5 text-black font-bold uppercase tracking-[0.3em] text-[10px]">
                   Commencing May 2026
                 </div>
@@ -213,17 +213,17 @@ export default function Home() {
               <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
                 <div className="pr-0 md:pr-12">
                    <SectionLabel>Institutional Thesis</SectionLabel>
-                   <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-[0.9] mb-12 text-left">Theoretical learning is a trap. <br/> <span className="text-black/20">This is an execution lab.</span></h2>
-                   <p className="text-xl md:text-2xl text-black/60 leading-relaxed font-light text-left">Blade Inner Circle is a 2-month intensive for those who refuse to be passive. We deploy systems. Revenue is the only metric.</p>
+                   <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-[0.9] mb-12 text-left">Theoretical learning is a trap. <br/> <span className="text-black/35">This is an execution lab.</span></h2>
+                   <p className="text-xl md:text-2xl text-black/70 leading-relaxed font-light text-left">Blade Inner Circle is a 2-month intensive for those who refuse to be passive. We deploy systems. Revenue is the only metric.</p>
                 </div>
                 <div className="grid grid-cols-1 gap-px bg-black/10 border border-black/10">
                   <div className="bg-white p-8 md:p-12 text-left">
                     <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">Zero Theory</h4>
-                    <p className="text-black/50 leading-relaxed text-left text-sm md:text-base">Everything decoded over thousands of hours of client work at Blade Media. We share the silent mechanics.</p>
+                    <p className="text-black/65 leading-relaxed text-left text-sm md:text-base">Everything decoded over thousands of hours of client work at Blade Media. We share the silent mechanics.</p>
                   </div>
                   <div className="bg-white p-8 md:p-12 border-t border-black/10 text-left">
                     <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">High Stakes</h4>
-                    <p className="text-black/50 leading-relaxed text-left text-sm md:text-base">Designed to move you from amateur creator to agency operator in 60 days.</p>
+                    <p className="text-black/65 leading-relaxed text-left text-sm md:text-base">Designed to move you from amateur creator to agency operator in 60 days.</p>
                   </div>
                 </div>
               </div>
@@ -235,22 +235,22 @@ export default function Home() {
                 <div className="text-left">
                    <SectionLabel>The Faculty</SectionLabel>
                    <h2 className="text-5xl font-bold uppercase tracking-tighter leading-[0.85] text-left">Learn From <br/> <span className="text-[#F3D7A7]">Practitioners.</span></h2>
-                   <p className="text-black/40 text-lg leading-relaxed font-light mt-8 text-left">
+                   <p className="text-black/60 text-lg leading-relaxed font-light mt-8 text-left">
                      We bring in actual founders, elite creators, and top-tier freelancers. Not teachers—practitioners who are currently winning in the market. You learn through direct transfer of active systems.
                    </p>
                 </div>
                 <div className="grid grid-cols-1 gap-px bg-black/10 border border-black/10">
                   <div className="bg-white p-10 text-left">
                     <h4 className="text-black text-xs font-bold uppercase tracking-widest mb-4 text-left">Founders & Operators</h4>
-                    <p className="text-sm text-black/40 leading-relaxed italic text-left">Systems for scaling agencies to ₹10L+ monthly.</p>
+                    <p className="text-sm text-black/60 leading-relaxed italic text-left">Systems for scaling agencies to ₹10L+ monthly.</p>
                   </div>
                   <div className="bg-white p-10 border-t border-black/10 text-left">
                     <h4 className="text-black text-xs font-bold uppercase tracking-widest mb-4 text-left">Top 1% Creators</h4>
-                    <p className="text-sm text-black/40 leading-relaxed italic text-left">The physics of virality and high-retention distribution.</p>
+                    <p className="text-sm text-black/60 leading-relaxed italic text-left">The physics of virality and high-retention distribution.</p>
                   </div>
                   <div className="bg-white p-10 border-t border-black/10 text-left">
                     <h4 className="text-black text-xs font-bold uppercase tracking-widest mb-4 text-left">High-Ticket Freelancers</h4>
-                    <p className="text-sm text-black/40 leading-relaxed italic text-left">Closing global clients and mastering high-leverage skillsets.</p>
+                    <p className="text-sm text-black/60 leading-relaxed italic text-left">Closing global clients and mastering high-leverage skillsets.</p>
                   </div>
                 </div>
               </div>
@@ -282,7 +282,7 @@ export default function Home() {
                   <motion.div key={idx} className="p-10 bg-white hover:bg-[#F9F9F9] transition-all duration-500 group text-left">
                     <div className="mb-6 text-[#F3D7A7] transition-colors duration-500">{stat.icon}</div>
                     <h4 className="text-sm font-bold uppercase tracking-widest leading-tight mb-3 text-left">{stat.label}</h4>
-                    <p className="text-[10px] text-black/30 uppercase tracking-[0.2em] text-left">{stat.desc}</p>
+                    <p className="text-[10px] text-black/45 uppercase tracking-[0.2em] text-left">{stat.desc}</p>
                   </motion.div>
                 ))}
               </div>
@@ -323,7 +323,7 @@ export default function Home() {
                    <h2 className="text-5xl font-bold uppercase tracking-tighter leading-[0.85] mb-8 text-left">
                      Who Is This <br /> <span className="text-[#F3D7A7]">Built For?</span>
                    </h2>
-                   <p className="text-black/40 text-lg leading-relaxed font-medium mb-12 text-left">
+                   <p className="text-black/60 text-lg leading-relaxed font-medium mb-12 text-left">
                      Admission is not a purchase. It is a selection process based on intent, hunger, and proof of work.
                    </p>
                 </div>
@@ -393,7 +393,7 @@ export default function Home() {
             </section>
 
             <footer className="py-20 px-6 text-center border-t border-black/5 bg-[#F9F9F9]">
-              <p className="text-[10px] font-bold uppercase tracking-[0.8em] text-black/20 text-center">Stop Consuming. Start Operating.</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.8em] text-black/35 text-center">Stop Consuming. Start Operating.</p>
             </footer>
           </motion.div>
         )}
@@ -406,7 +406,7 @@ export default function Home() {
             <motion.a whileHover={{ scale: 1.05 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-16 py-8 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-[#F3D7A7] hover:text-black shadow-2xl">Secure a Session</motion.a>
           </>
         )}
-        <div className={`absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold text-center ${isAgency ? "text-white/20" : "text-black/20"}`}>© 2026 Blade</div>
+        <div className={`absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold text-center ${isAgency ? "text-white/20" : "text-black/35"}`}>© 2026 Blade</div>
       </footer>
     </motion.main>
   );

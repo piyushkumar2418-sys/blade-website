@@ -19,7 +19,7 @@ const fadeUp = {
 const SectionLabel = ({ children, gold = false }: { children: React.ReactNode; gold?: boolean }) => (
   <div className="flex items-center gap-4 mb-8 text-left">
     <div className={`h-[1px] w-8 ${gold ? 'bg-[#D4AF37]' : 'bg-black/20'}`} />
-    <span className={`text-[10px] font-bold uppercase tracking-[0.4em] ${gold ? 'text-[#D4AF37]' : 'text-black/40'}`}>
+    <span className={`text-[10px] font-bold uppercase tracking-[0.4em] ${gold ? 'text-[#D4AF37]' : 'text-black/55'}`}>
       {children}
     </span>
   </div>
@@ -79,15 +79,15 @@ export default function CurriculumPage() {
           </motion.h1>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-12 border-t border-black/5">
             <div>
-              <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-4">Focus</h4>
+              <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/55 mb-4">Focus</h4>
               <p className="font-bold text-xl uppercase tracking-tight">Institutional Infrastructure</p>
             </div>
             <div>
-              <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-4">Standard</h4>
+              <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/55 mb-4">Standard</h4>
               <p className="font-bold text-xl uppercase tracking-tight">Practitioner-Led</p>
             </div>
             <div>
-              <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-4">Outcome</h4>
+              <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/55 mb-4">Outcome</h4>
               <p className="font-bold text-xl uppercase tracking-tight">₹1L/mo Trajectory</p>
             </div>
           </div>
@@ -109,7 +109,7 @@ export default function CurriculumPage() {
                 </div>
                 <div className="md:col-span-5">
                   <h3 className="text-3xl md:text-5xl font-bold uppercase tracking-tighter mb-6 leading-none">{phase.title}</h3>
-                  <p className="text-black/40 text-lg leading-relaxed font-medium pr-8">{phase.description}</p>
+                  <p className="text-black/60 text-lg leading-relaxed font-medium pr-8">{phase.description}</p>
                 </div>
                 <div className="md:col-span-6 flex flex-col justify-center border-l border-black/5 md:pl-12">
                   <ul className="space-y-4">
@@ -156,7 +156,7 @@ export default function CurriculumPage() {
           <div>
             <SectionLabel>The Network</SectionLabel>
             <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-8 leading-[0.9]">A Room of <br/> Practitioners.</h2>
-            <p className="text-black/40 text-xl leading-relaxed font-medium mb-12">Membership is restricted. The value of the Inner Circle is the high-intent environment created by founders and builders.</p>
+            <p className="text-black/60 text-xl leading-relaxed font-medium mb-12">Membership is restricted. The value of the Inner Circle is the high-intent environment created by founders and builders.</p>
             <div className="space-y-6">
               <div className="flex items-start gap-4 border-l-2 border-[#D4AF37] pl-6">
                 <h4 className="text-sm font-bold uppercase tracking-widest">Extreme Accountability</h4>
@@ -169,15 +169,15 @@ export default function CurriculumPage() {
           <div>
             <SectionLabel>The Opportunity</SectionLabel>
             <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-8 leading-[0.9]">Institutional <br/> Pipeline.</h2>
-            <p className="text-black/40 text-xl leading-relaxed font-medium mb-12">We don't promise jobs; we provide a high-level venue for access. Top performers are positioned for direct roles.</p>
+            <p className="text-black/60 text-xl leading-relaxed font-medium mb-12">We don't promise jobs; we provide a high-level venue for access. Top performers are positioned for direct roles.</p>
             <div className="grid grid-cols-1 gap-4">
               <div className="p-8 bg-[#F9F9F9] rounded-sm">
                 <h4 className="text-black font-bold uppercase tracking-tighter text-lg mb-2">Agency Roles</h4>
-                <p className="text-xs text-black/40 uppercase tracking-widest font-bold">Direct pathways to Blade Media ecosystem.</p>
+                <p className="text-xs text-black/55 uppercase tracking-widest font-bold">Direct pathways to Blade Media ecosystem.</p>
               </div>
               <div className="p-8 bg-[#F9F9F9] rounded-sm">
                 <h4 className="text-black font-bold uppercase tracking-tighter text-lg mb-2">Partner Network</h4>
-                <p className="text-xs text-black/40 uppercase tracking-widest font-bold">Referrals to high-growth consumer brands.</p>
+                <p className="text-xs text-black/55 uppercase tracking-widest font-bold">Referrals to high-growth consumer brands.</p>
               </div>
             </div>
           </div>
@@ -194,12 +194,12 @@ export default function CurriculumPage() {
           >
             Submit Admission File <ArrowUpRight size={18}/>
           </button>
-          <p className="mt-8 text-black/30 text-[10px] uppercase tracking-[0.4em] font-bold">Next Batch: Commencing May 2026</p>
+          <p className="mt-8 text-black/45 text-[10px] uppercase tracking-[0.4em] font-bold">Next Batch: Commencing May 2026</p>
         </div>
       </section>
 
       <footer className="py-20 px-6 text-center border-t border-black/5 bg-[#F9F9F9]">
-        <p className="text-[10px] font-bold uppercase tracking-[0.8em] text-black/20">Blade Inner Circle — Stop Consuming. Start Operating.</p>
+        <p className="text-[10px] font-bold uppercase tracking-[0.8em] text-black/35">Blade Inner Circle — Stop Consuming. Start Operating.</p>
       </footer>
     </main>
   );
