@@ -18,7 +18,6 @@ const fadeUp: Variants = {
   }
 };
 
-// --- HELPER COMPONENT FOR BIC CONTENT ---
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
   <div className="flex items-center gap-4 mb-8 text-left">
     <div className="h-[1px] w-8 bg-[#F3D7A7]" />
@@ -26,7 +25,6 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-// --- WORK ITEM COMPONENT ---
 const WorkItem = ({ work, aspect, index }: { work: any, aspect: string, index: number }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -188,8 +186,8 @@ export default function Home() {
                   <div className="aspect-[3/4] w-full mb-10 overflow-hidden border border-white/10 grayscale hover:grayscale-0 transition-all duration-700">
                     <img src="/piyush.png" className="w-full h-full object-cover" alt="Piyush" />
                   </div>
-                  <p className="text-white/60 text-lg italic font-light leading-relaxed text-left">&quot;We decoded content through an early obsession. Mastering the silent mechanics of distribution.&quot;</p>
-                  <div className="text-[#F3D7A7] italic text-2xl font-bold mt-8 text-left">— Piyush</div>
+                  <p className="text-white/60 text-lg font-light leading-relaxed text-left">&quot;We decoded content through an early obsession. Mastering the silent mechanics of distribution.&quot;</p>
+                  <div className="text-[#F3D7A7] text-2xl font-bold mt-8 text-left">— Piyush</div>
                 </div>
               </div>
             </section>
@@ -233,6 +231,45 @@ export default function Home() {
               </div>
             </section>
 
+            {/* NEW CURRICULUM SECTION */}
+            <section className="py-24 px-6 md:px-24 bg-white">
+              <div className="max-w-[1400px] mx-auto">
+                <div className="bg-black rounded-[40px] p-12 md:p-24 relative overflow-hidden text-left flex flex-col md:flex-row items-center gap-16">
+                  {/* Content */}
+                  <div className="flex-1 space-y-10 relative z-10">
+                    <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.4em]">What you will learn</span>
+                    <h2 className="text-white text-5xl md:text-7xl font-bold uppercase tracking-tight leading-[0.9]">
+                      The exact systems <br /> behind ₹3Cr+ in <br /> revenue.
+                    </h2>
+                    <p className="text-white/40 text-lg md:text-xl font-medium max-w-xl leading-relaxed">
+                      We&apos;ve deconstructed the entire agency journey into five easy-to-follow phases. No fluff, just execution.
+                    </p>
+                    <button 
+                      onClick={() => router.push("/curriculum")}
+                      className="bg-white text-black px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] transition-all flex items-center gap-4 shadow-2xl"
+                    >
+                      Explore Full Prospectus <ArrowRight size={18}/>
+                    </button>
+                  </div>
+
+                  {/* Stats Cards */}
+                  <div className="flex flex-row md:flex-col gap-6 relative z-10">
+                    <div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-3xl p-8 w-40 md:w-48 text-center space-y-4">
+                       <span className="text-white text-4xl font-bold block italic tracking-tighter">60</span>
+                       <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-widest">Days</span>
+                    </div>
+                    <div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-3xl p-8 w-40 md:w-48 text-center space-y-4">
+                       <span className="text-white text-4xl font-bold block italic tracking-tighter">5</span>
+                       <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-widest">Phases</span>
+                    </div>
+                  </div>
+
+                  {/* Decorative Circle */}
+                  <div className="absolute top-20 right-20 w-32 h-32 border border-[#F3D7A7]/20 rounded-full hidden md:block" />
+                </div>
+              </div>
+            </section>
+
             <section className="py-32 px-6 md:px-24 max-w-7xl text-left border-b border-black/5">
               <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start text-left">
                 <div className="pr-0 md:pr-12 text-left">
@@ -268,7 +305,7 @@ export default function Home() {
                   <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-10 text-left">
                     <div className="text-left">
                       <SectionLabel>The Direct Line</SectionLabel>
-                      <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-[-0.06em] leading-[0.85] italic text-left">Learn Directly <br/> From The Founder</h2>
+                      <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-[-0.06em] leading-[0.85] text-left">Learn Directly <br/> From The Founder</h2>
                     </div>
                     <p className="text-black/60 text-xl leading-relaxed max-w-lg font-light text-left">Blade Inner Circle isn’t built on theory — it’s built on execution. Every system, framework, and approach inside the program comes directly from what’s currently working inside Blade Media.</p>
                   </motion.div>
