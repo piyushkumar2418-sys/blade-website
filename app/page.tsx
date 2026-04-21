@@ -431,7 +431,7 @@ export default function Home() {
                       style={{ perspective: "1000px" }}
                     >
                       <div className="p-5 bg-[#F3D7A7]/10 w-fit rounded-2xl border border-[#F3D7A7]/20 group-hover:bg-[#F3D7A7] transition-all duration-500">
-                        {React.cloneElement(solution.icon as React.ReactElement, { 
+                        {React.cloneElement(solution.icon as React.ReactElement<any>, { 
                           className: "text-[#F3D7A7] group-hover:text-black transition-colors duration-500" 
                         })}
                       </div>
