@@ -62,18 +62,18 @@ const WorkItem = ({ work, aspect, index }: { work: any, aspect: string, index: n
 
 const LogoMarquee = () => {
   const logos = [
-    { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/commons/d/df/Amazon_logo_white.svg" },
-    { name: "Flipkart", url: "/flipkart.svg" },
+    { name: "Amazon", url: "https://www.pngmart.com/files/15/Amazon-Logo-White-PNG-Image.png" },
+    { name: "Flipkart", url: "https://logos-world.net/wp-content/uploads/2020/11/Flipkart-Logo.png" },
     { name: "Bajaj", url: "https://companieslogo.com/img/orig/BAJAJ-AUTO.NS_BIG-afa2b58c.png" },
-    { name: "Reliance", url: "https://upload.wikimedia.org/wikipedia/commons/0/09/Reliance_Industries_Logo.svg" },
-    { name: "Nykaa", url: "https://companieslogo.com/img/orig/NYKAA.NS_BIG-d299a0e1.svg" },
-    { name: "Pantaloons", url: "/pantaloons.svg" },
-    { name: "Mirchi", url: "/mirchi.svg" },
+    { name: "Reliance", url: "https://companieslogo.com/img/orig/RELIANCE.NS_BIG-c143924f.png" },
+    { name: "Nykaa", url: "https://companieslogo.com/img/orig/NYKAA.NS_BIG-d299a0e1.png" },
+    { name: "Pantaloons", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Pantaloons_Logo.svg/1024px-Pantaloons_Logo.svg.png" },
+    { name: "Mirchi", url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Radio_Mirchi_logo.svg/1200px-Radio_Mirchi_logo.svg.png" },
     { name: "WTF", url: "/wtf.svg" },
     { name: "ThriveStack", url: "/thrivestack.svg" },
     { name: "SuperYou", url: "/superyou.svg" },
     { name: "ActorsTruth", url: "/actorstruth.svg" },
-    { name: "FamApp", url: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/fampay.svg" },
+    { name: "FamApp", url: "https://icons.iconarchive.com/icons/simpleicons-team/simple/512/fampay-icon.png" },
   ];
 
   const doubledLogos = [...logos, ...logos];
@@ -108,7 +108,7 @@ const LogoMarquee = () => {
                 src={logo.url} 
                 alt={logo.name} 
                 className={`h-8 md:h-10 w-auto max-w-[140px] object-contain transition-all duration-500 group-hover:scale-110 ${
-                  logo.name === 'FamApp' || logo.name === 'Reliance' ? 'brightness-[5] contrast-[1]' : ''
+                  logo.name === 'FamApp' ? 'invert brightness-200' : ''
                 }`}
                 onError={(e) => {
                    (e.target as any).style.display = 'none';
