@@ -65,15 +65,7 @@ const LogoMarquee = () => {
     { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
     { name: "Flipkart", url: "/flipkart.svg" },
     { name: "Bajaj", url: "https://companieslogo.com/img/orig/BAJAJ-AUTO.NS_BIG-afa2b58c.png" },
-    { 
-      name: "Reliance", 
-      isSvg: true,
-      svg: (
-        <svg viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="h-7 md:h-10 w-auto">
-          <path d="M432.3,161.7c-11.4-1.6-22.8-2.4-34.3-2.4c-45.7,0-85.3,13.5-115.1,38.1c-29.8-24.6-69.4-38.1-115.1-38.1 c-11.4,0-22.9,0.8-34.3,2.4c-35.6,4.9-66.9,20.4-89,43.2l0,0c-15.6,16.1-26.6,36.2-30.8,58.3c-1.1,5.6-1.7,11.3-1.7,17.1 c0,28.8,12.2,54.7,31.7,73l0,0c22,20.7,51.8,33.3,84.7,33.3c3.8,0,7.6-0.2,11.3-0.5c45.3-4.1,84-27.1,108.9-60.5 c24.9,33.4,63.6,56.4,108.9,60.5c3.8,0.4,7.6,0.5,11.3,0.5c32.9,0,62.6-12.6,84.7-33.3l0,0c19.5-18.4,31.7-44.2,31.7-73 c0-5.8-0.6-11.5-1.7-17.1C526.4,217.9,485.4,169,432.3,161.7z" />
-        </svg>
-      )
-    },
+    { name: "Reliance", url: "https://upload.wikimedia.org/wikipedia/commons/0/09/Reliance_Industries_Logo.svg" },
     { name: "Nykaa", url: "https://companieslogo.com/img/orig/NYKAA.NS_BIG-d299a0e1.svg" },
     { name: "Pantaloons", url: "/pantaloons.svg" },
     { name: "Mirchi", url: "/mirchi.svg" },
@@ -103,35 +95,32 @@ const LogoMarquee = () => {
         <motion.div 
           initial={{ x: 0 }}
           animate={{ x: "-50%" }}
-          transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-          className="flex gap-24 items-center px-12"
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          className="flex gap-8 md:gap-12 items-center px-12"
         >
           {doubledLogos.map((logo, i) => (
-            <div key={i} className="flex-shrink-0 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-700 hover:scale-105 opacity-40 hover:opacity-100 cursor-pointer">
-              {logo.isSvg ? (
-                <div className="text-white flex items-center justify-center" style={{ filter: "brightness(0) invert(1)" }}>
-                  {logo.svg}
-                </div>
-              ) : (
-                <img 
-                  src={logo.url} 
-                  alt={logo.name} 
-                  className={`h-7 md:h-10 w-auto max-w-[140px] object-contain ${
-                    logo.name === 'Mirchi' ? 'h-10 md:h-14' : 
-                    logo.name === 'Flipkart' ? 'h-11 md:h-18 scale-125' : 
-                    ''
-                  }`} 
-                  style={{ filter: "brightness(0) invert(1)" }}
-                  onError={(e) => {
-                     (e.target as any).style.display = 'none';
-                     const parent = (e.target as any).parentElement;
-                     const span = document.createElement('span');
-                     span.innerText = logo.name;
-                     span.className = "text-white text-xs font-bold uppercase tracking-widest opacity-20";
-                     parent.appendChild(span);
-                  }}
-                />
-              )}
+            <div 
+              key={i} 
+              className="flex-shrink-0 flex items-center justify-center p-4 md:p-6 bg-white/[0.03] backdrop-blur-sm border border-white/[0.08] rounded-2xl md:rounded-3xl hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-500 group cursor-pointer"
+              style={{ minWidth: '160px' }}
+            >
+              <img 
+                src={logo.url} 
+                alt={logo.name} 
+                className={`h-6 md:h-8 w-auto max-w-[120px] object-contain transition-all duration-700 grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 ${
+                  logo.name === 'Mirchi' ? 'h-8 md:h-12' : 
+                  logo.name === 'Flipkart' ? 'h-9 md:h-14' : 
+                  ''
+                }`} 
+                onError={(e) => {
+                   (e.target as any).style.display = 'none';
+                   const parent = (e.target as any).parentElement;
+                   const span = document.createElement('span');
+                   span.innerText = logo.name;
+                   span.className = "text-white/40 text-[10px] font-bold uppercase tracking-[0.2em]";
+                   parent.appendChild(span);
+                }}
+              />
             </div>
           ))}
         </motion.div>
