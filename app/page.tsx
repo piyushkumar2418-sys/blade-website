@@ -231,45 +231,6 @@ export default function Home() {
               </div>
             </section>
 
-            {/* NEW CURRICULUM SECTION */}
-            <section className="py-24 px-6 md:px-24 bg-white">
-              <div className="max-w-[1400px] mx-auto">
-                <div className="bg-black rounded-[40px] p-12 md:p-24 relative overflow-hidden text-left flex flex-col md:flex-row items-center gap-16">
-                  {/* Content */}
-                  <div className="flex-1 space-y-10 relative z-10">
-                    <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.4em]">What you will learn</span>
-                    <h2 className="text-white text-5xl md:text-7xl font-bold uppercase tracking-tight leading-[0.9]">
-                      The exact systems <br /> behind ₹3Cr+ in <br /> revenue.
-                    </h2>
-                    <p className="text-white/40 text-lg md:text-xl font-medium max-w-xl leading-relaxed">
-                      We&apos;ve deconstructed the entire agency journey into five easy-to-follow phases. No fluff, just execution.
-                    </p>
-                    <button 
-                      onClick={() => router.push("/curriculum")}
-                      className="bg-white text-black px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] transition-all flex items-center gap-4 shadow-2xl"
-                    >
-                      Explore Full Prospectus <ArrowRight size={18}/>
-                    </button>
-                  </div>
-
-                  {/* Stats Cards */}
-                  <div className="flex flex-row md:flex-col gap-6 relative z-10">
-                    <div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-3xl p-8 w-40 md:w-48 text-center space-y-4">
-                       <span className="text-white text-4xl font-bold block italic tracking-tighter">60</span>
-                       <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-widest">Days</span>
-                    </div>
-                    <div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-3xl p-8 w-40 md:w-48 text-center space-y-4">
-                       <span className="text-white text-4xl font-bold block italic tracking-tighter">5</span>
-                       <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-widest">Phases</span>
-                    </div>
-                  </div>
-
-                  {/* Decorative Circle */}
-                  <div className="absolute top-20 right-20 w-32 h-32 border border-[#F3D7A7]/20 rounded-full hidden md:block" />
-                </div>
-              </div>
-            </section>
-
             <section className="py-32 px-6 md:px-24 max-w-7xl text-left border-b border-black/5">
               <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start text-left">
                 <div className="pr-0 md:pr-12 text-left">
@@ -319,6 +280,47 @@ export default function Home() {
                     <p className="text-[10px] text-black/30 uppercase tracking-[0.2em] text-left">{stat.desc}</p>
                   </motion.div>
                 ))}
+              </div>
+            </section>
+
+            {/* REFINED CURRICULUM SECTION - EXACTLY LIKE IMAGE */}
+            <section className="py-24 px-6 md:px-24 bg-white">
+              <div className="max-w-[1400px] mx-auto">
+                <div className="bg-black rounded-[60px] p-12 md:p-24 relative overflow-hidden text-left flex flex-col md:flex-row items-center gap-16 min-h-[600px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)]">
+                  
+                  {/* Decorative Circle from Image */}
+                  <div className="absolute top-20 right-[35%] w-12 h-12 border border-[#F3D7A7]/30 rounded-full hidden md:block" />
+
+                  {/* Content */}
+                  <div className="flex-1 space-y-10 relative z-10">
+                    <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">What you will learn</span>
+                    <h2 className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tight leading-[0.85] mb-8">
+                      The exact systems <br /> behind ₹3Cr+ in <br /> revenue.
+                    </h2>
+                    <p className="text-white/40 text-lg md:text-xl font-medium max-w-xl leading-relaxed mb-12">
+                      We&apos;ve deconstructed the entire agency journey into five easy-to-follow phases. No fluff, just execution.
+                    </p>
+                    <button 
+                      onClick={() => router.push("/curriculum")}
+                      className="bg-white text-black px-12 py-6 rounded-full font-bold uppercase tracking-widest text-[11px] hover:bg-[#F3D7A7] transition-all flex items-center gap-4"
+                    >
+                      Explore Full Prospectus <ArrowRight size={18}/>
+                    </button>
+                  </div>
+
+                  {/* Stats Cards from Image */}
+                  <div className="flex flex-row md:flex-col gap-8 relative z-10">
+                    <div className="bg-[#0f0f0f] border border-white/5 rounded-[30px] p-10 w-44 md:w-56 text-center space-y-4">
+                       <span className="text-white text-5xl font-bold block tracking-tighter">60</span>
+                       <span className="text-white/20 text-[10px] font-bold uppercase tracking-widest block">Days</span>
+                    </div>
+                    <div className="bg-[#0f0f0f] border border-white/5 rounded-[30px] p-10 w-44 md:w-56 text-center space-y-4">
+                       <span className="text-white text-5xl font-bold block tracking-tighter">5</span>
+                       <span className="text-white/20 text-[10px] font-bold uppercase tracking-widest block">Phases</span>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </section>
 
