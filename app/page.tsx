@@ -283,40 +283,42 @@ export default function Home() {
               </div>
             </section>
 
-            {/* REFINED CURRICULUM SECTION - EXACTLY LIKE IMAGE */}
+            {/* ABSOLUTE MIRROR CURRICULUM SECTION */}
             <section className="py-24 px-6 md:px-24 bg-white">
               <div className="max-w-[1400px] mx-auto">
-                <div className="bg-black rounded-[60px] p-12 md:p-24 relative overflow-hidden text-left flex flex-col md:flex-row items-center gap-16 min-h-[600px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)]">
+                <div className="bg-black rounded-[80px] p-16 md:p-32 relative overflow-hidden text-left flex flex-col md:flex-row items-center gap-16 min-h-[650px] shadow-[0_60px_120px_-20px_rgba(0,0,0,0.4)]">
                   
-                  {/* Decorative Circle from Image */}
-                  <div className="absolute top-20 right-[35%] w-12 h-12 border border-[#F3D7A7]/30 rounded-full hidden md:block" />
+                  {/* Decorative Circle - Exact Position */}
+                  <div className="absolute top-24 left-[53%] w-14 h-14 border border-[#F3D7A7]/20 rounded-full hidden md:block" />
 
-                  {/* Content */}
-                  <div className="flex-1 space-y-10 relative z-10">
-                    <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">What you will learn</span>
-                    <h2 className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tight leading-[0.85] mb-8">
-                      The exact systems <br /> behind ₹3Cr+ in <br /> revenue.
-                    </h2>
-                    <p className="text-white/40 text-lg md:text-xl font-medium max-w-xl leading-relaxed mb-12">
+                  {/* Content - Absolute Left */}
+                  <div className="flex-1 space-y-12 relative z-10">
+                    <div className="space-y-4">
+                      <span className="text-[#F3D7A7] text-[11px] font-bold uppercase tracking-[0.6em] mb-4 block">What you will learn</span>
+                      <h2 className="text-white text-6xl md:text-[95px] font-bold uppercase tracking-tight leading-[0.82] mb-12">
+                        The exact systems <br /> behind ₹3Cr+ in <br /> revenue.
+                      </h2>
+                    </div>
+                    <p className="text-white/30 text-xl md:text-2xl font-medium max-w-2xl leading-relaxed mb-16">
                       We&apos;ve deconstructed the entire agency journey into five easy-to-follow phases. No fluff, just execution.
                     </p>
                     <button 
                       onClick={() => router.push("/curriculum")}
-                      className="bg-white text-black px-12 py-6 rounded-full font-bold uppercase tracking-widest text-[11px] hover:bg-[#F3D7A7] transition-all flex items-center gap-4"
+                      className="bg-white text-black px-16 py-7 rounded-full font-bold uppercase tracking-widest text-[12px] hover:bg-[#F3D7A7] transition-all flex items-center gap-4 shadow-xl"
                     >
-                      Explore Full Prospectus <ArrowRight size={18}/>
+                      Explore Full Prospectus <ArrowRight size={20}/>
                     </button>
                   </div>
 
-                  {/* Stats Cards from Image */}
-                  <div className="flex flex-row md:flex-col gap-8 relative z-10">
-                    <div className="bg-[#0f0f0f] border border-white/5 rounded-[30px] p-10 w-44 md:w-56 text-center space-y-4">
-                       <span className="text-white text-5xl font-bold block tracking-tighter">60</span>
-                       <span className="text-white/20 text-[10px] font-bold uppercase tracking-widest block">Days</span>
+                  {/* Stats Cards - Absolute Right */}
+                  <div className="flex flex-row md:flex-col gap-10 relative z-10">
+                    <div className="bg-[#080808] border border-white/5 rounded-[40px] p-12 w-48 md:w-64 text-center flex flex-col justify-center items-center shadow-2xl">
+                       <span className="text-white text-6xl font-bold block tracking-tighter mb-2">60</span>
+                       <span className="text-[#F3D7A7] text-[11px] font-bold uppercase tracking-[0.4em] block">Days</span>
                     </div>
-                    <div className="bg-[#0f0f0f] border border-white/5 rounded-[30px] p-10 w-44 md:w-56 text-center space-y-4">
-                       <span className="text-white text-5xl font-bold block tracking-tighter">5</span>
-                       <span className="text-white/20 text-[10px] font-bold uppercase tracking-widest block">Phases</span>
+                    <div className="bg-[#080808] border border-white/5 rounded-[40px] p-12 w-48 md:w-64 text-center flex flex-col justify-center items-center shadow-2xl">
+                       <span className="text-white text-6xl font-bold block tracking-tighter mb-2">5</span>
+                       <span className="text-[#F3D7A7] text-[11px] font-bold uppercase tracking-[0.4em] block">Phases</span>
                     </div>
                   </div>
 
