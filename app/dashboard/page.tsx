@@ -7,8 +7,8 @@ import { db } from "@/lib/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { 
   LogOut, User, CheckCircle2, ChevronRight, 
-  ArrowLeft, FileText, Globe, Clock, 
-  BookOpen, ExternalLink, X
+  FileText, Clock, BookOpen, ExternalLink, X,
+  Mail, Phone, Shield
 } from "lucide-react";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
@@ -145,57 +145,74 @@ export default function Profile() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           
-          {/* LEFT: APPLICATIONS */}
-          <div className="lg:col-span-2 space-y-10">
-            <div className="flex justify-between items-center border-b border-black/5 pb-4">
-               <h3 className="text-xs font-bold uppercase tracking-widest">Active Portfolios</h3>
+          {/* LEFT: APPLICATIONS & PROFILE */}
+          <div className="lg:col-span-2 space-y-16">
+            
+            {/* PERSONAL DATA CARD */}
+            <div className="space-y-8">
+               <div className="flex justify-between items-center border-b border-black/5 pb-4">
+                  <h3 className="text-xs font-bold uppercase tracking-widest">Personal Information</h3>
+               </div>
+               <div className="bg-white border border-black/5 p-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <InfoItem icon={<User size={14}/>} label="Full Name" value={profile?.name} />
+                  <InfoItem icon={<Mail size={14}/>} label="Verified Email" value={profile?.email} />
+                  <InfoItem icon={<Phone size={14}/>} label="Contact Number" value={profile?.phone} />
+                  <InfoItem icon={<Shield size={14}/>} label="Institutional ID" value={candidateId} />
+               </div>
             </div>
 
-            {fetchingApps ? (
-              <div className="py-20 text-center flex flex-col items-center gap-4">
-                 <div className="w-6 h-6 border-2 border-black/5 border-t-[#F3D7A7] rounded-full animate-spin" />
-                 <span className="text-[10px] font-bold uppercase tracking-widest text-black/20">Accessing Records...</span>
-              </div>
-            ) : applications.length > 0 ? (
-              <div className="space-y-4">
-                {applications.map((app) => (
-                  <div key={app.id} className="bg-white border border-black/5 p-8 md:p-12 hover:shadow-xl transition-all group">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-                       <div className="space-y-4">
-                          <div className="flex items-center gap-3">
-                             <span className="bg-black text-white text-[8px] font-bold uppercase tracking-widest px-2 py-0.5">May 2026</span>
-                             <span className="text-[10px] text-black/30 font-bold uppercase tracking-widest">ID: {app.id.slice(0, 8).toUpperCase()}</span>
-                          </div>
-                          <h4 className="text-2xl font-bold uppercase tracking-tight">Institutional Admission Portfolio</h4>
-                          <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-black/40">
-                             <span className="flex items-center gap-2"><Clock size={14} /> Submitted on {app.createdAt ? new Date(app.createdAt.seconds * 1000).toLocaleDateString() : 'Just now'}</span>
-                          </div>
-                       </div>
-                       
-                       <div className="flex flex-col items-start md:items-end gap-6">
-                          <div className="text-left md:text-right">
-                             <div className="text-[10px] font-bold uppercase tracking-widest text-[#F3D7A7] flex items-center gap-2 md:justify-end">
-                               <div className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /> Under Review
+            {/* ADMISSION RECORDS */}
+            <div className="space-y-8">
+               <div className="flex justify-between items-center border-b border-black/5 pb-4">
+                  <h3 className="text-xs font-bold uppercase tracking-widest">Admission Records</h3>
+               </div>
+
+               {fetchingApps ? (
+                 <div className="py-20 text-center flex flex-col items-center gap-4">
+                    <div className="w-6 h-6 border-2 border-black/5 border-t-[#F3D7A7] rounded-full animate-spin" />
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-black/20">Accessing Records...</span>
+                 </div>
+               ) : applications.length > 0 ? (
+                 <div className="space-y-4">
+                   {applications.map((app) => (
+                     <div key={app.id} className="bg-white border border-black/5 p-8 md:p-12 hover:shadow-xl transition-all group">
+                       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                          <div className="space-y-4">
+                             <div className="flex items-center gap-3">
+                                <span className="bg-black text-white text-[8px] font-bold uppercase tracking-widest px-2 py-0.5">May 2026</span>
+                                <span className="text-[10px] text-black/30 font-bold uppercase tracking-widest">ID: {app.id.slice(0, 8).toUpperCase()}</span>
                              </div>
-                             <p className="text-[9px] text-black/30 uppercase tracking-widest mt-1">Expected decision in 3 days</p>
+                             <h4 className="text-2xl font-bold uppercase tracking-tight">Admission Portfolio Submission</h4>
+                             <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-black/40">
+                                <span className="flex items-center gap-2"><Clock size={14} /> Submitted on {app.createdAt ? new Date(app.createdAt.seconds * 1000).toLocaleDateString() : 'Just now'}</span>
+                             </div>
                           </div>
-                          <button 
-                            onClick={() => setSelectedApp(app)}
-                            className="px-8 py-3 bg-black text-white text-[9px] font-bold uppercase tracking-[0.2em] hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-3"
-                          >
-                            View Submission <FileText size={14} />
-                          </button>
+                          
+                          <div className="flex flex-col items-start md:items-end gap-6">
+                             <div className="text-left md:text-right">
+                                <div className="text-[10px] font-bold uppercase tracking-widest text-[#F3D7A7] flex items-center gap-2 md:justify-end">
+                                  <div className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /> Under Review
+                                </div>
+                                <p className="text-[9px] text-black/30 uppercase tracking-widest mt-1">Expected decision in 3 days</p>
+                             </div>
+                             <button 
+                               onClick={() => setSelectedApp(app)}
+                               className="px-8 py-3 bg-black text-white text-[9px] font-bold uppercase tracking-[0.2em] hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-3"
+                             >
+                               View Portfolio <FileText size={14} />
+                             </button>
+                          </div>
                        </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="bg-white border border-dashed border-black/10 p-20 text-center space-y-8">
-                 <p className="text-[10px] font-bold uppercase tracking-widest text-black/30">No submissions found for this cycle.</p>
-                 <button onClick={() => router.push("/apply/register")} className="px-10 py-5 bg-black text-white text-[10px] font-bold uppercase tracking-widest hover:bg-[#F3D7A7] hover:text-black transition-all">Submit Portfolio</button>
-              </div>
-            )}
+                     </div>
+                   ))}
+                 </div>
+               ) : (
+                 <div className="bg-white border border-dashed border-black/10 p-20 text-center space-y-8">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-black/30">No submissions found for this cycle.</p>
+                    <button onClick={() => router.push("/apply/register")} className="px-10 py-5 bg-black text-white text-[10px] font-bold uppercase tracking-widest hover:bg-[#F3D7A7] hover:text-black transition-all">Submit Portfolio</button>
+                 </div>
+               )}
+            </div>
           </div>
 
           {/* RIGHT: RESOURCES */}
@@ -217,7 +234,7 @@ export default function Profile() {
         </div>
       </main>
 
-      {/* --- SUBMISSION DRAWER / MODAL --- */}
+      {/* --- SUBMISSION DRAWER --- */}
       <AnimatePresence>
         {selectedApp && (
           <motion.div 
@@ -234,22 +251,22 @@ export default function Profile() {
               className="w-full max-w-2xl bg-white h-full shadow-2xl p-12 overflow-y-auto"
             >
               <div className="flex justify-between items-center mb-16">
-                 <h2 className="text-2xl font-bold uppercase tracking-tighter">Submission Dossier</h2>
+                 <h2 className="text-2xl font-bold uppercase tracking-tighter">Admission Portfolio</h2>
                  <button onClick={() => setSelectedApp(null)} className="p-2 hover:bg-black/5 rounded-full transition-colors"><X size={24} /></button>
               </div>
 
-              <div className="space-y-12">
-                 <div className="grid grid-cols-2 gap-8">
+              <div className="space-y-12 text-left">
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <DataPoint label="Candidate Name" value={selectedApp.name} />
-                    <DataPoint label="Contact Email" value={selectedApp.email} />
-                    <DataPoint label="Instagram Handle" value={selectedApp.instagram} />
-                    <DataPoint label="Phone Number" value={selectedApp.phone} />
+                    <DataPoint label="Email Address" value={selectedApp.email} />
+                    <DataPoint label="Instagram" value={selectedApp.instagram} />
+                    <DataPoint label="Phone" value={selectedApp.phone} />
                  </div>
 
                  <div className="h-[1px] bg-black/5" />
 
-                 <div className="space-y-4 text-left">
-                    <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Portfolio Evidence & Links</h5>
+                 <div className="space-y-4">
+                    <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Portfolio Links</h5>
                     <div className="space-y-3">
                        {selectedApp.links?.split('\n').filter((l:string)=>l.trim()).map((link: string, i: number) => (
                          <a key={i} href={link.startsWith('http') ? link : `https://${link}`} target="_blank" className="flex items-center justify-between p-4 bg-[#F9F9F9] border border-black/5 hover:border-black/20 transition-all text-xs font-medium">
@@ -259,8 +276,8 @@ export default function Profile() {
                     </div>
                  </div>
 
-                 <div className="space-y-4 text-left">
-                    <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Statement of Intent</h5>
+                 <div className="space-y-4">
+                    <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Why join the Inner Circle?</h5>
                     <p className="text-sm leading-relaxed text-black/70 bg-[#F9F9F9] p-6 border border-black/5 whitespace-pre-wrap">
                        {selectedApp.whyJoin}
                     </p>
@@ -282,8 +299,18 @@ export default function Profile() {
   );
 }
 
+const InfoItem = ({ icon, label, value }: any) => (
+  <div className="flex items-start gap-4">
+     <div className="mt-1 text-black/20">{icon}</div>
+     <div className="space-y-1">
+        <span className="text-[9px] font-bold uppercase tracking-widest text-black/30">{label}</span>
+        <p className="text-sm font-semibold">{value || 'N/A'}</p>
+     </div>
+  </div>
+);
+
 const DataPoint = ({ label, value }: any) => (
-  <div className="space-y-1 text-left">
+  <div className="space-y-1">
      <span className="text-[9px] font-bold uppercase tracking-widest text-black/30">{label}</span>
      <p className="text-sm font-semibold">{value || 'N/A'}</p>
   </div>
