@@ -62,7 +62,7 @@ const WorkItem = ({ work, aspect, index }: { work: any, aspect: string, index: n
 
 const LogoMarquee = () => {
   const logos = [
-    { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
+    { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/commons/d/df/Amazon_logo_white.svg" },
     { name: "Flipkart", url: "/flipkart.svg" },
     { name: "Bajaj", url: "https://companieslogo.com/img/orig/BAJAJ-AUTO.NS_BIG-afa2b58c.png" },
     { name: "Reliance", url: "https://upload.wikimedia.org/wikipedia/commons/0/09/Reliance_Industries_Logo.svg" },
@@ -101,13 +101,15 @@ const LogoMarquee = () => {
           {doubledLogos.map((logo, i) => (
             <div 
               key={i} 
-              className="flex-shrink-0 flex items-center justify-center p-4 md:p-6 bg-white/[0.05] backdrop-blur-md border border-white/[0.1] rounded-2xl md:rounded-3xl hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-500 group cursor-pointer"
+              className="flex-shrink-0 flex items-center justify-center p-4 md:p-6 bg-white/[0.08] backdrop-blur-md border border-white/[0.12] rounded-2xl md:rounded-3xl hover:bg-white/[0.12] hover:border-white/[0.2] transition-all duration-500 group cursor-pointer"
               style={{ minWidth: '180px', height: '80px' }}
             >
               <img 
                 src={logo.url} 
                 alt={logo.name} 
-                className="h-8 md:h-10 w-auto max-w-[140px] object-contain transition-all duration-500 group-hover:scale-110"
+                className={`h-8 md:h-10 w-auto max-w-[140px] object-contain transition-all duration-500 group-hover:scale-110 ${
+                  logo.name === 'FamApp' || logo.name === 'Reliance' ? 'brightness-[5] contrast-[1]' : ''
+                }`}
                 onError={(e) => {
                    (e.target as any).style.display = 'none';
                    const parent = (e.target as any).parentElement;
