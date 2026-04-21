@@ -1,186 +1,429 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { CheckCircle2, ShieldCheck, Zap, Users, GraduationCap } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  BadgeCheck,
+  CheckCircle2,
+  Copy,
+  CreditCard,
+  GraduationCap,
+  Image as ImageIcon,
+  Layers,
+  PlayCircle,
+  ShieldCheck,
+} from "lucide-react";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
-export default function ApplicationPortal() {
-  const [formData, setFormData] = useState({
-    name: "", email: "", phone: "", 
-    currentRole: "", hasEarned: "", earningDetail: "",
-    intent: "", goals: "", 
-    commitTime: false, commitOutreach: false,
-    blockers: ""
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
+
+const joiningFee = "Rs. 749";
+const originalPrice = "Rs. 4,999";
+
+const benefits = [
+  {
+    description: "Revisit every session, breakdown, and implementation lesson whenever you need it.",
+    icon: <PlayCircle size={20} />,
+    title: "RECORDED SESSION ACCESS",
+  },
+  {
+    description: "Learn from invited operators and creators who are actively building in the market.",
+    icon: <GraduationCap size={20} />,
+    title: "GUEST SESSIONS",
+  },
+  {
+    description: "Get the templates, references, and internal resources shared inside the cohort.",
+    icon: <Layers size={20} />,
+    title: "RESOURCES AND SYSTEMS",
+  },
+  {
+    description: "Join a focused room of selected candidates committed to execution over theory.",
+    icon: <ShieldCheck size={20} />,
+    title: "COHORT ACCESS",
+  },
+];
+
+const paymentMethods = [
+  {
+    icon: <CreditCard size={18} />,
+    id: "upi-qr",
+    label: "UPI QR",
+    shortDescription: "Scan and pay using any app.",
+  },
+] as const;
+
+type PaymentMethodId = (typeof paymentMethods)[number]["id"];
+
+const paymentConfig = {
+  upiId: "piyushkumar2418@okhdfcbank",
+  upiName: "PIYUSH KUMAR",
+};
+
+export default function PaymentPage() {
+  const router = useRouter();
+  const [selectedMethod, setSelectedMethod] = useState<PaymentMethodId>("upi-qr");
+  const [submitted, setSubmitted] = useState(false);
+  const [proofFileName, setProofFileName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    transactionId: "",
   });
+  const [copiedField, setCopiedField] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Application Submitted:", formData);
+  const upiLink = useMemo(() => {
+    return `upi://pay?pa=${paymentConfig.upiId}&pn=${encodeURIComponent(paymentConfig.upiName)}&am=749&cu=INR`;
+  }, []);
+
+  const qrImageUrl = useMemo(() => {
+    const encodedLink = encodeURIComponent(upiLink);
+    return `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodedLink}`;
+  }, [upiLink]);
+
+  const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({ ...prev, [field]: e.target.value }));
+  };
+
+  const handleCopy = async (value: string, field: string) => {
+    await navigator.clipboard.writeText(value);
+    setCopiedField(field);
+    setTimeout(() => setCopiedField(""), 2000);
+  };
+
+  const handleOpenUpi = () => {
+    window.location.href = upiLink;
+    setErrorMessage("UPI apps usually do not open in desktop browsers. Scan the QR with your phone or use the copied UPI ID.");
+  };
+
+  const handleSubmitProof = async () => {
+    if (!form.name || !form.email || !form.transactionId) {
+      setErrorMessage("PLEASE FILL IN NAME, EMAIL, AND TRANSACTION ID.");
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setErrorMessage("");
+
+    try {
+      await addDoc(collection(db, "submissions"), {
+        ...form,
+        createdAt: serverTimestamp(),
+        status: "pending",
+      });
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setErrorMessage("FAILED TO SUBMIT. PLEASE TRY AGAIN OR CONTACT SUPPORT.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-white text-black flex flex-col md:flex-row">
-      
-      <div className="w-full md:w-[60%] px-6 md:px-20 py-20 overflow-y-auto">
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="max-w-xl mx-auto"
-        >
-          <header className="mb-16">
-            <h2 className="text-3xl font-bold uppercase tracking-tighter mb-2">Admission Request</h2>
-            <p className="text-black/40 text-xs uppercase tracking-[0.2em]">Cohort 01 — May 2026 Batch</p>
-          </header>
+    <main className="min-h-screen bg-[#f7f3eb] text-black selection:bg-[#d9b465] selection:text-black">
+      <nav className="border-b border-black/10 bg-white/75 backdrop-blur-xl sticky top-0 z-50">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-10">
+          <button
+            onClick={() => router.push("/")}
+            className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-black/60 hover:text-black"
+          >
+            <ArrowLeft size={14} /> BACK TO HOME
+          </button>
+        </div>
+      </nav>
 
-          <form onSubmit={handleSubmit} className="space-y-12">
-            <div className="space-y-8">
-              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7]">01. Identification</h3>
-              <div className="grid grid-cols-1 gap-6">
-                <InputField label="Legal Name" placeholder="Full Name" />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <InputField label="Email Address" placeholder="name@email.com" type="email" />
-                  <InputField label="Phone (WhatsApp)" placeholder="+91" type="tel" />
-                </div>
-              </div>
+      <section className="border-b border-black/10 bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
+          <motion.div initial="hidden" animate="visible" variants={fadeUp}>
+            <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-[#d9b465]/50 bg-[#d9b465]/10 px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.35em] text-[#8a6522]">
+              <BadgeCheck size={14} />
+              CANDIDATE SELECTED
+            </div>
+            <div className="max-w-4xl">
+              <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.45em] text-black/45">
+                BLADE INNER CIRCLE / ADMISSION CONFIRMATION
+              </p>
+              <h1
+                className="max-w-4xl text-6xl font-bold leading-[0.95] tracking-[-0.06em] text-black md:text-7xl uppercase"
+                style={{ fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif" }}
+              >
+                CONFIRM YOUR SEAT.
+              </h1>
+              <p className="mt-8 max-w-3xl text-xl leading-relaxed text-black/60">
+                Your application has been selected. Complete the joining payment to secure your seat.
+              </p>
             </div>
 
-            <div className="space-y-8">
-              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7]">02. Professional Background</h3>
-              <InputField label="What do you currently do?" placeholder="e.g. Student, Freelancer, Working Professional" />
-              <div className="space-y-4">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-black/60">Have you ever earned online before?</label>
-                <div className="flex gap-4">
-                  <button type="button" className="px-8 py-3 border border-black/10 text-xs font-bold uppercase tracking-widest hover:border-[#F3D7A7]">Yes</button>
-                  <button type="button" className="px-8 py-3 border border-black/10 text-xs font-bold uppercase tracking-widest hover:border-[#F3D7A7]">No</button>
-                </div>
-                <textarea 
-                  placeholder="Briefly explain your previous experience or lack thereof..."
-                  className="w-full bg-[#F9F9F9] p-6 text-sm border-none focus:ring-1 focus:ring-[#F3D7A7] outline-none min-h-[100px]"
-                />
-              </div>
+            <div className="mt-12 grid gap-px overflow-hidden rounded-[2rem] border border-black/10 bg-black/10 md:grid-cols-3">
+              <SimpleStat kicker="COHORT FORMAT" title="8 WEEK PROGRAM" />
+              <SimpleStat kicker="SESSION STRUCTURE" title="LIVE + RECORDED" />
+              <SimpleStat kicker="WHAT YOU RECEIVE" title="SESSIONS + RESOURCES" />
             </div>
+          </motion.div>
+        </div>
+      </section>
 
-            <div className="space-y-8">
-              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7]">03. Strategy & Mindset</h3>
-              <TextAreaField label="Why do you want to join Blade Inner Circle?" placeholder="Your motivations..." />
-              <TextAreaField label="What are you trying to achieve in the next 3 months?" placeholder="Be specific about your revenue or skill targets..." />
-              <TextAreaField label="What do you think is currently stopping you?" placeholder="Identify your bottleneck..." />
-            </div>
-
-            <div className="space-y-8">
-              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7]">04. Commitment Clause</h3>
-              <div className="space-y-4">
-                <Checkbox label="I can commit 2 months and ~3 hours per week for live execution." />
-                <Checkbox label="I am willing to perform daily outreach if required by the curriculum." />
-              </div>
-            </div>
-
-            <button className="w-full py-6 bg-black text-white font-bold uppercase tracking-[0.3em] text-xs hover:bg-[#F3D7A7] hover:text-black transition-all duration-700 shadow-2xl">
-              File Admission Portfolio
-            </button>
-          </form>
-        </motion.div>
-      </div>
-
-      <div className="w-full md:w-[40%] bg-[#F9F9F9] border-l border-black/5 px-8 md:px-16 py-20">
-        <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.4 }}
-          className="sticky top-20 space-y-16"
-        >
-          {/* REDESIGNED COHORT SECTION */}
-          <div className="relative">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="h-[1px] w-12 bg-black/10"></div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-black/40">Admissions Open</span>
-            </div>
-            
-            <div className="flex flex-col">
-              <span className="text-8xl font-black uppercase tracking-tighter leading-none text-black">
-                C0<span className="text-[#F3D7A7]">1</span>
-              </span>
-              <div className="flex items-center gap-3 mt-4">
-                <span className="text-sm font-bold uppercase tracking-[0.3em] border-b-2 border-black pb-1">
-                  May 2026
-                </span>
-                <span className="text-[10px] opacity-30 uppercase font-medium tracking-widest leading-none">
-                  // Global Intake
-                </span>
-              </div>
-            </div>
-
-            <ul className="space-y-6 mt-12">
-              <InfoItem icon={<Zap size={16}/>} text="2-Month Intensive Program" />
-              <InfoItem icon={<Users size={16}/>} text="Limited to 10 vetted architects" />
-              <InfoItem icon={<ShieldCheck size={16}/>} text="Live Execution Sprints" />
-            </ul>
-          </div>
-
-          <div className="pt-12 border-t border-black/5">
-            <div className="flex items-center gap-3 mb-6 text-[#F3D7A7]">
-              <GraduationCap size={20} />
-              <h3 className="text-sm font-bold uppercase tracking-widest">Placement Support</h3>
-            </div>
-            <p className="text-sm text-black/60 leading-relaxed font-light mb-6 italic">
-              "We don’t guarantee placements. We prepare you for them."
+      <section className="bg-white">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:px-10 lg:grid-cols-[0.95fr_1.05fr]">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55 }}
+            className="rounded-[2rem] border border-black/10 bg-[#fbfaf6] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.06)] md:p-8"
+          >
+            <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-black/45">PAYMENT DETAILS</p>
+            <h2
+              className="mt-3 text-4xl font-bold tracking-[-0.06em] text-black uppercase"
+              style={{ fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif" }}
+            >
+              SCAN AND PAY.
+            </h2>
+            <p className="mt-3 text-base leading-relaxed text-black/60">
+              Use UPI to complete the payment, then share the transaction reference for verification.
             </p>
-            <div className="space-y-4">
-              <SupportItem text="Access to high-ticket opportunities in our network" />
-              <SupportItem text="Guided client acquisition systems" />
-              <SupportItem text="Portfolio positioning & Personal Branding" />
-            </div>
-          </div>
 
-          <div className="bg-black text-white p-8 rounded-sm">
-            <p className="text-[10px] uppercase tracking-[0.4em] font-bold mb-2">Notice</p>
-            <p className="text-xs text-white/60 leading-relaxed font-light">
-              Applicants are selected based on mindset and commitment density. You will receive a response within 48 hours.
-            </p>
-          </div>
-        </motion.div>
-      </div>
-    </div>
+            <div className="mt-8 rounded-[1.5rem] border border-black/10 bg-white p-5">
+              <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-black/45">JOINING FEE</p>
+              <div className="mt-3 flex items-baseline gap-4">
+                <p
+                  className="text-5xl font-bold tracking-[-0.06em] text-black"
+                  style={{ fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif" }}
+                >
+                  {joiningFee}
+                </p>
+                <p className="text-xl text-black/30 line-through font-bold">{originalPrice}</p>
+              </div>
+              <p className="mt-4 text-sm leading-relaxed text-black/60">CHOOSE THE UPI OPTION BELOW.</p>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1">
+              {paymentMethods.map((method) => (
+                <button
+                  key={method.id}
+                  onClick={() => setSelectedMethod(method.id)}
+                  className={`flex flex-col items-start gap-3 rounded-2xl border px-4 py-4 text-left text-sm font-bold uppercase tracking-[0.16em] transition-all ${
+                    selectedMethod === method.id
+                      ? "border-[#d9b465] bg-[#d9b465]/10 text-black shadow-[0_10px_30px_rgba(200,155,60,0.12)]"
+                      : "border-black/10 bg-white text-black hover:border-[#d9b465]/45 hover:bg-[#d9b465]/5"
+                  }`}
+                  style={{ fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif" }}
+                >
+                  <span className="text-[#9b7328]">{method.icon}</span>
+                  <span>{method.label}</span>
+                  <span className="text-[11px] font-normal normal-case tracking-normal text-black/55">{method.shortDescription}</span>
+                </button>
+              ))}
+            </div>
+
+            <PaymentMethodPanel
+              copiedField={copiedField}
+              onCopy={handleCopy}
+              onOpenUpi={handleOpenUpi}
+              qrImageUrl={qrImageUrl}
+              selectedMethod={selectedMethod}
+              upiLink={upiLink}
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.08, duration: 0.55 }}
+            className="rounded-[2rem] border border-black/10 bg-[#fbfaf6] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.06)] md:p-8"
+          >
+            {!submitted ? (
+              <>
+                <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-black/45">SUBMIT PAYMENT PROOF</p>
+                <h2
+                  className="mt-3 text-4xl font-bold tracking-[-0.06em] text-black uppercase"
+                  style={{ fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif" }}
+                >
+                  SHARE REFERENCE.
+                </h2>
+                <div className="mt-8 space-y-5">
+                  <InputField label="CANDIDATE NAME" onChange={handleChange("name")} placeholder="Your full name" value={form.name} />
+                  <InputField label="EMAIL ADDRESS" onChange={handleChange("email")} placeholder="name@email.com" value={form.email} />
+                  <InputField label="WHATSAPP NUMBER" onChange={handleChange("phone")} placeholder="+91 98765 43210" value={form.phone} />
+                  <InputField label="TRANSACTION ID / UTR" onChange={handleChange("transactionId")} placeholder="Enter reference number" value={form.transactionId} />
+
+                  <label className="block cursor-pointer">
+                    <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.3em] text-black/45">SCREENSHOT PROOF (OPTIONAL)</span>
+                    <div className="flex items-center gap-3 rounded-2xl border border-dashed border-black/20 bg-[#faf8f2] px-4 py-4 text-sm text-black/60 transition-colors hover:border-[#d9b465]/45">
+                      <ImageIcon size={18} className="text-[#9b7328]" />
+                      <span>{proofFileName || "SELECT SCREENSHOT"}</span>
+                      <input
+                        type="file"
+                        className="hidden"
+                        onChange={(e) => setProofFileName(e.target.files?.[0]?.name || "")}
+                      />
+                    </div>
+                  </label>
+
+                  {errorMessage && (
+                    <div className="rounded-xl bg-red-50 p-4 text-xs text-red-600 font-bold uppercase tracking-widest">{errorMessage}</div>
+                  )}
+
+                  <button
+                    onClick={handleSubmitProof}
+                    disabled={isSubmitting}
+                    className="flex w-full items-center justify-center gap-3 rounded-full bg-black px-8 py-5 text-xs font-bold uppercase tracking-[0.35em] text-white transition-all hover:bg-[#d9b465] hover:text-black disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? "SUBMITTING..." : "APPLY NOW"} <ArrowUpRight size={16} />
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="rounded-[1.75rem] bg-black p-8 text-white">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#d9b465] text-black">
+                  <CheckCircle2 size={26} />
+                </div>
+                <h2
+                  className="mt-6 text-3xl font-bold uppercase tracking-[-0.06em]"
+                  style={{ fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif" }}
+                >
+                  PROOF READY.
+                </h2>
+                <p className="mt-4 text-base leading-relaxed text-white/60">
+                  We will verify your transaction and confirm your seat via email/WhatsApp shortly.
+                </p>
+              </div>
+            )}
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="border-b border-black/10 bg-[#f7f3eb] px-6 py-16 md:px-10">
+        <div className="mx-auto max-w-7xl grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {benefits.map((benefit, index) => (
+            <div key={index} className="rounded-[2rem] border border-black/10 bg-white p-8 shadow-[0_20px_55px_rgba(0,0,0,0.04)]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f5ecd9] text-[#9b7328]">{benefit.icon}</div>
+              <h2
+                className="mt-6 text-[1.5rem] font-bold leading-tight tracking-[-0.06em] text-black"
+                style={{ fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif" }}
+              >
+                {benefit.title}
+              </h2>
+              <p className="mt-4 text-sm leading-relaxed text-black/60">{benefit.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <footer className="border-t border-black/10 bg-white px-6 py-10 md:px-10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <p className="text-[10px] font-bold uppercase tracking-[0.38em] text-black/40">BLADE INNER CIRCLE / ADMISSION PORTAL</p>
+          <p
+            className="text-lg text-black/55 font-bold uppercase tracking-[-0.06em]"
+            style={{ fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif" }}
+          >
+            SELECTED CANDIDATES ONLY.
+          </p>
+        </div>
+      </footer>
+    </main>
   );
 }
 
-const InputField = ({ label, placeholder, type = "text" }: any) => (
-  <div className="space-y-2">
-    <label className="text-[10px] font-bold uppercase tracking-widest text-black/60">{label}</label>
-    <input 
-      type={type} 
-      placeholder={placeholder}
-      className="w-full border-b border-black/10 py-3 text-lg focus:border-[#F3D7A7] outline-none transition-all placeholder:text-black/10"
-    />
-  </div>
-);
+function PaymentMethodPanel({
+  selectedMethod,
+  qrImageUrl,
+  onCopy,
+  copiedField,
+  onOpenUpi,
+}: {
+  selectedMethod: PaymentMethodId;
+  qrImageUrl: string;
+  upiLink: string;
+  onCopy: (value: string, field: string) => void;
+  copiedField: string;
+  onOpenUpi: () => void;
+}) {
+  if (selectedMethod === "upi-qr") {
+    return (
+      <div className="mt-8 flex flex-col items-center gap-6 rounded-3xl border border-black/5 bg-[#faf8f2] p-8 md:flex-row">
+        <div className="bg-white p-3 rounded-2xl border border-black/10">
+          <img src={qrImageUrl} alt="UPI QR" className="h-64 w-64 object-cover" />
+        </div>
+        <div className="flex-1">
+          <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-black/45">SCAN TO PAY</p>
+          <h3
+            className="mt-3 text-2xl font-bold uppercase tracking-[-0.06em] text-black"
+            style={{ fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif" }}
+          >
+            MOBILE UPI APP
+          </h3>
+          <p className="mt-3 text-sm text-black/60">Scan this code using PhonePe, GPay, or Paytm.</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button
+              onClick={onOpenUpi}
+              className="rounded-full border border-black/10 px-5 py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all"
+            >
+              OPEN APP
+            </button>
+            <button
+              onClick={() => onCopy(paymentConfig.upiId, "upi-id")}
+              className="flex items-center gap-2 rounded-full border border-black/10 px-5 py-3 text-[10px] font-bold uppercase tracking-widest"
+            >
+              <Copy size={14} /> {copiedField === "upi-id" ? "COPIED" : "COPY ID"}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  return null;
+}
 
-const TextAreaField = ({ label, placeholder }: any) => (
-  <div className="space-y-2">
-    <label className="text-[10px] font-bold uppercase tracking-widest text-black/60">{label}</label>
-    <textarea 
-      placeholder={placeholder}
-      className="w-full bg-[#F9F9F9] p-6 text-sm border-none focus:ring-1 focus:ring-[#F3D7A7] outline-none min-h-[120px]"
-    />
-  </div>
-);
+function InputField({
+  label,
+  value,
+  onChange,
+  placeholder,
+  type = "text",
+}: {
+  label: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder: string;
+  type?: string;
+}) {
+  return (
+    <label className="block">
+      <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.3em] text-black/45">{label}</span>
+      <input
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className="w-full rounded-2xl border border-black/10 bg-white px-5 py-4 text-sm font-bold outline-none focus:border-[#d9b465] transition-all"
+      />
+    </label>
+  );
+}
 
-const Checkbox = ({ label }: any) => (
-  <label className="flex items-start gap-4 cursor-pointer group">
-    <input type="checkbox" className="mt-1 accent-black" />
-    <span className="text-[11px] uppercase tracking-widest font-bold text-black/40 group-hover:text-black transition-colors">{label}</span>
-  </label>
-);
-
-const InfoItem = ({ icon, text }: any) => (
-  <li className="flex items-center gap-4 text-xs uppercase tracking-widest font-bold">
-    <span className="text-[#F3D7A7]">{icon}</span>
-    {text}
-  </li>
-);
-
-const SupportItem = ({ text }: any) => (
-  <div className="flex gap-3 text-[11px] font-medium text-black/60">
-    <div className="h-1.5 w-1.5 rounded-full bg-[#F3D7A7] mt-1" />
-    {text}
-  </div>
-);
+function SimpleStat({ kicker, title }: { kicker: string; title: string }) {
+  return (
+    <div className="bg-white px-6 py-8">
+      <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-black/40">{kicker}</p>
+      <p
+        className="mt-4 text-[2rem] font-bold leading-[1.02] tracking-[-0.06em] text-black uppercase"
+        style={{ fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif" }}
+      >
+        {title}
+      </p>
+    </div>
+  );
+}

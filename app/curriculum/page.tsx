@@ -2,10 +2,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowUpRight, Target, Laptop, Users, LineChart, ShieldCheck, Zap, Globe, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Target, Laptop, ShieldCheck, Zap } from "lucide-react";
 
 // --- ANIMATION VARIANTS ---
-// Fixed TypeScript easing error using 'as const' to ensure cubic-bezier array is read-only
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { 
@@ -73,22 +72,22 @@ export default function CurriculumPage() {
           <SectionLabel gold>The Build Process</SectionLabel>
           <motion.h1 
             initial="hidden" animate="visible" variants={fadeUp}
-            className="text-[10vw] md:text-[7vw] font-bold uppercase leading-[0.85] tracking-tighter mb-12"
+            className="text-[10vw] md:text-[7vw] font-bold uppercase leading-[0.85] tracking-[-0.06em] mb-12"
           >
             The Execution <br/> Framework.
           </motion.h1>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-12 border-t border-black/5">
             <div>
               <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/55 mb-4">Focus</h4>
-              <p className="font-bold text-xl uppercase tracking-tight">Institutional Infrastructure</p>
+              <p className="font-bold text-xl uppercase tracking-[-0.06em]">Institutional Infrastructure</p>
             </div>
             <div>
               <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/55 mb-4">Standard</h4>
-              <p className="font-bold text-xl uppercase tracking-tight">Practitioner-Led</p>
+              <p className="font-bold text-xl uppercase tracking-[-0.06em]">Practitioner-Led</p>
             </div>
             <div>
               <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/55 mb-4">Outcome</h4>
-              <p className="font-bold text-xl uppercase tracking-tight">₹1L/mo Trajectory</p>
+              <p className="font-bold text-xl uppercase tracking-[-0.06em]">₹1L/mo Trajectory</p>
             </div>
           </div>
         </div>
@@ -108,7 +107,7 @@ export default function CurriculumPage() {
                   <span className="font-mono text-[#D4AF37] text-2xl font-bold">{phase.phase}</span>
                 </div>
                 <div className="md:col-span-5">
-                  <h3 className="text-3xl md:text-5xl font-bold uppercase tracking-tighter mb-6 leading-none">{phase.title}</h3>
+                  <h3 className="text-3xl md:text-5xl font-bold uppercase tracking-[-0.06em] mb-6 leading-none">{phase.title}</h3>
                   <p className="text-black/60 text-lg leading-relaxed font-medium pr-8">{phase.description}</p>
                 </div>
                 <div className="md:col-span-6 flex flex-col justify-center border-l border-black/5 md:pl-12">
@@ -131,7 +130,7 @@ export default function CurriculumPage() {
       <section className="py-32 px-6 md:px-24 bg-black text-white">
         <div className="max-w-7xl mx-auto">
           <SectionLabel gold>The Tangible Ledger</SectionLabel>
-          <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter mb-20">We build assets, <br/> <span className="text-white/20">not attendance.</span></h2>
+          <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-[-0.06em] mb-20">We build assets, <br/> <span className="text-white/20">not attendance.</span></h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">
             {[
@@ -142,7 +141,7 @@ export default function CurriculumPage() {
             ].map((outcome, i) => (
               <div key={i} className="bg-black p-10 hover:bg-white/5 transition-all">
                 <div className="text-[#D4AF37] mb-8">{outcome.icon}</div>
-                <h3 className="text-lg font-bold uppercase mb-4 tracking-tight">{outcome.t}</h3>
+                <h3 className="text-lg font-bold uppercase mb-4 tracking-[-0.06em]">{outcome.t}</h3>
                 <p className="text-sm text-white/40 leading-relaxed font-light">{outcome.d}</p>
               </div>
             ))}
@@ -155,7 +154,7 @@ export default function CurriculumPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24">
           <div>
             <SectionLabel>The Network</SectionLabel>
-            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-8 leading-[0.9]">A Room of <br/> Practitioners.</h2>
+            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-[-0.06em] mb-8 leading-[0.9]">A Room of <br/> Practitioners.</h2>
             <p className="text-black/60 text-xl leading-relaxed font-medium mb-12">Membership is restricted. The value of the Inner Circle is the high-intent environment created by founders and builders.</p>
             <div className="space-y-6">
               <div className="flex items-start gap-4 border-l-2 border-[#D4AF37] pl-6">
@@ -168,15 +167,15 @@ export default function CurriculumPage() {
           </div>
           <div>
             <SectionLabel>The Opportunity</SectionLabel>
-            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-8 leading-[0.9]">Institutional <br/> Pipeline.</h2>
-            <p className="text-black/60 text-xl leading-relaxed font-medium mb-12">We don't promise jobs; we provide a high-level venue for access. Top performers are positioned for direct roles.</p>
+            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-[-0.06em] mb-8 leading-[0.9]">Institutional <br/> Pipeline.</h2>
+            <p className="text-black/60 text-xl leading-relaxed font-medium mb-12">We don&apos;t promise jobs; we provide a high-level venue for access. Top performers are positioned for direct roles.</p>
             <div className="grid grid-cols-1 gap-4">
               <div className="p-8 bg-[#F9F9F9] rounded-sm">
-                <h4 className="text-black font-bold uppercase tracking-tighter text-lg mb-2">Agency Roles</h4>
+                <h4 className="text-black font-bold uppercase tracking-[-0.06em] text-lg mb-2">Agency Roles</h4>
                 <p className="text-xs text-black/55 uppercase tracking-widest font-bold">Direct pathways to Blade Media ecosystem.</p>
               </div>
               <div className="p-8 bg-[#F9F9F9] rounded-sm">
-                <h4 className="text-black font-bold uppercase tracking-tighter text-lg mb-2">Partner Network</h4>
+                <h4 className="text-black font-bold uppercase tracking-[-0.06em] text-lg mb-2">Partner Network</h4>
                 <p className="text-xs text-black/55 uppercase tracking-widest font-bold">Referrals to high-growth consumer brands.</p>
               </div>
             </div>
@@ -187,7 +186,7 @@ export default function CurriculumPage() {
       {/* FINAL CALL */}
       <section className="py-40 px-6 text-center">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-6xl md:text-[9vw] font-bold uppercase tracking-tighter mb-12 leading-[0.8]">Earn your <br/> entry.</h2>
+          <h2 className="text-6xl md:text-[9vw] font-bold uppercase tracking-[-0.06em] mb-12 leading-[0.8]">Earn your <br/> entry.</h2>
           <button 
             onClick={() => router.push("/apply/login")}
             className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#D4AF37] transition-all flex items-center gap-4 mx-auto shadow-2xl"

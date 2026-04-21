@@ -2,7 +2,7 @@
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, useInView, Variants, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, ShieldCheck, Zap, Users, Target, Laptop, LineChart, Award, Eye, ArrowRight, Layers, Fingerprint, Search, Repeat, Workflow, TrendingUp, Sparkles, Globe, Briefcase } from "lucide-react";
+import { ArrowUpRight, Zap, Award, Eye, ArrowRight, TrendingUp, Sparkles } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
@@ -21,12 +21,12 @@ const fadeUp: Variants = {
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
   <div className="flex items-center gap-4 mb-8 text-left">
     <div className="h-[1px] w-8 bg-[#F3D7A7]" />
-    <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/55">{children}</span>
+    <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/40">{children}</span>
   </div>
 );
 
 // --- WORK ITEM COMPONENT ---
-const WorkItem = ({ work, aspect, index }: { work: any; aspect: string, index: number }) => {
+const WorkItem = ({ work, aspect, index }: { work: { title: string, category: string, link: string, video: string, img: string }; aspect: string, index: number }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const ref = useRef(null);
@@ -87,6 +87,7 @@ export default function Home() {
     { title: "Visual Dominance", category: "Reel", link: "https://www.instagram.com/reel/DDrxL2CMYCB/", video: "/preview5.mp4", img: "/thumb5.webp" },
     { title: "Editorial Series", category: "Reel", link: "https://www.instagram.com/katemackz/", video: "/preview6.mp4", img: "/thumb6.webp" },
     { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" },
+    { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" },
     { title: "Retention Edit", category: "Reel", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" },
   ];
 
@@ -140,7 +141,7 @@ export default function Home() {
                 <source src="/hero-bg.mp4?v=4" type="video/mp4" />
               </video>
               <div className="relative z-20 px-4 text-center">
-                <h1 className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.05em] uppercase mb-8 text-white">Growth,<br/>engineered.</h1>
+                <h1 className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.06em] uppercase mb-8 text-white">Growth,<br/>engineered.</h1>
                 <p className="text-[#F3D7A7] text-[10px] md:text-[12px] uppercase tracking-[0.8em] font-bold">Blade Media</p>
               </div>
             </section>
@@ -151,7 +152,7 @@ export default function Home() {
                 <div className="md:sticky md:top-32" ref={philosophyLeftRef}>
                   <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-12 text-left">
                     <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-4 block font-bold">The Visionary</span>
-                    <h2 className="text-5xl md:text-8xl font-bold leading-[0.85] tracking-tighter uppercase text-white mb-16">Systematized <br/> Visual <br/> Dominance.</h2>
+                    <h2 className="text-5xl md:text-8xl font-bold leading-[0.85] tracking-[-0.06em] uppercase text-white mb-16">Systematized <br/> Visual <br/> Dominance.</h2>
                   </motion.div>
                   <motion.div initial={{ opacity: 0, y: 20 }} animate={isPhilosophyLeftInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1.2 }}>
                     <p className="text-white/70 text-xl md:text-2xl lg:text-3xl font-medium leading-[1.4] tracking-tight text-left">
@@ -164,7 +165,7 @@ export default function Home() {
                   <div className="aspect-[3/4] w-full mb-10 overflow-hidden border border-white/10 grayscale hover:grayscale-0 transition-all duration-700">
                     <img src="/piyush.png" className="w-full h-full object-cover" alt="Piyush" />
                   </div>
-                  <p className="text-white/60 text-lg italic font-light leading-relaxed text-left">"We decoded content through an early obsession. Mastering the silent mechanics of distribution."</p>
+                  <p className="text-white/60 text-lg italic font-light leading-relaxed text-left">&quot;We decoded content through an early obsession. Mastering the silent mechanics of distribution.&quot;</p>
                   <div className="text-[#F3D7A7] italic text-2xl font-bold mt-8 text-left">— Piyush</div>
                 </div>
               </div>
@@ -174,13 +175,13 @@ export default function Home() {
             <section className="py-32 px-6 md:px-12 relative z-20">
               <div className="max-w-[1400px] mx-auto w-full space-y-48">
                 <div className="text-left">
-                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12 text-white text-left">Selected Productions</h2>
+                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-[-0.06em] mb-12 text-white text-left">Selected Productions</h2>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {youtubeWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-video" index={i} /> ))}
                   </div>
                 </div>
                 <div className="text-left">
-                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter mb-12 text-[#F3D7A7] text-left">Viral Originals</h2>
+                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-[-0.06em] mb-12 text-[#F3D7A7] text-left">Viral Originals</h2>
                   <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                     {verticalWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} /> ))}
                   </div>
@@ -194,12 +195,12 @@ export default function Home() {
             
             <section className="h-screen flex flex-col justify-center px-6 md:px-24 border-b border-black/5 text-left">
               <div className="flex justify-between items-start mb-8">
-                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.5em] font-bold block text-black/55">Blade Inner Circle</motion.span>
+                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.5em] font-bold block text-black/40">Blade Inner Circle</motion.span>
                 <div className="px-4 py-2 border border-black/10 bg-black/5 text-black font-bold uppercase tracking-[0.3em] text-[10px]">
-                  Commencing May 2026
+                  May 2026 Batch
                 </div>
               </div>
-              <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="text-[12vw] md:text-[8vw] font-bold leading-[0.85] tracking-tighter uppercase mb-12">The School of <br/> Modern Content.</motion.h1>
+              <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="text-[12vw] md:text-[8vw] font-bold leading-[0.85] tracking-[-0.06em] uppercase mb-12">The School of <br/> Modern Content.</motion.h1>
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
                 <p className="text-2xl md:text-4xl text-black/60 leading-tight font-medium max-w-2xl text-left">Build your agency. <br/> From skill to first income.</p>
                 <div className="flex flex-col items-start md:items-end gap-6">
@@ -213,17 +214,17 @@ export default function Home() {
               <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
                 <div className="pr-0 md:pr-12">
                    <SectionLabel>Institutional Thesis</SectionLabel>
-                   <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-[0.9] mb-12 text-left">Theoretical learning is a trap. <br/> <span className="text-black/35">This is an execution lab.</span></h2>
-                   <p className="text-xl md:text-2xl text-black/70 leading-relaxed font-light text-left">Blade Inner Circle is a 2-month intensive for those who refuse to be passive. We deploy systems. Revenue is the only metric.</p>
+                   <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-[-0.06em] leading-[0.9] mb-12 text-left">Theoretical learning is a trap. <br/> <span className="text-black/20">This is an execution lab.</span></h2>
+                   <p className="text-xl md:text-2xl text-black/60 leading-relaxed font-light text-left">Blade Inner Circle is a 2-month intensive for those who refuse to be passive. We deploy systems. Revenue is the only metric.</p>
                 </div>
                 <div className="grid grid-cols-1 gap-px bg-black/10 border border-black/10">
                   <div className="bg-white p-8 md:p-12 text-left">
                     <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">Zero Theory</h4>
-                    <p className="text-black/65 leading-relaxed text-left text-sm md:text-base">Everything decoded over thousands of hours of client work at Blade Media. We share the silent mechanics.</p>
+                    <p className="text-black/50 leading-relaxed text-left text-sm md:text-base">Everything decoded over thousands of hours of client work at Blade Media. We share the silent mechanics.</p>
                   </div>
                   <div className="bg-white p-8 md:p-12 border-t border-black/10 text-left">
                     <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">High Stakes</h4>
-                    <p className="text-black/65 leading-relaxed text-left text-sm md:text-base">Designed to move you from amateur creator to agency operator in 60 days.</p>
+                    <p className="text-black/50 leading-relaxed text-left text-sm md:text-base">Designed to move you from amateur creator to agency operator in 60 days.</p>
                   </div>
                 </div>
               </div>
@@ -234,23 +235,23 @@ export default function Home() {
               <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-start text-left">
                 <div className="text-left">
                    <SectionLabel>The Faculty</SectionLabel>
-                   <h2 className="text-5xl font-bold uppercase tracking-tighter leading-[0.85] text-left">Learn From <br/> <span className="text-[#F3D7A7]">Practitioners.</span></h2>
-                   <p className="text-black/60 text-lg leading-relaxed font-light mt-8 text-left">
+                   <h2 className="text-5xl font-bold uppercase tracking-[-0.06em] leading-[0.85] text-left">Learn From <br/> <span className="text-[#F3D7A7]">Practitioners.</span></h2>
+                   <p className="text-black/40 text-lg leading-relaxed font-light mt-8 text-left">
                      We bring in actual founders, elite creators, and top-tier freelancers. Not teachers—practitioners who are currently winning in the market. You learn through direct transfer of active systems.
                    </p>
                 </div>
                 <div className="grid grid-cols-1 gap-px bg-black/10 border border-black/10">
                   <div className="bg-white p-10 text-left">
                     <h4 className="text-black text-xs font-bold uppercase tracking-widest mb-4 text-left">Founders & Operators</h4>
-                    <p className="text-sm text-black/60 leading-relaxed italic text-left">Systems for scaling agencies to ₹10L+ monthly.</p>
+                    <p className="text-sm text-black/40 leading-relaxed italic text-left">Systems for scaling agencies to ₹10L+ monthly.</p>
                   </div>
                   <div className="bg-white p-10 border-t border-black/10 text-left">
                     <h4 className="text-black text-xs font-bold uppercase tracking-widest mb-4 text-left">Top 1% Creators</h4>
-                    <p className="text-sm text-black/60 leading-relaxed italic text-left">The physics of virality and high-retention distribution.</p>
+                    <p className="text-sm text-black/40 leading-relaxed italic text-left">The physics of virality and high-retention distribution.</p>
                   </div>
                   <div className="bg-white p-10 border-t border-black/10 text-left">
                     <h4 className="text-black text-xs font-bold uppercase tracking-widest mb-4 text-left">High-Ticket Freelancers</h4>
-                    <p className="text-sm text-black/60 leading-relaxed italic text-left">Closing global clients and mastering high-leverage skillsets.</p>
+                    <p className="text-sm text-black/40 leading-relaxed italic text-left">Closing global clients and mastering high-leverage skillsets.</p>
                   </div>
                 </div>
               </div>
@@ -270,8 +271,8 @@ export default function Home() {
                 <div className="w-full md:w-1/2 text-left">
                   <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-10">
                     <div>
-                      <SectionLabel>The Practitioner</SectionLabel>
-                      <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-[0.85] text-left">Learn Directly <br/> From The Founder</h2>
+                      <SectionLabel>The Direct Line</SectionLabel>
+                      <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-[-0.06em] leading-[0.85] italic text-left">Learn Directly <br/> From The Founder</h2>
                     </div>
                     <p className="text-black/60 text-xl leading-relaxed max-w-lg font-light text-left">Blade Inner Circle isn’t built on theory — it’s built on execution. Every system, framework, and approach inside the program comes directly from what’s currently working inside Blade Media.</p>
                   </motion.div>
@@ -282,7 +283,7 @@ export default function Home() {
                   <motion.div key={idx} className="p-10 bg-white hover:bg-[#F9F9F9] transition-all duration-500 group text-left">
                     <div className="mb-6 text-[#F3D7A7] transition-colors duration-500">{stat.icon}</div>
                     <h4 className="text-sm font-bold uppercase tracking-widest leading-tight mb-3 text-left">{stat.label}</h4>
-                    <p className="text-[10px] text-black/45 uppercase tracking-[0.2em] text-left">{stat.desc}</p>
+                    <p className="text-[10px] text-black/30 uppercase tracking-[0.2em] text-left">{stat.desc}</p>
                   </motion.div>
                 ))}
               </div>
@@ -293,7 +294,7 @@ export default function Home() {
               <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-center text-left">
                 <div>
                    <SectionLabel>The Outcome</SectionLabel>
-                   <h2 className="text-5xl font-bold uppercase tracking-tighter leading-[0.85] text-left">Opportunities, <br/> <span className="text-[#F3D7A7]">Not Just Learning.</span></h2>
+                   <h2 className="text-5xl font-bold uppercase tracking-[-0.06em] leading-[0.85] text-left">Opportunities, <br/> <span className="text-[#F3D7A7]">Not Just Learning.</span></h2>
                    <p className="text-white/40 text-lg leading-relaxed font-light mt-8 text-left">
                      Skill without a venue is wasted potential. We provide a direct pathway for our graduates to enter high-level roles or scale their independent agency entities.
                    </p>
@@ -301,7 +302,7 @@ export default function Home() {
                 <div className="grid grid-cols-1 gap-px bg-white/10 border border-white/10">
                   <div className="bg-black p-10 text-left hover:bg-white/5 transition-all">
                     <h4 className="text-[#F3D7A7] text-xs font-bold uppercase tracking-widest mb-4 text-left">Internal Pipeline</h4>
-                    <p className="text-sm text-white/40 leading-relaxed font-light text-left">Priority hiring for Blade Media's own expansion as we scale our internal creative teams.</p>
+                    <p className="text-sm text-white/40 leading-relaxed font-light text-left">Priority hiring for Blade Media&apos;s own expansion as we scale our internal creative teams.</p>
                   </div>
                   <div className="bg-black p-10 border-t border-white/10 text-left hover:bg-white/5 transition-all">
                     <h4 className="text-[#F3D7A7] text-xs font-bold uppercase tracking-widest mb-4 text-left">Partner Network</h4>
@@ -309,7 +310,7 @@ export default function Home() {
                   </div>
                   <div className="bg-black p-10 border-t border-white/10 text-left hover:bg-white/5 transition-all">
                     <h4 className="text-[#F3D7A7] text-xs font-bold uppercase tracking-widest mb-4 text-left">Agency Bridge</h4>
-                    <p className="text-sm text-white/40 leading-relaxed font-light text-left">Strategic support in acquiring independent high-ticket clients using Blade's lead-gen systems.</p>
+                    <p className="text-sm text-white/40 leading-relaxed font-light text-left">Strategic support in acquiring independent high-ticket clients using Blade&apos;s lead-gen systems.</p>
                   </div>
                 </div>
               </div>
@@ -320,10 +321,10 @@ export default function Home() {
               <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-start text-left">
                 <div className="text-left">
                    <SectionLabel>The Admissions Filter</SectionLabel>
-                   <h2 className="text-5xl font-bold uppercase tracking-tighter leading-[0.85] mb-8 text-left">
+                   <h2 className="text-5xl font-bold uppercase tracking-[-0.06em] leading-[0.85] italic mb-8 text-left">
                      Who Is This <br /> <span className="text-[#F3D7A7]">Built For?</span>
                    </h2>
-                   <p className="text-black/60 text-lg leading-relaxed font-medium mb-12 text-left">
+                   <p className="text-black/40 text-lg leading-relaxed font-medium mb-12 text-left">
                      Admission is not a purchase. It is a selection process based on intent, hunger, and proof of work.
                    </p>
                 </div>
@@ -340,7 +341,7 @@ export default function Home() {
                   <div className="bg-white p-10 border-t border-black/10 opacity-40 text-left">
                     <h4 className="text-red-500 text-xs font-bold uppercase tracking-widest mb-6 text-left">Do Not Apply If</h4>
                     <ul className="space-y-4 text-xs font-medium uppercase tracking-widest text-left">
-                      <li>Searching for "Passive Income"</li>
+                      <li>Searching for &quot;Passive Income&quot;</li>
                       <li>Unwilling to execute technically</li>
                       <li>Looking for shortcuts</li>
                     </ul>
@@ -355,19 +356,27 @@ export default function Home() {
                 <div className="bg-black text-white rounded-[3rem] p-12 md:p-20 flex flex-col md:flex-row items-center justify-between gap-12 overflow-hidden relative shadow-2xl">
                   <div className="absolute top-0 right-0 w-96 h-96 bg-[#F3D7A7]/10 blur-[100px] rounded-full -mr-32 -mt-32" />
                   <div className="max-w-2xl relative z-10 text-left">
-                    <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.4em] mb-6 block">What you will learn</span>
-                    <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-tight mb-8 text-left text-white text-left">
+                    <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.4em] mb-6 block">The Roadmap</span>
+                    <h2
+                      className="text-4xl md:text-6xl font-bold uppercase tracking-[-0.06em] leading-tight mb-4 text-left text-white"
+                      style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif", fontWeight: 700 }}
+                    >
                       The exact systems <br /> behind ₹3Cr+ in revenue.
                     </h2>
-                    <p className="text-white/50 text-lg font-light mb-10 text-left text-left">
-                      We’ve deconstructed the entire agency journey into five easy-to-follow phases. No fluff, just execution.
+                    <p className="text-white/50 text-sm font-light mb-3 text-left leading-relaxed max-w-md">
+                      We&apos;ve deconstructed the entire agency journey into five easy-to-follow phases. No fluff, just execution.
                     </p>
-                    <button 
-                      onClick={() => router.push("/curriculum")}
-                      className="bg-white text-black px-10 py-5 rounded-full font-bold uppercase tracking-widest text-xs flex items-center gap-3 hover:bg-[#F3D7A7] transition-colors"
-                    >
-                      Explore Full Prospectus <ArrowRight size={16} />
-                    </button>
+                    <span className="inline-block text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.3em] border border-[#F3D7A7]/30 px-3 py-1.5 mb-8">
+                      Cohort 01 — Starts May 2026
+                    </span>
+                    <div>
+                      <button
+                        onClick={() => router.push("/curriculum")}
+                        className="bg-white text-black px-10 py-5 rounded-full font-bold uppercase tracking-widest text-xs flex items-center gap-3 hover:bg-[#F3D7A7] transition-colors"
+                      >
+                        Explore Full Prospectus <ArrowRight size={16} />
+                      </button>
+                    </div>
                   </div>
                   <div className="hidden lg:block relative z-10">
                     <div className="grid grid-cols-2 gap-4 text-white">
@@ -376,7 +385,7 @@ export default function Home() {
                         <span className="text-[8px] uppercase font-bold text-white/40 tracking-widest">Days</span>
                       </div>
                       <div className="h-32 w-32 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 flex-col gap-2 text-center">
-                        <span className="text-[#F3D7A7] font-bold text-2xl">5</span>
+                        <span className="text-[#F3D7A7] font-bold text-2xl">05</span>
                         <span className="text-[8px] uppercase font-bold text-white/40 tracking-widest">Phases</span>
                       </div>
                     </div>
@@ -387,13 +396,13 @@ export default function Home() {
 
             <section className="py-40 px-6 md:px-24 text-center border-t border-black/5">
               <div className="max-w-3xl mx-auto text-center">
-                <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tighter mb-12 text-black text-center text-black">Proof of work <br/> beats theory.</h2>
+                <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-[-0.06em] mb-12 text-black text-center text-black">Proof of work <br/> beats theory.</h2>
                 <button onClick={() => router.push("/apply/login")} className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl">Apply now</button>
               </div>
             </section>
 
             <footer className="py-20 px-6 text-center border-t border-black/5 bg-[#F9F9F9]">
-              <p className="text-[10px] font-bold uppercase tracking-[0.8em] text-black/35 text-center">Stop Consuming. Start Operating.</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.8em] text-black/20 text-center">Stop Consuming. Start Operating.</p>
             </footer>
           </motion.div>
         )}
@@ -402,11 +411,11 @@ export default function Home() {
       <footer className="h-[50vh] flex flex-col justify-center items-center text-center px-6 relative z-20">
         {isAgency && (
           <>
-            <h2 className="text-6xl md:text-[9vw] font-bold tracking-tighter uppercase mb-16 text-white text-center">Ready to scale?</h2>
+            <h2 className="text-6xl md:text-[9vw] font-bold tracking-[-0.06em] uppercase mb-16 text-white text-center">Ready to scale?</h2>
             <motion.a whileHover={{ scale: 1.05 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-16 py-8 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-[#F3D7A7] hover:text-black shadow-2xl">Secure a Session</motion.a>
           </>
         )}
-        <div className={`absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold text-center ${isAgency ? "text-white/20" : "text-black/35"}`}>© 2026 Blade</div>
+        <div className={`absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold text-center ${isAgency ? "text-white/20" : "text-black/20"}`}>© 2026 Blade</div>
       </footer>
     </motion.main>
   );
