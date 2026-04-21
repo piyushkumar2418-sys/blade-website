@@ -339,10 +339,10 @@ export default function Home() {
                     </div>
                   </motion.div>
                   <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="text-right">
-                    <div className="text-[110px] md:text-[160px] font-bold leading-none tracking-[-0.06em] text-white">
-                      90<span className="text-[#F3D7A7]">+</span>
+                    <div className="text-[80px] md:text-[120px] font-bold leading-none tracking-[-0.06em] text-white">
+                      10,000<span className="text-[#F3D7A7]">+</span>
                     </div>
-                    <p className="text-white/20 text-[10px] uppercase tracking-[0.5em] font-bold mt-2">Videos delivered / month</p>
+                    <p className="text-white/20 text-[10px] uppercase tracking-[0.5em] font-bold mt-2">Videos Produced</p>
                     <motion.a
                       href="https://calendly.com/piyushkumar2418/30min"
                       target="_blank"
