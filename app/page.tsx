@@ -277,6 +277,86 @@ export default function Home() {
             {/* LOGO MARQUEE */}
             <LogoMarquee />
 
+            {/* PROCESS SECTION */}
+            <section className="py-32 px-6 md:px-24 border-t border-white/5 relative z-20">
+              <div className="max-w-[1400px] mx-auto">
+
+                {/* Header */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-12">
+                  <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
+                    <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-4 block font-bold">The Blade System</span>
+                    <h2 className="text-5xl md:text-8xl font-bold leading-[0.85] tracking-[-0.06em] uppercase text-white">
+                      How we<br/>operate.
+                    </h2>
+                  </motion.div>
+                  <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="max-w-sm text-left">
+                    <p className="text-white/40 text-lg leading-relaxed">
+                      We become your remote content engine. You focus on your brand — we handle everything from raw footage to distribution-ready assets.
+                    </p>
+                    <div className="mt-8 inline-flex items-center gap-4 px-6 py-3 border border-[#F3D7A7]/30 rounded-full">
+                      <div className="w-2 h-2 rounded-full bg-[#F3D7A7] animate-pulse" />
+                      <span className="text-[#F3D7A7] font-bold uppercase tracking-widest text-[10px]">90–120 Videos / Month</span>
+                    </div>
+                  </motion.div>
+                </div>
+
+                {/* Steps Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 border border-white/5">
+                  {[
+                    { num: "01", title: "Onboard & Audit", desc: "We decode your existing content, audience data, and brand positioning. A full teardown before we build.", time: "Week 1–2" },
+                    { num: "02", title: "Build The System", desc: "Content frameworks, editorial calendars, style guides. We engineer the repeatable machine before we touch the timeline.", time: "Week 2–3" },
+                    { num: "03", title: "High-Velocity Output", desc: "90–120 production-ready assets per month. Short-form, long-form, platform-native. Your brand, everywhere.", time: "Ongoing" },
+                  ].map((step, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.7, delay: i * 0.15 }}
+                      className={`p-10 md:p-14 group hover:bg-[#F3D7A7]/[0.03] transition-all duration-700 ${i > 0 ? 'border-t md:border-t-0 md:border-l border-white/5' : ''}`}
+                    >
+                      <div className="text-[100px] leading-none font-bold text-white/[0.04] group-hover:text-white/[0.07] transition-colors duration-700 mb-6 select-none">{step.num}</div>
+                      <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-white mb-4">{step.title}</h3>
+                      <p className="text-white/40 text-sm leading-relaxed mb-10">{step.desc}</p>
+                      <div className="pt-8 border-t border-white/5">
+                        <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.4em] font-bold">{step.time}</span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Team + Big Number */}
+                <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                  <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
+                    <span className="text-white/20 text-[10px] uppercase tracking-[0.4em] font-bold block mb-8">Your Dedicated Remote Team</span>
+                    <div className="grid grid-cols-2 gap-3">
+                      {['Senior Editors', 'Content Strategists', 'Motion Designers', 'Script Writers', 'Project Managers', 'QA Reviewers'].map((role, i) => (
+                        <div key={i} className="flex items-center gap-3 px-5 py-4 border border-white/[0.07] hover:border-[#F3D7A7]/30 transition-colors duration-300 group">
+                          <div className="w-1 h-1 rounded-full bg-[#F3D7A7]/40 group-hover:bg-[#F3D7A7] transition-colors duration-300" />
+                          <span className="text-white/40 group-hover:text-white/70 text-[10px] font-bold uppercase tracking-[0.25em] transition-colors duration-300">{role}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                  <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="text-right">
+                    <div className="text-[110px] md:text-[160px] font-bold leading-none tracking-[-0.06em] text-white">
+                      90<span className="text-[#F3D7A7]">+</span>
+                    </div>
+                    <p className="text-white/20 text-[10px] uppercase tracking-[0.5em] font-bold mt-2">Videos delivered / month</p>
+                    <motion.a
+                      href="https://calendly.com/piyushkumar2418/30min"
+                      target="_blank"
+                      whileHover={{ scale: 1.05 }}
+                      className="inline-flex items-center gap-3 mt-10 px-10 py-5 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-[10px] tracking-widest hover:bg-[#F3D7A7] hover:text-black transition-all duration-500"
+                    >
+                      Start the Conversation <ArrowUpRight size={14} />
+                    </motion.a>
+                  </motion.div>
+                </div>
+
+              </div>
+            </section>
+
             {/* GALLERIES */}
             <section className="py-32 px-6 md:px-12 relative z-20">
               <div className="max-w-[1400px] mx-auto w-full space-y-48">
