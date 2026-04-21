@@ -71,7 +71,6 @@ export default function Profile() {
     );
   }
 
-  // Consistent Candidate ID
   const candidateId = `BIC-26-${user.uid.slice(0, 6).toUpperCase()}`;
   const currentStep = applications.length > 0 ? 2 : 1; 
 
@@ -145,10 +144,7 @@ export default function Profile() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           
-          {/* LEFT: APPLICATIONS & PROFILE */}
           <div className="lg:col-span-2 space-y-16">
-            
-            {/* PERSONAL DATA CARD */}
             <div className="space-y-8">
                <div className="flex justify-between items-center border-b border-black/5 pb-4">
                   <h3 className="text-xs font-bold uppercase tracking-widest">Personal Information</h3>
@@ -161,7 +157,6 @@ export default function Profile() {
                </div>
             </div>
 
-            {/* ADMISSION RECORDS */}
             <div className="space-y-8">
                <div className="flex justify-between items-center border-b border-black/5 pb-4">
                   <h3 className="text-xs font-bold uppercase tracking-widest">Admission Records</h3>
@@ -177,7 +172,7 @@ export default function Profile() {
                    {applications.map((app) => (
                      <div key={app.id} className="bg-white border border-black/5 p-8 md:p-12 hover:shadow-xl transition-all group">
                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-                          <div className="space-y-4">
+                          <div className="space-y-4 text-left">
                              <div className="flex items-center gap-3">
                                 <span className="bg-black text-white text-[8px] font-bold uppercase tracking-widest px-2 py-0.5">May 2026</span>
                                 <span className="text-[10px] text-black/30 font-bold uppercase tracking-widest">ID: {app.id.slice(0, 8).toUpperCase()}</span>
@@ -215,7 +210,6 @@ export default function Profile() {
             </div>
           </div>
 
-          {/* RIGHT: RESOURCES */}
           <div className="space-y-12">
              <div className="bg-black text-white p-10 space-y-8 shadow-2xl">
                 <div className="space-y-2">
@@ -257,29 +251,29 @@ export default function Profile() {
 
               <div className="space-y-12 text-left">
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <DataPoint label="Candidate Name" value={selectedApp.name} />
+                    <DataPoint label="Full Name" value={selectedApp.name} />
                     <DataPoint label="Email Address" value={selectedApp.email} />
-                    <DataPoint label="Instagram" value={selectedApp.instagram} />
-                    <DataPoint label="Phone" value={selectedApp.phone} />
+                    <DataPoint label="Instagram Handle" value={selectedApp.instagram} />
+                    <DataPoint label="Phone Number" value={selectedApp.phone} />
                  </div>
 
                  <div className="h-[1px] bg-black/5" />
 
                  <div className="space-y-4">
-                    <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Portfolio Links</h5>
+                    <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Share links to your best work (YouTube, Instagram, Portfolio, etc.)</h5>
                     <div className="space-y-3">
-                       {selectedApp.links?.split('\n').filter((l:string)=>l.trim()).map((link: string, i: number) => (
+                       {selectedApp.links ? selectedApp.links.split('\n').filter((l:string)=>l.trim()).map((link: string, i: number) => (
                          <a key={i} href={link.startsWith('http') ? link : `https://${link}`} target="_blank" className="flex items-center justify-between p-4 bg-[#F9F9F9] border border-black/5 hover:border-black/20 transition-all text-xs font-medium">
                             <span className="truncate mr-4">{link}</span> <ExternalLink size={14} className="text-black/20" />
                          </a>
-                       ))}
+                       )) : <p className="text-xs text-black/20 italic">No links provided</p>}
                     </div>
                  </div>
 
                  <div className="space-y-4">
-                    <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Why join the Inner Circle?</h5>
+                    <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Why do you want to join the Inner Circle?</h5>
                     <p className="text-sm leading-relaxed text-black/70 bg-[#F9F9F9] p-6 border border-black/5 whitespace-pre-wrap">
-                       {selectedApp.whyJoin}
+                       {selectedApp.whyJoin || <span className="text-black/20 italic">No statement provided</span>}
                     </p>
                  </div>
                  
@@ -300,7 +294,7 @@ export default function Profile() {
 }
 
 const InfoItem = ({ icon, label, value }: any) => (
-  <div className="flex items-start gap-4">
+  <div className="flex items-start gap-4 text-left">
      <div className="mt-1 text-black/20">{icon}</div>
      <div className="space-y-1">
         <span className="text-[9px] font-bold uppercase tracking-widest text-black/30">{label}</span>
@@ -310,7 +304,7 @@ const InfoItem = ({ icon, label, value }: any) => (
 );
 
 const DataPoint = ({ label, value }: any) => (
-  <div className="space-y-1">
+  <div className="space-y-1 text-left">
      <span className="text-[9px] font-bold uppercase tracking-widest text-black/30">{label}</span>
      <p className="text-sm font-semibold">{value || 'N/A'}</p>
   </div>
