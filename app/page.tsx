@@ -152,8 +152,8 @@ export default function Home() {
   };
 
   const youtubeWorks = [
-    { title: "Nikhil Kamath", category: "YouTube", link: "https://youtu.be/YY7J1pHfSyY", video: "/preview1.mp4", img: "https://i.ytimg.com/vi/YY7J1pHfSyY/maxresdefault.jpg" },
-    { title: "Money with Swabi", category: "YouTube", link: "https://www.youtube.com/@Moneywithswabi/videos", video: "/preview2.mp4", img: "https://i.ytimg.com/vi/NQvveKioHCw/maxresdefault.jpg" },
+    { title: "Nikhil Kamath", category: "YouTube", link: "https://youtu.be/YY7J1pHfSyY", video: "/preview1.mp4", img: "/thumb1.jpg" },
+    { title: "Money with Swabi", category: "YouTube", link: "https://www.youtube.com/@Moneywithswabi/videos", video: "/preview2.mp4", img: "/thumb2.jpg" },
     { title: "Podcast", category: "Podcast", link: "https://youtu.be/i7uwh0CzfRM", video: "/preview3.mp4", img: "/thumb3.jpg" },
   ];
 
@@ -354,6 +354,56 @@ export default function Home() {
                   </motion.div>
                 </div>
 
+              </div>
+            </section>
+
+            {/* SOLUTIONS SECTION */}
+            <section className="py-32 px-6 md:px-24 bg-black border-t border-white/5 relative z-20">
+              <div className="max-w-[1400px] mx-auto">
+                <div className="mb-24 text-left">
+                  <SectionLabel light>Solutions</SectionLabel>
+                  <h2 className="text-4xl md:text-7xl font-bold uppercase tracking-tight leading-[0.85] text-white">Strategic <br /><span className="text-[#F3D7A7]">Impact.</span></h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10 border border-white/10">
+                  {[
+                    { 
+                      title: "Short-Form Mastery", 
+                      desc: "Engineered for retention. We ideate, script, and post-produce high-fidelity vertical content that commands attention across TikTok, Reels, and Shorts.",
+                      icon: <Rocket size={24} className="text-[#F3D7A7]" />
+                    },
+                    { 
+                      title: "High-Level Repurposing", 
+                      desc: "Building content flywheels. We deconstruct your long-form assets (Podcasts, Keynotes, Webinars) into a month's worth of distribution-ready highlights.",
+                      icon: <TrendingUp size={24} className="text-[#F3D7A7]" />
+                    },
+                    { 
+                      title: "Digital Assets", 
+                      desc: "Best-in-class launch videos, B2B trailers, and brand stories. We craft compelling visual narratives that build anticipation and drive conversions.",
+                      icon: <Award size={24} className="text-[#F3D7A7]" />
+                    },
+                    { 
+                      title: "Creative Direction", 
+                      desc: "Beyond editing. We become your remote brains, providing the strategic roadmap to ensure your content aligns with your premium positioning.",
+                      icon: <Target size={24} className="text-[#F3D7A7]" />
+                    }
+                  ].map((solution, i) => (
+                    <motion.div 
+                      key={i}
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: i * 0.1 }}
+                      className="bg-black p-12 md:p-16 space-y-8 hover:bg-white/[0.02] transition-colors duration-500"
+                    >
+                      <div className="p-4 bg-white/[0.05] w-fit rounded-xl border border-white/10">
+                        {solution.icon}
+                      </div>
+                      <h3 className="text-2xl font-bold uppercase tracking-tight text-white">{solution.title}</h3>
+                      <p className="text-white/40 leading-relaxed text-lg font-light">{solution.desc}</p>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </section>
 
