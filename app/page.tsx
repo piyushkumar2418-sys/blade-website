@@ -63,17 +63,17 @@ const WorkItem = ({ work, aspect, index }: { work: any, aspect: string, index: n
 const LogoMarquee = () => {
   const logos = [
     { name: "Amazon", url: "https://www.pngmart.com/files/15/Amazon-Logo-White-PNG-Image.png" },
-    { name: "Flipkart", url: "https://logos-world.net/wp-content/uploads/2020/11/Flipkart-Logo.png" },
+    { name: "Flipkart", url: "/flipkart.jpg" },
     { name: "Bajaj", url: "https://companieslogo.com/img/orig/BAJAJ-AUTO.NS_BIG-afa2b58c.png" },
-    { name: "Reliance", url: "/logos/reliance_digital.png" },
-    { name: "Nykaa", url: "https://companieslogo.com/img/orig/NYKAA.NS_BIG-d299a0e1.png" },
-    { name: "Pantaloons", url: "/logos/pantaloons.png" },
-    { name: "Mirchi", url: "/mirchi.svg" },
-    { name: "WTF", url: "/logos/wtf.jpg" },
-    { name: "ThriveStack", url: "/thrivestack.svg" },
-    { name: "SuperYou", url: "/logos/superyou.png" },
-    { name: "ActorsTruth", url: "/logos/actorstruth.jpg" },
-    { name: "FamApp", url: "/logos/famapp.png" },
+    { name: "Reliance", url: "/reliance.png" },
+    { name: "Nykaa", url: "/nykaa.png" },
+    { name: "Pantaloons", url: "/pantaloons.svg" },
+    { name: "Mirchi", url: "/mirchi.jpg" },
+    { name: "WTF", url: "/wtf.svg" },
+    { name: "ThriveStack", url: "/thrivestack.jpg" },
+    { name: "SuperYou", url: "/superyou.svg" },
+    { name: "ActorsTruth", url: "/actorstruth.png" },
+    { name: "FamApp", url: "https://icons.iconarchive.com/icons/simpleicons-team/simple/512/fampay-icon.png" },
   ];
 
   const doubledLogos = [...logos, ...logos];
@@ -101,13 +101,13 @@ const LogoMarquee = () => {
           {doubledLogos.map((logo, i) => (
             <div 
               key={i} 
-              className="flex-shrink-0 flex items-center justify-center bg-white/[0.08] backdrop-blur-md border border-white/[0.12] rounded-2xl md:rounded-3xl hover:bg-white/[0.12] hover:border-white/[0.2] transition-all duration-500 group cursor-pointer overflow-hidden"
+              className="flex-shrink-0 flex items-center justify-center p-4 md:p-6 bg-white/[0.08] backdrop-blur-md border border-white/[0.12] rounded-2xl md:rounded-3xl hover:bg-white/[0.12] hover:border-white/[0.2] transition-all duration-500 group cursor-pointer"
               style={{ minWidth: '180px', height: '80px' }}
             >
               <img 
                 src={logo.url} 
                 alt={logo.name} 
-                className="h-full w-full object-contain p-4 md:p-6 transition-all duration-500 group-hover:scale-110"
+                className="h-8 md:h-10 w-auto max-w-[140px] object-contain transition-all duration-500 group-hover:scale-110"
                 onError={(e) => {
                    (e.target as any).style.display = 'none';
                    const parent = (e.target as any).parentElement;
