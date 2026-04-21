@@ -2,7 +2,7 @@
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, useInView, Variants, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Zap, Award, Eye, ArrowRight, TrendingUp, Sparkles, Layout } from "lucide-react";
+import { ArrowUpRight, Zap, Award, Eye, ArrowRight, TrendingUp, Shield, Target, Rocket, BarChart3, Binary, Lock } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
@@ -18,10 +18,10 @@ const fadeUp: Variants = {
   }
 };
 
-const SectionLabel = ({ children }: { children: React.ReactNode }) => (
+const SectionLabel = ({ children, light = false }: { children: React.ReactNode, light?: boolean }) => (
   <div className="flex items-center gap-4 mb-8 text-left">
-    <div className="h-[1px] w-8 bg-[#F3D7A7]" />
-    <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/40">{children}</span>
+    <div className={`h-[1px] w-8 ${light ? 'bg-white/20' : 'bg-[#F3D7A7]'}`} />
+    <span className={`text-[10px] font-bold uppercase tracking-[0.4em] ${light ? 'text-white/40' : 'text-black/40'}`}>{children}</span>
   </div>
 );
 
@@ -95,6 +95,14 @@ export default function Home() {
     { icon: <TrendingUp size={18} />, label: "₹3Cr+ Revenue Built Through Content", desc: "Capital generated through visual systems." },
     { icon: <Award size={18} />, label: "Worked With Leading Creators & Brands", desc: "Strategic partner for top-tier creators." },
     { icon: <Zap size={18} />, label: "5+ Years of Execution Experience", desc: "Applied experience in high-ticket markets." },
+  ];
+
+  const sprintPhases = [
+    { phase: "01", title: "Foundation", desc: "Deconstructing your current output. Removing inefficiencies. Setting the institutional baseline." },
+    { phase: "02", title: "Synthesis", desc: "Mastering the Blade methodology. Building your proprietary content frameworks." },
+    { phase: "03", title: "Infrastructure", desc: "Setting up your high-ticket editing engine and distribution systems." },
+    { phase: "04", title: "Velocity", desc: "Execution under pressure. Scaling output without losing premium positioning." },
+    { phase: "05", title: "Monetization", desc: "Converting views into capital. Building the high-ticket sales funnel." },
   ];
 
   return (
@@ -231,6 +239,35 @@ export default function Home() {
               </div>
             </section>
 
+            {/* NEW SECTION 01: THE CONTENT CRISIS (THE CHALLENGE) */}
+            <section className="py-32 px-6 md:px-24 bg-black text-white">
+              <div className="max-w-7xl mx-auto">
+                <SectionLabel light>The Industry Crisis</SectionLabel>
+                <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tight leading-[0.85] mb-20 text-left">The creator economy <br /> <span className="text-white/20">is built on sand.</span></h2>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                   <div className="space-y-8 p-12 border border-white/10 bg-white/5 rounded-2xl">
+                      <h4 className="text-[#F3D7A7] text-sm font-bold uppercase tracking-widest">The Amateur Trap</h4>
+                      <ul className="space-y-4 text-white/40 text-lg">
+                        <li className="flex items-center gap-3"><span className="text-red-500">✕</span> Guessing what works</li>
+                        <li className="flex items-center gap-3"><span className="text-red-500">✕</span> Zero leverage in workflow</li>
+                        <li className="flex items-center gap-3"><span className="text-red-500">✕</span> Relying on algorithm luck</li>
+                        <li className="flex items-center gap-3"><span className="text-red-500">✕</span> Low-ticket, commodity mindset</li>
+                      </ul>
+                   </div>
+                   <div className="space-y-8 p-12 border border-[#F3D7A7]/30 bg-[#F3D7A7]/5 rounded-2xl">
+                      <h4 className="text-[#F3D7A7] text-sm font-bold uppercase tracking-widest">The Blade Protocol</h4>
+                      <ul className="space-y-4 text-[#F3D7A7] text-lg">
+                        <li className="flex items-center gap-3"><span className="text-green-500">✓</span> Institutional systems</li>
+                        <li className="flex items-center gap-3"><span className="text-green-500">✓</span> High-velocity infrastructure</li>
+                        <li className="flex items-center gap-3"><span className="text-green-500">✓</span> Predictable growth mechanics</li>
+                        <li className="flex items-center gap-3"><span className="text-green-500">✓</span> High-ticket capital extraction</li>
+                      </ul>
+                   </div>
+                </div>
+              </div>
+            </section>
+
             <section className="py-32 px-6 md:px-24 max-w-7xl text-left border-b border-black/5">
               <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start text-left">
                 <div className="pr-0 md:pr-12 text-left">
@@ -251,7 +288,28 @@ export default function Home() {
               </div>
             </section>
 
-            {/* FOUNDER AUTHORITY SECTION */}
+            {/* NEW SECTION 02: THE SPRINT STRUCTURE (THE ROADMAP) */}
+            <section className="py-32 px-6 md:px-24 bg-white border-b border-black/5">
+              <div className="max-w-7xl mx-auto">
+                <SectionLabel>The 60-Day Sprint</SectionLabel>
+                <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tight leading-[0.85] mb-24 text-left">From Theory to <br /> <span className="text-black/20">Capital Extraction.</span></h2>
+                
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+                   {sprintPhases.map((phase, idx) => (
+                     <div key={idx} className="space-y-6 group">
+                        <div className="text-4xl font-bold text-black/10 group-hover:text-black transition-colors duration-500">{phase.phase}</div>
+                        <div className="h-[2px] w-full bg-black/5 relative overflow-hidden">
+                           <div className="absolute inset-0 bg-[#F3D7A7] translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700" />
+                        </div>
+                        <h4 className="text-sm font-bold uppercase tracking-widest">{phase.title}</h4>
+                        <p className="text-[12px] text-black/40 leading-relaxed uppercase tracking-wider">{phase.desc}</p>
+                     </div>
+                   ))}
+                </div>
+              </div>
+            </section>
+
+            {/* FOUNDER AUTHORITY SECTION + PRACTITIONER LEDGER */}
             <section className="bg-white py-32 px-6 md:px-24 text-black text-left border-b border-black/5">
               <div className="flex flex-col md:flex-row items-center gap-20 md:gap-32 mb-28">
                 <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1 }} className="w-full md:w-1/2">
@@ -265,10 +323,24 @@ export default function Home() {
                 <div className="w-full md:w-1/2 text-left">
                   <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-10 text-left">
                     <div className="text-left">
-                      <SectionLabel>The Direct Line</SectionLabel>
-                      <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-[-0.06em] leading-[0.85] text-left">Learn Directly <br/> From The Founder</h2>
+                      <SectionLabel>Founding Methodology</SectionLabel>
+                      <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-[-0.06em] leading-[0.85] text-left">The Practitioner’s <br /> Ledger.</h2>
                     </div>
-                    <p className="text-black/60 text-xl leading-relaxed max-w-lg font-light text-left">Blade Inner Circle isn’t built on theory — it’s built on execution. Every system, framework, and approach inside the program comes directly from what’s currently working inside Blade Media.</p>
+                    <p className="text-black/60 text-xl leading-relaxed max-w-lg font-light text-left">Blade Inner Circle is the distilled output of 5 years of market execution. We don&apos;t teach what we think — we teach what we have proven at scale.</p>
+                    
+                    {/* NEW SECTION 03: THE PRACTITIONER'S LEDGER (DATA CARDS) */}
+                    <div className="grid grid-cols-2 gap-6 mt-12">
+                       <div className="p-6 border border-black/5 bg-[#F9F9F9] space-y-2">
+                          <BarChart3 size={20} className="text-[#F3D7A7]" />
+                          <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Tested at Scale</h5>
+                          <p className="text-xl font-bold">2.5B+ Views</p>
+                       </div>
+                       <div className="p-6 border border-black/5 bg-[#F9F9F9] space-y-2">
+                          <Binary size={20} className="text-[#F3D7A7]" />
+                          <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Proprietary Assets</h5>
+                          <p className="text-xl font-bold">12+ Systems</p>
+                       </div>
+                    </div>
                   </motion.div>
                 </div>
               </div>
@@ -283,7 +355,7 @@ export default function Home() {
               </div>
             </section>
 
-            {/* ABSOLUTE MIRROR CURRICULUM SECTION */}
+            {/* CURRICULUM SECTION */}
             <section className="py-24 px-6 md:px-24 bg-white">
               <div className="max-w-[1400px] mx-auto">
                 <div className="bg-black rounded-[80px] p-16 md:p-32 relative overflow-hidden text-left flex flex-col md:flex-row items-center gap-16 min-h-[650px] shadow-[0_60px_120px_-20px_rgba(0,0,0,0.4)]">
