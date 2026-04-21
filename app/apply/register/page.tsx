@@ -1,14 +1,15 @@
 "use client";
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { ShieldCheck, Zap, Users, GraduationCap } from "lucide-react";
+import { ShieldCheck, Zap, Users, GraduationCap, CheckCircle2 } from "lucide-react";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export default function ApplicationPortal() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
     name: "", 
@@ -31,7 +32,6 @@ export default function ApplicationPortal() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
     if (!formData.name || !formData.email || !formData.phone) {
       setErrorMessage("PLEASE FILL IN YOUR NAME, EMAIL, AND PHONE.");
       return;
@@ -46,17 +46,59 @@ export default function ApplicationPortal() {
         createdAt: serverTimestamp(),
         status: "submitted",
       });
-      router.push("/apply/form");
-    } catch (error) {
+      setShowSuccess(true);
+      // Wait for 3 seconds then redirect to home
+      setTimeout(() => {
+        router.push("/");
+      }, 3000);
+    } catch (error: any) {
       console.error("Error submitting application:", error);
-      setErrorMessage("FAILED TO SUBMIT. PLEASE TRY AGAIN LATER.");
+      setErrorMessage(`FAILED TO SUBMIT: ${error.message || "PLEASE TRY AGAIN LATER"}`);
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-white text-black flex flex-col md:flex-row">
+    <div className="min-h-screen bg-white text-black flex flex-col md:flex-row relative">
       
+      {/* SUCCESS MODAL */}
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-6"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              className="bg-white max-w-sm w-full p-10 rounded-sm shadow-2xl text-center space-y-6"
+            >
+              <div className="flex justify-center">
+                <div className="h-16 w-16 bg-[#F3D7A7] rounded-full flex items-center justify-center text-black">
+                  <CheckCircle2 size={32} />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-2xl font-bold uppercase tracking-tighter">Application Sent</h3>
+                <p className="text-black/40 text-xs uppercase tracking-widest leading-relaxed">
+                  Your portfolio has been submitted successfully. We will review it and get back to you within 48 hours.
+                </p>
+              </div>
+              <div className="pt-4">
+                <button 
+                  onClick={() => router.push("/")}
+                  className="w-full py-4 bg-black text-white text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-[#F3D7A7] hover:text-black transition-colors"
+                >
+                  Return Home
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="w-full md:w-[60%] px-6 md:px-20 py-20 overflow-y-auto">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
@@ -184,10 +226,10 @@ export default function ApplicationPortal() {
 
             <button 
               type="submit" 
-              disabled={isSubmitting}
+              disabled={isSubmitting || showSuccess}
               className="w-full py-6 bg-black text-white font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all duration-500 shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? "PROCESSING..." : "Submit Admission Portfolio"}
+              {isSubmitting ? "PROCESSING..." : showSuccess ? "SUBMITTED" : "Submit Admission Portfolio"}
             </button>
           </form>
         </motion.div>
