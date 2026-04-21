@@ -17,6 +17,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Blade Media",
   description: "Blade Media - Growth, engineered.",
+  icons: {
+    icon: "/blade-logo.png",
+    apple: "/blade-logo.png",
+  },
 };
 
 export default function RootLayout({
