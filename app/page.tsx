@@ -62,12 +62,12 @@ const WorkItem = ({ work, aspect, index }: { work: any, aspect: string, index: n
 
 const LogoMarquee = () => {
   const logos = [
-    { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/donate/f/fd/Amazon-logo-white.svg" },
+    { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
     { name: "Flipkart", url: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Flipkart_logo.svg" },
     { name: "Bajaj", url: "https://companieslogo.com/img/orig/BAJAJ-AUTO.NS_BIG-afa2b58c.png" },
     { name: "Reliance", url: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Reliance_Digital.svg" },
     { name: "Nykaa", url: "https://companieslogo.com/img/orig/NYKAA.NS_BIG-d299a0e1.svg" },
-    { name: "Pantaloons", url: "https://vectorseek.com/wp-content/uploads/2023/09/Pantaloons-Logo-Vector.svg" },
+    { name: "Pantaloons", url: "https://upload.wikimedia.org/wikipedia/en/3/3e/Pantaloons_Fashion_%26_Retail_logo.svg" },
     { name: "Mirchi", url: "https://upload.wikimedia.org/wikipedia/en/2/2f/Radio_Mirchi_logo.svg" },
     { name: "FamApp", url: "https://pnghdpro.com/wp-content/uploads/2023/10/Famapp-By-Trio-Logo-PNG-Transparent.png" },
     { name: "SuperYou", url: "https://superyou.in/cdn/shop/files/Superyou_Logo_1.png" },
@@ -76,12 +76,11 @@ const LogoMarquee = () => {
     { name: "ActorsTruth", url: "https://theactorstruth.com/wp-content/uploads/2021/05/logo.png" },
   ];
 
-  // Double the logos for seamless loop
   const doubledLogos = [...logos, ...logos];
 
   return (
-    <div className="relative w-full overflow-hidden py-20 bg-black/50 border-y border-white/5">
-      <div className="max-w-[1400px] mx-auto px-6 mb-12 flex items-center justify-between">
+    <div className="relative w-full overflow-hidden py-24 bg-black/50 border-y border-white/5">
+      <div className="max-w-[1400px] mx-auto px-6 mb-16 flex items-center justify-between">
          <div className="flex items-center gap-4">
             <div className="h-[1px] w-8 bg-[#F3D7A7]" />
             <h3 className="text-white text-xl md:text-3xl font-bold uppercase tracking-tighter">Trusted by <span className="text-[#F3D7A7]">Industry Leaders</span></h3>
@@ -89,19 +88,24 @@ const LogoMarquee = () => {
          <div className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-bold hidden md:block">Institutional Network</div>
       </div>
       
-      <div className="flex whitespace-nowrap overflow-hidden">
+      <div className="flex whitespace-nowrap overflow-hidden relative">
+        {/* Left/Right Overlays for seamless edge */}
+        <div className="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-black to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-black to-transparent z-10" />
+
         <motion.div 
           initial={{ x: 0 }}
           animate={{ x: "-50%" }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="flex gap-20 items-center px-10"
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          className="flex gap-24 items-center px-12"
         >
           {doubledLogos.map((logo, i) => (
-            <div key={i} className="flex-shrink-0 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 hover:scale-110 opacity-40 hover:opacity-100 cursor-pointer">
+            <div key={i} className="flex-shrink-0 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-700 hover:scale-105 opacity-40 hover:opacity-100 cursor-pointer">
               <img 
                 src={logo.url} 
                 alt={logo.name} 
-                className="h-8 md:h-12 w-auto max-w-[150px] object-contain invert brightness-200" 
+                className="h-7 md:h-10 w-auto max-w-[140px] object-contain" 
+                style={{ filter: "brightness(0) invert(1)" }}
               />
             </div>
           ))}
