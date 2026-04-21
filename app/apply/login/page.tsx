@@ -67,12 +67,16 @@ export default function MobileOTPLogin() {
 
   const handleVerifyOTP = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!otp || otp.length !== 6) {
+      alert("Please enter the complete 6-digit code.");
+      return;
+    }
+
     setLoading(true);
     try {
       const userCredential = await confirmationResult.confirm(otp);
       const user = userCredential.user;
 
-      // Create/Update user profile in Firestore
       const userProfile = {
         uid: user.uid,
         name: name,
@@ -85,9 +89,16 @@ export default function MobileOTPLogin() {
       setProfile(userProfile as any);
 
       window.location.href = "/apply/register"; 
-    } catch (error) {
-      console.error(error);
-      alert("Invalid OTP.");
+    } catch (error: any) {
+      console.error("OTP Verification Error:", error);
+      if (error.code === 'auth/invalid-verification-code') {
+        alert("The access key you entered is incorrect. Please check the SMS and try again.");
+      } else if (error.code === 'auth/code-expired') {
+        alert("This access key has expired. Please request a new one.");
+        setStep(1);
+      } else {
+        alert(`Verification failed: ${error.message}`);
+      }
     }
     setLoading(false);
   };
