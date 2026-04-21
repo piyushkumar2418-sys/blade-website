@@ -60,6 +60,57 @@ const WorkItem = ({ work, aspect, index }: { work: any, aspect: string, index: n
   );
 };
 
+const LogoMarquee = () => {
+  const logos = [
+    { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/donate/f/fd/Amazon-logo-white.svg" },
+    { name: "Flipkart", url: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Flipkart_logo.svg" },
+    { name: "Bajaj", url: "https://companieslogo.com/img/orig/BAJAJ-AUTO.NS_BIG-afa2b58c.png" },
+    { name: "Reliance", url: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Reliance_Digital.svg" },
+    { name: "Nykaa", url: "https://companieslogo.com/img/orig/NYKAA.NS_BIG-d299a0e1.svg" },
+    { name: "Pantaloons", url: "https://vectorseek.com/wp-content/uploads/2023/09/Pantaloons-Logo-Vector.svg" },
+    { name: "Mirchi", url: "https://upload.wikimedia.org/wikipedia/en/2/2f/Radio_Mirchi_logo.svg" },
+    { name: "FamApp", url: "https://pnghdpro.com/wp-content/uploads/2023/10/Famapp-By-Trio-Logo-PNG-Transparent.png" },
+    { name: "SuperYou", url: "https://superyou.in/cdn/shop/files/Superyou_Logo_1.png" },
+    { name: "ThriveStack", url: "https://www.thrivestack.ai/logo.svg" },
+    { name: "WTF", url: "https://allthingswtf.com/wp-content/uploads/2023/12/logo-wtf.png" },
+    { name: "ActorsTruth", url: "https://theactorstruth.com/wp-content/uploads/2021/05/logo.png" },
+  ];
+
+  // Double the logos for seamless loop
+  const doubledLogos = [...logos, ...logos];
+
+  return (
+    <div className="relative w-full overflow-hidden py-20 bg-black/50 border-y border-white/5">
+      <div className="max-w-[1400px] mx-auto px-6 mb-12 flex items-center justify-between">
+         <div className="flex items-center gap-4">
+            <div className="h-[1px] w-8 bg-[#F3D7A7]" />
+            <h3 className="text-white text-xl md:text-3xl font-bold uppercase tracking-tighter">Trusted by <span className="text-[#F3D7A7]">Industry Leaders</span></h3>
+         </div>
+         <div className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-bold hidden md:block">Institutional Network</div>
+      </div>
+      
+      <div className="flex whitespace-nowrap overflow-hidden">
+        <motion.div 
+          initial={{ x: 0 }}
+          animate={{ x: "-50%" }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          className="flex gap-20 items-center px-10"
+        >
+          {doubledLogos.map((logo, i) => (
+            <div key={i} className="flex-shrink-0 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 hover:scale-110 opacity-40 hover:opacity-100 cursor-pointer">
+              <img 
+                src={logo.url} 
+                alt={logo.name} 
+                className="h-8 md:h-12 w-auto max-w-[150px] object-contain invert brightness-200" 
+              />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
 export default function Home() {
   const { user, profile } = useAuth();
   const router = useRouter();
@@ -199,6 +250,9 @@ export default function Home() {
                 </div>
               </div>
             </section>
+
+            {/* LOGO MARQUEE */}
+            <LogoMarquee />
 
             {/* GALLERIES */}
             <section className="py-32 px-6 md:px-12 relative z-20">
