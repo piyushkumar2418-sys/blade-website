@@ -1,14 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { db } from "@/lib/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { 
-  LogOut, User, CheckCircle2, ChevronRight, 
-  FileText, Clock, BookOpen, ExternalLink, X,
-  Mail, Phone, Shield
+  LogOut, User, CheckCircle2, 
+  Clock, BookOpen, Mail, Phone, Shield
 } from "lucide-react";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
@@ -26,7 +25,6 @@ export default function Profile() {
   const router = useRouter();
   const [applications, setApplications] = useState<any[]>([]);
   const [fetchingApps, setFetchingApps] = useState(true);
-  const [selectedApp, setSelectedApp] = useState<any | null>(null);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -145,6 +143,8 @@ export default function Profile() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           
           <div className="lg:col-span-2 space-y-16">
+            
+            {/* PERSONAL DATA CARD */}
             <div className="space-y-8">
                <div className="flex justify-between items-center border-b border-black/5 pb-4">
                   <h3 className="text-xs font-bold uppercase tracking-widest">Personal Information</h3>
@@ -157,7 +157,8 @@ export default function Profile() {
                </div>
             </div>
 
-            <div className="space-y-8">
+            {/* ADMISSION RECORDS */}
+            <div className="space-y-8 text-left">
                <div className="flex justify-between items-center border-b border-black/5 pb-4">
                   <h3 className="text-xs font-bold uppercase tracking-widest">Admission Records</h3>
                </div>
@@ -190,12 +191,6 @@ export default function Profile() {
                                 </div>
                                 <p className="text-[9px] text-black/30 uppercase tracking-widest mt-1">Expected decision in 3 days</p>
                              </div>
-                             <button 
-                               onClick={() => setSelectedApp(app)}
-                               className="px-8 py-3 bg-black text-white text-[9px] font-bold uppercase tracking-[0.2em] hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-3"
-                             >
-                               View Portfolio <FileText size={14} />
-                             </button>
                           </div>
                        </div>
                      </div>
@@ -212,11 +207,11 @@ export default function Profile() {
 
           <div className="space-y-12">
              <div className="bg-black text-white p-10 space-y-8 shadow-2xl">
-                <div className="space-y-2">
+                <div className="space-y-2 text-left">
                    <p className="text-[#F3D7A7] text-[9px] font-bold uppercase tracking-[0.5em]">Upcoming Session</p>
                    <h3 className="text-2xl font-bold uppercase tracking-tighter">Cohort Onboarding</h3>
                 </div>
-                <p className="text-white/40 text-[11px] leading-relaxed font-light">
+                <p className="text-white/40 text-[11px] leading-relaxed font-light text-left">
                    The initial technical briefing for verified candidates will be unlocked upon admission.
                 </p>
                 <button onClick={() => router.push("/curriculum")} className="w-full py-4 border border-white/10 text-[9px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3">
@@ -228,64 +223,6 @@ export default function Profile() {
         </div>
       </main>
 
-      {/* --- SUBMISSION DRAWER --- */}
-      <AnimatePresence>
-        {selectedApp && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm flex justify-end"
-          >
-            <motion.div 
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="w-full max-w-2xl bg-white h-full shadow-2xl p-12 overflow-y-auto"
-            >
-              <div className="flex justify-between items-center mb-16">
-                 <h2 className="text-2xl font-bold uppercase tracking-tighter">Admission Portfolio</h2>
-                 <button onClick={() => setSelectedApp(null)} className="p-2 hover:bg-black/5 rounded-full transition-colors"><X size={24} /></button>
-              </div>
-
-              <div className="space-y-12 text-left">
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <DataPoint label="Full Name" value={selectedApp.name} />
-                    <DataPoint label="Email Address" value={selectedApp.email} />
-                    <DataPoint label="Instagram Handle" value={selectedApp.instagram} />
-                    <DataPoint label="Phone Number" value={selectedApp.phone} />
-                 </div>
-
-                 <div className="h-[1px] bg-black/5" />
-
-                 <div className="space-y-4">
-                    <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Share links to your best work (YouTube, Instagram, Portfolio, etc.)</h5>
-                    <div className="space-y-3">
-                       {selectedApp.links ? selectedApp.links.split('\n').filter((l:string)=>l.trim()).map((link: string, i: number) => (
-                         <a key={i} href={link.startsWith('http') ? link : `https://${link}`} target="_blank" className="flex items-center justify-between p-4 bg-[#F9F9F9] border border-black/5 hover:border-black/20 transition-all text-xs font-medium">
-                            <span className="truncate mr-4">{link}</span> <ExternalLink size={14} className="text-black/20" />
-                         </a>
-                       )) : <p className="text-xs text-black/20 italic">No links provided</p>}
-                    </div>
-                 </div>
-
-                 <div className="space-y-4">
-                    <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Why do you want to join the Inner Circle?</h5>
-                    <p className="text-sm leading-relaxed text-black/70 bg-[#F9F9F9] p-6 border border-black/5 whitespace-pre-wrap">
-                       {selectedApp.whyJoin || <span className="text-black/20 italic">No statement provided</span>}
-                    </p>
-                 </div>
-                 
-                 <div className="pt-10 border-t border-black/5 text-[9px] font-bold uppercase tracking-widest text-black/20">
-                    Submission UID: {selectedApp.id}
-                 </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       <footer className="py-12 border-t border-black/[0.03] text-center">
         <p className="text-[8px] font-bold uppercase tracking-[1em] text-black/10">Blade Media // System Verified</p>
       </footer>
@@ -296,16 +233,9 @@ export default function Profile() {
 const InfoItem = ({ icon, label, value }: any) => (
   <div className="flex items-start gap-4 text-left">
      <div className="mt-1 text-black/20">{icon}</div>
-     <div className="space-y-1">
+     <div className="space-y-1 text-left">
         <span className="text-[9px] font-bold uppercase tracking-widest text-black/30">{label}</span>
         <p className="text-sm font-semibold">{value || 'N/A'}</p>
      </div>
-  </div>
-);
-
-const DataPoint = ({ label, value }: any) => (
-  <div className="space-y-1 text-left">
-     <span className="text-[9px] font-bold uppercase tracking-widest text-black/30">{label}</span>
-     <p className="text-sm font-semibold">{value || 'N/A'}</p>
   </div>
 );
