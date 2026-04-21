@@ -265,22 +265,24 @@ export default function Home() {
                   </motion.div>
                 </div>
                 <div className="max-w-xs md:max-w-md ml-auto text-left group">
-                  <div className="relative aspect-[3/4] w-full mb-10">
-                    {/* Echo Image Behind */}
+                  <div className="relative aspect-[4/5] w-full mb-10 overflow-hidden bg-black border border-white/10 shadow-2xl">
+                    {/* Main Image */}
                     <img 
                       src="/piyush.png" 
-                      className="absolute inset-0 w-full h-full object-cover opacity-20 grayscale scale-110 translate-x-8 -translate-y-4 blur-[2px] transition-all duration-700 group-hover:opacity-40" 
-                      alt="Piyush Echo" 
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105" 
+                      alt="Piyush" 
                     />
                     
-                    {/* Main Image */}
-                    <div className="relative z-10 w-full h-full overflow-hidden border border-white/10 grayscale hover:grayscale-0 transition-all duration-700">
-                      <img 
-                        src="/piyush.png" 
-                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
-                        alt="Piyush" 
-                      />
+                    {/* System Architect Label */}
+                    <div className="absolute bottom-6 left-6 z-20">
+                      <div className="bg-black/80 backdrop-blur-md px-6 py-2 border border-white/20 flex items-center gap-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#F3D7A7] animate-pulse" />
+                        <span className="text-[10px] text-white font-bold uppercase tracking-[0.4em]">System Architect</span>
+                      </div>
                     </div>
+
+                    {/* Gradient Overlay for better label readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
                   </div>
                   <p className="text-white/60 text-lg font-light leading-relaxed text-left">&quot;We decoded content through an early obsession. Mastering the silent mechanics of distribution.&quot;</p>
                   <div className="text-[#F3D7A7] text-2xl font-bold mt-8 text-left">— Piyush</div>
