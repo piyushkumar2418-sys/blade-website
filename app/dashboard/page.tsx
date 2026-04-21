@@ -8,7 +8,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { 
   LogOut, User, CheckCircle2, ChevronRight, 
   ArrowLeft, FileText, Globe, Clock, 
-  BookOpen, MessageCircle, ExternalLink, X
+  BookOpen, ExternalLink, X
 } from "lucide-react";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
@@ -71,7 +71,9 @@ export default function Profile() {
     );
   }
 
-  const currentStep = applications.length > 0 ? 2 : 1; // Simulation for UI
+  // Consistent Candidate ID
+  const candidateId = `BIC-26-${user.uid.slice(0, 6).toUpperCase()}`;
+  const currentStep = applications.length > 0 ? 2 : 1; 
 
   return (
     <div className="min-h-screen bg-[#F9F9F9] text-black font-sans selection:bg-[#F3D7A7] selection:text-black">
@@ -103,7 +105,7 @@ export default function Profile() {
         {/* --- WELCOME HEADER --- */}
         <section className="mb-20 text-left">
            <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-[#F3D7A7] block mb-4">Institutional Portal</span>
-           <h1 className="text-5xl md:text-7xl font-bold tracking-tighter uppercase italic leading-none">
+           <h1 className="text-5xl md:text-7xl font-bold tracking-tighter uppercase leading-none">
              Welcome back, <br /> <span className="text-black/20">{profile?.name}</span>
            </h1>
         </section>
@@ -112,11 +114,10 @@ export default function Profile() {
         <section className="bg-white border border-black/5 p-10 md:p-16 mb-20 shadow-sm">
            <div className="flex justify-between items-center mb-16">
               <h3 className="text-xs font-bold uppercase tracking-widest">Admission Protocol Journey</h3>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-black/30">Candidate ID: {user.uid.slice(0, 6).toUpperCase()}</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-black/30">Candidate ID: {candidateId}</span>
            </div>
 
            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
-             {/* Background Line */}
              <div className="absolute top-5 left-0 w-full h-[1px] bg-black/5 hidden md:block" />
              
              {STEPS.map((step) => {
@@ -202,7 +203,7 @@ export default function Profile() {
              <div className="bg-black text-white p-10 space-y-8 shadow-2xl">
                 <div className="space-y-2">
                    <p className="text-[#F3D7A7] text-[9px] font-bold uppercase tracking-[0.5em]">Upcoming Session</p>
-                   <h3 className="text-2xl font-bold uppercase tracking-tighter italic">Cohort <br /> Orientation</h3>
+                   <h3 className="text-2xl font-bold uppercase tracking-tighter">Cohort Onboarding</h3>
                 </div>
                 <p className="text-white/40 text-[11px] leading-relaxed font-light">
                    The initial technical briefing for verified candidates will be unlocked upon admission.
@@ -210,14 +211,6 @@ export default function Profile() {
                 <button onClick={() => router.push("/curriculum")} className="w-full py-4 border border-white/10 text-[9px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3">
                    View Prospectus <BookOpen size={14} />
                 </button>
-             </div>
-
-             <div className="space-y-8">
-                <h3 className="text-xs font-bold uppercase tracking-widest border-b border-black/5 pb-4">Institutional Help</h3>
-                <div className="space-y-4">
-                   <SidebarItem icon={<MessageCircle size={14} />} label="Priority Support" />
-                   <SidebarItem icon={<Globe size={14} />} label="Student Network" />
-                </div>
              </div>
           </div>
 
@@ -241,36 +234,40 @@ export default function Profile() {
               className="w-full max-w-2xl bg-white h-full shadow-2xl p-12 overflow-y-auto"
             >
               <div className="flex justify-between items-center mb-16">
-                 <h2 className="text-2xl font-bold uppercase tracking-tighter italic">Submission Dossier</h2>
+                 <h2 className="text-2xl font-bold uppercase tracking-tighter">Submission Dossier</h2>
                  <button onClick={() => setSelectedApp(null)} className="p-2 hover:bg-black/5 rounded-full transition-colors"><X size={24} /></button>
               </div>
 
               <div className="space-y-12">
                  <div className="grid grid-cols-2 gap-8">
                     <DataPoint label="Candidate Name" value={selectedApp.name} />
-                    <DataPoint label="Contact" value={selectedApp.email} />
-                    <DataPoint label="Instagram" value={selectedApp.instagram} />
-                    <DataPoint label="Phone" value={selectedApp.phone} />
+                    <DataPoint label="Contact Email" value={selectedApp.email} />
+                    <DataPoint label="Instagram Handle" value={selectedApp.instagram} />
+                    <DataPoint label="Phone Number" value={selectedApp.phone} />
                  </div>
 
                  <div className="h-[1px] bg-black/5" />
 
-                 <div className="space-y-4">
-                    <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Portfolio Links</h5>
+                 <div className="space-y-4 text-left">
+                    <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Portfolio Evidence & Links</h5>
                     <div className="space-y-3">
-                       {selectedApp.links?.split('\n').map((link: string, i: number) => (
-                         <a key={i} href={link} target="_blank" className="flex items-center justify-between p-4 bg-[#F9F9F9] border border-black/5 hover:border-black/20 transition-all text-xs font-medium">
-                            {link} <ExternalLink size={14} className="text-black/20" />
+                       {selectedApp.links?.split('\n').filter((l:string)=>l.trim()).map((link: string, i: number) => (
+                         <a key={i} href={link.startsWith('http') ? link : `https://${link}`} target="_blank" className="flex items-center justify-between p-4 bg-[#F9F9F9] border border-black/5 hover:border-black/20 transition-all text-xs font-medium">
+                            <span className="truncate mr-4">{link}</span> <ExternalLink size={14} className="text-black/20" />
                          </a>
                        ))}
                     </div>
                  </div>
 
-                 <div className="space-y-4">
+                 <div className="space-y-4 text-left">
                     <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Statement of Intent</h5>
-                    <p className="text-sm leading-relaxed text-black/70 bg-[#F9F9F9] p-6 border border-black/5 italic">
-                       &quot;{selectedApp.whyJoin}&quot;
+                    <p className="text-sm leading-relaxed text-black/70 bg-[#F9F9F9] p-6 border border-black/5 whitespace-pre-wrap">
+                       {selectedApp.whyJoin}
                     </p>
+                 </div>
+                 
+                 <div className="pt-10 border-t border-black/5 text-[9px] font-bold uppercase tracking-widest text-black/20">
+                    Submission UID: {selectedApp.id}
                  </div>
               </div>
             </motion.div>
@@ -279,24 +276,14 @@ export default function Profile() {
       </AnimatePresence>
 
       <footer className="py-12 border-t border-black/[0.03] text-center">
-        <p className="text-[8px] font-bold uppercase tracking-[0.8em] text-black/10">Blade Media // System Verified</p>
+        <p className="text-[8px] font-bold uppercase tracking-[1em] text-black/10">Blade Media // System Verified</p>
       </footer>
     </div>
   );
 }
 
-const SidebarItem = ({ icon, label }: any) => (
-  <button className="w-full flex items-center justify-between p-4 border border-black/[0.03] hover:border-black/10 hover:bg-white transition-all text-[9px] font-bold uppercase tracking-widest group">
-    <div className="flex items-center gap-3">
-      <span className="text-black/20 group-hover:text-black transition-colors">{icon}</span>
-      {label}
-    </div>
-    <ChevronRight size={12} className="text-black/10 group-hover:text-black transition-all" />
-  </button>
-);
-
 const DataPoint = ({ label, value }: any) => (
-  <div className="space-y-1">
+  <div className="space-y-1 text-left">
      <span className="text-[9px] font-bold uppercase tracking-widest text-black/30">{label}</span>
      <p className="text-sm font-semibold">{value || 'N/A'}</p>
   </div>
