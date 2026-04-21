@@ -133,8 +133,8 @@ export default function Home() {
             style={{ opacity: navButtonOpacity }}
             className={`px-8 py-3 rounded-full text-[10px] uppercase tracking-widest font-bold transition-all border shadow-sm ${
               isAgency 
-              ? "border-white/20 text-white bg-white/5 hover:bg-white hover:text-black" 
-              : "border-black text-black bg-black/5 hover:bg-black hover:text-white"
+              ? "border-white/20 text-white bg-white/5 hover:bg-white hover:text-black shadow-none" 
+              : "border-black text-black bg-transparent hover:bg-black hover:text-white"
             }`}
           >
             {isAgency ? "The Inner Circle" : "Exit to Agency"}
@@ -183,14 +183,14 @@ export default function Home() {
                     <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-4 block font-bold text-left">The Visionary</span>
                     <h2 className="text-5xl md:text-8xl font-bold leading-[0.85] tracking-[-0.06em] uppercase text-white mb-16 text-left">Systematized <br/> Visual <br/> Dominance.</h2>
                   </motion.div>
-                  <motion.div initial={{ opacity: 0, y: 20 }} animate={isPhilosophyLeftInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1.2 }}>
+                  <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1.2 }}>
                     <p className="text-white/70 text-xl md:text-2xl lg:text-3xl font-medium leading-[1.4] tracking-tight text-left">
                       <span className="text-white font-bold">Blade</span> exists in a space where consistency matters more than claims. Delivered content that holds value as audiences evolve.
                     </p>
                     <div className="h-[1px] bg-[#F3D7A7]/40 mt-12 w-24" />
                   </motion.div>
                 </div>
-                <div className="max-w-xs md:max-w-md ml-auto">
+                <div className="max-w-xs md:max-w-md ml-auto text-left">
                   <div className="aspect-[3/4] w-full mb-10 overflow-hidden border border-white/10 grayscale hover:grayscale-0 transition-all duration-700">
                     <img src="/piyush.png" className="w-full h-full object-cover" alt="Piyush" />
                   </div>
@@ -234,12 +234,12 @@ export default function Home() {
                 <p className="text-2xl md:text-4xl text-black/60 leading-tight font-medium max-w-2xl text-left">Build your agency. <br/> From skill to first income.</p>
                 <div className="flex flex-col items-start md:items-end gap-6">
                   <span className="text-[#F3D7A7] font-bold uppercase tracking-[0.3em] text-[10px] border border-[#F3D7A7]/30 px-4 py-2 text-left">Cohort 01 — Applications Open</span>
-                  <button onClick={() => router.push(user ? "/apply/register" : "/apply/login")} className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-4">Apply now <ArrowUpRight size={18}/></button>
+                  <button onClick={() => router.push(user ? "/apply/register" : "/apply/login")} className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-4 shadow-2xl">Apply now <ArrowUpRight size={18}/></button>
                 </div>
               </div>
             </section>
 
-            {/* NEW SECTION 01: THE CONTENT CRISIS (THE CHALLENGE) */}
+            {/* THE CONTENT CRISIS */}
             <section className="py-32 px-6 md:px-24 bg-black text-white">
               <div className="max-w-7xl mx-auto">
                 <SectionLabel light>The Industry Crisis</SectionLabel>
@@ -288,7 +288,7 @@ export default function Home() {
               </div>
             </section>
 
-            {/* NEW SECTION 02: THE SPRINT STRUCTURE (THE ROADMAP) */}
+            {/* THE SPRINT STRUCTURE */}
             <section className="py-32 px-6 md:px-24 bg-white border-b border-black/5">
               <div className="max-w-7xl mx-auto">
                 <SectionLabel>The 60-Day Sprint</SectionLabel>
@@ -296,20 +296,20 @@ export default function Home() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
                    {sprintPhases.map((phase, idx) => (
-                     <div key={idx} className="space-y-6 group">
-                        <div className="text-4xl font-bold text-black/10 group-hover:text-black transition-colors duration-500">{phase.phase}</div>
+                     <div key={idx} className="space-y-6 group text-left">
+                        <div className="text-4xl font-bold text-black/10 group-hover:text-black transition-colors duration-500 text-left">{phase.phase}</div>
                         <div className="h-[2px] w-full bg-black/5 relative overflow-hidden">
                            <div className="absolute inset-0 bg-[#F3D7A7] translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700" />
                         </div>
-                        <h4 className="text-sm font-bold uppercase tracking-widest">{phase.title}</h4>
-                        <p className="text-[12px] text-black/40 leading-relaxed uppercase tracking-wider">{phase.desc}</p>
+                        <h4 className="text-sm font-bold uppercase tracking-widest text-left">{phase.title}</h4>
+                        <p className="text-[12px] text-black/40 leading-relaxed uppercase tracking-wider text-left">{phase.desc}</p>
                      </div>
                    ))}
                 </div>
               </div>
             </section>
 
-            {/* FOUNDER AUTHORITY SECTION + PRACTITIONER LEDGER */}
+            {/* FOUNDER AUTHORITY SECTION */}
             <section className="bg-white py-32 px-6 md:px-24 text-black text-left border-b border-black/5">
               <div className="flex flex-col md:flex-row items-center gap-20 md:gap-32 mb-28">
                 <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1 }} className="w-full md:w-1/2">
@@ -328,14 +328,13 @@ export default function Home() {
                     </div>
                     <p className="text-black/60 text-xl leading-relaxed max-w-lg font-light text-left">Blade Inner Circle is the distilled output of 5 years of market execution. We don&apos;t teach what we think — we teach what we have proven at scale.</p>
                     
-                    {/* NEW SECTION 03: THE PRACTITIONER'S LEDGER (DATA CARDS) */}
-                    <div className="grid grid-cols-2 gap-6 mt-12">
-                       <div className="p-6 border border-black/5 bg-[#F9F9F9] space-y-2">
+                    <div className="grid grid-cols-2 gap-6 mt-12 text-left">
+                       <div className="p-6 border border-black/5 bg-[#F9F9F9] space-y-2 text-left">
                           <BarChart3 size={20} className="text-[#F3D7A7]" />
                           <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Tested at Scale</h5>
                           <p className="text-xl font-bold">2.5B+ Views</p>
                        </div>
-                       <div className="p-6 border border-black/5 bg-[#F9F9F9] space-y-2">
+                       <div className="p-6 border border-black/5 bg-[#F9F9F9] space-y-2 text-left">
                           <Binary size={20} className="text-[#F3D7A7]" />
                           <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Proprietary Assets</h5>
                           <p className="text-xl font-bold">12+ Systems</p>
@@ -355,42 +354,42 @@ export default function Home() {
               </div>
             </section>
 
-            {/* CURRICULUM SECTION */}
+            {/* CURRICULUM SECTION - MIRROR IMAGE BUT DOWNSIZED */}
             <section className="py-24 px-6 md:px-24 bg-white">
-              <div className="max-w-[1400px] mx-auto">
-                <div className="bg-black rounded-[80px] p-16 md:p-32 relative overflow-hidden text-left flex flex-col md:flex-row items-center gap-16 min-h-[650px] shadow-[0_60px_120px_-20px_rgba(0,0,0,0.4)]">
+              <div className="max-w-[1280px] mx-auto">
+                <div className="bg-black rounded-[60px] p-10 md:p-16 relative overflow-hidden text-left flex flex-col md:flex-row items-center gap-12 min-h-[500px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)]">
                   
-                  {/* Decorative Circle - Exact Position */}
-                  <div className="absolute top-24 left-[53%] w-14 h-14 border border-[#F3D7A7]/20 rounded-full hidden md:block" />
+                  {/* Decorative Circle */}
+                  <div className="absolute top-16 right-[35%] w-12 h-12 border border-[#F3D7A7]/20 rounded-full hidden md:block" />
 
-                  {/* Content - Absolute Left */}
-                  <div className="flex-1 space-y-12 relative z-10">
+                  {/* Content */}
+                  <div className="flex-1 space-y-8 relative z-10">
                     <div className="space-y-4">
-                      <span className="text-[#F3D7A7] text-[11px] font-bold uppercase tracking-[0.6em] mb-4 block">What you will learn</span>
-                      <h2 className="text-white text-6xl md:text-[95px] font-bold uppercase tracking-tight leading-[0.82] mb-12">
+                      <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">What you will learn</span>
+                      <h2 className="text-white text-5xl md:text-[72px] font-bold uppercase tracking-tight leading-[0.85] mb-8">
                         The exact systems <br /> behind ₹3Cr+ in <br /> revenue.
                       </h2>
                     </div>
-                    <p className="text-white/30 text-xl md:text-2xl font-medium max-w-2xl leading-relaxed mb-16">
+                    <p className="text-white/30 text-lg md:text-xl font-medium max-w-xl leading-relaxed mb-10">
                       We&apos;ve deconstructed the entire agency journey into five easy-to-follow phases. No fluff, just execution.
                     </p>
                     <button 
                       onClick={() => router.push("/curriculum")}
-                      className="bg-white text-black px-16 py-7 rounded-full font-bold uppercase tracking-widest text-[12px] hover:bg-[#F3D7A7] transition-all flex items-center gap-4 shadow-xl"
+                      className="bg-white text-black px-12 py-5 rounded-full font-bold uppercase tracking-widest text-[11px] hover:bg-[#F3D7A7] transition-all flex items-center gap-4 shadow-xl"
                     >
-                      Explore Full Prospectus <ArrowRight size={20}/>
+                      Explore Full Prospectus <ArrowRight size={18}/>
                     </button>
                   </div>
 
-                  {/* Stats Cards - Absolute Right */}
-                  <div className="flex flex-row md:flex-col gap-10 relative z-10">
-                    <div className="bg-[#080808] border border-white/5 rounded-[40px] p-12 w-48 md:w-64 text-center flex flex-col justify-center items-center shadow-2xl">
-                       <span className="text-white text-6xl font-bold block tracking-tighter mb-2">60</span>
-                       <span className="text-[#F3D7A7] text-[11px] font-bold uppercase tracking-[0.4em] block">Days</span>
+                  {/* Stats Cards */}
+                  <div className="flex flex-row md:flex-col gap-6 relative z-10">
+                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[30px] p-8 w-40 md:w-52 text-center flex flex-col justify-center items-center shadow-xl">
+                       <span className="text-white text-5xl font-bold block tracking-tighter mb-1">60</span>
+                       <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.3em] block">Days</span>
                     </div>
-                    <div className="bg-[#080808] border border-white/5 rounded-[40px] p-12 w-48 md:w-64 text-center flex flex-col justify-center items-center shadow-2xl">
-                       <span className="text-white text-6xl font-bold block tracking-tighter mb-2">5</span>
-                       <span className="text-[#F3D7A7] text-[11px] font-bold uppercase tracking-[0.4em] block">Phases</span>
+                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[30px] p-8 w-40 md:w-52 text-center flex flex-col justify-center items-center shadow-xl">
+                       <span className="text-white text-5xl font-bold block tracking-tighter mb-1">5</span>
+                       <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.3em] block">Phases</span>
                     </div>
                   </div>
 
