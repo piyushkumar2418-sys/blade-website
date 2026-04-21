@@ -134,14 +134,10 @@ export default function Home() {
             {isAgency ? "The Inner Circle" : "Exit to Agency"}
           </motion.button>
 
-          {user ? (
+          {user && !isAgency ? (
             <button 
               onClick={() => router.push("/dashboard")}
-              className={`flex items-center gap-3 px-4 py-3 border rounded-sm transition-all ${
-                isAgency 
-                  ? "border-white/10 text-white hover:border-[#F3D7A7] hover:text-[#F3D7A7]" 
-                  : "border-black/10 text-black hover:border-black/30"
-              }`}
+              className="flex items-center gap-3 px-4 py-3 border border-black/10 text-black hover:border-black/30 rounded-sm transition-all"
             >
               <div className="w-2 h-2 rounded-full bg-[#F3D7A7] animate-pulse" />
               <span className="text-[10px] font-bold uppercase tracking-widest">{profile?.name || "My Profile"}</span>
