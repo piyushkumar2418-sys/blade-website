@@ -98,7 +98,7 @@ const ProcessStep = ({ number, title, desc }: { number: string, title: string, d
   <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="space-y-6 text-left">
     <div className="text-6xl font-bold text-white/5 text-left">{number}</div>
     <h3 className="text-2xl font-bold uppercase tracking-tight text-white text-left">{title}</h3>
-    <p className="text-white/40 leading-relaxed text-xl font-light text-left">{desc}</p>
+    <p className="text-white/40 leading-relaxed text-lg font-light text-left">{desc}</p>
   </motion.div>
 );
 
@@ -213,6 +213,26 @@ export default function Home() {
 
             <LogoMarquee />
 
+            {/* SOLUTIONS SECTION */}
+            <section id="section_solutions" className="py-32 px-6 md:px-24 border-t border-white/5 relative z-20">
+              <div className="max-w-[1400px] mx-auto">
+                <SectionLabel>Institutional Solutions</SectionLabel>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/10">
+                   {[
+                     { title: "Visual Identity", desc: "Developing a proprietary visual language that separates you from the noise." },
+                     { title: "Retention Systems", desc: "Engineered editing protocols designed to hold attention through psychological triggers." },
+                     { title: "Growth Infrastructure", desc: "Building the engine that powers multi-channel distribution and consistent scale." },
+                     { title: "Capital Extraction", desc: "Converting institutional attention into measurable capital and market authority." }
+                   ].map((s, i) => (
+                     <div key={i} className="bg-black p-12 md:p-20 hover:bg-white/5 transition-all group">
+                        <h4 className="text-3xl font-bold uppercase tracking-tight text-white mb-6 group-hover:text-[#F3D7A7] transition-colors">{s.title}</h4>
+                        <p className="text-white/40 text-lg leading-relaxed max-w-sm">{s.desc}</p>
+                     </div>
+                   ))}
+                </div>
+              </div>
+            </section>
+
             {/* PROCESS SECTION */}
             <section id="section_process" className="py-32 px-6 md:px-24 border-t border-white/5 relative z-20">
               <div className="max-w-[1400px] mx-auto">
@@ -235,6 +255,12 @@ export default function Home() {
                   <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-[-0.06em] mb-12 text-white text-left">Selected Productions</h2>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
                     {youtubeWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-video" index={i} /> ))}
+                  </div>
+                </div>
+                <div className="text-left">
+                  <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-[-0.06em] mb-12 text-[#F3D7A7] text-left">Viral Originals</h2>
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+                    {verticalWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} /> ))}
                   </div>
                 </div>
               </div>
@@ -261,6 +287,74 @@ export default function Home() {
               </div>
             </section>
 
+            {/* THE CONTENT CRISIS */}
+            <section className="py-32 px-6 md:px-24 bg-black text-white">
+              <div className="max-w-7xl mx-auto">
+                <SectionLabel light>The Industry Crisis</SectionLabel>
+                <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tight leading-[0.85] mb-20 text-left">The creator economy <br /> <span className="text-white/20">is built on sand.</span></h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                   <div className="space-y-8 p-12 border border-white/10 bg-white/5 rounded-2xl">
+                      <h4 className="text-[#F3D7A7] text-sm font-bold uppercase tracking-widest">The Amateur Trap</h4>
+                      <ul className="space-y-4 text-white/40 text-lg">
+                        <li className="flex items-center gap-3"><span className="text-red-500">✕</span> Guessing what works</li>
+                        <li className="flex items-center gap-3"><span className="text-red-500">✕</span> Zero leverage in workflow</li>
+                        <li className="flex items-center gap-3"><span className="text-red-500">✕</span> Relying on algorithm luck</li>
+                        <li className="flex items-center gap-3"><span className="text-red-500">✕</span> Low-ticket, commodity mindset</li>
+                      </ul>
+                   </div>
+                   <div className="space-y-8 p-12 border border-[#F3D7A7]/30 bg-[#F3D7A7]/5 rounded-2xl">
+                      <h4 className="text-[#F3D7A7] text-sm font-bold uppercase tracking-widest">The Blade Protocol</h4>
+                      <ul className="space-y-4 text-[#F3D7A7] text-lg">
+                        <li className="flex items-center gap-3"><span className="text-green-500">✓</span> Institutional systems</li>
+                        <li className="flex items-center gap-3"><span className="text-green-500">✓</span> High-velocity infrastructure</li>
+                        <li className="flex items-center gap-3"><span className="text-green-500">✓</span> Predictable growth mechanics</li>
+                        <li className="flex items-center gap-3"><span className="text-green-500">✓</span> High-ticket capital extraction</li>
+                      </ul>
+                   </div>
+                </div>
+              </div>
+            </section>
+
+            <section className="py-32 px-6 md:px-24 max-w-7xl text-left border-b border-black/5">
+              <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start text-left">
+                <div className="pr-0 md:pr-12 text-left">
+                   <SectionLabel>Institutional Thesis</SectionLabel>
+                   <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-[-0.06em] leading-[0.9] mb-12 text-left">Theoretical learning is a trap. <br/> <span className="text-black/20">This is an execution lab.</span></h2>
+                   <p className="text-xl md:text-2xl text-black/60 leading-relaxed font-light text-left">Blade Inner Circle is a 2-month intensive for those who refuse to be passive. We deploy systems. Revenue is the only metric.</p>
+                </div>
+                <div className="grid grid-cols-1 gap-px bg-black/10 border border-black/10 text-left">
+                  <div className="bg-white p-8 md:p-12 text-left">
+                    <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">Zero Theory</h4>
+                    <p className="text-black/50 leading-relaxed text-sm md:text-base text-left">Everything decoded over thousands of hours of client work at Blade Media.</p>
+                  </div>
+                  <div className="bg-white p-8 md:p-12 border-t border-black/10 text-left">
+                    <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">High Stakes</h4>
+                    <p className="text-black/50 leading-relaxed text-sm md:text-base text-left">Designed to move you from amateur creator to agency operator in 60 days.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* THE SPRINT STRUCTURE */}
+            <section className="py-32 px-6 md:px-24 bg-white border-b border-black/5">
+              <div className="max-w-7xl mx-auto">
+                <SectionLabel>The 60-Day Sprint</SectionLabel>
+                <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tight leading-[0.85] mb-24 text-left">From Theory to <br /> <span className="text-black/20">Capital Extraction.</span></h2>
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+                   {sprintPhases.map((phase, idx) => (
+                     <div key={idx} className="space-y-6 group text-left">
+                        <div className="text-4xl font-bold text-black/10 group-hover:text-black transition-colors duration-500 text-left">{phase.phase}</div>
+                        <div className="h-[2px] w-full bg-black/5 relative overflow-hidden">
+                           <div className="absolute inset-0 bg-[#F3D7A7] translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700" />
+                        </div>
+                        <h4 className="text-sm font-bold uppercase tracking-widest text-left">{phase.title}</h4>
+                        <p className="text-[12px] text-black/40 leading-relaxed uppercase tracking-wider text-left">{phase.desc}</p>
+                     </div>
+                   ))}
+                </div>
+              </div>
+            </section>
+
             {/* FOUNDER AUTHORITY SECTION */}
             <section className="bg-white py-32 px-6 md:px-24 text-black text-left border-b border-black/5">
               <div className="flex flex-col md:flex-row items-center gap-20 md:gap-32 mb-28">
@@ -278,7 +372,7 @@ export default function Home() {
                       <SectionLabel>Founding Methodology</SectionLabel>
                       <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-[-0.06em] leading-[0.85] text-left">The Practitioner’s <br /> Ledger.</h2>
                     </div>
-                    <p className="text-black/60 text-xl leading-relaxed max-w-lg font-light text-left">Blade Inner Circle is the distilled output of 5 years of market execution. We don&apos;t teach what we think — we teach what we have proven at scale.</p>
+                    <p className="text-black/60 text-xl leading-relaxed max-w-lg font-light text-left">Distilled output of 5 years of market execution. We teach what we have proven at scale.</p>
                   </div>
                 </div>
               </div>
@@ -290,27 +384,6 @@ export default function Home() {
                     <p className="text-[10px] text-black/30 uppercase tracking-[0.2em] text-left">{stat.desc}</p>
                   </div>
                 ))}
-              </div>
-            </section>
-
-            {/* THE SPRINT STRUCTURE */}
-            <section className="py-32 px-6 md:px-24 bg-white border-b border-black/5">
-              <div className="max-w-7xl mx-auto">
-                <SectionLabel>The 60-Day Sprint</SectionLabel>
-                <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tight leading-[0.85] mb-24 text-left">From Theory to <br /> <span className="text-black/20">Capital Extraction.</span></h2>
-                
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-                   {sprintPhases.map((phase, idx) => (
-                     <div key={idx} className="space-y-6 group text-left">
-                        <div className="text-4xl font-bold text-black/10 group-hover:text-black transition-colors duration-500 text-left">{phase.phase}</div>
-                        <div className="h-[2px] w-full bg-black/5 relative overflow-hidden">
-                           <div className="absolute inset-0 bg-[#F3D7A7] translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700" />
-                        </div>
-                        <h4 className="text-sm font-bold uppercase tracking-widest text-left">{phase.title}</h4>
-                        <p className="text-[12px] text-black/40 leading-relaxed uppercase tracking-wider text-left">{phase.desc}</p>
-                     </div>
-                   ))}
-                </div>
               </div>
             </section>
 
