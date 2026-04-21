@@ -5,14 +5,28 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { db } from "@/lib/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { 
+  LogOut, User, CheckCircle2, ChevronRight, 
+  ArrowLeft, FileText, Globe, Clock, 
+  BookOpen, MessageCircle, ExternalLink, X
+} from "lucide-react";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
+
+// --- ADMISSION STEPS ---
+const STEPS = [
+  { id: 1, label: "Portfolio Received", desc: "Documentation secured" },
+  { id: 2, label: "Initial Review", desc: "Intent verification" },
+  { id: 3, label: "Interview", desc: "Direct evaluation" },
+  { id: 4, label: "Final Verdict", desc: "Cohort selection" },
+];
 
 export default function Profile() {
   const { user, profile, loading } = useAuth();
   const router = useRouter();
   const [applications, setApplications] = useState<any[]>([]);
   const [fetchingApps, setFetchingApps] = useState(true);
+  const [selectedApp, setSelectedApp] = useState<any | null>(null);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -51,146 +65,239 @@ export default function Profile() {
 
   if (loading || !user) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="w-12 h-[1px] bg-[#F3D7A7] animate-pulse" />
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-black/5 border-t-black rounded-full animate-spin" />
       </div>
     );
   }
 
+  const currentStep = applications.length > 0 ? 2 : 1; // Simulation for UI
+
   return (
-    <div className="min-h-screen bg-black text-white font-sans selection:bg-[#F3D7A7] selection:text-black">
+    <div className="min-h-screen bg-[#F9F9F9] text-black font-sans selection:bg-[#F3D7A7] selection:text-black">
       
-      {/* --- HYPER-MINIMAL NAV --- */}
-      <nav className="w-full px-8 py-10 flex justify-between items-center border-b border-white/5">
-        <div className="flex items-center gap-12">
+      {/* --- REFINED NAV --- */}
+      <nav className="w-full bg-white border-b border-black/[0.05] px-8 py-6 flex justify-between items-center sticky top-0 z-[100]">
+        <div className="flex items-center gap-10">
           <div className="cursor-pointer" onClick={() => router.push("/")}>
-            <img src="/blade-logo.png" alt="Blade" className="h-8 object-contain" />
+            <img src="/bic-black.png" alt="BIC" className="h-6 object-contain" />
           </div>
-          <span className="hidden md:block text-[10px] font-bold uppercase tracking-[0.6em] text-white/20">Institutional Access</span>
+          <div className="h-4 w-[1px] bg-black/10 hidden md:block" />
+          <div className="hidden md:flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-black/40">
+            <span className="text-black">Hey, {profile?.name.split(' ')[0]}</span>
+          </div>
         </div>
-        <div className="flex items-center gap-8">
-           <button onClick={handleSignOut} className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/40 hover:text-[#F3D7A7] transition-colors">Terminate Session</button>
+        
+        <div className="flex items-center gap-6">
+          <button 
+            onClick={handleSignOut}
+            className="group flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-black/30 hover:text-black transition-colors"
+          >
+            Sign Out <LogOut size={14} className="group-hover:translate-x-1 transition-transform" />
+          </button>
         </div>
       </nav>
 
-      <main className="max-w-[1440px] mx-auto px-8 md:px-24 py-24 md:py-40">
+      <main className="max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-20">
         
-        {/* --- IDENTITY BLOCK --- */}
-        <header className="mb-40 space-y-12">
-          <div className="space-y-4">
-             <div className="flex items-center gap-4">
-                <div className="w-2 h-2 rounded-full bg-[#F3D7A7] animate-pulse" />
-                <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.8em]">Identity Verified</span>
-             </div>
-             <h1 className="text-7xl md:text-[10vw] font-black uppercase tracking-[-0.08em] leading-[0.75] italic">
-               {profile?.name}
-             </h1>
-          </div>
-          <div className="flex flex-col md:flex-row gap-12 md:items-center text-[10px] font-bold uppercase tracking-[0.5em] text-white/30">
-            <span>Ref: {user.uid.slice(0, 8).toUpperCase()}</span>
-            <span className="hidden md:block w-1 h-1 rounded-full bg-white/10" />
-            <span>Class: May 2026 Batch</span>
-            <span className="hidden md:block w-1 h-1 rounded-full bg-white/10" />
-            <span>Status: Candidate</span>
-          </div>
-        </header>
+        {/* --- WELCOME HEADER --- */}
+        <section className="mb-20 text-left">
+           <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-[#F3D7A7] block mb-4">Institutional Portal</span>
+           <h1 className="text-5xl md:text-7xl font-bold tracking-tighter uppercase italic leading-none">
+             Welcome back, <br /> <span className="text-black/20">{profile?.name}</span>
+           </h1>
+        </section>
 
-        {/* --- MAIN INTERFACE --- */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-24">
+        {/* --- THE JOURNEY (STEPPER) --- */}
+        <section className="bg-white border border-black/5 p-10 md:p-16 mb-20 shadow-sm">
+           <div className="flex justify-between items-center mb-16">
+              <h3 className="text-xs font-bold uppercase tracking-widest">Admission Protocol Journey</h3>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-black/30">Candidate ID: {user.uid.slice(0, 6).toUpperCase()}</span>
+           </div>
+
+           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+             {/* Background Line */}
+             <div className="absolute top-5 left-0 w-full h-[1px] bg-black/5 hidden md:block" />
+             
+             {STEPS.map((step) => {
+               const isComplete = currentStep > step.id;
+               const isActive = currentStep === step.id;
+               
+               return (
+                 <div key={step.id} className="relative z-10 flex md:flex-col items-center md:items-start gap-6 md:gap-8 text-left">
+                   <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-700 ${
+                     isComplete ? "bg-black border-black text-white" : 
+                     isActive ? "bg-white border-black text-black shadow-lg" : 
+                     "bg-white border-black/5 text-black/10"
+                   }`}>
+                     {isComplete ? <CheckCircle2 size={18} /> : <span className="text-xs font-bold">{step.id}</span>}
+                   </div>
+                   <div className="space-y-1">
+                     <h4 className={`text-xs font-bold uppercase tracking-widest ${!isActive && !isComplete ? "text-black/20" : "text-black"}`}>{step.label}</h4>
+                     <p className="text-[10px] text-black/40 uppercase tracking-widest">{step.desc}</p>
+                   </div>
+                 </div>
+               );
+             })}
+           </div>
+        </section>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           
-          {/* LEFT: STATUS & RECORDS */}
-          <div className="lg:col-span-8 space-y-32">
-            
-            {/* ACTIVE PORTFOLIOS */}
-            <div className="space-y-16">
-              <div className="flex justify-between items-end border-b border-white/10 pb-8">
-                <h3 className="text-xl font-black uppercase tracking-tighter italic">Admission Records</h3>
-                <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">{applications.length} Submitted</span>
-              </div>
-
-              {fetchingApps ? (
-                <div className="py-20 flex items-center gap-4 text-white/10">
-                   <div className="w-4 h-[1px] bg-current animate-pulse" />
-                   <span className="text-[10px] font-bold uppercase tracking-widest">Querying System...</span>
-                </div>
-              ) : applications.length > 0 ? (
-                <div className="space-y-1">
-                  {applications.map((app) => (
-                    <motion.div 
-                      key={app.id}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="group flex flex-col md:flex-row md:items-center justify-between py-12 border-b border-white/5 hover:border-white/20 transition-all cursor-none"
-                    >
-                      <div className="space-y-4">
-                        <div className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7]">Inner Circle — Cohort 01</div>
-                        <h4 className="text-3xl font-black uppercase tracking-tighter">Admission Portfolio</h4>
-                        <div className="text-[9px] font-bold uppercase tracking-[0.4em] text-white/20">
-                          Timestamp: {app.createdAt ? new Date(app.createdAt.seconds * 1000).toLocaleString() : 'N/A'}
-                        </div>
-                      </div>
-
-                      <div className="mt-8 md:mt-0 flex items-center gap-12">
-                        <div className="text-left md:text-right space-y-1">
-                           <div className="text-sm font-bold uppercase tracking-widest text-white">Under Review</div>
-                           <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/20">Architect Verification Pending</div>
-                        </div>
-                        <div className="w-10 h-10 border border-white/10 flex items-center justify-center group-hover:bg-[#F3D7A7] group-hover:text-black transition-all">
-                           <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path></svg>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              ) : (
-                <div className="py-32 border border-dashed border-white/10 flex flex-col items-center justify-center space-y-10">
-                   <p className="text-[10px] font-bold uppercase tracking-[0.6em] text-white/20">No Execution History Found</p>
-                   <button 
-                     onClick={() => router.push("/apply/register")}
-                     className="px-12 py-6 bg-white text-black text-[10px] font-bold uppercase tracking-[0.4em] hover:bg-[#F3D7A7] transition-all"
-                   >
-                     Initiate Admission
-                   </button>
-                </div>
-              )}
+          {/* LEFT: APPLICATIONS */}
+          <div className="lg:col-span-2 space-y-10">
+            <div className="flex justify-between items-center border-b border-black/5 pb-4">
+               <h3 className="text-xs font-bold uppercase tracking-widest">Active Portfolios</h3>
             </div>
+
+            {fetchingApps ? (
+              <div className="py-20 text-center flex flex-col items-center gap-4">
+                 <div className="w-6 h-6 border-2 border-black/5 border-t-[#F3D7A7] rounded-full animate-spin" />
+                 <span className="text-[10px] font-bold uppercase tracking-widest text-black/20">Accessing Records...</span>
+              </div>
+            ) : applications.length > 0 ? (
+              <div className="space-y-4">
+                {applications.map((app) => (
+                  <div key={app.id} className="bg-white border border-black/5 p-8 md:p-12 hover:shadow-xl transition-all group">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                       <div className="space-y-4">
+                          <div className="flex items-center gap-3">
+                             <span className="bg-black text-white text-[8px] font-bold uppercase tracking-widest px-2 py-0.5">May 2026</span>
+                             <span className="text-[10px] text-black/30 font-bold uppercase tracking-widest">ID: {app.id.slice(0, 8).toUpperCase()}</span>
+                          </div>
+                          <h4 className="text-2xl font-bold uppercase tracking-tight">Institutional Admission Portfolio</h4>
+                          <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-black/40">
+                             <span className="flex items-center gap-2"><Clock size={14} /> Submitted on {app.createdAt ? new Date(app.createdAt.seconds * 1000).toLocaleDateString() : 'Just now'}</span>
+                          </div>
+                       </div>
+                       
+                       <div className="flex flex-col items-start md:items-end gap-6">
+                          <div className="text-left md:text-right">
+                             <div className="text-[10px] font-bold uppercase tracking-widest text-[#F3D7A7] flex items-center gap-2 md:justify-end">
+                               <div className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /> Under Review
+                             </div>
+                             <p className="text-[9px] text-black/30 uppercase tracking-widest mt-1">Expected decision in 3 days</p>
+                          </div>
+                          <button 
+                            onClick={() => setSelectedApp(app)}
+                            className="px-8 py-3 bg-black text-white text-[9px] font-bold uppercase tracking-[0.2em] hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-3"
+                          >
+                            View Submission <FileText size={14} />
+                          </button>
+                       </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="bg-white border border-dashed border-black/10 p-20 text-center space-y-8">
+                 <p className="text-[10px] font-bold uppercase tracking-widest text-black/30">No submissions found for this cycle.</p>
+                 <button onClick={() => router.push("/apply/register")} className="px-10 py-5 bg-black text-white text-[10px] font-bold uppercase tracking-widest hover:bg-[#F3D7A7] hover:text-black transition-all">Submit Portfolio</button>
+              </div>
+            )}
           </div>
 
-          {/* RIGHT: PROTOCOLS */}
-          <div className="lg:col-span-4 space-y-24">
-             <div className="space-y-12">
-                <h3 className="text-xs font-bold uppercase tracking-[0.5em] text-white/20 border-b border-white/5 pb-4">Next Protocols</h3>
-                <div className="space-y-10">
-                   <ProtocolItem num="01" label="Verify Intent" desc="Architecture check for May 2026 Cohort." />
-                   <ProtocolItem num="02" label="Access Prospectus" desc="Full breakdown of the execution mechanics." />
-                   <ProtocolItem num="03" label="Wait for Verdict" desc="Decisions are processed within 48h." />
+          {/* RIGHT: RESOURCES */}
+          <div className="space-y-12">
+             <div className="bg-black text-white p-10 space-y-8 shadow-2xl">
+                <div className="space-y-2">
+                   <p className="text-[#F3D7A7] text-[9px] font-bold uppercase tracking-[0.5em]">Upcoming Session</p>
+                   <h3 className="text-2xl font-bold uppercase tracking-tighter italic">Cohort <br /> Orientation</h3>
                 </div>
+                <p className="text-white/40 text-[11px] leading-relaxed font-light">
+                   The initial technical briefing for verified candidates will be unlocked upon admission.
+                </p>
+                <button onClick={() => router.push("/curriculum")} className="w-full py-4 border border-white/10 text-[9px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3">
+                   View Prospectus <BookOpen size={14} />
+                </button>
              </div>
 
-             <div className="p-10 border border-white/5 space-y-6">
-                <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-[#F3D7A7]">Important</h4>
-                <p className="text-xs leading-relaxed text-white/40 font-light">
-                  Ensure all portfolio links are public. Private links will result in automatic disqualification from the May cycle.
-                </p>
+             <div className="space-y-8">
+                <h3 className="text-xs font-bold uppercase tracking-widest border-b border-black/5 pb-4">Institutional Help</h3>
+                <div className="space-y-4">
+                   <SidebarItem icon={<MessageCircle size={14} />} label="Priority Support" />
+                   <SidebarItem icon={<Globe size={14} />} label="Student Network" />
+                </div>
              </div>
           </div>
 
         </div>
       </main>
 
-      <footer className="py-20 border-t border-white/5 text-center">
-        <p className="text-[8px] font-bold uppercase tracking-[1em] text-white/10">Blade Media Institutional Network // Verified Session</p>
+      {/* --- SUBMISSION DRAWER / MODAL --- */}
+      <AnimatePresence>
+        {selectedApp && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm flex justify-end"
+          >
+            <motion.div 
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              className="w-full max-w-2xl bg-white h-full shadow-2xl p-12 overflow-y-auto"
+            >
+              <div className="flex justify-between items-center mb-16">
+                 <h2 className="text-2xl font-bold uppercase tracking-tighter italic">Submission Dossier</h2>
+                 <button onClick={() => setSelectedApp(null)} className="p-2 hover:bg-black/5 rounded-full transition-colors"><X size={24} /></button>
+              </div>
+
+              <div className="space-y-12">
+                 <div className="grid grid-cols-2 gap-8">
+                    <DataPoint label="Candidate Name" value={selectedApp.name} />
+                    <DataPoint label="Contact" value={selectedApp.email} />
+                    <DataPoint label="Instagram" value={selectedApp.instagram} />
+                    <DataPoint label="Phone" value={selectedApp.phone} />
+                 </div>
+
+                 <div className="h-[1px] bg-black/5" />
+
+                 <div className="space-y-4">
+                    <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Portfolio Links</h5>
+                    <div className="space-y-3">
+                       {selectedApp.links?.split('\n').map((link: string, i: number) => (
+                         <a key={i} href={link} target="_blank" className="flex items-center justify-between p-4 bg-[#F9F9F9] border border-black/5 hover:border-black/20 transition-all text-xs font-medium">
+                            {link} <ExternalLink size={14} className="text-black/20" />
+                         </a>
+                       ))}
+                    </div>
+                 </div>
+
+                 <div className="space-y-4">
+                    <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Statement of Intent</h5>
+                    <p className="text-sm leading-relaxed text-black/70 bg-[#F9F9F9] p-6 border border-black/5 italic">
+                       &quot;{selectedApp.whyJoin}&quot;
+                    </p>
+                 </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <footer className="py-12 border-t border-black/[0.03] text-center">
+        <p className="text-[8px] font-bold uppercase tracking-[0.8em] text-black/10">Blade Media // System Verified</p>
       </footer>
     </div>
   );
 }
 
-const ProtocolItem = ({ num, label, desc }: any) => (
-  <div className="flex gap-8 group cursor-none">
-    <span className="text-[10px] font-bold text-[#F3D7A7] mt-1">{num}</span>
-    <div className="space-y-2">
-      <h5 className="text-sm font-bold uppercase tracking-widest group-hover:text-[#F3D7A7] transition-colors">{label}</h5>
-      <p className="text-[10px] leading-relaxed text-white/30 uppercase tracking-widest">{desc}</p>
+const SidebarItem = ({ icon, label }: any) => (
+  <button className="w-full flex items-center justify-between p-4 border border-black/[0.03] hover:border-black/10 hover:bg-white transition-all text-[9px] font-bold uppercase tracking-widest group">
+    <div className="flex items-center gap-3">
+      <span className="text-black/20 group-hover:text-black transition-colors">{icon}</span>
+      {label}
     </div>
+    <ChevronRight size={12} className="text-black/10 group-hover:text-black transition-all" />
+  </button>
+);
+
+const DataPoint = ({ label, value }: any) => (
+  <div className="space-y-1">
+     <span className="text-[9px] font-bold uppercase tracking-widest text-black/30">{label}</span>
+     <p className="text-sm font-semibold">{value || 'N/A'}</p>
   </div>
 );
