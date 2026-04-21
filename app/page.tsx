@@ -63,17 +63,17 @@ const WorkItem = ({ work, aspect, index }: { work: any, aspect: string, index: n
 const LogoMarquee = () => {
   const logos = [
     { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
-    { name: "Flipkart", url: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Flipkart_logo.svg" },
+    { name: "Flipkart", url: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Flipkart_logo_%282026%29.svg" },
     { name: "Bajaj", url: "https://companieslogo.com/img/orig/BAJAJ-AUTO.NS_BIG-afa2b58c.png" },
-    { name: "Reliance", url: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Reliance_Digital.svg" },
+    { name: "Reliance", url: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Reliance_Digital.svg" },
     { name: "Nykaa", url: "https://companieslogo.com/img/orig/NYKAA.NS_BIG-d299a0e1.svg" },
-    { name: "Pantaloons", url: "https://upload.wikimedia.org/wikipedia/en/3/3e/Pantaloons_Fashion_%26_Retail_logo.svg" },
-    { name: "Mirchi", url: "https://upload.wikimedia.org/wikipedia/en/2/2f/Radio_Mirchi_logo.svg" },
-    { name: "FamApp", url: "https://pnghdpro.com/wp-content/uploads/2023/10/Famapp-By-Trio-Logo-PNG-Transparent.png" },
-    { name: "SuperYou", url: "https://superyou.in/cdn/shop/files/Superyou_Logo_1.png" },
+    { name: "Pantaloons", url: "https://static.wikia.nocookie.net/logopedia/images/6/6a/Pantaloons_logo.svg" },
+    { name: "Mirchi", url: "https://upload.wikimedia.org/wikipedia/en/2/26/Radio_Mirchi_logo.svg" },
+    { name: "FamApp", url: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/fampay.svg" },
+    { name: "SuperYou", url: "https://superyou.in/cdn/shop/files/SuperYou_Logo_Red_1.png" },
     { name: "ThriveStack", url: "https://www.thrivestack.ai/logo.svg" },
-    { name: "WTF", url: "https://allthingswtf.com/wp-content/uploads/2023/12/logo-wtf.png" },
-    { name: "ActorsTruth", url: "https://theactorstruth.com/wp-content/uploads/2021/05/logo.png" },
+    { name: "WTF", url: "https://images.crunchbase.com/image/upload/c_pad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/p5n7j8z0v6z2v6z2v6z2" },
+    { name: "ActorsTruth", url: "https://cdn.prod.website-files.com/645b736b7610c1f618684784/645b7a0f7610c1289c685324_Actors%20Truth%20Logo.svg" },
   ];
 
   const doubledLogos = [...logos, ...logos];
@@ -89,7 +89,6 @@ const LogoMarquee = () => {
       </div>
       
       <div className="flex whitespace-nowrap overflow-hidden relative">
-        {/* Left/Right Overlays for seamless edge */}
         <div className="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-black to-transparent z-10" />
         <div className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-black to-transparent z-10" />
 
@@ -106,6 +105,15 @@ const LogoMarquee = () => {
                 alt={logo.name} 
                 className="h-7 md:h-10 w-auto max-w-[140px] object-contain" 
                 style={{ filter: "brightness(0) invert(1)" }}
+                onError={(e) => {
+                   // Fallback for fragile URLs
+                   (e.target as any).style.display = 'none';
+                   const parent = (e.target as any).parentElement;
+                   const span = document.createElement('span');
+                   span.innerText = logo.name;
+                   span.className = "text-white text-xs font-bold uppercase tracking-widest opacity-20";
+                   parent.appendChild(span);
+                }}
               />
             </div>
           ))}
@@ -435,7 +443,7 @@ export default function Home() {
                       onClick={() => router.push("/curriculum")}
                       className="bg-white text-black px-12 py-5 rounded-full font-bold uppercase tracking-widest text-[11px] hover:bg-[#F3D7A7] transition-all flex items-center gap-4 shadow-xl"
                     >
-                      Explore Full Prospectus <ArrowRight size={18}/>
+                      Explore Full Prospectus <ArrowRight size={20}/>
                     </button>
                   </div>
 
