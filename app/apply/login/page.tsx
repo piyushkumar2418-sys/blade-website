@@ -119,7 +119,7 @@ export default function MobileOTPLogin() {
           <div className="mb-12">
             <img src="/bic-black.png" alt="BIC" className="h-8 mb-6 object-contain" />
             <h1 className="text-4xl font-bold uppercase tracking-tighter leading-none mb-3">
-              {step === 1 ? "Initialize <br/> Account" : "Verify <br/> Identity"}
+              {step === 1 ? "Institutional Login" : "Verify Identity"}
             </h1>
             <p className="text-black/40 text-[10px] font-bold uppercase tracking-widest leading-relaxed">
               {step === 1 
@@ -254,7 +254,7 @@ export default function MobileOTPLogin() {
           <div className="text-left space-y-4">
             <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.6em] block text-left">The Institutional Prospectus</span>
             <h2 className="text-5xl font-bold uppercase tracking-tighter leading-[0.9] text-left">
-              Engineered for <br/> <span className="italic text-black/40">Market Outcomes.</span>
+              Engineered for <br/> Market Outcomes.
             </h2>
           </div>
 

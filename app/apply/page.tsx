@@ -1,110 +1,121 @@
 "use client";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import { db } from "@/lib/firebase";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { motion, AnimatePresence } from "framer-motion";
+import { ShieldCheck, ArrowRight, X, Clock, CheckCircle2 } from "lucide-react";
 
-import Link from "next/link";
-import { ArrowRight, ShieldAlert, CheckCircle2, XCircle } from "lucide-react";
-import { useEffect } from "react";
-import { useSite } from "@/context/SiteContext";
-
-export default function ApplyPage() {
-  const { setMode } = useSite();
+export default function ApplyRouting() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+  const [checkingApp, setCheckingApp] = useState(true);
+  const [hasApplied, setHasApplied] = useState(false);
 
   useEffect(() => {
-    setMode("inner-circle");
-  }, [setMode]);
+    async function checkStatus() {
+      if (!loading) {
+        if (!user) {
+          // Rule 1: Not authenticated -> Redirect to login
+          router.push("/apply/login");
+        } else {
+          // Rule 2: Authenticated -> Check if application exists
+          try {
+            const q = query(
+              collection(db, "applications"),
+              where("uid", "==", user.uid)
+            );
+            const querySnapshot = await getDocs(q);
+            
+            if (querySnapshot.empty) {
+              // No application -> Redirect to register
+              router.push("/apply/register");
+            } else {
+              // Application exists -> Stay here and show popup
+              setHasApplied(true);
+            }
+          } catch (err) {
+            console.error("Error checking application status:", err);
+          }
+          setCheckingApp(false);
+        }
+      }
+    }
+    checkStatus();
+  }, [user, loading, router]);
+
+  if (loading || checkingApp) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="flex flex-col items-center gap-6">
+           <div className="w-8 h-8 border-2 border-black/5 border-t-black rounded-full animate-spin" />
+           <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-black/20">Verifying Credentials...</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen w-full bg-white text-black flex flex-col" style={{ fontFamily: "Helvetica, Arial, sans-serif" }}>
-      {/* Header */}
-      <header className="border-b border-black p-6 md:p-12 flex justify-between items-end">
-        <div>
-          <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tight mb-2">Admissions</h1>
-          <p className="text-lg md:text-xl font-normal text-neutral-600">The Inner Circle Gatekeeper</p>
-        </div>
-        <div className="hidden md:block text-right">
-          <div className="text-sm font-bold uppercase border-b border-black pb-1 mb-2">System Status</div>
-          <div className="text-xl font-bold flex items-center gap-2 justify-end text-green-600">
-            <CheckCircle2 className="w-5 h-5" /> Accepting Applications
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content Grid */}
-      <main className="flex-1 grid grid-cols-1 md:grid-cols-2 bg-black gap-[1px]">
-        
-        {/* Left Column - Filter Text */}
-        <div className="bg-white p-6 md:p-12 flex flex-col justify-center">
-          <div className="inline-flex items-center gap-2 border border-black px-4 py-2 mb-8 self-start font-bold uppercase text-sm bg-black text-white">
-            <ShieldAlert className="w-4 h-4" /> Clearance Required
-          </div>
-          
-          <h2 className="text-3xl md:text-4xl font-bold uppercase mb-8 pb-4 border-b border-black">
-            Who is this built for?
-          </h2>
-          
-          <div className="space-y-8">
-            <div className="flex gap-4 items-start">
-              <CheckCircle2 className="w-6 h-6 shrink-0 mt-1" />
-              <div>
-                <h3 className="font-bold uppercase text-lg mb-2">Elite Operators & Founders</h3>
-                <p className="text-neutral-600">Those who are actively scaling high-leverage systems, businesses, and digital ecosystems. This is not for beginners.</p>
-              </div>
+    <div className="min-h-screen bg-[#F9F9F9] flex items-center justify-center p-6">
+      <AnimatePresence>
+        {hasApplied && (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="max-w-md w-full bg-white border border-black p-10 md:p-12 shadow-[20px_20px_0px_0px_rgba(0,0,0,1)] relative"
+          >
+            <div className="flex justify-between items-start mb-12">
+               <div className="w-12 h-12 bg-black flex items-center justify-center text-white">
+                  <ShieldCheck size={24} />
+               </div>
+               <button onClick={() => router.push("/dashboard")} className="text-black/20 hover:text-black transition-colors">
+                  <X size={24} />
+               </button>
             </div>
 
-            <div className="flex gap-4 items-start">
-              <CheckCircle2 className="w-6 h-6 shrink-0 mt-1" />
-              <div>
-                <h3 className="font-bold uppercase text-lg mb-2">Systems Thinkers</h3>
-                <p className="text-neutral-600">Architects who understand that true scale comes from infrastructure, automation, and compounding leverage.</p>
-              </div>
+            <div className="space-y-6 text-left">
+               <h2 className="text-3xl font-bold uppercase tracking-tighter leading-none">
+                 Submission <br /> Detected.
+               </h2>
+               <p className="text-sm text-black/60 leading-relaxed">
+                 Our system indicates that you have already submitted an institutional portfolio for the May 2026 Batch. Duplicate submissions are not permitted.
+               </p>
+
+               <div className="bg-[#F9F9F9] border border-black/5 p-6 space-y-4">
+                  <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest text-[#F3D7A7]">
+                     <div className="w-2 h-2 rounded-full bg-current animate-pulse" />
+                     Status: Under Review
+                  </div>
+                  <p className="text-[10px] text-black/30 uppercase tracking-widest leading-relaxed">
+                     Your application is currently being evaluated by our system architects. Expected decision: 48-72 hours.
+                  </p>
+               </div>
+
+               <div className="pt-8 flex flex-col gap-4">
+                  <button 
+                    onClick={() => router.push("/dashboard")}
+                    className="w-full py-5 bg-black text-white flex items-center justify-center gap-3 group hover:bg-[#F3D7A7] hover:text-black transition-all"
+                  >
+                    <span className="text-[10px] uppercase tracking-[0.3em] font-bold">Go to Dashboard</span>
+                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  </button>
+                  <button 
+                    onClick={() => router.push("/")}
+                    className="w-full py-4 text-[10px] uppercase tracking-widest font-bold text-black/30 hover:text-black transition-colors"
+                  >
+                    Return to Home
+                  </button>
+               </div>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-            <div className="flex gap-4 items-start text-neutral-400">
-              <XCircle className="w-6 h-6 shrink-0 mt-1" />
-              <div>
-                <h3 className="font-bold uppercase text-lg mb-2 line-through">Tourists & Spectators</h3>
-                <p className="">If you are looking for quick hacks or basic tutorials, access will be denied. The ledger requires operational proof of work.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Column - Gatekeeper Actions */}
-        <div className="bg-white p-6 md:p-12 flex flex-col justify-center items-center relative overflow-hidden">
-          {/* Institutional Grid pattern background */}
-          <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-               style={{ backgroundImage: 'linear-gradient(black 1px, transparent 1px), linear-gradient(90deg, black 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
-          />
-
-          <div className="w-full max-w-md border border-black bg-white relative z-10 p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-            <h2 className="text-2xl font-bold uppercase mb-2 text-center">Authentication</h2>
-            <p className="text-center text-neutral-600 mb-8 text-sm">Select your entry vector.</p>
-
-            <div className="flex flex-col gap-4">
-              <Link 
-                href="/apply/login" 
-                className="w-full border border-black p-4 flex justify-between items-center group hover:bg-black hover:text-white transition-all"
-              >
-                <span className="font-bold uppercase">Login</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              
-              <Link 
-                href="/apply/register" 
-                className="w-full border border-black bg-black text-white p-4 flex justify-between items-center group hover:bg-neutral-800 transition-all"
-              >
-                <span className="font-bold uppercase">Start Application</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </div>
-          
-        </div>
-      </main>
-      
-      {/* Footer */}
-      <footer className="border-t border-black p-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm font-bold uppercase">
-        <div>Blade Media Inc. &copy; {new Date().getFullYear()}</div>
-        <div>Strictly Confidential</div>
-      </footer>
+      {/* Background Decor */}
+      <div className="fixed inset-0 z-[-1] pointer-events-none opacity-[0.02]" 
+           style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, black 1px, transparent 0)', backgroundSize: '32px 32px' }} 
+      />
     </div>
   );
 }
