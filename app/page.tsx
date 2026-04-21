@@ -331,13 +331,13 @@ export default function Home() {
                     <div className="grid grid-cols-2 gap-6 mt-12 text-left">
                        <div className="p-6 border border-black/5 bg-[#F9F9F9] space-y-2 text-left">
                           <BarChart3 size={20} className="text-[#F3D7A7]" />
-                          <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Tested at Scale</h5>
+                          <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Market Reach</h5>
                           <p className="text-xl font-bold">2.5B+ Views</p>
                        </div>
                        <div className="p-6 border border-black/5 bg-[#F9F9F9] space-y-2 text-left">
                           <Binary size={20} className="text-[#F3D7A7]" />
-                          <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Proprietary Assets</h5>
-                          <p className="text-xl font-bold">12+ Systems</p>
+                          <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40">Capital Extraction</h5>
+                          <p className="text-xl font-bold">₹3Cr+ Built</p>
                        </div>
                     </div>
                   </motion.div>
