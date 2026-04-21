@@ -1,4 +1,5 @@
 "use client";
+// Deployment Trigger: Institutional Gatekeeper v2
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
