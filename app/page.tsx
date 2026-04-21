@@ -101,23 +101,19 @@ const LogoMarquee = () => {
           {doubledLogos.map((logo, i) => (
             <div 
               key={i} 
-              className="flex-shrink-0 flex items-center justify-center p-4 md:p-6 bg-white/[0.03] backdrop-blur-sm border border-white/[0.08] rounded-2xl md:rounded-3xl hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-500 group cursor-pointer"
-              style={{ minWidth: '160px' }}
+              className="flex-shrink-0 flex items-center justify-center p-4 md:p-6 bg-white/[0.05] backdrop-blur-md border border-white/[0.1] rounded-2xl md:rounded-3xl hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-500 group cursor-pointer"
+              style={{ minWidth: '180px', height: '80px' }}
             >
               <img 
                 src={logo.url} 
                 alt={logo.name} 
-                className={`h-6 md:h-8 w-auto max-w-[120px] object-contain transition-all duration-700 grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 ${
-                  logo.name === 'Mirchi' ? 'h-8 md:h-12' : 
-                  logo.name === 'Flipkart' ? 'h-9 md:h-14' : 
-                  ''
-                }`} 
+                className="h-8 md:h-10 w-auto max-w-[140px] object-contain transition-all duration-500 group-hover:scale-110"
                 onError={(e) => {
                    (e.target as any).style.display = 'none';
                    const parent = (e.target as any).parentElement;
                    const span = document.createElement('span');
                    span.innerText = logo.name;
-                   span.className = "text-white/40 text-[10px] font-bold uppercase tracking-[0.2em]";
+                   span.className = "text-white/60 text-[10px] font-bold uppercase tracking-[0.2em]";
                    parent.appendChild(span);
                 }}
               />
