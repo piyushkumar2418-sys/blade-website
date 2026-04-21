@@ -144,7 +144,7 @@ export default function Home() {
               }`}
             >
               <div className="w-2 h-2 rounded-full bg-[#F3D7A7] animate-pulse" />
-              <span className="text-[10px] font-bold uppercase tracking-widest">{profile?.name || "My Dashboard"}</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest">{profile?.name || "My Profile"}</span>
             </button>
           ) : (
             !isAgency && (

@@ -5,11 +5,11 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { db } from "@/lib/firebase";
 import { collection, query, where, getDocs, orderBy } from "firebase/firestore";
-import { ArrowLeft, Clock, CheckCircle2, ChevronRight, LogOut, Layout } from "lucide-react";
+import { ArrowLeft, Clock, CheckCircle2, ChevronRight, LogOut, User } from "lucide-react";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
 
-export default function Dashboard() {
+export default function Profile() {
   const { user, profile, loading } = useAuth();
   const router = useRouter();
   const [applications, setApplications] = useState<any[]>([]);
@@ -23,15 +23,19 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function fetchApplications() {
-      if (user) {
-        const q = query(
-          collection(db, "applications"),
-          where("phone", "==", profile?.phone || ""),
-          orderBy("createdAt", "desc")
-        );
-        const querySnapshot = await getDocs(q);
-        const apps = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setApplications(apps);
+      if (user && profile) {
+        try {
+          const q = query(
+            collection(db, "applications"),
+            where("uid", "==", user.uid),
+            orderBy("createdAt", "desc")
+          );
+          const querySnapshot = await getDocs(q);
+          const apps = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          setApplications(apps);
+        } catch (err) {
+          console.error("Error fetching apps:", err);
+        }
         setFetchingApps(false);
       }
     }
@@ -43,11 +47,20 @@ export default function Dashboard() {
     router.push("/");
   };
 
-  if (loading || !user) return null;
+  if (loading || !user) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-8 h-8 border-2 border-[#F3D7A7] border-t-transparent rounded-full animate-spin" />
+          <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7]">Authorizing Access...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#F9F9F9] text-black flex flex-col font-sans">
-      {/* DASHBOARD HEADER */}
+      {/* PROFILE HEADER */}
       <nav className="w-full bg-white border-b border-black/5 px-8 py-6 flex justify-between items-center sticky top-0 z-50">
         <div className="flex items-center gap-8">
           <div className="cursor-pointer" onClick={() => router.push("/")}>
@@ -55,8 +68,8 @@ export default function Dashboard() {
           </div>
           <div className="h-4 w-[1px] bg-black/10 hidden md:block" />
           <div className="hidden md:flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-black/40">
-            <Layout size={14} />
-            Institutional Dashboard
+            <User size={14} />
+            Institutional Profile
           </div>
         </div>
         
@@ -106,7 +119,7 @@ export default function Dashboard() {
                       <div className="space-y-2">
                         <div className="flex items-center gap-3">
                           <span className="text-[10px] font-bold uppercase tracking-widest bg-black text-white px-2 py-0.5">Cohort 01</span>
-                          <span className="text-[10px] text-black/30 font-bold uppercase tracking-widest">Submitted on {new Date(app.createdAt?.seconds * 1000).toLocaleDateString()}</span>
+                          <span className="text-[10px] text-black/30 font-bold uppercase tracking-widest">Submitted on {app.createdAt ? new Date(app.createdAt.seconds * 1000).toLocaleDateString() : 'Just now'}</span>
                         </div>
                         <h4 className="text-lg font-bold uppercase tracking-tight">Blade Inner Circle Admission Portfolio</h4>
                       </div>
