@@ -366,30 +366,45 @@ export default function Home() {
                 </div>
 
                 {/* Team + Big Number */}
-                <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                  <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-                    <span className="text-white/20 text-[10px] uppercase tracking-[0.4em] font-bold block mb-8">Your Dedicated Remote Team</span>
-                    <div className="grid grid-cols-2 gap-3">
+                <div className="mt-24 grid grid-cols-1 md:grid-cols-2 gap-20 items-center relative">
+                  {/* 3D Depth Orb behind Stat */}
+                  <div className="absolute top-1/2 right-0 -translate-y-1/2 w-64 h-64 bg-[#F3D7A7]/10 rounded-full blur-[100px] pointer-events-none z-0" />
+                  
+                  <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative z-10">
+                    <span className="text-[#F3D7A7] text-[11px] uppercase tracking-[0.4em] font-bold block mb-10 pl-2 border-l-2 border-[#F3D7A7]">Your Dedicated Remote Team</span>
+                    <div className="grid grid-cols-2 gap-4">
                       {['Senior Editors', 'Content Strategists', 'Motion Designers', 'Script Writers', 'Project Managers', 'QA Reviewers'].map((role, i) => (
-                        <div key={i} className="flex items-center gap-3 px-5 py-4 border border-white/[0.07] hover:border-[#F3D7A7]/30 transition-colors duration-300 group">
-                          <div className="w-1 h-1 rounded-full bg-[#F3D7A7]/40 group-hover:bg-[#F3D7A7] transition-colors duration-300" />
-                          <span className="text-white/40 group-hover:text-white/70 text-[10px] font-bold uppercase tracking-[0.25em] transition-colors duration-300">{role}</span>
-                        </div>
+                        <motion.div 
+                          key={i} 
+                          whileHover={{ scale: 1.05, backgroundColor: "rgba(243, 215, 167, 0.05)" }}
+                          className="flex items-center gap-4 px-6 py-5 bg-white/[0.03] backdrop-blur-md border border-white/[0.08] hover:border-[#F3D7A7]/40 transition-all duration-300 group rounded-xl"
+                        >
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#F3D7A7]/30 group-hover:bg-[#F3D7A7] group-hover:shadow-[0_0_8px_#F3D7A7] transition-all duration-300" />
+                          <span className="text-white/60 group-hover:text-white text-[11px] font-bold uppercase tracking-[0.2em] transition-colors duration-300">{role}</span>
+                        </motion.div>
                       ))}
                     </div>
                   </motion.div>
-                  <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="text-right">
-                    <div className="text-[80px] md:text-[120px] font-bold leading-none tracking-[-0.06em] text-white">
-                      10,000<span className="text-[#F3D7A7]">+</span>
+
+                  <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="text-right relative z-10">
+                    <div className="relative inline-block">
+                      <div className="text-[90px] md:text-[140px] font-bold leading-none tracking-[-0.06em] text-white drop-shadow-[0_10px_30px_rgba(243,215,167,0.15)]">
+                        10,000<span className="text-[#F3D7A7]">+</span>
+                      </div>
+                      <div className="absolute -inset-4 bg-[#F3D7A7]/5 blur-2xl rounded-full -z-10 animate-pulse" />
                     </div>
-                    <p className="text-white/20 text-[10px] uppercase tracking-[0.5em] font-bold mt-2">Videos Produced</p>
+                    <p className="text-white/60 text-[12px] md:text-[14px] uppercase tracking-[0.6em] font-bold mt-4 pr-2">Videos Produced</p>
+                    
                     <motion.a
                       href="https://calendly.com/piyushkumar2418/30min"
                       target="_blank"
-                      whileHover={{ scale: 1.05 }}
-                      className="inline-flex items-center gap-3 mt-10 px-10 py-5 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-[10px] tracking-widest hover:bg-[#F3D7A7] hover:text-black transition-all duration-500"
+                      whileHover={{ 
+                        scale: 1.05,
+                        boxShadow: "0 0 40px rgba(243, 215, 167, 0.2)"
+                      }}
+                      className="inline-flex items-center gap-4 mt-16 px-12 py-6 bg-transparent border border-[#F3D7A7]/50 text-[#F3D7A7] rounded-full font-bold uppercase text-[11px] tracking-[0.3em] hover:bg-[#F3D7A7] hover:text-black hover:border-[#F3D7A7] transition-all duration-500 shadow-xl"
                     >
-                      Start the Conversation <ArrowUpRight size={14} />
+                      Start the Conversation <ArrowUpRight size={16} />
                     </motion.a>
                   </motion.div>
                 </div>
