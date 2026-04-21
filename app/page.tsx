@@ -70,7 +70,6 @@ const LogoMarquee = () => {
     { name: "Pantaloons", url: "/pantaloons.svg" },
     { name: "Mirchi", url: "/mirchi.jpg" },
     { name: "WTF", url: "/wtf.svg" },
-    { name: "ThriveStack", url: "/thrivestack.jpg" },
     { name: "SuperYou", url: "/superyou.jpg" },
     { name: "ActorsTruth", url: "/actorstruth.png" },
     { name: "FamApp", url: "/fampay.png" },
