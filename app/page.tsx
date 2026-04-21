@@ -273,11 +273,14 @@ export default function Home() {
                       alt="Piyush" 
                     />
                     
-                    {/* System Architect Label */}
+                    {/* Founder Label */}
                     <div className="absolute bottom-6 left-6 z-20">
-                      <div className="bg-black/80 backdrop-blur-md px-6 py-2 border border-white/20 flex items-center gap-3">
+                      <div className="bg-black/80 backdrop-blur-md px-6 py-3 border border-white/20 flex items-center gap-4">
                         <div className="w-1.5 h-1.5 rounded-full bg-[#F3D7A7] animate-pulse" />
-                        <span className="text-[10px] text-white font-bold uppercase tracking-[0.4em]">System Architect</span>
+                        <div className="flex flex-col">
+                          <span className="text-[11px] text-white font-bold uppercase tracking-[0.2em]">Piyush</span>
+                          <span className="text-[9px] text-[#F3D7A7] font-medium uppercase tracking-[0.1em]">Founder- Blade Media</span>
+                        </div>
                       </div>
                     </div>
 
@@ -404,7 +407,7 @@ export default function Home() {
                       }}
                       className="inline-flex items-center gap-4 mt-16 px-12 py-6 bg-transparent border border-[#F3D7A7]/50 text-[#F3D7A7] rounded-full font-bold uppercase text-[11px] tracking-[0.3em] hover:bg-[#F3D7A7] hover:text-black hover:border-[#F3D7A7] transition-all duration-500 shadow-xl"
                     >
-                      Start the Conversation <ArrowUpRight size={16} />
+                      book a discovery call <ArrowUpRight size={16} />
                     </motion.a>
                   </motion.div>
                 </div>
@@ -590,7 +593,10 @@ export default function Home() {
                   <div className="relative aspect-[4/5] bg-[#F9F9F9] overflow-hidden grayscale group border border-black/5">
                     <img src="/piyush.png" alt="Founder" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
                     <div className="absolute bottom-8 left-8 z-20">
-                      <span className="bg-black text-[#F3D7A7] text-[9px] font-bold uppercase tracking-[0.4em] px-4 py-2">System Architect</span>
+                      <div className="bg-black px-6 py-3 border border-[#F3D7A7]/30 flex flex-col">
+                        <span className="text-white text-[11px] font-bold uppercase tracking-[0.2em]">Piyush</span>
+                        <span className="text-[#F3D7A7] text-[9px] font-medium uppercase tracking-[0.1em]">Founder- Blade Media</span>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -690,7 +696,7 @@ export default function Home() {
         {isAgency && (
           <>
             <h2 className="text-6xl md:text-[9vw] font-bold tracking-[-0.06em] uppercase mb-16 text-white text-center">Ready to scale?</h2>
-            <motion.a whileHover={{ scale: 1.05 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-16 py-8 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-[#F3D7A7] hover:text-black shadow-2xl">Secure a Session</motion.a>
+            <motion.a whileHover={{ scale: 1.05 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-16 py-8 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-[#F3D7A7] hover:text-black shadow-2xl">book a discovery call</motion.a>
           </>
         )}
         <div className={`absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold text-center ${isAgency ? "text-white/20" : "text-black/20"}`}>© 2026 Blade</div>
