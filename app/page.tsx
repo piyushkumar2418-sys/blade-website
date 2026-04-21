@@ -63,17 +63,25 @@ const WorkItem = ({ work, aspect, index }: { work: any, aspect: string, index: n
 const LogoMarquee = () => {
   const logos = [
     { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
-    { name: "Flipkart", url: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Flipkart_logo_%282026%29.svg" },
+    { 
+      name: "Flipkart", 
+      isSvg: true,
+      svg: (
+        <svg width="100" height="100" viewBox="0 0 100 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="h-10 md:h-14 w-auto">
+          <path d="M48.875,0C21.882,0,0,21.883,0,48.875S21.882,97.75,48.875,97.75S97.75,75.867,97.75,48.875S75.868,0,48.875,0z M75.427,23.318c-0.851,0.143-1.729,0.151-2.596,0.158c-3.608,0.031-6.124,1.759-7.146,5.201c-0.629,2.118-0.969,4.321-1.49,6.729 c1.647,0,3.119-0.008,4.59,0.001c1.888,0.013,2.746,0.735,2.65,2.607c-0.072,1.423-0.375,2.876-0.838,4.226 c-0.531,1.538-1.711,2.379-3.463,2.297c-1.439-0.068-2.885-0.015-4.438-0.015c-0.695,3.929-1.377,7.766-2.053,11.604 c-0.819,4.657-1.64,9.316-2.449,13.977c-1.459,8.396-6.779,13.104-15.485,13.332c-6.998,0.182-14.004,0.062-21.005,0.051 c-1.497-0.004-1.806-0.444-1.481-1.854c0.456-1.975,0.894-3.954,1.38-5.921c0.433-1.746,1.28-2.402,3.095-2.407 c4.926-0.013,9.852,0.005,14.777-0.005c4.112-0.006,6.247-1.639,6.997-5.629c1.393-7.396,2.667-14.816,3.99-22.229" />
+        </svg>
+      )
+    },
     { name: "Bajaj", url: "https://companieslogo.com/img/orig/BAJAJ-AUTO.NS_BIG-afa2b58c.png" },
     { name: "Reliance", url: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Reliance_Digital.svg" },
     { name: "Nykaa", url: "https://companieslogo.com/img/orig/NYKAA.NS_BIG-d299a0e1.svg" },
     { name: "Pantaloons", url: "https://static.wikia.nocookie.net/logopedia/images/6/6a/Pantaloons_logo.svg" },
-    { name: "Mirchi", url: "https://upload.wikimedia.org/wikipedia/en/2/26/Radio_Mirchi_logo.svg" },
+    { name: "Mirchi", url: "https://a10.gaanacdn.com/gn_img/mirchi_logo_v1.png" },
     { name: "FamApp", url: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/fampay.svg" },
-    { name: "SuperYou", url: "https://superyou.in/cdn/shop/files/SuperYou_Logo_Red_1.png" },
-    { name: "ThriveStack", url: "https://www.thrivestack.ai/logo.svg" },
-    { name: "WTF", url: "https://images.crunchbase.com/image/upload/c_pad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/p5n7j8z0v6z2v6z2v6z2" },
-    { name: "ActorsTruth", url: "https://cdn.prod.website-files.com/645b736b7610c1f618684784/645b7a0f7610c1289c685324_Actors%20Truth%20Logo.svg" },
+    { name: "SuperYou", url: "https://superyou.in/cdn/shop/files/Logo_Final_Web_300x.png" },
+    { name: "ThriveStack", url: "https://www.thrivestack.ai/wp-content/uploads/2023/06/thrivestack-logo.png" },
+    { name: "WTF", url: "https://allthingswtf.com/wp-content/uploads/2023/08/WTF-Logo.png" },
+    { name: "ActorsTruth", url: "https://cdn.prod.website-files.com/660a92f03f7797e88373b5f7/660aa883ce68516104847253_At_logo.png" },
   ];
 
   const doubledLogos = [...logos, ...logos];
@@ -100,21 +108,26 @@ const LogoMarquee = () => {
         >
           {doubledLogos.map((logo, i) => (
             <div key={i} className="flex-shrink-0 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-700 hover:scale-105 opacity-40 hover:opacity-100 cursor-pointer">
-              <img 
-                src={logo.url} 
-                alt={logo.name} 
-                className="h-7 md:h-10 w-auto max-w-[140px] object-contain" 
-                style={{ filter: "brightness(0) invert(1)" }}
-                onError={(e) => {
-                   // Fallback for fragile URLs
-                   (e.target as any).style.display = 'none';
-                   const parent = (e.target as any).parentElement;
-                   const span = document.createElement('span');
-                   span.innerText = logo.name;
-                   span.className = "text-white text-xs font-bold uppercase tracking-widest opacity-20";
-                   parent.appendChild(span);
-                }}
-              />
+              {logo.isSvg ? (
+                <div className="text-white" style={{ filter: "brightness(0) invert(1)" }}>
+                  {logo.svg}
+                </div>
+              ) : (
+                <img 
+                  src={logo.url} 
+                  alt={logo.name} 
+                  className="h-7 md:h-10 w-auto max-w-[140px] object-contain" 
+                  style={{ filter: "brightness(0) invert(1)" }}
+                  onError={(e) => {
+                     (e.target as any).style.display = 'none';
+                     const parent = (e.target as any).parentElement;
+                     const span = document.createElement('span');
+                     span.innerText = logo.name;
+                     span.className = "text-white text-xs font-bold uppercase tracking-widest opacity-20";
+                     parent.appendChild(span);
+                  }}
+                />
+              )}
             </div>
           ))}
         </motion.div>
@@ -149,7 +162,7 @@ export default function Home() {
   const verticalWorks = [
     { title: "Visual Dominance", category: "Reel", link: "https://www.instagram.com/reel/DDrxL2CMYCB/", video: "/preview5.mp4", img: "/thumb5.webp" },
     { title: "Editorial Series", category: "Reel", link: "https://www.instagram.com/katemackz/", video: "/preview6.mp4", img: "/thumb6.webp" },
-    { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" },
+    { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.jpg", img: "/thumb7.jpg" },
     { title: "Retention Edit", category: "Reel", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" },
   ];
 
