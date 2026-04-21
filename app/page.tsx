@@ -149,19 +149,20 @@ export default function Home() {
   const toggleMode = () => {
     window.scrollTo({ top: 0, behavior: 'instant' });
     setSiteMode(isAgency ? "innerCircle" : "agency");
-  };   const youtubeWorks = [
-    { title: "Nikhil Kamath", category: "Storytelling", link: "https://youtu.be/YY7J1pHfSyY", video: "/preview1.mp4", img: "/thumb1.jpg" },
-    { title: "Money with Swabi", category: "Infotainment", link: "https://www.youtube.com/@Moneywithswabi/videos", video: "/preview2.mp4", img: "/thumb2.jpg" },
-    { title: "Right Now With Rohan", category: "Podcast", link: "https://youtu.be/i7uwh0CzfRM", video: "/preview3.mp4", img: "/thumb3.jpg" },
+  };
+
+  const youtubeWorks = [
+    { title: "Nikhil Kamath", category: "YouTube", link: "https://youtu.be/YY7J1pHfSyY", video: "/preview1.mp4", img: "/thumb1.jpg" },
+    { title: "Money with Swabi", category: "YouTube", link: "https://www.youtube.com/@Moneywithswabi/videos", video: "/preview2.mp4", img: "/thumb2.jpg" },
+    { title: "Podcast", category: "Podcast", link: "https://youtu.be/i7uwh0CzfRM", video: "/preview3.mp4", img: "/thumb3.jpg" },
   ];
 
   const verticalWorks = [
-    { title: "Visual Dominance", category: "Retention", link: "https://www.instagram.com/reel/DDrxL2CMYCB/", video: "/preview5.mp4", img: "/thumb5.webp" },
-    { title: "Editorial Series", category: "Vlog Edit", link: "https://www.instagram.com/katemackz/", video: "/preview6.mp4", img: "/thumb6.webp" },
-    { title: "Dynamic Flow", category: "Motion Graphics", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" },
-    { title: "Retention Edit", category: "Viral Edit", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" },
+    { title: "Visual Dominance", category: "Reel", link: "https://www.instagram.com/reel/DDrxL2CMYCB/", video: "/preview5.mp4", img: "/thumb5.webp" },
+    { title: "Editorial Series", category: "Reel", link: "https://www.instagram.com/katemackz/", video: "/preview6.mp4", img: "/thumb6.webp" },
+    { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" },
+    { title: "Retention Edit", category: "Reel", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" },
   ];
-;
 
   const founderStats = [
     { icon: <Eye size={18} />, label: "2.5B+ Views Generated", desc: "Market-wide reach across primary channels." },
@@ -194,74 +195,45 @@ export default function Home() {
         </>
       )}
 
-      {/* PREMIUM TOP HEADER - Agency Only */}
-      {isAgency && (
-        <motion.header 
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: navButtonOpacity }}
-          className="fixed top-0 left-0 right-0 z-[100] px-6 py-8 flex justify-center pointer-events-none font-['Helvetica',_sans-serif]"
-        >
-          <div className="max-w-7xl w-full flex items-center justify-between bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full px-10 py-4 shadow-[0_30px_60px_rgba(0,0,0,0.8)] pointer-events-auto relative overflow-hidden group">
-            {/* 3D Glass Light Streak */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
-            
-            <div className="flex items-center gap-12">
+      {/* --- MASTER NAVIGATION --- */}
+      <nav className={`fixed top-0 w-full z-[150] flex justify-between items-center px-8 py-8 ${isAgency ? 'mix-blend-difference' : ''}`}>
+        <div className="cursor-pointer" onClick={() => setSiteMode("agency")}>
+          <img src={isAgency ? "/blade-logo.png" : "/bic-black.png"} alt="Logo" className="h-8 md:h-10 w-auto object-contain" />
+        </div>
+        
+        <div className="flex items-center gap-6">
+          <motion.button 
+            onClick={toggleMode} 
+            style={{ opacity: navButtonOpacity }}
+            className={`px-8 py-3 rounded-full text-[10px] uppercase tracking-widest font-bold transition-all border shadow-sm ${
+              isAgency 
+              ? "border-white/20 text-white bg-white/5 hover:bg-white hover:text-black shadow-none" 
+              : "border-black text-black bg-transparent hover:bg-black hover:text-white"
+            }`}
+          >
+            {isAgency ? "The Inner Circle" : "Exit to Agency"}
+          </motion.button>
+
+          {user && !isAgency ? (
+            <button 
+              onClick={() => router.push("/dashboard")}
+              className="flex items-center gap-3 px-4 py-3 border border-black/10 text-black hover:border-black/30 rounded-sm transition-all"
+            >
+              <div className="w-2 h-2 rounded-full bg-[#F3D7A7] animate-pulse" />
+              <span className="text-[10px] font-bold uppercase tracking-widest">{profile?.name || "My Profile"}</span>
+            </button>
+          ) : (
+            !isAgency && (
               <button 
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-                className="text-white font-black text-2xl tracking-tighter italic hover:scale-110 transition-transform duration-300"
+                onClick={() => router.push("/apply/login")}
+                className="text-[10px] font-bold uppercase tracking-widest text-black/40 hover:text-black transition-colors"
               >
-                B.
+                Sign In
               </button>
-              
-              <nav className="hidden lg:flex items-center gap-10">
-                {[
-                  { label: 'Process', id: 'section_process' },
-                  { label: 'Solutions', id: 'section_solutions' },
-                  { label: 'Edits', id: 'section_edits' }
-                ].map((item) => (
-                  <a 
-                    key={item.label} 
-                    href={`#${item.id}`}
-                    className="text-white/40 hover:text-[#F3D7A7] text-[11px] font-bold uppercase tracking-[0.4em] transition-all duration-300 hover:scale-105"
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </nav>
-            </div>
-
-            <div className="flex items-center gap-6">
-              <button 
-                onClick={toggleMode} 
-                className="bg-white/5 border border-white/10 px-8 py-3 rounded-full text-white text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-white/10 transition-all hidden sm:block"
-              >
-                The Inner Circle
-              </button>
-
-              <motion.a 
-                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(243, 215, 167, 0.4)" }}
-                href="https://calendly.com/piyushkumar2418/30min" 
-                target="_blank"
-                className="bg-[#F3D7A7] text-black px-10 py-4 rounded-full text-[11px] font-black uppercase tracking-[0.2em] transition-all shadow-xl"
-              >
-                contact us
-              </motion.a>
-            </div>
-          </div>
-        </motion.header>
-      )}
-
-      {/* EMERGENCY EXIT FOR BIC (Small toggle only) */}
-      {!isAgency && (
-        <motion.button 
-          onClick={toggleMode}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="fixed top-8 right-10 z-[110] bg-black text-white px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl"
-        >
-          Exit to Agency
-        </motion.button>
-      )}
+            )
+          )}
+        </div>
+      </nav>
 
       <AnimatePresence mode="wait">
         {isAgency ? (
@@ -292,28 +264,9 @@ export default function Home() {
                     <div className="h-[1px] bg-[#F3D7A7]/40 mt-12 w-24" />
                   </motion.div>
                 </div>
-                <div className="max-w-xs md:max-w-md ml-auto text-left group">
-                  <div className="relative aspect-[4/5] w-full mb-10 overflow-hidden bg-black border border-white/10 shadow-2xl">
-                    {/* Main Image */}
-                    <img 
-                      src="/piyush.png" 
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105" 
-                      alt="Piyush" 
-                    />
-                    
-                    {/* Founder Label */}
-                    <div className="absolute bottom-6 left-6 z-20">
-                      <div className="bg-black/80 backdrop-blur-md px-6 py-3 border border-white/20 flex items-center gap-4">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#F3D7A7] animate-pulse" />
-                        <div className="flex flex-col">
-                          <span className="text-[11px] text-white font-bold uppercase tracking-[0.2em]">Piyush</span>
-                          <span className="text-[9px] text-[#F3D7A7] font-medium uppercase tracking-[0.1em]">Founder- Blade Media</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Gradient Overlay for better label readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                <div className="max-w-xs md:max-w-md ml-auto text-left">
+                  <div className="aspect-[3/4] w-full mb-10 overflow-hidden border border-white/10 grayscale hover:grayscale-0 transition-all duration-700">
+                    <img src="/piyush.png" className="w-full h-full object-cover" alt="Piyush" />
                   </div>
                   <p className="text-white/60 text-lg font-light leading-relaxed text-left">&quot;We decoded content through an early obsession. Mastering the silent mechanics of distribution.&quot;</p>
                   <div className="text-[#F3D7A7] text-2xl font-bold mt-8 text-left">— Piyush</div>
@@ -325,7 +278,7 @@ export default function Home() {
             <LogoMarquee />
 
             {/* PROCESS SECTION */}
-            <section id="section_process" className="py-32 px-6 md:px-24 border-t border-white/5 relative z-20">
+            <section className="py-32 px-6 md:px-24 border-t border-white/5 relative z-20">
               <div className="max-w-[1400px] mx-auto">
 
                 {/* Header */}
@@ -348,94 +301,55 @@ export default function Home() {
                 </div>
 
                 {/* Steps Grid */}
-                <div className="relative">
-                  {/* 3D Background Glows */}
-                  <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#F3D7A7]/10 rounded-full blur-[120px] pointer-events-none" />
-                  <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#F3D7A7]/5 rounded-full blur-[120px] pointer-events-none" />
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-                    {[
-                      { num: "01", title: "Onboard & Audit", desc: "We decode your existing content, audience data, and brand positioning. A full teardown before we build.", time: "Week 1–2" },
-                      { num: "02", title: "Build The System", desc: "Content frameworks, editorial calendars, style guides. We engineer the repeatable machine before we touch the timeline.", time: "Week 2–3" },
-                      { num: "03", title: "High-Velocity Output", desc: "90–120 production-ready assets per month. Short-form, long-form, platform-native. Your brand, everywhere.", time: "Ongoing" },
-                    ].map((step, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.7, delay: i * 0.15 }}
-                        whileHover={{ 
-                          y: -10,
-                          rotateX: 2,
-                          rotateY: -2,
-                          transition: { duration: 0.3 }
-                        }}
-                        className="p-10 md:p-12 group bg-white/[0.05] backdrop-blur-xl border border-white/10 rounded-2xl hover:border-[#F3D7A7]/50 hover:bg-white/[0.08] transition-all duration-500 shadow-2xl relative overflow-hidden"
-                        style={{ perspective: "1000px" }}
-                      >
-                        {/* 3D Inner Glow */}
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-[#F3D7A7]/5 rounded-full blur-3xl group-hover:bg-[#F3D7A7]/10 transition-colors duration-700" />
-                        
-                        <div className="text-[80px] leading-none font-bold text-[#F3D7A7]/20 group-hover:text-[#F3D7A7]/40 transition-colors duration-700 mb-8 select-none tracking-tighter italic">
-                          {step.num}
-                        </div>
-                        <h3 className="text-2xl font-bold uppercase tracking-tight text-white mb-6 group-hover:text-[#F3D7A7] transition-colors duration-300">
-                          {step.title}
-                        </h3>
-                        <p className="text-white/70 text-base leading-relaxed mb-12 font-medium">
-                          {step.desc}
-                        </p>
-                        <div className="pt-8 border-t border-white/10">
-                          <span className="text-[#F3D7A7] text-[11px] font-bold uppercase tracking-[0.4em] px-4 py-2 bg-white/5 rounded-full border border-white/5">
-                            {step.time}
-                          </span>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 border border-white/5">
+                  {[
+                    { num: "01", title: "Onboard & Audit", desc: "We decode your existing content, audience data, and brand positioning. A full teardown before we build.", time: "Week 1–2" },
+                    { num: "02", title: "Build The System", desc: "Content frameworks, editorial calendars, style guides. We engineer the repeatable machine before we touch the timeline.", time: "Week 2–3" },
+                    { num: "03", title: "High-Velocity Output", desc: "90–120 production-ready assets per month. Short-form, long-form, platform-native. Your brand, everywhere.", time: "Ongoing" },
+                  ].map((step, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.7, delay: i * 0.15 }}
+                      className={`p-10 md:p-14 group hover:bg-[#F3D7A7]/[0.03] transition-all duration-700 ${i > 0 ? 'border-t md:border-t-0 md:border-l border-white/5' : ''}`}
+                    >
+                      <div className="text-[100px] leading-none font-bold text-white/[0.04] group-hover:text-white/[0.07] transition-colors duration-700 mb-6 select-none">{step.num}</div>
+                      <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-white mb-4">{step.title}</h3>
+                      <p className="text-white/40 text-sm leading-relaxed mb-10">{step.desc}</p>
+                      <div className="pt-8 border-t border-white/5">
+                        <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.4em] font-bold">{step.time}</span>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
 
                 {/* Team + Big Number */}
-                <div className="mt-24 grid grid-cols-1 md:grid-cols-2 gap-20 items-center relative">
-                  {/* 3D Depth Orb behind Stat */}
-                  <div className="absolute top-1/2 right-0 -translate-y-1/2 w-64 h-64 bg-[#F3D7A7]/10 rounded-full blur-[100px] pointer-events-none z-0" />
-                  
-                  <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative z-10">
-                    <span className="text-[#F3D7A7] text-[11px] uppercase tracking-[0.4em] font-bold block mb-10 pl-2 border-l-2 border-[#F3D7A7]">Your Dedicated Remote Team</span>
-                    <div className="grid grid-cols-2 gap-4">
+                <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                  <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
+                    <span className="text-white/20 text-[10px] uppercase tracking-[0.4em] font-bold block mb-8">Your Dedicated Remote Team</span>
+                    <div className="grid grid-cols-2 gap-3">
                       {['Senior Editors', 'Content Strategists', 'Motion Designers', 'Script Writers', 'Project Managers', 'QA Reviewers'].map((role, i) => (
-                        <motion.div 
-                          key={i} 
-                          whileHover={{ scale: 1.05, backgroundColor: "rgba(243, 215, 167, 0.05)" }}
-                          className="flex items-center gap-4 px-6 py-5 bg-white/[0.03] backdrop-blur-md border border-white/[0.08] hover:border-[#F3D7A7]/40 transition-all duration-300 group rounded-xl"
-                        >
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#F3D7A7]/30 group-hover:bg-[#F3D7A7] group-hover:shadow-[0_0_8px_#F3D7A7] transition-all duration-300" />
-                          <span className="text-white/60 group-hover:text-white text-[11px] font-bold uppercase tracking-[0.2em] transition-colors duration-300">{role}</span>
-                        </motion.div>
+                        <div key={i} className="flex items-center gap-3 px-5 py-4 border border-white/[0.07] hover:border-[#F3D7A7]/30 transition-colors duration-300 group">
+                          <div className="w-1 h-1 rounded-full bg-[#F3D7A7]/40 group-hover:bg-[#F3D7A7] transition-colors duration-300" />
+                          <span className="text-white/40 group-hover:text-white/70 text-[10px] font-bold uppercase tracking-[0.25em] transition-colors duration-300">{role}</span>
+                        </div>
                       ))}
                     </div>
                   </motion.div>
-
-                  <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="text-right relative z-10">
-                    <div className="relative inline-block">
-                      <div className="text-[90px] md:text-[140px] font-bold leading-none tracking-[-0.06em] text-white drop-shadow-[0_10px_30px_rgba(243,215,167,0.15)]">
-                        10,000<span className="text-[#F3D7A7]">+</span>
-                      </div>
-                      <div className="absolute -inset-4 bg-[#F3D7A7]/5 blur-2xl rounded-full -z-10 animate-pulse" />
+                  <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="text-right">
+                    <div className="text-[80px] md:text-[120px] font-bold leading-none tracking-[-0.06em] text-white">
+                      10,000<span className="text-[#F3D7A7]">+</span>
                     </div>
-                    <p className="text-white/60 text-[12px] md:text-[14px] uppercase tracking-[0.6em] font-bold mt-4 pr-2">Videos Produced</p>
-                    
+                    <p className="text-white/20 text-[10px] uppercase tracking-[0.5em] font-bold mt-2">Videos Produced</p>
                     <motion.a
                       href="https://calendly.com/piyushkumar2418/30min"
                       target="_blank"
-                      whileHover={{ 
-                        scale: 1.05,
-                        boxShadow: "0 0 40px rgba(243, 215, 167, 0.2)"
-                      }}
-                      className="inline-flex items-center gap-4 mt-16 px-12 py-6 bg-transparent border border-[#F3D7A7]/50 text-[#F3D7A7] rounded-full font-bold uppercase text-[11px] tracking-[0.3em] hover:bg-[#F3D7A7] hover:text-black hover:border-[#F3D7A7] transition-all duration-500 shadow-xl"
+                      whileHover={{ scale: 1.05 }}
+                      className="inline-flex items-center gap-3 mt-10 px-10 py-5 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-[10px] tracking-widest hover:bg-[#F3D7A7] hover:text-black transition-all duration-500"
                     >
-                      book a discovery call <ArrowUpRight size={16} />
+                      Start the Conversation <ArrowUpRight size={14} />
                     </motion.a>
                   </motion.div>
                 </div>
@@ -444,17 +358,14 @@ export default function Home() {
             </section>
 
             {/* SOLUTIONS SECTION */}
-            <section id="section_solutions" className="py-32 px-6 md:px-24 bg-black border-t border-white/5 relative z-20 overflow-hidden">
-              {/* 3D Depth Glows */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#F3D7A7]/5 rounded-full blur-[160px] pointer-events-none" />
-
-              <div className="max-w-[1400px] mx-auto relative z-10">
+            <section className="py-32 px-6 md:px-24 bg-black border-t border-white/5 relative z-20">
+              <div className="max-w-[1400px] mx-auto">
                 <div className="mb-24 text-left">
                   <SectionLabel light>Solutions</SectionLabel>
                   <h2 className="text-4xl md:text-7xl font-bold uppercase tracking-tight leading-[0.85] text-white">Strategic <br /><span className="text-[#F3D7A7]">Impact.</span></h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10 border border-white/10">
                   {[
                     { 
                       title: "Short-Form Mastery", 
@@ -479,26 +390,17 @@ export default function Home() {
                   ].map((solution, i) => (
                     <motion.div 
                       key={i}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.8, delay: i * 0.1 }}
-                      whileHover={{ 
-                        scale: 1.02,
-                        rotateX: 1,
-                        rotateY: -1,
-                        transition: { duration: 0.3 }
-                      }}
-                      className="bg-white/[0.05] backdrop-blur-xl border border-white/10 p-12 md:p-16 space-y-8 rounded-3xl hover:border-[#F3D7A7]/50 hover:bg-white/[0.08] transition-all duration-500 group shadow-2xl"
-                      style={{ perspective: "1000px" }}
+                      className="bg-black p-12 md:p-16 space-y-8 hover:bg-white/[0.02] transition-colors duration-500"
                     >
-                      <div className="p-5 bg-[#F3D7A7]/10 w-fit rounded-2xl border border-[#F3D7A7]/20 group-hover:bg-[#F3D7A7] transition-all duration-500">
-                        {React.cloneElement(solution.icon as React.ReactElement<any>, { 
-                          className: "text-[#F3D7A7] group-hover:text-black transition-colors duration-500" 
-                        })}
+                      <div className="p-4 bg-white/[0.05] w-fit rounded-xl border border-white/10">
+                        {solution.icon}
                       </div>
-                      <h3 className="text-3xl font-bold uppercase tracking-tight text-white group-hover:text-[#F3D7A7] transition-colors duration-300">{solution.title}</h3>
-                      <p className="text-white/70 leading-relaxed text-lg font-medium">{solution.desc}</p>
+                      <h3 className="text-2xl font-bold uppercase tracking-tight text-white">{solution.title}</h3>
+                      <p className="text-white/40 leading-relaxed text-lg font-light">{solution.desc}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -506,7 +408,7 @@ export default function Home() {
             </section>
 
             {/* GALLERIES */}
-            <section id="section_edits" className="py-32 px-6 md:px-12 relative z-20">
+            <section className="py-32 px-6 md:px-12 relative z-20">
               <div className="max-w-[1400px] mx-auto w-full space-y-48">
                 <div className="text-left">
                   <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-[-0.06em] mb-12 text-white text-left">Selected Productions</h2>
@@ -527,43 +429,20 @@ export default function Home() {
           /* --- INNER CIRCLE SIDE --- */
           <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-black bg-white min-h-screen">
             
-            <section className="min-h-screen pt-48 pb-32 px-6 md:px-24 bg-white text-black relative overflow-hidden">
-              {/* 3D Background Elements */}
-              <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-[#F3D7A7]/5 rounded-full blur-[120px] -z-10" />
-              <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-black/[0.02] rounded-full blur-[100px] -z-10" />
-
-              <div className="max-w-[1400px] mx-auto relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-start mb-20 gap-10">
-                  <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
-                    <span className="text-[10px] uppercase tracking-[0.6em] font-black block text-black/30 mb-4">Blade Inner Circle</span>
-                    <div className="inline-flex items-center gap-3 px-6 py-3 bg-black text-[#F3D7A7] font-bold uppercase tracking-[0.3em] text-[10px] rounded-sm shadow-2xl">
-                      <div className="w-2 h-2 rounded-full bg-[#F3D7A7] animate-pulse" />
-                      Commencing May 2026
-                    </div>
-                  </motion.div>
-                  <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4 }} className="flex flex-col items-start md:items-end gap-8">
-                    <span className="text-black font-black uppercase tracking-[0.2em] text-[11px] border-b-2 border-black pb-2">Cohort 01 — Applications Open</span>
-                    <button onClick={() => router.push(user ? "/apply/register" : "/apply/login")} className="bg-black text-white px-16 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-[0_20px_50px_rgba(0,0,0,0.2)] flex items-center gap-4">Apply now <ArrowUpRight size={18}/></button>
-                  </motion.div>
+            <section className="h-screen flex flex-col justify-center px-6 md:px-24 border-b border-black/5 text-left">
+              <div className="flex justify-between items-start mb-8">
+                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.5em] font-bold block text-black/40 text-left">Blade Inner Circle</motion.span>
+                <div className="px-4 py-2 border border-black/10 bg-black/5 text-black font-bold uppercase tracking-[0.3em] text-[10px]">
+                  May 2026 Batch
                 </div>
-
-                <motion.h1 
-                  initial={{ y: 50, opacity: 0 }} 
-                  animate={{ y: 0, opacity: 1 }} 
-                  transition={{ delay: 0.2, duration: 1, ease: [0.22, 1, 0.36, 1] }} 
-                  className="text-[14vw] md:text-[9vw] font-black leading-[0.8] tracking-[-0.08em] uppercase mb-16 text-left drop-shadow-sm"
-                >
-                  The School of <br/> <span className="text-black/10">Modern Content.</span>
-                </motion.h1>
-                
-                <motion.p 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="text-3xl md:text-5xl text-black/80 leading-[1.1] font-bold max-w-4xl text-left tracking-tight"
-                >
-                  Build your agency. <br/> <span className="text-black/40">From skill to first income.</span>
-                </motion.p>
+              </div>
+              <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="text-[12vw] md:text-[8vw] font-bold leading-[0.85] tracking-[-0.06em] uppercase mb-12 text-left">The School of <br/> Modern Content.</motion.h1>
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 text-left">
+                <p className="text-2xl md:text-4xl text-black/60 leading-tight font-medium max-w-2xl text-left">Build your agency. <br/> From skill to first income.</p>
+                <div className="flex flex-col items-start md:items-end gap-6">
+                  <span className="text-[#F3D7A7] font-bold uppercase tracking-[0.3em] text-[10px] border border-[#F3D7A7]/30 px-4 py-2 text-left">Cohort 01 — Applications Open</span>
+                  <button onClick={() => router.push(user ? "/apply/register" : "/apply/login")} className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-4 shadow-2xl">Apply now <ArrowUpRight size={18}/></button>
+                </div>
               </div>
             </section>
 
@@ -644,10 +523,7 @@ export default function Home() {
                   <div className="relative aspect-[4/5] bg-[#F9F9F9] overflow-hidden grayscale group border border-black/5">
                     <img src="/piyush.png" alt="Founder" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
                     <div className="absolute bottom-8 left-8 z-20">
-                      <div className="bg-black px-6 py-3 border border-[#F3D7A7]/30 flex flex-col">
-                        <span className="text-white text-[11px] font-bold uppercase tracking-[0.2em]">Piyush</span>
-                        <span className="text-[#F3D7A7] text-[9px] font-medium uppercase tracking-[0.1em]">Founder- Blade Media</span>
-                      </div>
+                      <span className="bg-black text-[#F3D7A7] text-[9px] font-bold uppercase tracking-[0.4em] px-4 py-2">System Architect</span>
                     </div>
                   </div>
                 </motion.div>
@@ -747,7 +623,7 @@ export default function Home() {
         {isAgency && (
           <>
             <h2 className="text-6xl md:text-[9vw] font-bold tracking-[-0.06em] uppercase mb-16 text-white text-center">Ready to scale?</h2>
-            <motion.a whileHover={{ scale: 1.05 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-16 py-8 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-[#F3D7A7] hover:text-black shadow-2xl">book a discovery call</motion.a>
+            <motion.a whileHover={{ scale: 1.05 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-16 py-8 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-[#F3D7A7] hover:text-black shadow-2xl">Secure a Session</motion.a>
           </>
         )}
         <div className={`absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold text-center ${isAgency ? "text-white/20" : "text-black/20"}`}>© 2026 Blade</div>
