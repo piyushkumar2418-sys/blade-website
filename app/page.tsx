@@ -69,7 +69,7 @@ const LogoMarquee = () => {
     { name: "Nykaa", url: "/nykaa.png" },
     { name: "Pantaloons", url: "/pantaloons.svg" },
     { name: "Mirchi", url: "/mirchi.jpg" },
-    { name: "WTF", url: "/wtf.svg" },
+    { name: "WTF", url: "/wtf.jpg" },
     { name: "SuperYou", url: "/superyou.jpg" },
     { name: "ActorsTruth", url: "/actorstruth.png" },
     { name: "FamApp", url: "/fampay.png" },
