@@ -149,20 +149,19 @@ export default function Home() {
   const toggleMode = () => {
     window.scrollTo({ top: 0, behavior: 'instant' });
     setSiteMode(isAgency ? "innerCircle" : "agency");
-  };
-
-  const youtubeWorks = [
-    { title: "Nikhil Kamath", category: "YouTube", link: "https://youtu.be/YY7J1pHfSyY", video: "/preview1.mp4", img: "/thumb1.jpg" },
-    { title: "Money with Swabi", category: "YouTube", link: "https://www.youtube.com/@Moneywithswabi/videos", video: "/preview2.mp4", img: "/thumb2.jpg" },
-    { title: "Podcast", category: "Podcast", link: "https://youtu.be/i7uwh0CzfRM", video: "/preview3.mp4", img: "/thumb3.jpg" },
+  };   const youtubeWorks = [
+    { title: "Nikhil Kamath", category: "Storytelling", link: "https://youtu.be/YY7J1pHfSyY", video: "/preview1.mp4", img: "/thumb1.jpg" },
+    { title: "Money with Swabi", category: "Infotainment", link: "https://www.youtube.com/@Moneywithswabi/videos", video: "/preview2.mp4", img: "/thumb2.jpg" },
+    { title: "Right Now With Rohan", category: "Podcast", link: "https://youtu.be/i7uwh0CzfRM", video: "/preview3.mp4", img: "/thumb3.jpg" },
   ];
 
   const verticalWorks = [
-    { title: "Visual Dominance", category: "Reel", link: "https://www.instagram.com/reel/DDrxL2CMYCB/", video: "/preview5.mp4", img: "/thumb5.webp" },
-    { title: "Editorial Series", category: "Reel", link: "https://www.instagram.com/katemackz/", video: "/preview6.mp4", img: "/thumb6.webp" },
-    { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" },
-    { title: "Retention Edit", category: "Reel", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" },
+    { title: "Visual Dominance", category: "Retention", link: "https://www.instagram.com/reel/DDrxL2CMYCB/", video: "/preview5.mp4", img: "/thumb5.webp" },
+    { title: "Editorial Series", category: "Vlog Edit", link: "https://www.instagram.com/katemackz/", video: "/preview6.mp4", img: "/thumb6.webp" },
+    { title: "Dynamic Flow", category: "Motion Graphics", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" },
+    { title: "Retention Edit", category: "Viral Edit", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" },
   ];
+;
 
   const founderStats = [
     { icon: <Eye size={18} />, label: "2.5B+ Views Generated", desc: "Market-wide reach across primary channels." },
