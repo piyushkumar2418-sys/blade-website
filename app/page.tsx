@@ -25,11 +25,18 @@ const SectionLabel = ({ children, light = false }: { children: React.ReactNode, 
   </div>
 );
 
-const WorkItem = ({ work, aspect, index }: { work: any, aspect: string, index: number }) => {
+const WorkItem = ({ work, aspect, index, autoplay = false }: { work: any, aspect: string, index: number, autoplay?: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10%" });
+
+  // For autoplay items, play as soon as they come into view
+  React.useEffect(() => {
+    if (autoplay && isInView && videoRef.current) {
+      videoRef.current.play().catch(() => null);
+    }
+  }, [autoplay, isInView]);
 
   return (
     <motion.div
@@ -44,12 +51,15 @@ const WorkItem = ({ work, aspect, index }: { work: any, aspect: string, index: n
       <motion.a 
         href={work.link} 
         target="_blank"
-        onMouseEnter={() => { setIsHovered(true); videoRef.current?.play().catch(() => null); }}
-        onMouseLeave={() => { setIsHovered(false); videoRef.current?.pause(); if(videoRef.current) videoRef.current.currentTime = 0; }}
+        onMouseEnter={() => { if (!autoplay) { setIsHovered(true); videoRef.current?.play().catch(() => null); } }}
+        onMouseLeave={() => { if (!autoplay) { setIsHovered(false); videoRef.current?.pause(); if(videoRef.current) videoRef.current.currentTime = 0; } }}
         className={`group relative block ${aspect} bg-[#0a0a0a] border border-white/5 overflow-hidden rounded-sm shadow-2xl cursor-none`}
       >
-        <img src={work.img} alt={work.title} className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`} />
-        <video ref={videoRef} key={work.video} src={work.video} loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-10" />
+        {/* Thumbnail — hidden for autoplay items */}
+        {!autoplay && (
+          <img src={work.img} alt={work.title} className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`} />
+        )}
+        <video ref={videoRef} key={work.video} src={work.video} loop muted playsInline autoPlay={autoplay} className="absolute inset-0 w-full h-full object-cover z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent z-30" />
         <div className="absolute bottom-5 left-5 z-40 text-left">
           <span className="text-[#F3D7A7] text-[8px] uppercase tracking-[0.3em] block mb-1 font-bold">{work.category}</span>
@@ -279,7 +289,7 @@ export default function Home() {
                 <div className="text-left">
                   <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-[-0.06em] mb-12 text-[#F3D7A7] text-left">Viral Originals</h2>
                   <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                    {verticalWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} /> ))}
+                    {verticalWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} autoplay={true} /> ))}
                   </div>
                 </div>
               </div>
