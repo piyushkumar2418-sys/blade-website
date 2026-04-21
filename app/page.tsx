@@ -194,45 +194,74 @@ export default function Home() {
         </>
       )}
 
-      {/* --- MASTER NAVIGATION --- */}
-      <nav className={`fixed top-0 w-full z-[150] flex justify-between items-center px-8 py-8 ${isAgency ? 'mix-blend-difference' : ''}`}>
-        <div className="cursor-pointer" onClick={() => setSiteMode("agency")}>
-          <img src={isAgency ? "/blade-logo.png" : "/bic-black.png"} alt="Logo" className="h-8 md:h-10 w-auto object-contain" />
-        </div>
-        
-        <div className="flex items-center gap-6">
-          <motion.button 
-            onClick={toggleMode} 
-            style={{ opacity: navButtonOpacity }}
-            className={`px-8 py-3 rounded-full text-[10px] uppercase tracking-widest font-bold transition-all border shadow-sm ${
-              isAgency 
-              ? "border-white/20 text-white bg-white/5 hover:bg-white hover:text-black shadow-none" 
-              : "border-black text-black bg-transparent hover:bg-black hover:text-white"
-            }`}
-          >
-            {isAgency ? "The Inner Circle" : "Exit to Agency"}
-          </motion.button>
-
-          {user && !isAgency ? (
-            <button 
-              onClick={() => router.push("/dashboard")}
-              className="flex items-center gap-3 px-4 py-3 border border-black/10 text-black hover:border-black/30 rounded-sm transition-all"
-            >
-              <div className="w-2 h-2 rounded-full bg-[#F3D7A7] animate-pulse" />
-              <span className="text-[10px] font-bold uppercase tracking-widest">{profile?.name || "My Profile"}</span>
-            </button>
-          ) : (
-            !isAgency && (
+      {/* PREMIUM TOP HEADER - Agency Only */}
+      {isAgency && (
+        <motion.header 
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: navButtonOpacity }}
+          className="fixed top-0 left-0 right-0 z-[100] px-6 py-8 flex justify-center pointer-events-none font-['Helvetica',_sans-serif]"
+        >
+          <div className="max-w-7xl w-full flex items-center justify-between bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full px-10 py-4 shadow-[0_30px_60px_rgba(0,0,0,0.8)] pointer-events-auto relative overflow-hidden group">
+            {/* 3D Glass Light Streak */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
+            
+            <div className="flex items-center gap-12">
               <button 
-                onClick={() => router.push("/apply/login")}
-                className="text-[10px] font-bold uppercase tracking-widest text-black/40 hover:text-black transition-colors"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+                className="text-white font-black text-2xl tracking-tighter italic hover:scale-110 transition-transform duration-300"
               >
-                Sign In
+                B.
               </button>
-            )
-          )}
-        </div>
-      </nav>
+              
+              <nav className="hidden lg:flex items-center gap-10">
+                {[
+                  { label: 'Process', id: 'section_process' },
+                  { label: 'Solutions', id: 'section_solutions' },
+                  { label: 'Edits', id: 'section_edits' }
+                ].map((item) => (
+                  <a 
+                    key={item.label} 
+                    href={`#${item.id}`}
+                    className="text-white/40 hover:text-[#F3D7A7] text-[11px] font-bold uppercase tracking-[0.4em] transition-all duration-300 hover:scale-105"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+
+            <div className="flex items-center gap-6">
+              <button 
+                onClick={toggleMode} 
+                className="bg-white/5 border border-white/10 px-8 py-3 rounded-full text-white text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-white/10 transition-all hidden sm:block"
+              >
+                The Inner Circle
+              </button>
+
+              <motion.a 
+                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(243, 215, 167, 0.4)" }}
+                href="https://calendly.com/piyushkumar2418/30min" 
+                target="_blank"
+                className="bg-[#F3D7A7] text-black px-10 py-4 rounded-full text-[11px] font-black uppercase tracking-[0.2em] transition-all shadow-xl"
+              >
+                contact us
+              </motion.a>
+            </div>
+          </div>
+        </motion.header>
+      )}
+
+      {/* EMERGENCY EXIT FOR BIC (Small toggle only) */}
+      {!isAgency && (
+        <motion.button 
+          onClick={toggleMode}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed top-8 right-10 z-[110] bg-black text-white px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl"
+        >
+          Exit to Agency
+        </motion.button>
+      )}
 
       <AnimatePresence mode="wait">
         {isAgency ? (
@@ -296,7 +325,7 @@ export default function Home() {
             <LogoMarquee />
 
             {/* PROCESS SECTION */}
-            <section className="py-32 px-6 md:px-24 border-t border-white/5 relative z-20">
+            <section id="section_process" className="py-32 px-6 md:px-24 border-t border-white/5 relative z-20">
               <div className="max-w-[1400px] mx-auto">
 
                 {/* Header */}
@@ -415,7 +444,7 @@ export default function Home() {
             </section>
 
             {/* SOLUTIONS SECTION */}
-            <section className="py-32 px-6 md:px-24 bg-black border-t border-white/5 relative z-20 overflow-hidden">
+            <section id="section_solutions" className="py-32 px-6 md:px-24 bg-black border-t border-white/5 relative z-20 overflow-hidden">
               {/* 3D Depth Glows */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#F3D7A7]/5 rounded-full blur-[160px] pointer-events-none" />
 
@@ -477,7 +506,7 @@ export default function Home() {
             </section>
 
             {/* GALLERIES */}
-            <section className="py-32 px-6 md:px-12 relative z-20">
+            <section id="section_edits" className="py-32 px-6 md:px-12 relative z-20">
               <div className="max-w-[1400px] mx-auto w-full space-y-48">
                 <div className="text-left">
                   <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-[-0.06em] mb-12 text-white text-left">Selected Productions</h2>
@@ -498,20 +527,43 @@ export default function Home() {
           /* --- INNER CIRCLE SIDE --- */
           <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-black bg-white min-h-screen">
             
-            <section className="h-screen flex flex-col justify-center px-6 md:px-24 border-b border-black/5 text-left">
-              <div className="flex justify-between items-start mb-8">
-                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.5em] font-bold block text-black/40 text-left">Blade Inner Circle</motion.span>
-                <div className="px-4 py-2 border border-black/10 bg-black/5 text-black font-bold uppercase tracking-[0.3em] text-[10px]">
-                  May 2026 Batch
+            <section className="min-h-screen pt-48 pb-32 px-6 md:px-24 bg-white text-black relative overflow-hidden">
+              {/* 3D Background Elements */}
+              <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-[#F3D7A7]/5 rounded-full blur-[120px] -z-10" />
+              <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-black/[0.02] rounded-full blur-[100px] -z-10" />
+
+              <div className="max-w-[1400px] mx-auto relative z-10">
+                <div className="flex flex-col md:flex-row justify-between items-start mb-20 gap-10">
+                  <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+                    <span className="text-[10px] uppercase tracking-[0.6em] font-black block text-black/30 mb-4">Blade Inner Circle</span>
+                    <div className="inline-flex items-center gap-3 px-6 py-3 bg-black text-[#F3D7A7] font-bold uppercase tracking-[0.3em] text-[10px] rounded-sm shadow-2xl">
+                      <div className="w-2 h-2 rounded-full bg-[#F3D7A7] animate-pulse" />
+                      Commencing May 2026
+                    </div>
+                  </motion.div>
+                  <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4 }} className="flex flex-col items-start md:items-end gap-8">
+                    <span className="text-black font-black uppercase tracking-[0.2em] text-[11px] border-b-2 border-black pb-2">Cohort 01 — Applications Open</span>
+                    <button onClick={() => router.push(user ? "/apply/register" : "/apply/login")} className="bg-black text-white px-16 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-[0_20px_50px_rgba(0,0,0,0.2)] flex items-center gap-4">Apply now <ArrowUpRight size={18}/></button>
+                  </motion.div>
                 </div>
-              </div>
-              <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="text-[12vw] md:text-[8vw] font-bold leading-[0.85] tracking-[-0.06em] uppercase mb-12 text-left">The School of <br/> Modern Content.</motion.h1>
-              <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 text-left">
-                <p className="text-2xl md:text-4xl text-black/60 leading-tight font-medium max-w-2xl text-left">Build your agency. <br/> From skill to first income.</p>
-                <div className="flex flex-col items-start md:items-end gap-6">
-                  <span className="text-[#F3D7A7] font-bold uppercase tracking-[0.3em] text-[10px] border border-[#F3D7A7]/30 px-4 py-2 text-left">Cohort 01 — Applications Open</span>
-                  <button onClick={() => router.push(user ? "/apply/register" : "/apply/login")} className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-4 shadow-2xl">Apply now <ArrowUpRight size={18}/></button>
-                </div>
+
+                <motion.h1 
+                  initial={{ y: 50, opacity: 0 }} 
+                  animate={{ y: 0, opacity: 1 }} 
+                  transition={{ delay: 0.2, duration: 1, ease: [0.22, 1, 0.36, 1] }} 
+                  className="text-[14vw] md:text-[9vw] font-black leading-[0.8] tracking-[-0.08em] uppercase mb-16 text-left drop-shadow-sm"
+                >
+                  The School of <br/> <span className="text-black/10">Modern Content.</span>
+                </motion.h1>
+                
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="text-3xl md:text-5xl text-black/80 leading-[1.1] font-bold max-w-4xl text-left tracking-tight"
+                >
+                  Build your agency. <br/> <span className="text-black/40">From skill to first income.</span>
+                </motion.p>
               </div>
             </section>
 
