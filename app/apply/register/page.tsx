@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { ShieldCheck, Zap, Users, GraduationCap, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, Zap, Users, GraduationCap, ArrowRight } from "lucide-react";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
@@ -47,10 +47,7 @@ export default function ApplicationPortal() {
         status: "submitted",
       });
       setShowSuccess(true);
-      // Wait for 3 seconds then redirect to home
-      setTimeout(() => {
-        router.push("/");
-      }, 3000);
+      // No more auto-redirect, waiting for user click
     } catch (error: any) {
       console.error("Error submitting application:", error);
       setErrorMessage(`FAILED TO SUBMIT: ${error.message || "PLEASE TRY AGAIN LATER"}`);
@@ -61,37 +58,41 @@ export default function ApplicationPortal() {
   return (
     <div className="min-h-screen bg-white text-black flex flex-col md:flex-row relative">
       
-      {/* SUCCESS MODAL */}
+      {/* SUCCESS MODAL - REDESIGNED */}
       <AnimatePresence>
         {showSuccess && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-6"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-white/80 backdrop-blur-md p-6"
           >
             <motion.div 
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              className="bg-white max-w-sm w-full p-10 rounded-sm shadow-2xl text-center space-y-6"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-lg w-full bg-white border border-black/5 p-10 md:p-16 text-left space-y-10 shadow-[0_40px_100px_rgba(0,0,0,0.05)]"
             >
-              <div className="flex justify-center">
-                <div className="h-16 w-16 bg-[#F3D7A7] rounded-full flex items-center justify-center text-black">
-                  <CheckCircle2 size={32} />
-                </div>
+              <div className="space-y-4">
+                <p className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.5em]">Phase 01 Complete</p>
+                <h3 className="text-5xl font-bold uppercase tracking-tighter leading-[0.9] text-black">
+                  Application <br/> Received.
+                </h3>
               </div>
-              <div className="space-y-2">
-                <h3 className="text-2xl font-bold uppercase tracking-tighter">Application Sent</h3>
-                <p className="text-black/40 text-xs uppercase tracking-widest leading-relaxed">
-                  Your portfolio has been submitted successfully. We will review it and get back to you within 48 hours.
-                </p>
-              </div>
+              
+              <p className="text-black/50 text-sm leading-relaxed font-light max-w-sm">
+                Your admission portfolio has been successfully queued for review. Our selection committee will evaluate your intent and commitment density. Expect a response via WhatsApp or Email within 48 hours.
+              </p>
+
               <div className="pt-4">
                 <button 
                   onClick={() => router.push("/")}
-                  className="w-full py-4 bg-black text-white text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-[#F3D7A7] hover:text-black transition-colors"
+                  className="group flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.4em] text-black hover:text-[#F3D7A7] transition-all duration-300"
                 >
-                  Return Home
+                  Return to Institutional Home 
+                  <div className="h-8 w-8 rounded-full border border-black/10 flex items-center justify-center group-hover:border-[#F3D7A7] group-hover:bg-[#F3D7A7] transition-all">
+                    <ArrowRight size={14} className="group-hover:text-black" />
+                  </div>
                 </button>
               </div>
             </motion.div>
@@ -106,13 +107,13 @@ export default function ApplicationPortal() {
           className="max-w-xl mx-auto"
         >
           <header className="mb-16">
-            <h2 className="text-3xl font-bold uppercase tracking-[-0.06em] mb-2">Admission Form</h2>
-            <p className="text-black/40 text-xs uppercase tracking-[0.2em]">Cohort 01 — May 2026 Batch</p>
+            <h2 className="text-3xl font-bold uppercase tracking-[-0.06em] mb-2 text-left">Admission Form</h2>
+            <p className="text-black/40 text-xs uppercase tracking-[0.2em] text-left">Cohort 01 — May 2026 Batch</p>
           </header>
 
           <form onSubmit={handleSubmit} className="space-y-12">
             <div className="space-y-8">
-              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7]">01. Identification</h3>
+              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7] text-left">01. Identification</h3>
               <div className="grid grid-cols-1 gap-6">
                 <InputField 
                   label="Full Name" 
@@ -140,7 +141,7 @@ export default function ApplicationPortal() {
             </div>
 
             <div className="space-y-8">
-              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7]">02. Professional Background</h3>
+              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7] text-left">02. Professional Background</h3>
               <InputField 
                 label="What do you currently do?" 
                 placeholder="e.g. Student, Freelancer, Working Professional" 
@@ -148,7 +149,7 @@ export default function ApplicationPortal() {
                 onChange={(val) => handleInputChange("currentRole", val)} 
               />
               <div className="space-y-4">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-black/60">Have you ever earned online before?</label>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-black/60 block text-left">Have you ever earned online before?</label>
                 <div className="flex gap-4">
                   <button 
                     type="button" 
@@ -183,7 +184,7 @@ export default function ApplicationPortal() {
             </div>
 
             <div className="space-y-8">
-              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7]">03. Strategy & Mindset</h3>
+              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7] text-left">03. Strategy & Mindset</h3>
               <TextAreaField 
                 label="Why do you want to join Blade Inner Circle?" 
                 placeholder="Your motivations..." 
@@ -205,7 +206,7 @@ export default function ApplicationPortal() {
             </div>
 
             <div className="space-y-8">
-              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7]">04. Commitment Clause</h3>
+              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7] text-left">04. Commitment Clause</h3>
               <div className="space-y-4">
                 <Checkbox 
                   label="I can commit 2 months and ~3 hours per week for live execution." 
@@ -221,7 +222,7 @@ export default function ApplicationPortal() {
             </div>
 
             {errorMessage && (
-              <div className="text-red-500 text-[10px] font-bold uppercase tracking-widest">{errorMessage}</div>
+              <div className="text-red-500 text-[10px] font-bold uppercase tracking-widest text-left">{errorMessage}</div>
             )}
 
             <button 
@@ -242,13 +243,13 @@ export default function ApplicationPortal() {
           transition={{ delay: 0.4 }}
           className="sticky top-20 space-y-16"
         >
-          <div className="relative">
+          <div className="relative text-left">
             <div className="flex items-center gap-4 mb-6">
               <div className="h-[1px] w-12 bg-black/10"></div>
               <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-black/40">Admissions Open</span>
             </div>
             
-            <div className="flex flex-col">
+            <div className="flex flex-col text-left">
               <span className="text-8xl font-black uppercase tracking-[-0.06em] leading-none text-black">
                 C0<span className="text-[#F3D7A7]">1</span>
               </span>
@@ -262,31 +263,31 @@ export default function ApplicationPortal() {
               </div>
             </div>
 
-            <ul className="space-y-6 mt-12">
+            <ul className="space-y-6 mt-12 text-left">
               <InfoItem icon={<Zap size={16}/>} text="2-Month Intensive Program" />
               <InfoItem icon={<Users size={16}/>} text="Limited to 10 vetted architects" />
               <InfoItem icon={<ShieldCheck size={16}/>} text="Live Execution Sprints" />
             </ul>
           </div>
 
-          <div className="pt-12 border-t border-black/5">
-            <div className="flex items-center gap-3 mb-6 text-[#F3D7A7]">
+          <div className="pt-12 border-t border-black/5 text-left">
+            <div className="flex items-center gap-3 mb-6 text-[#F3D7A7] text-left">
               <GraduationCap size={20} />
               <h3 className="text-sm font-bold uppercase tracking-widest">Placement Support</h3>
             </div>
-            <p className="text-sm text-black/60 leading-relaxed font-light mb-6 italic">
+            <p className="text-sm text-black/60 leading-relaxed font-light mb-6 italic text-left">
               &quot;We don&apos;t guarantee placements. We prepare you for them.&quot;
             </p>
-            <div className="space-y-4">
+            <div className="space-y-4 text-left">
               <SupportItem text="Access to high-ticket opportunities in our network" />
               <SupportItem text="Guided client acquisition systems" />
               <SupportItem text="Portfolio positioning & Personal Branding" />
             </div>
           </div>
 
-          <div className="bg-black text-white p-8 rounded-sm">
-            <p className="text-[10px] uppercase tracking-[0.4em] font-bold mb-2">Notice</p>
-            <p className="text-xs text-white/60 leading-relaxed font-light">
+          <div className="bg-black text-white p-8 rounded-sm text-left">
+            <p className="text-[10px] uppercase tracking-[0.4em] font-bold mb-2 text-left">Notice</p>
+            <p className="text-xs text-white/60 leading-relaxed font-light text-left">
               Applicants are selected based on mindset and commitment density. You will receive a response within 48 hours.
             </p>
           </div>
@@ -303,14 +304,14 @@ const InputField = ({ label, placeholder, value, onChange, type = "text" }: {
   onChange: (val: string) => void;
   type?: string 
 }) => (
-  <div className="space-y-2">
-    <label className="text-[10px] font-bold uppercase tracking-widest text-black/60">{label}</label>
+  <div className="space-y-2 text-left">
+    <label className="text-[10px] font-bold uppercase tracking-widest text-black/60 block text-left">{label}</label>
     <input 
       type={type} 
       placeholder={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full border-b border-black/10 py-3 text-lg focus:border-[#F3D7A7] outline-none transition-all placeholder:text-black/10"
+      className="w-full border-b border-black/10 py-3 text-lg focus:border-[#F3D7A7] outline-none transition-all placeholder:text-black/10 text-left"
     />
   </div>
 );
@@ -321,13 +322,13 @@ const TextAreaField = ({ label, placeholder, value, onChange }: {
   value: string;
   onChange: (val: string) => void;
 }) => (
-  <div className="space-y-2">
-    <label className="text-[10px] font-bold uppercase tracking-widest text-black/60">{label}</label>
+  <div className="space-y-2 text-left">
+    <label className="text-[10px] font-bold uppercase tracking-widest text-black/60 block text-left">{label}</label>
     <textarea 
       placeholder={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full bg-[#F9F9F9] p-6 text-sm border-none focus:ring-1 focus:ring-[#F3D7A7] outline-none min-h-[120px]"
+      className="w-full bg-[#F9F9F9] p-6 text-sm border-none focus:ring-1 focus:ring-[#F3D7A7] outline-none min-h-[120px] text-left"
     />
   </div>
 );
@@ -337,26 +338,26 @@ const Checkbox = ({ label, checked, onChange }: {
   checked: boolean;
   onChange: (val: boolean) => void;
 }) => (
-  <label className="flex items-start gap-4 cursor-pointer group">
+  <label className="flex items-start gap-4 cursor-pointer group text-left">
     <input 
       type="checkbox" 
       checked={checked}
       onChange={(e) => onChange(e.target.checked)}
       className="mt-1 accent-black" 
     />
-    <span className="text-[11px] uppercase tracking-widest font-bold text-black/40 group-hover:text-black transition-colors">{label}</span>
+    <span className="text-[11px] uppercase tracking-widest font-bold text-black/40 group-hover:text-black transition-colors text-left">{label}</span>
   </label>
 );
 
 const InfoItem = ({ icon, text }: { icon: React.ReactNode; text: string }) => (
-  <li className="flex items-center gap-4 text-xs uppercase tracking-widest font-bold">
+  <li className="flex items-center gap-4 text-xs uppercase tracking-widest font-bold text-left">
     <span className="text-[#F3D7A7]">{icon}</span>
     {text}
   </li>
 );
 
 const SupportItem = ({ text }: { text: string }) => (
-  <div className="flex gap-3 text-[11px] font-medium text-black/60">
+  <div className="flex gap-3 text-[11px] font-medium text-black/60 text-left">
     <div className="h-1.5 w-1.5 rounded-full bg-[#F3D7A7] mt-1" />
     {text}
   </div>
