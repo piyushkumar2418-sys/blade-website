@@ -13,16 +13,20 @@ export default function MobileOTPLogin() {
   const [loading, setLoading] = useState(false);
 
   const setupRecaptcha = () => {
-    if ((window as any).recaptchaVerifier) {
-      (window as any).recaptchaVerifier.clear();
+    if (!(window as any).recaptchaVerifier) {
+      (window as any).recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        'size': 'invisible',
+        'callback': () => {
+          console.log("recaptcha resolved");
+        },
+        'expired-callback': () => {
+          if ((window as any).recaptchaVerifier) {
+            (window as any).recaptchaVerifier.clear();
+            (window as any).recaptchaVerifier = null;
+          }
+        }
+      });
     }
-    
-    (window as any).recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-      'size': 'invisible',
-      'callback': () => {
-        console.log("recaptcha resolved");
-      }
-    });
   };
 
   const handleSendOTP = async (e: React.FormEvent) => {
@@ -41,9 +45,12 @@ export default function MobileOTPLogin() {
         alert("Error: " + error.message);
       }
       console.error(error);
-      if ((window as any).recaptchaVerifier) {
-        (window as any).recaptchaVerifier.clear();
-        (window as any).recaptchaVerifier = null;
+      // Only clear on critical failures that require re-initialization
+      if (error.code === 'auth/internal-error' || error.code === 'auth/network-request-failed') {
+        if ((window as any).recaptchaVerifier) {
+          (window as any).recaptchaVerifier.clear();
+          (window as any).recaptchaVerifier = null;
+        }
       }
     }
     setLoading(false);
@@ -54,7 +61,7 @@ export default function MobileOTPLogin() {
     setLoading(true);
     try {
       await confirmationResult.confirm(otp);
-      window.location.href = "/apply/form"; 
+      window.location.href = "/apply/register"; 
     } catch (error) {
       alert("Invalid OTP.");
     }
