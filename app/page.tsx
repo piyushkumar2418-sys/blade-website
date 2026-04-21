@@ -301,28 +301,52 @@ export default function Home() {
                 </div>
 
                 {/* Steps Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 border border-white/5">
-                  {[
-                    { num: "01", title: "Onboard & Audit", desc: "We decode your existing content, audience data, and brand positioning. A full teardown before we build.", time: "Week 1–2" },
-                    { num: "02", title: "Build The System", desc: "Content frameworks, editorial calendars, style guides. We engineer the repeatable machine before we touch the timeline.", time: "Week 2–3" },
-                    { num: "03", title: "High-Velocity Output", desc: "90–120 production-ready assets per month. Short-form, long-form, platform-native. Your brand, everywhere.", time: "Ongoing" },
-                  ].map((step, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.7, delay: i * 0.15 }}
-                      className={`p-10 md:p-14 group hover:bg-[#F3D7A7]/[0.03] transition-all duration-700 ${i > 0 ? 'border-t md:border-t-0 md:border-l border-white/5' : ''}`}
-                    >
-                      <div className="text-[100px] leading-none font-bold text-white/[0.04] group-hover:text-white/[0.07] transition-colors duration-700 mb-6 select-none">{step.num}</div>
-                      <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-white mb-4">{step.title}</h3>
-                      <p className="text-white/40 text-sm leading-relaxed mb-10">{step.desc}</p>
-                      <div className="pt-8 border-t border-white/5">
-                        <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.4em] font-bold">{step.time}</span>
-                      </div>
-                    </motion.div>
-                  ))}
+                <div className="relative">
+                  {/* 3D Background Glows */}
+                  <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#F3D7A7]/10 rounded-full blur-[120px] pointer-events-none" />
+                  <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#F3D7A7]/5 rounded-full blur-[120px] pointer-events-none" />
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+                    {[
+                      { num: "01", title: "Onboard & Audit", desc: "We decode your existing content, audience data, and brand positioning. A full teardown before we build.", time: "Week 1–2" },
+                      { num: "02", title: "Build The System", desc: "Content frameworks, editorial calendars, style guides. We engineer the repeatable machine before we touch the timeline.", time: "Week 2–3" },
+                      { num: "03", title: "High-Velocity Output", desc: "90–120 production-ready assets per month. Short-form, long-form, platform-native. Your brand, everywhere.", time: "Ongoing" },
+                    ].map((step, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7, delay: i * 0.15 }}
+                        whileHover={{ 
+                          y: -10,
+                          rotateX: 2,
+                          rotateY: -2,
+                          transition: { duration: 0.3 }
+                        }}
+                        className="p-10 md:p-12 group bg-white/[0.05] backdrop-blur-xl border border-white/10 rounded-2xl hover:border-[#F3D7A7]/50 hover:bg-white/[0.08] transition-all duration-500 shadow-2xl relative overflow-hidden"
+                        style={{ perspective: "1000px" }}
+                      >
+                        {/* 3D Inner Glow */}
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-[#F3D7A7]/5 rounded-full blur-3xl group-hover:bg-[#F3D7A7]/10 transition-colors duration-700" />
+                        
+                        <div className="text-[80px] leading-none font-bold text-[#F3D7A7]/20 group-hover:text-[#F3D7A7]/40 transition-colors duration-700 mb-8 select-none tracking-tighter italic">
+                          {step.num}
+                        </div>
+                        <h3 className="text-2xl font-bold uppercase tracking-tight text-white mb-6 group-hover:text-[#F3D7A7] transition-colors duration-300">
+                          {step.title}
+                        </h3>
+                        <p className="text-white/70 text-base leading-relaxed mb-12 font-medium">
+                          {step.desc}
+                        </p>
+                        <div className="pt-8 border-t border-white/10">
+                          <span className="text-[#F3D7A7] text-[11px] font-bold uppercase tracking-[0.4em] px-4 py-2 bg-white/5 rounded-full border border-white/5">
+                            {step.time}
+                          </span>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Team + Big Number */}
@@ -358,14 +382,17 @@ export default function Home() {
             </section>
 
             {/* SOLUTIONS SECTION */}
-            <section className="py-32 px-6 md:px-24 bg-black border-t border-white/5 relative z-20">
-              <div className="max-w-[1400px] mx-auto">
+            <section className="py-32 px-6 md:px-24 bg-black border-t border-white/5 relative z-20 overflow-hidden">
+              {/* 3D Depth Glows */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#F3D7A7]/5 rounded-full blur-[160px] pointer-events-none" />
+
+              <div className="max-w-[1400px] mx-auto relative z-10">
                 <div className="mb-24 text-left">
                   <SectionLabel light>Solutions</SectionLabel>
                   <h2 className="text-4xl md:text-7xl font-bold uppercase tracking-tight leading-[0.85] text-white">Strategic <br /><span className="text-[#F3D7A7]">Impact.</span></h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10 border border-white/10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {[
                     { 
                       title: "Short-Form Mastery", 
@@ -390,17 +417,26 @@ export default function Home() {
                   ].map((solution, i) => (
                     <motion.div 
                       key={i}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.8, delay: i * 0.1 }}
-                      className="bg-black p-12 md:p-16 space-y-8 hover:bg-white/[0.02] transition-colors duration-500"
+                      whileHover={{ 
+                        scale: 1.02,
+                        rotateX: 1,
+                        rotateY: -1,
+                        transition: { duration: 0.3 }
+                      }}
+                      className="bg-white/[0.05] backdrop-blur-xl border border-white/10 p-12 md:p-16 space-y-8 rounded-3xl hover:border-[#F3D7A7]/50 hover:bg-white/[0.08] transition-all duration-500 group shadow-2xl"
+                      style={{ perspective: "1000px" }}
                     >
-                      <div className="p-4 bg-white/[0.05] w-fit rounded-xl border border-white/10">
-                        {solution.icon}
+                      <div className="p-5 bg-[#F3D7A7]/10 w-fit rounded-2xl border border-[#F3D7A7]/20 group-hover:bg-[#F3D7A7] transition-all duration-500">
+                        {React.cloneElement(solution.icon as React.ReactElement, { 
+                          className: "text-[#F3D7A7] group-hover:text-black transition-colors duration-500" 
+                        })}
                       </div>
-                      <h3 className="text-2xl font-bold uppercase tracking-tight text-white">{solution.title}</h3>
-                      <p className="text-white/40 leading-relaxed text-lg font-light">{solution.desc}</p>
+                      <h3 className="text-3xl font-bold uppercase tracking-tight text-white group-hover:text-[#F3D7A7] transition-colors duration-300">{solution.title}</h3>
+                      <p className="text-white/70 leading-relaxed text-lg font-medium">{solution.desc}</p>
                     </motion.div>
                   ))}
                 </div>
