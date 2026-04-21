@@ -264,9 +264,23 @@ export default function Home() {
                     <div className="h-[1px] bg-[#F3D7A7]/40 mt-12 w-24" />
                   </motion.div>
                 </div>
-                <div className="max-w-xs md:max-w-md ml-auto text-left">
-                  <div className="aspect-[3/4] w-full mb-10 overflow-hidden border border-white/10 grayscale hover:grayscale-0 transition-all duration-700">
-                    <img src="/piyush.png" className="w-full h-full object-cover" alt="Piyush" />
+                <div className="max-w-xs md:max-w-md ml-auto text-left group">
+                  <div className="relative aspect-[3/4] w-full mb-10">
+                    {/* Echo Image Behind */}
+                    <img 
+                      src="/piyush.png" 
+                      className="absolute inset-0 w-full h-full object-cover opacity-20 grayscale scale-110 translate-x-8 -translate-y-4 blur-[2px] transition-all duration-700 group-hover:opacity-40" 
+                      alt="Piyush Echo" 
+                    />
+                    
+                    {/* Main Image */}
+                    <div className="relative z-10 w-full h-full overflow-hidden border border-white/10 grayscale hover:grayscale-0 transition-all duration-700">
+                      <img 
+                        src="/piyush.png" 
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
+                        alt="Piyush" 
+                      />
+                    </div>
                   </div>
                   <p className="text-white/60 text-lg font-light leading-relaxed text-left">&quot;We decoded content through an early obsession. Mastering the silent mechanics of distribution.&quot;</p>
                   <div className="text-[#F3D7A7] text-2xl font-bold mt-8 text-left">— Piyush</div>
