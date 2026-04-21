@@ -63,15 +63,7 @@ const WorkItem = ({ work, aspect, index }: { work: any, aspect: string, index: n
 const LogoMarquee = () => {
   const logos = [
     { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
-    { 
-      name: "Flipkart", 
-      isSvg: true,
-      svg: (
-        <svg width="100" height="100" viewBox="0 0 100 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="h-11 md:h-16 w-auto">
-          <path d="M48.875,0C21.882,0,0,21.883,0,48.875S21.882,97.75,48.875,97.75S97.75,75.867,97.75,48.875S75.868,0,48.875,0z M75.427,23.318c-0.851,0.143-1.729,0.151-2.596,0.158c-3.608,0.031-6.124,1.759-7.146,5.201c-0.629,2.118-0.969,4.321-1.49,6.729 c1.647,0,3.119-0.008,4.59,0.001c1.888,0.013,2.746,0.735,2.65,2.607c-0.072,1.423-0.375,2.876-0.838,4.226 c-0.531,1.538-1.711,2.379-3.463,2.297c-1.439-0.068-2.885-0.015-4.438-0.015c-0.695,3.929-1.377,7.766-2.053,11.604 c-0.819,4.657-1.64,9.316-2.449,13.977c-1.459,8.396-6.779,13.104-15.485,13.332c-6.998,0.182-14.004,0.062-21.005,0.051 c-1.497-0.004-1.806-0.444-1.481-1.854c0.456-1.975,0.894-3.954,1.38-5.921c0.433-1.746,1.28-2.402,3.095-2.407 c4.926-0.013,9.852,0.005,14.777-0.005c4.112-0.006,6.247-1.639,6.997-5.629c1.393-7.396,2.667-14.816,3.99-22.229" />
-        </svg>
-      )
-    },
+    { name: "Flipkart", url: "/flipkart.svg" },
     { name: "Bajaj", url: "https://companieslogo.com/img/orig/BAJAJ-AUTO.NS_BIG-afa2b58c.png" },
     { 
       name: "Reliance", 
@@ -83,42 +75,12 @@ const LogoMarquee = () => {
       )
     },
     { name: "Nykaa", url: "https://companieslogo.com/img/orig/NYKAA.NS_BIG-d299a0e1.svg" },
-    { name: "Pantaloons", url: "https://upload.wikimedia.org/wikipedia/en/3/3e/Pantaloons_Fashion_%26_Retail_logo.svg" },
+    { name: "Pantaloons", url: "/pantaloons.svg" },
     { name: "Mirchi", url: "/mirchi.svg" },
-    { 
-      name: "WTF", 
-      isSvg: true,
-      svg: (
-        <span className="text-2xl md:text-4xl font-serif font-bold tracking-tighter">WTF</span>
-      )
-    },
-    { 
-      name: "ThriveStack", 
-      isSvg: true,
-      svg: (
-        <div className="flex items-center gap-2">
-           <div className="w-6 h-6 bg-white rotate-45" />
-           <span className="text-lg md:text-xl font-bold tracking-tight">ThriveStack</span>
-        </div>
-      )
-    },
-    { 
-      name: "SuperYou", 
-      isSvg: true,
-      svg: (
-        <span className="text-xl md:text-2xl font-serif italic tracking-tight">SuperYou</span>
-      )
-    },
-    { 
-      name: "ActorsTruth", 
-      isSvg: true,
-      svg: (
-        <div className="flex items-center gap-2">
-           <div className="w-1 h-8 bg-white" />
-           <span className="text-lg md:text-xl font-light tracking-[0.2em] uppercase">Actors Truth</span>
-        </div>
-      )
-    },
+    { name: "WTF", url: "/wtf.svg" },
+    { name: "ThriveStack", url: "/thrivestack.svg" },
+    { name: "SuperYou", url: "/superyou.svg" },
+    { name: "ActorsTruth", url: "/actorstruth.svg" },
     { name: "FamApp", url: "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/fampay.svg" },
   ];
 
@@ -154,7 +116,11 @@ const LogoMarquee = () => {
                 <img 
                   src={logo.url} 
                   alt={logo.name} 
-                  className={`h-7 md:h-10 w-auto max-w-[140px] object-contain ${logo.name === 'Mirchi' ? 'h-10 md:h-14' : ''}`} 
+                  className={`h-7 md:h-10 w-auto max-w-[140px] object-contain ${
+                    logo.name === 'Mirchi' ? 'h-10 md:h-14' : 
+                    logo.name === 'Flipkart' ? 'h-11 md:h-18 scale-125' : 
+                    ''
+                  }`} 
                   style={{ filter: "brightness(0) invert(1)" }}
                   onError={(e) => {
                      (e.target as any).style.display = 'none';
