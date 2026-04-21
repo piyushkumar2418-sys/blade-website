@@ -62,7 +62,7 @@ const WorkItem = ({ work, aspect, index }: { work: any, aspect: string, index: n
 
 const LogoMarquee = () => {
   const logos = [
-    { name: "Amazon", url: "https://www.pngmart.com/files/15/Amazon-Logo-White-PNG-Image.png" },
+    { name: "Amazon", url: "/amazon.jpg" },
     { name: "Flipkart", url: "/flipkart.jpg" },
     { name: "Bajaj", url: "https://companieslogo.com/img/orig/BAJAJ-AUTO.NS_BIG-afa2b58c.png" },
     { name: "Reliance", url: "/reliance.png" },
@@ -71,9 +71,9 @@ const LogoMarquee = () => {
     { name: "Mirchi", url: "/mirchi.jpg" },
     { name: "WTF", url: "/wtf.svg" },
     { name: "ThriveStack", url: "/thrivestack.jpg" },
-    { name: "SuperYou", url: "/superyou.svg" },
+    { name: "SuperYou", url: "/superyou.jpg" },
     { name: "ActorsTruth", url: "/actorstruth.png" },
-    { name: "FamApp", url: "https://icons.iconarchive.com/icons/simpleicons-team/simple/512/fampay-icon.png" },
+    { name: "FamApp", url: "/fampay.png" },
   ];
 
   const doubledLogos = [...logos, ...logos];
