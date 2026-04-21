@@ -28,21 +28,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setUser(user);
-      if (user) {
-        // Fetch profile from Firestore
-        const profileDoc = await getDoc(doc(db, "users", user.uid));
-        if (profileDoc.exists()) {
-          setProfileState(profileDoc.data() as UserProfile);
-        }
-      } else {
-        setProfileState(null);
-      }
+    // Fallback timer to ensure loading is eventually set to false
+    const timeoutId = setTimeout(() => {
       setLoading(false);
+    }, 5000);
+
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      clearTimeout(timeoutId);
+      setUser(user);
+      try {
+        if (user) {
+          const profileDoc = await getDoc(doc(db, "users", user.uid));
+          if (profileDoc.exists()) {
+            setProfileState(profileDoc.data() as UserProfile);
+          }
+        } else {
+          setProfileState(null);
+        }
+      } catch (error) {
+        console.error("Auth initialization error:", error);
+      } finally {
+        setLoading(false);
+      }
     });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribe();
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const setProfile = (newProfile: UserProfile) => {
