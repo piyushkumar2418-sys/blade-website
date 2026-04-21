@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { ShieldCheck, Zap, ArrowRight, AlertCircle, CheckCircle2, Globe, Instagram, FileText } from "lucide-react";
+import { ShieldCheck, Zap, ArrowRight, AlertCircle, CheckCircle2 } from "lucide-react";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp, query, where, getDocs } from "firebase/firestore";
 import { useAuth } from "@/context/AuthContext";
@@ -159,7 +159,7 @@ export default function ApplicationPortal() {
                   label="Instagram Handle" 
                   placeholder="@yourusername"
                   value={formData.instagram} 
-                  onChange={(val) => handleInputChange("instagram", val)} 
+                  onChange={(val: string) => handleInputChange("instagram", val)} 
                 />
               </div>
             </div>
@@ -171,14 +171,14 @@ export default function ApplicationPortal() {
                 question="Share links to your best work (YouTube, Instagram, Portfolio, etc.)"
                 placeholder="Paste URLs here, one per line..." 
                 value={formData.links}
-                onChange={(val) => handleInputChange("links", val)}
+                onChange={(val: string) => handleInputChange("links", val)}
               />
               <TextAreaField 
                 label="Statement of Intent"
                 question="Why do you want to join the Inner Circle?"
                 placeholder="Tell us about your goals and why you're a good fit..." 
                 value={formData.whyJoin}
-                onChange={(val) => handleInputChange("whyJoin", val)}
+                onChange={(val: string) => handleInputChange("whyJoin", val)}
               />
             </div>
 
