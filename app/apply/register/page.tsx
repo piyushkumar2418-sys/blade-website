@@ -23,6 +23,9 @@ export default function ApplicationPortal() {
     links: "",
     whyJoin: "",
     friction: "",
+    stack: "",
+    goal: "",
+    committed: false,
   });
 
   useEffect(() => {
@@ -41,7 +44,7 @@ export default function ApplicationPortal() {
     }
   }, [user, profile, loading, router]);
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: string, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -51,9 +54,12 @@ export default function ApplicationPortal() {
     if (
       !formData.links || 
       !formData.whyJoin || 
-      !formData.friction
+      !formData.friction ||
+      !formData.stack ||
+      !formData.goal ||
+      !formData.committed
     ) {
-      setErrorMessage("PLEASE COMPLETE ALL ADMISSION QUESTIONS.");
+      setErrorMessage("PLEASE COMPLETE ALL ADMISSION QUESTIONS AND ACCEPT THE COMMITMENT.");
       return;
     }
 
@@ -192,6 +198,48 @@ export default function ApplicationPortal() {
                 value={formData.friction}
                 onChange={(val: string) => handleInputChange("friction", val)}
               />
+              <TextAreaField 
+                label="Current Stack"
+                question="What tools and software do you currently use for your workflow?"
+                placeholder="List your software, hardware, and systems..." 
+                value={formData.stack}
+                onChange={(val: string) => handleInputChange("stack", val)}
+              />
+              <TextAreaField 
+                label="Growth Goal"
+                question="What is your primary goal for the next 60 days?"
+                placeholder="Be specific about revenue or output goals..." 
+                value={formData.goal}
+                onChange={(val: string) => handleInputChange("goal", val)}
+              />
+
+              <div className="pt-6 space-y-4 text-left">
+                <label className="flex items-start gap-4 cursor-pointer group text-left">
+                  <div className="relative mt-1">
+                    <input 
+                      type="checkbox" 
+                      checked={formData.committed}
+                      onChange={(e) => handleInputChange("committed", e.target.checked)}
+                      className="peer sr-only"
+                    />
+                    <div className="h-6 w-6 border-2 border-black/10 group-hover:border-[#F3D7A7] peer-checked:bg-black peer-checked:border-black transition-all flex items-center justify-center">
+                      <motion.div 
+                        initial={false}
+                        animate={{ scale: formData.committed ? 1 : 0 }}
+                        className="text-white"
+                      >
+                        <CheckCircle2 size={16} />
+                      </motion.div>
+                    </div>
+                  </div>
+                  <div className="space-y-1 text-left">
+                    <p className="text-[11px] font-bold uppercase tracking-widest text-black/80 text-left">The Blade Commitment</p>
+                    <p className="text-[10px] text-black/40 leading-relaxed uppercase tracking-wider text-left">
+                      I am ready to commit 2 months of high-density execution. I will follow the curriculum strictly and understand that my evaluation is based solely on the results I deliver.
+                    </p>
+                  </div>
+                </label>
+              </div>
             </div>
 
             {errorMessage && (
