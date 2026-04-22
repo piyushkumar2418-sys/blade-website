@@ -206,7 +206,7 @@ export default function Home() {
         </button>
       </div>
 
-      <div className="fixed top-6 right-6 md:top-8 md:right-8 z-[110] pointer-events-auto">
+      <div className="fixed top-6 right-6 md:top-8 md:right-8 z-[110] pointer-events-auto flex items-center gap-2 md:gap-3">
         <button 
           onClick={toggleMode} 
           className={`px-4 py-2.5 md:px-6 md:py-3 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-[0.1em] transition-all hover:scale-105 active:scale-95 ${
@@ -217,6 +217,22 @@ export default function Home() {
         >
           {isAgency ? "The Inner Circle" : "Exit To Agency"}
         </button>
+
+        {!isAgency && (
+          <motion.button
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            onClick={() => router.push(user ? "/dashboard" : "/apply/login")}
+            className="px-4 py-2.5 md:px-6 md:py-3 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-[0.1em] transition-all hover:scale-105 active:scale-95 bg-black text-white border border-black/10 shadow-xl flex items-center gap-2"
+          >
+            {user ? (
+              <>
+                <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                Profile
+              </>
+            ) : "Sign In"}
+          </motion.button>
+        )}
       </div>
 
       {/* COMPACT PREMIUM HEADER (NAV ONLY) - AGENCY ONLY */}
