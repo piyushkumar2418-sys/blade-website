@@ -18,7 +18,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    const savedMode = localStorage.getItem("site-mode") as Mode;
+    const savedMode = sessionStorage.getItem("site-mode") as Mode;
     if (savedMode) {
       setMode(savedMode);
     }
@@ -27,7 +27,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
 
   const updateMode = (newMode: Mode) => {
     setMode(newMode);
-    localStorage.setItem("site-mode", newMode);
+    sessionStorage.setItem("site-mode", newMode);
   };
 
   const toggleMode = () => {
