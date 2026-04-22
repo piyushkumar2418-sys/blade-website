@@ -832,7 +832,11 @@ export default function Home() {
                   </motion.button>
                 </div>
 
-                <div className="pt-40 text-center">
+                <div className="pt-40 text-center space-y-8">
+                  <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12">
+                    <a href="https://wa.me/917082176274" target="_blank" className="text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-[#F3D7A7] transition-colors">WhatsApp: +91 7082176274</a>
+                    <a href="https://www.instagram.com/bladeinnercircle/" target="_blank" className="text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-[#F3D7A7] transition-colors">Instagram: @bladeinnercircle</a>
+                  </div>
                   <p className="text-[10px] font-bold uppercase tracking-[1em] text-white/10 text-center">Stop Consuming. Start Operating.</p>
                 </div>
               </div>
@@ -857,8 +861,8 @@ export default function Home() {
       )}
 
       {!isAgency && (
-        <footer className="py-12 bg-black text-center relative z-20">
-          <div className="text-[9px] uppercase tracking-[0.8em] font-bold text-center text-white/10">© 2026 Blade // Institutional Access</div>
+        <footer className="py-12 bg-black text-center relative z-20 border-t border-white/5">
+          <div className="text-[9px] uppercase tracking-[0.8em] font-bold text-center text-white/20">© 2026 Blade // All Rights Reserved</div>
         </footer>
       )}
     </motion.main>
