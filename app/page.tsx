@@ -200,7 +200,7 @@ export default function Home() {
       <div className="fixed top-6 left-6 md:top-8 md:left-8 z-[110] pointer-events-auto">
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-          className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 hover:scale-105"
+          className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-90"
         >
           <img src="/blade-logo.png" alt="Blade Logo" className="w-full h-full object-contain brightness-0 invert" />
         </button>
@@ -209,18 +209,13 @@ export default function Home() {
       <div className="fixed top-6 right-6 md:top-8 md:right-8 z-[110] pointer-events-auto">
         <button 
           onClick={toggleMode} 
-          className={`px-4 py-2.5 md:px-6 md:py-3 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-[0.1em] transition-all ${
+          className={`px-4 py-2.5 md:px-6 md:py-3 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-[0.1em] transition-all hover:scale-105 active:scale-95 ${
             isAgency 
-            ? "bg-white/5 border border-white/10 text-white hover:bg-white/10 backdrop-blur-md" 
-            : "bg-black/5 border border-black/10 text-black hover:bg-black/10 backdrop-blur-md"
+            ? "bg-white/5 border border-white/10 text-white hover:bg-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.05)]" 
+            : "bg-black/5 border border-black/10 text-black hover:bg-black/10 backdrop-blur-md shadow-[0_0_20px_rgba(0,0,0,0.05)]"
           }`}
         >
-          {isAgency ? (
-            <span className="flex items-center gap-2">
-              <span className="hidden xs:inline">The Inner Circle</span>
-              <span className="xs:hidden">Circle</span>
-            </span>
-          ) : "Exit To Agency"}
+          {isAgency ? "The Inner Circle" : "Exit To Agency"}
         </button>
       </div>
 
@@ -530,7 +525,7 @@ export default function Home() {
               <div className="flex justify-between items-start mb-8 text-left">
                 <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.5em] font-bold block text-black/40 text-left">Blade Inner Circle</motion.span>
                 <div className="px-4 py-2 border border-black/10 bg-black/5 text-black font-bold uppercase tracking-[0.3em] text-[10px] text-left">
-                  May 2026 Batch
+                  May 2026 Intake
                 </div>
               </div>
               <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="text-[12vw] md:text-[8vw] font-bold leading-[0.85] tracking-[-0.06em] uppercase mb-12 text-left">The School of <br/> Modern Content.</motion.h1>
