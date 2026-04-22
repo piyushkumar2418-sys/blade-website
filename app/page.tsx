@@ -215,18 +215,17 @@ export default function Home() {
             : "bg-black/5 border border-black/10 text-black hover:bg-black/10 backdrop-blur-md"
           }`}
         >
-          {isAgency ? "Inner Circle" : "Agency"}
+          {isAgency ? "The Inner Circle" : "Exit To Agency"}
         </button>
       </div>
 
-      {/* COMPACT PREMIUM HEADER (NAV ONLY) */}
-      <motion.header 
-        style={{ opacity: navButtonOpacity }}
-        className="fixed top-8 left-0 right-0 z-[100] px-6 flex justify-center pointer-events-none font-['Helvetica',_sans-serif]"
-      >
-        <div className="flex items-center gap-2 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-full p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto relative group">
-          {/* Navigation Links Capsule */}
-          {isAgency && (
+      {/* COMPACT PREMIUM HEADER (NAV ONLY) - AGENCY ONLY */}
+      {isAgency && (
+        <motion.header 
+          style={{ opacity: navButtonOpacity }}
+          className="fixed top-8 left-0 right-0 z-[100] px-6 flex justify-center pointer-events-none font-['Helvetica',_sans-serif]"
+        >
+          <div className="flex items-center gap-2 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-full p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto relative group">
             <nav className="flex items-center gap-1 px-2">
               {[
                 { label: 'Process', id: 'section_process' },
@@ -242,11 +241,8 @@ export default function Home() {
                 </a>
               ))}
             </nav>
-          )}
 
-          <div className="flex items-center gap-2">
-            {/* CTA Button */}
-            {isAgency && (
+            <div className="flex items-center gap-2">
               <motion.a 
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -256,21 +252,10 @@ export default function Home() {
               >
                 contact us
               </motion.a>
-            )}
-
-            {/* BIC Apply - Small */}
-            {!isAgency && (
-              <motion.button 
-                whileHover={{ scale: 1.02 }}
-                onClick={() => router.push(user ? "/apply/register" : "/apply/login")}
-                className="bg-black text-white px-8 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.1em] hover:bg-[#F3D7A7] hover:text-black transition-all"
-              >
-                Apply
-              </motion.button>
-            )}
+            </div>
           </div>
-        </div>
-      </motion.header>
+        </motion.header>
+      )}
 
       <AnimatePresence mode="wait">
         {isAgency ? (
