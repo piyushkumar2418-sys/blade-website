@@ -604,89 +604,48 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="py-60 px-6 md:px-24 bg-white relative overflow-hidden border-b border-black/5">
-              <div className="max-w-7xl mx-auto space-y-32">
-                {/* HEADER AREA */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end">
-                  <div className="space-y-12">
-                    <div className="inline-flex items-center gap-4 text-black/20">
-                      <span className="text-[10px] font-bold tracking-[0.5em]">[ 01 // THE THESIS ]</span>
-                      <div className="h-[1px] w-20 bg-black/10" />
+            <section className="py-64 px-6 md:px-24 bg-white relative overflow-hidden border-b border-black/5">
+              <div className="max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-start">
+                  
+                  {/* LEFT COLUMN: MANIFESTO */}
+                  <div className="lg:col-span-7 space-y-16">
+                    <div className="inline-flex items-center gap-4">
+                      <span className="text-[10px] font-bold tracking-[0.4em] text-black/30 uppercase">Institutional Thesis // 2026</span>
+                      <div className="h-[1px] w-12 bg-black/10" />
                     </div>
-                    <h2 className="text-6xl md:text-[100px] font-bold uppercase tracking-tighter leading-[0.8] text-black">
-                      Eliminate the <br/> <span className="text-black/10">Theoretical.</span>
+                    
+                    <h2 className="text-7xl md:text-[130px] font-medium tracking-tight leading-[0.8] text-black">
+                      The <br/> Architecture <br/> of <span className="font-serif italic text-black/10">Results.</span>
                     </h2>
-                  </div>
-                  <div className="max-w-md pb-4">
-                    <p className="text-xl text-black/40 leading-relaxed font-light uppercase tracking-widest">
-                      Most education is entertainment. <br/> This is an operation.
+                    
+                    <p className="text-2xl md:text-3xl text-black/40 leading-relaxed font-light max-w-xl">
+                      Theoretical knowledge is a liability in high-velocity markets. We deploy infrastructure that produces tangible extraction.
                     </p>
                   </div>
-                </div>
 
-                {/* PRINCIPLES GRID */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-black/5 border border-black/5">
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="bg-white p-12 md:p-16 space-y-12 group hover:bg-black transition-colors duration-700"
-                  >
-                    <div className="flex justify-between items-start">
-                      <span className="text-3xl font-bold tracking-tighter text-black/10 group-hover:text-white/20 transition-colors">01</span>
-                      <div className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:border-white/20">
-                        <ArrowUpRight size={14} className="text-black/20 group-hover:text-white transition-colors" />
-                      </div>
-                    </div>
+                  {/* RIGHT COLUMN: TECHNICAL SPECS */}
+                  <div className="lg:col-span-5 pt-20 lg:pt-48 space-y-20">
                     <div className="space-y-6">
-                      <h4 className="text-xl font-bold uppercase tracking-tight text-black group-hover:text-white transition-colors">Deployment</h4>
-                      <p className="text-black/40 text-sm leading-relaxed group-hover:text-white/60 transition-colors">
-                        We don&apos;t teach theory. We deploy operational infrastructure directly into your workflow to extract immediate market value.
+                      <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-black">01 / Deployment</h4>
+                      <p className="text-sm text-black/50 leading-relaxed max-w-sm">
+                        Direct integration of operational systems into your existing workflow. We don&apos;t share ideas; we deploy code and protocol.
                       </p>
                     </div>
-                  </motion.div>
-
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 }}
-                    className="bg-white p-12 md:p-16 space-y-12 group hover:bg-black transition-colors duration-700"
-                  >
-                    <div className="flex justify-between items-start">
-                      <span className="text-3xl font-bold tracking-tighter text-black/10 group-hover:text-white/20 transition-colors">02</span>
-                      <div className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:border-white/20">
-                        <TrendingUp size={14} className="text-black/20 group-hover:text-white transition-colors" />
-                      </div>
-                    </div>
-                    <div className="space-y-6">
-                      <h4 className="text-xl font-bold uppercase tracking-tight text-black group-hover:text-white transition-colors">Velocity</h4>
-                      <p className="text-black/40 text-sm leading-relaxed group-hover:text-white/60 transition-colors">
-                        Revenue-first architecture designed for rapid market extraction. Every system is built for scale and maximum capital efficiency.
+                    <div className="space-y-6 border-t border-black/5 pt-12">
+                      <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-black">02 / Velocity</h4>
+                      <p className="text-sm text-black/50 leading-relaxed max-w-sm">
+                        Infrastructure built to sustain exponential growth without operational collapse. High-velocity systems for high-ticket results.
                       </p>
                     </div>
-                  </motion.div>
-
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 }}
-                    className="bg-white p-12 md:p-16 space-y-12 group hover:bg-black transition-colors duration-700"
-                  >
-                    <div className="flex justify-between items-start">
-                      <span className="text-3xl font-bold tracking-tighter text-black/10 group-hover:text-white/20 transition-colors">03</span>
-                      <div className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:border-white/20">
-                        <Lock size={14} className="text-black/20 group-hover:text-white transition-colors" />
-                      </div>
-                    </div>
-                    <div className="space-y-6">
-                      <h4 className="text-xl font-bold uppercase tracking-tight text-black group-hover:text-white transition-colors">Institutional</h4>
-                      <p className="text-black/40 text-sm leading-relaxed group-hover:text-white/60 transition-colors">
-                        Institutional-grade standards applied to the creator economy. We build the infrastructure that the top 0.1% uses to dominate.
+                    <div className="space-y-6 border-t border-black/5 pt-12">
+                      <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-black">03 / Elite Output</h4>
+                      <p className="text-sm text-black/50 leading-relaxed max-w-sm">
+                        Access to the same institutional-grade standards used by the top 0.1% to dominate the creator economy.
                       </p>
                     </div>
-                  </motion.div>
+                  </div>
+
                 </div>
               </div>
             </section>
