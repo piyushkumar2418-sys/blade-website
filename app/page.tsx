@@ -2,7 +2,7 @@
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, useInView, Variants, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Zap, Award, Eye, ArrowRight, TrendingUp, Shield, Target, Rocket, BarChart3, Binary, Lock, ShieldCheck, Instagram, MessageCircle } from "lucide-react";
+import { ArrowUpRight, Zap, Award, Eye, ArrowRight, TrendingUp, Shield, Target, Rocket, BarChart3, Binary, Lock, ShieldCheck, MessageCircle } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
@@ -18,6 +18,26 @@ const fadeUp: Variants = {
     transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
   }
 };
+
+const InstagramIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
+
 
 const SectionLabel = ({ children, light = false, gold = false }: { children: React.ReactNode, light?: boolean, gold?: boolean }) => (
   <div className="flex items-center gap-4 mb-8 text-left">
@@ -832,18 +852,18 @@ export default function Home() {
                   </motion.button>
                 </div>
 
-                <div className="pt-40 text-center space-y-10">
-                  <div className="flex items-center justify-center gap-8">
-                    <a href="https://wa.me/917082176274" target="_blank" className="p-4 border border-white/5 rounded-full text-white/20 hover:text-[#F3D7A7] hover:border-[#F3D7A7]/30 transition-all group">
-                      <MessageCircle size={20} className="group-hover:scale-110 transition-transform" />
+                <div className="pt-40 text-center space-y-12">
+                  <div className="flex items-center justify-center gap-10">
+                    <a href="https://wa.me/917082176274" target="_blank" className="p-5 border border-white/10 rounded-full text-white/40 hover:text-[#F3D7A7] hover:border-[#F3D7A7]/30 transition-all group backdrop-blur-sm">
+                      <MessageCircle size={22} className="group-hover:scale-110 transition-transform" />
                     </a>
-                    <a href="https://www.instagram.com/bladeinnercircle/" target="_blank" className="p-4 border border-white/5 rounded-full text-white/20 hover:text-[#F3D7A7] hover:border-[#F3D7A7]/30 transition-all group">
-                      <Instagram size={20} className="group-hover:scale-110 transition-transform" />
+                    <a href="https://www.instagram.com/bladeinnercircle/" target="_blank" className="p-5 border border-white/10 rounded-full text-white/40 hover:text-[#F3D7A7] hover:border-[#F3D7A7]/30 transition-all group backdrop-blur-sm">
+                      <InstagramIcon size={22} className="group-hover:scale-110 transition-transform" />
                     </a>
                   </div>
-                  <div className="space-y-4">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.8em] text-white/40">Stop Consuming. Start Operating.</p>
-                    <p className="text-[9px] font-bold uppercase tracking-[0.4em] text-white/20">© 2026 Blade // Institutional Access</p>
+                  <div className="space-y-6">
+                    <p className="text-[11px] font-bold uppercase tracking-[1em] text-white/60">Stop Consuming. Start Operating.</p>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.5em] text-white/30">© 2026 Blade // Institutional Access</p>
                   </div>
                 </div>
               </div>
