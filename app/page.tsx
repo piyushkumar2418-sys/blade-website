@@ -197,25 +197,30 @@ export default function Home() {
       )}
 
       {/* SEPARATE LOGO & TOGGLE FROM HEADER */}
-      <div className="fixed top-8 left-8 z-[110] pointer-events-auto">
+      <div className="fixed top-6 left-6 md:top-8 md:left-8 z-[110] pointer-events-auto">
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-          className="w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-105"
+          className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 hover:scale-105"
         >
           <img src="/blade-logo.png" alt="Blade Logo" className="w-full h-full object-contain brightness-0 invert" />
         </button>
       </div>
 
-      <div className="fixed top-8 right-8 z-[110] pointer-events-auto">
+      <div className="fixed top-6 right-6 md:top-8 md:right-8 z-[110] pointer-events-auto">
         <button 
           onClick={toggleMode} 
-          className={`px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-[0.1em] transition-all hidden sm:block ${
+          className={`px-4 py-2.5 md:px-6 md:py-3 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-[0.1em] transition-all ${
             isAgency 
             ? "bg-white/5 border border-white/10 text-white hover:bg-white/10 backdrop-blur-md" 
             : "bg-black/5 border border-black/10 text-black hover:bg-black/10 backdrop-blur-md"
           }`}
         >
-          {isAgency ? "The Inner Circle" : "Exit To Agency"}
+          {isAgency ? (
+            <span className="flex items-center gap-2">
+              <span className="hidden xs:inline">The Inner Circle</span>
+              <span className="xs:hidden">Circle</span>
+            </span>
+          ) : "Exit To Agency"}
         </button>
       </div>
 
@@ -223,10 +228,10 @@ export default function Home() {
       {isAgency && (
         <motion.header 
           style={{ opacity: navButtonOpacity }}
-          className="fixed top-8 left-0 right-0 z-[100] px-6 flex justify-center pointer-events-none font-['Helvetica',_sans-serif]"
+          className="fixed bottom-8 md:top-8 md:bottom-auto left-0 right-0 z-[100] px-6 flex justify-center pointer-events-none font-['Helvetica',_sans-serif]"
         >
-          <div className="flex items-center gap-2 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-full p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto relative group">
-            <nav className="flex items-center gap-1 px-2">
+          <div className="flex items-center gap-1.5 md:gap-2 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-full p-1 md:p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto relative group">
+            <nav className="flex items-center gap-0.5 md:gap-1 px-1 md:px-2">
               {[
                 { label: 'Process', id: 'section_process' },
                 { label: 'Solutions', id: 'section_solutions' },
@@ -235,20 +240,20 @@ export default function Home() {
                 <a 
                   key={item.label} 
                   href={`#${item.id}`}
-                  className="px-5 py-2.5 text-white/50 hover:text-white text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-300 rounded-full hover:bg-white/5"
+                  className="px-3 md:px-5 py-2 md:py-2.5 text-white/50 hover:text-white text-[10px] md:text-[11px] font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] transition-all duration-300 rounded-full hover:bg-white/5"
                 >
                   {item.label}
                 </a>
               ))}
             </nav>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center">
               <motion.a 
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 href="https://calendly.com/piyushkumar2418/30min" 
                 target="_blank"
-                className="bg-[#F3D7A7] text-black px-8 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.05em] hover:shadow-[0_0_30px_rgba(243,215,167,0.3)] transition-all shadow-xl"
+                className="bg-[#F3D7A7] text-black px-5 md:px-8 py-3 md:py-3.5 rounded-full text-[10px] md:text-[11px] font-bold uppercase tracking-[0.05em] hover:shadow-[0_0_30px_rgba(243,215,167,0.3)] transition-all shadow-xl whitespace-nowrap"
               >
                 contact us
               </motion.a>
