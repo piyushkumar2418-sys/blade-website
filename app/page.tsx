@@ -1,9 +1,8 @@
 "use client";
-// deployment_trigger: 2026-04-22_05:30
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, useInView, Variants, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Zap, Award, Eye, ArrowRight, TrendingUp, BarChart3, Binary, Play } from "lucide-react";
+import { ArrowUpRight, Zap, Award, Eye, ArrowRight, TrendingUp, Shield, Target, Rocket, BarChart3, Binary, Lock } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
@@ -26,11 +25,18 @@ const SectionLabel = ({ children, light = false }: { children: React.ReactNode, 
   </div>
 );
 
-const WorkItem = ({ work, aspect, index }: { work: any, aspect: string, index: number }) => {
+const WorkItem = ({ work, aspect, index, autoplay = false }: { work: any, aspect: string, index: number, autoplay?: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10%" });
+
+  // For autoplay items, play as soon as they come into view
+  React.useEffect(() => {
+    if (autoplay && isInView && videoRef.current) {
+      videoRef.current.play().catch(() => null);
+    }
+  }, [autoplay, isInView]);
 
   return (
     <motion.div
@@ -45,12 +51,15 @@ const WorkItem = ({ work, aspect, index }: { work: any, aspect: string, index: n
       <motion.a 
         href={work.link} 
         target="_blank"
-        onMouseEnter={() => { setIsHovered(true); videoRef.current?.play().catch(() => null); }}
-        onMouseLeave={() => { setIsHovered(false); videoRef.current?.pause(); if(videoRef.current) videoRef.current.currentTime = 0; }}
+        onMouseEnter={() => { if (!autoplay) { setIsHovered(true); videoRef.current?.play().catch(() => null); } }}
+        onMouseLeave={() => { if (!autoplay) { setIsHovered(false); videoRef.current?.pause(); if(videoRef.current) videoRef.current.currentTime = 0; } }}
         className={`group relative block ${aspect} bg-[#0a0a0a] border border-white/5 overflow-hidden rounded-sm shadow-2xl cursor-none`}
       >
-        <img src={work.img} alt={work.title} className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`} />
-        <video ref={videoRef} key={work.video} src={work.video} loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-10" />
+        {/* Thumbnail — hidden for autoplay items */}
+        {!autoplay && (
+          <img src={work.img} alt={work.title} className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`} />
+        )}
+        <video ref={videoRef} key={work.video} src={work.video} loop muted playsInline autoPlay={autoplay} className="absolute inset-0 w-full h-full object-cover z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent z-30" />
         <div className="absolute bottom-5 left-5 z-40 text-left">
           <span className="text-[#F3D7A7] text-[8px] uppercase tracking-[0.3em] block mb-1 font-bold">{work.category}</span>
@@ -70,38 +79,61 @@ const LogoMarquee = () => {
     { name: "Nykaa", url: "/nykaa.png" },
     { name: "Pantaloons", url: "/pantaloons.svg" },
     { name: "Mirchi", url: "/mirchi.jpg" },
-    { name: "WTF", url: "/wtf.svg" },
+    { name: "WTF", url: "/wtf.jpg" },
     { name: "ThriveStack", url: "/thrivestack.jpg" },
     { name: "SuperYou", url: "/superyou.jpg" },
     { name: "ActorsTruth", url: "/actorstruth.png" },
     { name: "FamApp", url: "/fampay.png" },
   ];
+
   const doubledLogos = [...logos, ...logos];
+
   return (
     <div className="relative w-full overflow-hidden py-24 bg-black/50 border-y border-white/5">
-      <motion.div 
-        initial={{ x: 0 }}
-        animate={{ x: "-50%" }}
-        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-        className="flex gap-12 items-center px-12"
-      >
-        {doubledLogos.map((logo, i) => (
-          <div key={i} className="flex-shrink-0 flex items-center justify-center p-6 bg-white/[0.08] backdrop-blur-md border border-white/[0.12] rounded-3xl min-w-[180px] h-[80px]">
-            <img src={logo.url} alt={logo.name} className="h-10 w-auto object-contain" />
-          </div>
-        ))}
-      </motion.div>
+      <div className="max-w-[1400px] mx-auto px-6 mb-16 flex items-center justify-between">
+         <div className="flex items-center gap-4">
+            <div className="h-[1px] w-8 bg-[#F3D7A7]" />
+            <h3 className="text-white text-xl md:text-3xl font-bold uppercase tracking-tighter">Trusted by <span className="text-[#F3D7A7]">Industry Leaders</span></h3>
+         </div>
+         <div className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-bold hidden md:block">Institutional Network</div>
+      </div>
+      
+      <div className="flex whitespace-nowrap overflow-hidden relative">
+        <div className="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-black to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-black to-transparent z-10" />
+
+        <motion.div 
+          initial={{ x: 0 }}
+          animate={{ x: "-50%" }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          className="flex gap-8 md:gap-12 items-center px-12"
+        >
+          {doubledLogos.map((logo, i) => (
+            <div 
+              key={i} 
+              className="flex-shrink-0 flex items-center justify-center p-4 md:p-6 bg-white/[0.08] backdrop-blur-md border border-white/[0.12] rounded-2xl md:rounded-3xl hover:bg-white/[0.12] hover:border-white/[0.2] transition-all duration-500 group cursor-pointer"
+              style={{ minWidth: '180px', height: '80px' }}
+            >
+              <img 
+                src={logo.url} 
+                alt={logo.name} 
+                className="h-8 md:h-10 w-auto max-w-[140px] object-contain transition-all duration-500 group-hover:scale-110"
+                onError={(e) => {
+                   (e.target as any).style.display = 'none';
+                   const parent = (e.target as any).parentElement;
+                   const span = document.createElement('span');
+                   span.innerText = logo.name;
+                   span.className = "text-white/60 text-[10px] font-bold uppercase tracking-[0.2em]";
+                   parent.appendChild(span);
+                }}
+              />
+            </div>
+          ))}
+        </motion.div>
+      </div>
     </div>
   );
 };
-
-const ProcessStep = ({ number, title, desc }: { number: string, title: string, desc: string }) => (
-  <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="space-y-6 text-left">
-    <div className="text-6xl font-bold text-white/5 text-left">{number}</div>
-    <h3 className="text-2xl font-bold uppercase tracking-tight text-white text-left">{title}</h3>
-    <p className="text-white/40 leading-relaxed text-lg font-light text-left">{desc}</p>
-  </motion.div>
-);
 
 export default function Home() {
   const { user, profile } = useAuth();
@@ -109,6 +141,8 @@ export default function Home() {
   const [siteMode, setSiteMode] = useState<"agency" | "innerCircle">("agency");
   const containerRef = useRef(null);
   const philosophyLeftRef = useRef(null);
+  const isPhilosophyLeftInView = useInView(philosophyLeftRef, { once: true, margin: "-20%" });
+  
   const { scrollYProgress } = useScroll({ target: containerRef });
   const isAgency = siteMode === "agency";
   const navButtonOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
@@ -119,16 +153,16 @@ export default function Home() {
   };
 
   const youtubeWorks = [
-    { title: "Nikhil Kamath", category: "YouTube", link: "https://youtu.be/YY7J1pHfSyY", video: "/preview1.mp4", img: "/thumb1.jpg" },
-    { title: "Money with Swabi", category: "YouTube", link: "https://www.youtube.com/@Moneywithswabi/videos", video: "/preview2.mp4", img: "/thumb2.jpg" },
-    { title: "Podcast", category: "Podcast", link: "https://youtu.be/i7uwh0CzfRM", video: "/preview3.mp4", img: "/thumb3.jpg" },
+    { title: "Nikhil Kamath", category: "Storytelling", link: "https://youtu.be/YY7J1pHfSyY", video: "/preview1.mp4", img: "/thumb1.jpg" },
+    { title: "Money with Swabi", category: "Infotainment", link: "https://www.youtube.com/@Moneywithswabi/videos", video: "/preview2.mp4", img: "/thumb2.jpg" },
+    { title: "Right Now With Rohan", category: "Podcast", link: "https://youtu.be/i7uwh0CzfRM", video: "/preview3.mp4", img: "/thumb3.jpg" },
   ];
 
   const verticalWorks = [
-    { title: "Visual Dominance", category: "Reel", link: "https://www.instagram.com/reel/DDrxL2CMYCB/", video: "/preview5.mp4", img: "/thumb5.webp" },
-    { title: "Editorial Series", category: "Reel", link: "https://www.instagram.com/katemackz/", video: "/preview6.mp4", img: "/thumb6.webp" },
-    { title: "Dynamic Flow", category: "Reel", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.jpg", img: "/thumb7.jpg" },
-    { title: "Retention Edit", category: "Reel", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" },
+    { title: "Visual Dominance", category: "Retention", link: "https://www.instagram.com/reel/DDrxL2CMYCB/", video: "/preview5.mp4", img: "/thumb5.webp" },
+    { title: "Editorial Series", category: "Vlog Edit", link: "https://www.instagram.com/katemackz/", video: "/preview6.mp4", img: "/thumb6.webp" },
+    { title: "Dynamic Flow", category: "Motion Graphics", link: "https://www.instagram.com/DKTmhQqqF6M/", video: "/preview7.mp4", img: "/thumb7.jpg" },
+    { title: "Retention Edit", category: "Viral Edit", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" },
   ];
 
   const founderStats = [
@@ -150,32 +184,87 @@ export default function Home() {
     <motion.main 
       ref={containerRef} 
       animate={{ backgroundColor: isAgency ? "#000000" : "#ffffff" }}
-      className="relative overflow-x-hidden selection:bg-[#F3D7A7] selection:text-black font-['Helvetica',_sans-serif]"
+      className="relative overflow-x-hidden selection:bg-[#F3D7A7] selection:text-black"
+      style={{ transition: "background-color 0.8s ease" }}
     >
       <CustomCursor />
-      {isAgency && ( <> <DrawingCanvas color="#F3D7A7" /> <Scene3D /> </> )}
+      
+      {isAgency && (
+        <>
+          <DrawingCanvas color="#F3D7A7" />
+          <Scene3D />
+        </>
+      )}
 
-      {/* PREMIUM GLOBAL HEADER */}
+      {/* COMPACT PREMIUM HEADER */}
       <motion.header 
         style={{ opacity: navButtonOpacity }}
-        className="fixed top-0 left-0 right-0 z-[100] px-6 py-8 flex justify-center pointer-events-none"
+        className="fixed top-8 left-0 right-0 z-[100] px-6 flex justify-center pointer-events-none font-['Helvetica',_sans-serif]"
       >
-        <div className="max-w-7xl w-full flex items-center justify-between bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full px-10 py-4 shadow-[0_30px_60px_rgba(0,0,0,0.8)] pointer-events-auto relative overflow-hidden group">
-          <div className="flex items-center gap-12">
-            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-white font-black text-2xl tracking-tighter italic hover:scale-110 transition-transform">B.</button>
-            <nav className="hidden lg:flex items-center gap-10">
-              {['Process', 'Solutions', 'Edits'].map((label) => (
-                <a key={label} href={`#section_${label.toLowerCase()}`} className="text-white/40 hover:text-[#F3D7A7] text-[11px] font-bold uppercase tracking-[0.4em] transition-all">{label}</a>
+        <div className="flex items-center gap-2 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-full p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto relative group">
+          {/* Brand Logo Pill */}
+          <button 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+            className="w-12 h-12 flex items-center justify-center bg-white/5 hover:bg-white/10 rounded-full text-white font-bold text-xl transition-all duration-300 hover:scale-105"
+          >
+            B.
+          </button>
+          
+          {/* Navigation Links Capsule */}
+          {isAgency && (
+            <nav className="hidden md:flex items-center gap-1 px-2">
+              {[
+                { label: 'Process', id: 'section_process' },
+                { label: 'Solutions', id: 'section_solutions' },
+                { label: 'Edits', id: 'section_edits' }
+              ].map((item) => (
+                <a 
+                  key={item.label} 
+                  href={`#${item.id}`}
+                  className="px-5 py-2.5 text-white/50 hover:text-white text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-300 rounded-full hover:bg-white/5"
+                >
+                  {item.label}
+                </a>
               ))}
             </nav>
-          </div>
-          <div className="flex items-center gap-6">
-            <button onClick={toggleMode} className="bg-white/5 border border-white/10 px-8 py-3 rounded-full text-white text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-white/10 transition-all">
-              {isAgency ? "The Inner Circle" : "Exit to Agency"}
+          )}
+
+          <div className="flex items-center gap-2">
+            {/* Mode Toggle Capsule */}
+            <button 
+              onClick={toggleMode} 
+              className={`px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-[0.1em] transition-all hidden sm:block ${
+                isAgency 
+                ? "bg-white/5 border border-white/10 text-white hover:bg-white/10" 
+                : "bg-black/5 border border-black/10 text-black hover:bg-black/10"
+              }`}
+            >
+              {isAgency ? "Inner Circle" : "Agency"}
             </button>
-            <motion.a whileHover={{ scale: 1.05 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="bg-[#F3D7A7] text-black px-10 py-4 rounded-full text-[11px] font-black uppercase tracking-[0.2em] transition-all shadow-xl">
-              {isAgency ? "contact us" : "Apply Now"}
-            </motion.a>
+
+            {/* CTA Button */}
+            {isAgency && (
+              <motion.a 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                href="https://calendly.com/piyushkumar2418/30min" 
+                target="_blank"
+                className="bg-[#F3D7A7] text-black px-8 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.05em] hover:shadow-[0_0_30px_rgba(243,215,167,0.3)] transition-all shadow-xl"
+              >
+                book a discovery call
+              </motion.a>
+            )}
+
+            {/* BIC Apply - Small */}
+            {!isAgency && (
+              <motion.button 
+                whileHover={{ scale: 1.02 }}
+                onClick={() => router.push(user ? "/apply/register" : "/apply/login")}
+                className="bg-black text-white px-8 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.1em] hover:bg-[#F3D7A7] hover:text-black transition-all"
+              >
+                Apply
+              </motion.button>
+            )}
           </div>
         </div>
       </motion.header>
@@ -202,55 +291,228 @@ export default function Home() {
                     <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-4 block font-bold text-left">The Visionary</span>
                     <h2 className="text-5xl md:text-8xl font-bold leading-[0.85] tracking-[-0.06em] uppercase text-white mb-16 text-left">Systematized <br/> Visual <br/> Dominance.</h2>
                   </motion.div>
-                </div>
-                <div className="space-y-32 text-left">
-                  <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-left">
-                    <h3 className="text-3xl font-bold uppercase tracking-tight text-white mb-6 text-left">Institutional Credibility</h3>
-                    <p className="text-white/40 leading-relaxed text-xl font-light text-left">We don&apos;t just edit videos. We build visual infrastructure for the world&apos;s most influential voices.</p>
+                  <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1.2 }}>
+                    <p className="text-white/70 text-xl md:text-2xl lg:text-3xl font-medium leading-[1.4] tracking-tight text-left">
+                      <span className="text-white font-bold">Blade</span> exists in a space where consistency matters more than claims. Delivered content that holds value as audiences evolve.
+                    </p>
+                    <div className="h-[1px] bg-[#F3D7A7]/40 mt-12 w-24" />
                   </motion.div>
                 </div>
-              </div>
-            </section>
+                <div className="max-w-xs md:max-w-md ml-auto text-left group">
+                  <div className="relative aspect-[4/5] w-full mb-10 overflow-hidden bg-black border border-white/10 shadow-2xl">
+                    {/* Main Image */}
+                    <img 
+                      src="/piyush.png" 
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105" 
+                      alt="Piyush" 
+                    />
+                    
+                    {/* Founder Label */}
+                    <div className="absolute bottom-6 left-6 z-20">
+                      <div className="bg-black/80 backdrop-blur-md px-6 py-3 border border-white/20 flex items-center gap-4">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#F3D7A7] animate-pulse" />
+                        <div className="flex flex-col">
+                          <span className="text-[11px] text-white font-bold uppercase tracking-[0.2em]">Piyush</span>
+                          <span className="text-[9px] text-[#F3D7A7] font-medium uppercase tracking-[0.1em]">Founder- Blade Media</span>
+                        </div>
+                      </div>
+                    </div>
 
-            <LogoMarquee />
-
-            {/* SOLUTIONS SECTION */}
-            <section id="section_solutions" className="py-32 px-6 md:px-24 border-t border-white/5 relative z-20">
-              <div className="max-w-[1400px] mx-auto">
-                <SectionLabel>Institutional Solutions</SectionLabel>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/10">
-                   {[
-                     { title: "Visual Identity", desc: "Developing a proprietary visual language that separates you from the noise." },
-                     { title: "Retention Systems", desc: "Engineered editing protocols designed to hold attention through psychological triggers." },
-                     { title: "Growth Infrastructure", desc: "Building the engine that powers multi-channel distribution and consistent scale." },
-                     { title: "Capital Extraction", desc: "Converting institutional attention into measurable capital and market authority." }
-                   ].map((s, i) => (
-                     <div key={i} className="bg-black p-12 md:p-20 hover:bg-white/5 transition-all group">
-                        <h4 className="text-3xl font-bold uppercase tracking-tight text-white mb-6 group-hover:text-[#F3D7A7] transition-colors">{s.title}</h4>
-                        <p className="text-white/40 text-lg leading-relaxed max-w-sm">{s.desc}</p>
-                     </div>
-                   ))}
+                    {/* Gradient Overlay for better label readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                  </div>
+                  <p className="text-white/60 text-lg font-light leading-relaxed text-left">&quot;We decoded content through an early obsession. Mastering the silent mechanics of distribution.&quot;</p>
+                  <div className="text-[#F3D7A7] text-2xl font-bold mt-8 text-left">— Piyush</div>
                 </div>
               </div>
             </section>
+
+            {/* LOGO MARQUEE */}
+            <LogoMarquee />
 
             {/* PROCESS SECTION */}
             <section id="section_process" className="py-32 px-6 md:px-24 border-t border-white/5 relative z-20">
               <div className="max-w-[1400px] mx-auto">
-                <div className="mb-24 text-left">
-                  <SectionLabel>The Protocol</SectionLabel>
-                  <h2 className="text-6xl md:text-9xl font-bold uppercase tracking-[-0.06em] leading-[0.8] text-white text-left">Engineered <br/> Velocity.</h2>
+
+                {/* Header */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-12 text-left">
+                  <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
+                    <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] mb-4 block font-bold text-left">The Blade System</span>
+                    <h2 className="text-5xl md:text-8xl font-bold leading-[0.85] tracking-[-0.06em] uppercase text-white text-left">
+                      How we<br/>operate.
+                    </h2>
+                  </motion.div>
+                  <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="max-w-sm text-left">
+                    <p className="text-white/40 text-lg leading-relaxed text-left">
+                      We become your remote content engine. You focus on your brand — we handle everything from raw footage to distribution-ready assets.
+                    </p>
+                    <div className="mt-8 inline-flex items-center gap-4 px-6 py-3 border border-[#F3D7A7]/30 rounded-full">
+                      <div className="w-2 h-2 rounded-full bg-[#F3D7A7] animate-pulse" />
+                      <span className="text-[#F3D7A7] font-bold uppercase tracking-widest text-[10px]">90–120 Videos / Month</span>
+                    </div>
+                  </motion.div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                  <ProcessStep number="01" title="Strategic Synthesis" desc="We deconstruct your brand architecture to find the high-leverage content hooks." />
-                  <ProcessStep number="02" title="Systemic Execution" desc="Our institutional editing engine processes your vision into premium visual assets." />
-                  <ProcessStep number="03" title="Capital Extraction" desc="Deployment across all platforms with systems designed for maximum retention and growth." />
+
+                {/* Steps Grid */}
+                <div className="relative text-left">
+                  {/* 3D Background Glows */}
+                  <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#F3D7A7]/10 rounded-full blur-[120px] pointer-events-none" />
+                  <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#F3D7A7]/5 rounded-full blur-[120px] pointer-events-none" />
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10 text-left">
+                    {[
+                      { num: "01", title: "Onboard & Audit", desc: "We decode your existing content, audience data, and brand positioning. A full teardown before we build.", time: "Week 1–2" },
+                      { num: "02", title: "Build The System", desc: "Content frameworks, editorial calendars, style guides. We engineer the repeatable machine before we touch the timeline.", time: "Week 2–3" },
+                      { num: "03", title: "High-Velocity Output", desc: "90–120 production-ready assets per month. Short-form, long-form, platform-native. Your brand, everywhere.", time: "Ongoing" },
+                    ].map((step, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7, delay: i * 0.15 }}
+                        whileHover={{ 
+                          y: -10,
+                          rotateX: 2,
+                          rotateY: -2,
+                          transition: { duration: 0.3 }
+                        }}
+                        className="p-10 md:p-12 group bg-white/[0.05] backdrop-blur-xl border border-white/10 rounded-2xl hover:border-[#F3D7A7]/50 hover:bg-white/[0.08] transition-all duration-500 shadow-2xl relative overflow-hidden text-left"
+                        style={{ perspective: "1000px" }}
+                      >
+                        {/* 3D Inner Glow */}
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-[#F3D7A7]/5 rounded-full blur-3xl group-hover:bg-[#F3D7A7]/10 transition-colors duration-700" />
+                        
+                        <div className="text-[80px] leading-none font-bold text-[#F3D7A7]/20 group-hover:text-[#F3D7A7]/40 transition-colors duration-700 mb-8 select-none tracking-tighter italic text-left">
+                          {step.num}
+                        </div>
+                        <h3 className="text-2xl font-bold uppercase tracking-tight text-white mb-6 group-hover:text-[#F3D7A7] transition-colors duration-300 text-left">
+                          {step.title}
+                        </h3>
+                        <p className="text-white/70 text-base leading-relaxed mb-12 font-medium text-left">
+                          {step.desc}
+                        </p>
+                        <div className="pt-8 border-t border-white/10 text-left">
+                          <span className="text-[#F3D7A7] text-[11px] font-bold uppercase tracking-[0.4em] px-4 py-2 bg-white/5 rounded-full border border-white/5">
+                            {step.time}
+                          </span>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Team + Big Number */}
+                <div className="mt-24 grid grid-cols-1 md:grid-cols-2 gap-20 items-center relative text-left">
+                  {/* 3D Depth Orb behind Stat */}
+                  <div className="absolute top-1/2 right-0 -translate-y-1/2 w-64 h-64 bg-[#F3D7A7]/10 rounded-full blur-[100px] pointer-events-none z-0" />
+                  
+                  <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative z-10 text-left">
+                    <span className="text-[#F3D7A7] text-[11px] uppercase tracking-[0.4em] font-bold block mb-10 pl-2 border-l-2 border-[#F3D7A7] text-left">Your Dedicated Remote Team</span>
+                    <div className="grid grid-cols-2 gap-4 text-left">
+                      {['Senior Editors', 'Content Strategists', 'Motion Designers', 'Script Writers', 'Project Managers', 'QA Reviewers'].map((role, i) => (
+                        <motion.div 
+                          key={i} 
+                          whileHover={{ scale: 1.05, backgroundColor: "rgba(243, 215, 167, 0.05)" }}
+                          className="flex items-center gap-4 px-6 py-5 bg-white/[0.03] backdrop-blur-md border border-white/[0.08] hover:border-[#F3D7A7]/40 transition-all duration-300 group rounded-xl text-left"
+                        >
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#F3D7A7]/30 group-hover:bg-[#F3D7A7] group-hover:shadow-[0_0_8px_#F3D7A7] transition-all duration-300" />
+                          <span className="text-white/60 group-hover:text-white text-[11px] font-bold uppercase tracking-[0.2em] transition-colors duration-300">{role}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="text-right relative z-10">
+                    <div className="relative inline-block">
+                      <div className="text-[90px] md:text-[140px] font-bold leading-none tracking-[-0.06em] text-white drop-shadow-[0_10px_30px_rgba(243,215,167,0.15)] text-right">
+                        10,000<span className="text-[#F3D7A7]">+</span>
+                      </div>
+                      <div className="absolute -inset-4 bg-[#F3D7A7]/5 blur-2xl rounded-full -z-10 animate-pulse" />
+                    </div>
+                    <p className="text-white/60 text-[12px] md:text-[14px] uppercase tracking-[0.6em] font-bold mt-4 pr-2 text-right">Videos Produced</p>
+                    
+                    <motion.a
+                      href="https://calendly.com/piyushkumar2418/30min"
+                      target="_blank"
+                      whileHover={{ 
+                        scale: 1.05,
+                        boxShadow: "0 0 40px rgba(243, 215, 167, 0.2)"
+                      }}
+                      className="inline-flex items-center gap-4 mt-16 px-12 py-6 bg-transparent border border-[#F3D7A7]/50 text-[#F3D7A7] rounded-full font-bold uppercase text-[11px] tracking-[0.3em] hover:bg-[#F3D7A7] hover:text-black hover:border-[#F3D7A7] transition-all duration-500 shadow-xl"
+                    >
+                      book a discovery call <ArrowUpRight size={16} />
+                    </motion.a>
+                  </motion.div>
+                </div>
+
+              </div>
+            </section>
+
+            {/* SOLUTIONS SECTION */}
+            <section id="section_solutions" className="py-32 px-6 md:px-24 bg-black border-t border-white/5 relative z-20 overflow-hidden text-left">
+              {/* 3D Depth Glows */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#F3D7A7]/5 rounded-full blur-[160px] pointer-events-none" />
+
+              <div className="max-w-[1400px] mx-auto relative z-10 text-left">
+                <div className="mb-24 text-left">
+                  <SectionLabel light>Solutions</SectionLabel>
+                  <h2 className="text-4xl md:text-7xl font-bold uppercase tracking-tight leading-[0.85] text-white text-left">Strategic <br /><span className="text-[#F3D7A7]">Impact.</span></h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                  {[
+                    { 
+                      title: "Short-Form Mastery", 
+                      desc: "Engineered for retention. We ideate, script, and post-produce high-fidelity vertical content that commands attention across TikTok, Reels, and Shorts.",
+                      icon: <Rocket size={24} className="text-[#F3D7A7]" />
+                    },
+                    { 
+                      title: "High-Level Repurposing", 
+                      desc: "Building content flywheels. We deconstruct your long-form assets (Podcasts, Keynotes, Webinars) into a month's worth of distribution-ready highlights.",
+                      icon: <TrendingUp size={24} className="text-[#F3D7A7]" />
+                    },
+                    { 
+                      title: "Digital Assets", 
+                      desc: "Best-in-class launch videos, B2B trailers, and brand stories. We craft compelling visual narratives that build anticipation and drive conversions.",
+                      icon: <Award size={24} className="text-[#F3D7A7]" />
+                    },
+                    { 
+                      title: "Creative Direction", 
+                      desc: "Beyond editing. We become your remote brains, providing the strategic roadmap to ensure your content aligns with your premium positioning.",
+                      icon: <Target size={24} className="text-[#F3D7A7]" />
+                    }
+                  ].map((solution, i) => (
+                    <motion.div 
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: i * 0.1 }}
+                      whileHover={{ 
+                        scale: 1.02,
+                        rotateX: 1,
+                        rotateY: -1,
+                        transition: { duration: 0.3 }
+                      }}
+                      className="bg-white/[0.05] backdrop-blur-xl border border-white/10 p-12 md:p-16 space-y-8 rounded-3xl hover:border-[#F3D7A7]/50 hover:bg-white/[0.08] transition-all duration-500 group shadow-2xl text-left"
+                      style={{ perspective: "1000px" }}
+                    >
+                      <div className="p-5 bg-[#F3D7A7]/10 w-fit rounded-2xl border border-[#F3D7A7]/20 group-hover:bg-[#F3D7A7] transition-all duration-500 text-left">
+                        {React.cloneElement(solution.icon as React.ReactElement<any>, { 
+                          className: "text-[#F3D7A7] group-hover:text-black transition-colors duration-500" 
+                        })}
+                      </div>
+                      <h3 className="text-3xl font-bold uppercase tracking-tight text-white group-hover:text-[#F3D7A7] transition-colors duration-300 text-left">{solution.title}</h3>
+                      <p className="text-white/70 leading-relaxed text-lg font-medium text-left">{solution.desc}</p>
+                    </motion.div>
+                  ))}
                 </div>
               </div>
             </section>
 
             {/* GALLERIES */}
-            <section id="section_edits" className="py-32 px-6 md:px-12 relative z-20">
+            <section id="section_edits" className="py-32 px-6 md:px-12 relative z-20 text-left">
               <div className="max-w-[1400px] mx-auto w-full space-y-48">
                 <div className="text-left">
                   <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-[-0.06em] mb-12 text-white text-left">Selected Productions</h2>
@@ -261,7 +523,7 @@ export default function Home() {
                 <div className="text-left">
                   <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-[-0.06em] mb-12 text-[#F3D7A7] text-left">Viral Originals</h2>
                   <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-                    {verticalWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} /> ))}
+                    {verticalWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} autoplay={true} /> ))}
                   </div>
                 </div>
               </div>
@@ -272,51 +534,52 @@ export default function Home() {
           <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-black bg-white min-h-screen">
             
             <section className="h-screen flex flex-col justify-center px-6 md:px-24 border-b border-black/5 text-left">
-              <div className="flex justify-between items-start mb-8">
+              <div className="flex justify-between items-start mb-8 text-left">
                 <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.5em] font-bold block text-black/40 text-left">Blade Inner Circle</motion.span>
-                <div className="px-4 py-2 border border-black/10 bg-black/5 text-black font-bold uppercase tracking-[0.3em] text-[10px]">
+                <div className="px-4 py-2 border border-black/10 bg-black/5 text-black font-bold uppercase tracking-[0.3em] text-[10px] text-left">
                   May 2026 Batch
                 </div>
               </div>
               <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="text-[12vw] md:text-[8vw] font-bold leading-[0.85] tracking-[-0.06em] uppercase mb-12 text-left">The School of <br/> Modern Content.</motion.h1>
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 text-left">
                 <p className="text-2xl md:text-4xl text-black/60 leading-tight font-medium max-w-2xl text-left">Build your agency. <br/> From skill to first income.</p>
-                <div className="flex flex-col items-start md:items-end gap-6">
+                <div className="flex flex-col items-start md:items-end gap-6 text-left">
                   <span className="text-[#F3D7A7] font-bold uppercase tracking-[0.3em] text-[10px] border border-[#F3D7A7]/30 px-4 py-2 text-left">Cohort 01 — Applications Open</span>
-                  <button onClick={() => router.push(user ? "/apply/register" : "/apply/login")} className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-4 shadow-2xl">Apply now <ArrowUpRight size={18}/></button>
+                  <button onClick={() => router.push(user ? "/apply/register" : "/apply/login")} className="bg-black text-white px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all flex items-center gap-4 shadow-2xl text-left">Apply now <ArrowUpRight size={18}/></button>
                 </div>
               </div>
             </section>
 
             {/* THE CONTENT CRISIS */}
-            <section className="py-32 px-6 md:px-24 bg-black text-white">
-              <div className="max-w-7xl mx-auto">
+            <section className="py-32 px-6 md:px-24 bg-black text-white text-left">
+              <div className="max-w-7xl mx-auto text-left">
                 <SectionLabel light>The Industry Crisis</SectionLabel>
                 <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tight leading-[0.85] mb-20 text-left">The creator economy <br /> <span className="text-white/20">is built on sand.</span></h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                   <div className="space-y-8 p-12 border border-white/10 bg-white/5 rounded-2xl">
-                      <h4 className="text-[#F3D7A7] text-sm font-bold uppercase tracking-widest">The Amateur Trap</h4>
-                      <ul className="space-y-4 text-white/40 text-lg">
-                        <li className="flex items-center gap-3"><span className="text-red-500">✕</span> Guessing what works</li>
-                        <li className="flex items-center gap-3"><span className="text-red-500">✕</span> Zero leverage in workflow</li>
-                        <li className="flex items-center gap-3"><span className="text-red-500">✕</span> Relying on algorithm luck</li>
-                        <li className="flex items-center gap-3"><span className="text-red-500">✕</span> Low-ticket, commodity mindset</li>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-left">
+                   <div className="space-y-8 p-12 border border-white/10 bg-white/5 rounded-2xl text-left">
+                      <h4 className="text-[#F3D7A7] text-sm font-bold uppercase tracking-widest text-left">The Amateur Trap</h4>
+                      <ul className="space-y-4 text-white/40 text-lg text-left">
+                        <li className="flex items-center gap-3 text-left"><span className="text-red-500">✕</span> Guessing what works</li>
+                        <li className="flex items-center gap-3 text-left"><span className="text-red-500">✕</span> Zero leverage in workflow</li>
+                        <li className="flex items-center gap-3 text-left"><span className="text-red-500">✕</span> Relying on algorithm luck</li>
+                        <li className="flex items-center gap-3 text-left"><span className="text-red-500">✕</span> Low-ticket, commodity mindset</li>
                       </ul>
                    </div>
-                   <div className="space-y-8 p-12 border border-[#F3D7A7]/30 bg-[#F3D7A7]/5 rounded-2xl">
-                      <h4 className="text-[#F3D7A7] text-sm font-bold uppercase tracking-widest">The Blade Protocol</h4>
-                      <ul className="space-y-4 text-[#F3D7A7] text-lg">
-                        <li className="flex items-center gap-3"><span className="text-green-500">✓</span> Institutional systems</li>
-                        <li className="flex items-center gap-3"><span className="text-green-500">✓</span> High-velocity infrastructure</li>
-                        <li className="flex items-center gap-3"><span className="text-green-500">✓</span> Predictable growth mechanics</li>
-                        <li className="flex items-center gap-3"><span className="text-green-500">✓</span> High-ticket capital extraction</li>
+                   <div className="space-y-8 p-12 border border-[#F3D7A7]/30 bg-[#F3D7A7]/5 rounded-2xl text-left">
+                      <h4 className="text-[#F3D7A7] text-sm font-bold uppercase tracking-widest text-left">The Blade Protocol</h4>
+                      <ul className="space-y-4 text-[#F3D7A7] text-lg text-left">
+                        <li className="flex items-center gap-3 text-left"><span className="text-green-500">✓</span> Institutional systems</li>
+                        <li className="flex items-center gap-3 text-left"><span className="text-green-500">✓</span> High-velocity infrastructure</li>
+                        <li className="flex items-center gap-3 text-left"><span className="text-green-500">✓</span> Predictable growth mechanics</li>
+                        <li className="flex items-center gap-3 text-left"><span className="text-green-500">✓</span> High-ticket capital extraction</li>
                       </ul>
                    </div>
                 </div>
               </div>
             </section>
 
-            <section className="py-32 px-6 md:px-24 max-w-7xl text-left border-b border-black/5">
+            <section className="py-32 px-6 md:px-24 max-w-7xl text-left border-b border-black/5 mx-auto">
               <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start text-left">
                 <div className="pr-0 md:pr-12 text-left">
                    <SectionLabel>Institutional Thesis</SectionLabel>
@@ -326,7 +589,7 @@ export default function Home() {
                 <div className="grid grid-cols-1 gap-px bg-black/10 border border-black/10 text-left">
                   <div className="bg-white p-8 md:p-12 text-left">
                     <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">Zero Theory</h4>
-                    <p className="text-black/50 leading-relaxed text-sm md:text-base text-left">Everything decoded over thousands of hours of client work at Blade Media.</p>
+                    <p className="text-black/50 leading-relaxed text-sm md:text-base text-left">Everything decoded over thousands of hours of client work at Blade Media. We share the silent mechanics.</p>
                   </div>
                   <div className="bg-white p-8 md:p-12 border-t border-black/10 text-left">
                     <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">High Stakes</h4>
@@ -337,15 +600,16 @@ export default function Home() {
             </section>
 
             {/* THE SPRINT STRUCTURE */}
-            <section className="py-32 px-6 md:px-24 bg-white border-b border-black/5">
-              <div className="max-w-7xl mx-auto">
+            <section className="py-32 px-6 md:px-24 bg-white border-b border-black/5 text-left">
+              <div className="max-w-7xl mx-auto text-left">
                 <SectionLabel>The 60-Day Sprint</SectionLabel>
-                <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tight leading-[0.85] mb-24 text-left">From Theory to <br /> <span className="text-black/20">Capital Extraction.</span></h2>
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+                <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tight leading-[0.85] mb-24 text-left text-left">From Theory to <br /> <span className="text-black/20">Capital Extraction.</span></h2>
+                
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-8 text-left">
                    {sprintPhases.map((phase, idx) => (
                      <div key={idx} className="space-y-6 group text-left">
                         <div className="text-4xl font-bold text-black/10 group-hover:text-black transition-colors duration-500 text-left">{phase.phase}</div>
-                        <div className="h-[2px] w-full bg-black/5 relative overflow-hidden">
+                        <div className="h-[2px] w-full bg-black/5 relative overflow-hidden text-left">
                            <div className="absolute inset-0 bg-[#F3D7A7] translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700" />
                         </div>
                         <h4 className="text-sm font-bold uppercase tracking-widest text-left">{phase.title}</h4>
@@ -358,33 +622,100 @@ export default function Home() {
 
             {/* FOUNDER AUTHORITY SECTION */}
             <section className="bg-white py-32 px-6 md:px-24 text-black text-left border-b border-black/5">
-              <div className="flex flex-col md:flex-row items-center gap-20 md:gap-32 mb-28">
-                <div className="w-full md:w-1/2">
-                  <div className="relative aspect-[4/5] bg-[#F9F9F9] overflow-hidden grayscale group border border-black/5">
-                    <img src="/piyush.png" alt="Founder" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                    <div className="absolute bottom-8 left-8 z-20">
-                      <span className="bg-black text-[#F3D7A7] text-[9px] font-bold uppercase tracking-[0.4em] px-4 py-2">System Architect</span>
+              <div className="flex flex-col md:flex-row items-center gap-20 md:gap-32 mb-28 text-left">
+                <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1 }} className="w-full md:w-1/2 text-left">
+                  <div className="relative aspect-[4/5] bg-[#F9F9F9] overflow-hidden grayscale group border border-black/5 text-left">
+                    <img src="/piyush.png" alt="Founder" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 text-left" />
+                    <div className="absolute bottom-8 left-8 z-20 text-left">
+                      <div className="bg-black px-6 py-3 border border-[#F3D7A7]/30 flex flex-col text-left">
+                        <span className="text-white text-[11px] font-bold uppercase tracking-[0.2em] text-left">Piyush</span>
+                        <span className="text-[#F3D7A7] text-[9px] font-medium uppercase tracking-[0.1em] text-left">Founder- Blade Media</span>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
                 <div className="w-full md:w-1/2 text-left">
-                  <div className="space-y-10 text-left">
+                  <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-10 text-left">
                     <div className="text-left">
                       <SectionLabel>Founding Methodology</SectionLabel>
                       <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-[-0.06em] leading-[0.85] text-left">The Practitioner’s <br /> Ledger.</h2>
                     </div>
-                    <p className="text-black/60 text-xl leading-relaxed max-w-lg font-light text-left">Distilled output of 5 years of market execution. We teach what we have proven at scale.</p>
-                  </div>
+                    <p className="text-black/60 text-xl leading-relaxed max-w-lg font-light text-left">Blade Inner Circle is the distilled output of 5 years of market execution. We don&apos;t teach what we think — we teach what we have proven at scale.</p>
+                    
+                    <div className="grid grid-cols-2 gap-6 mt-12 text-left">
+                       <div className="p-6 border border-black/5 bg-[#F9F9F9] space-y-2 text-left">
+                          <BarChart3 size={20} className="text-[#F3D7A7] text-left" />
+                          <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40 text-left">Market Reach</h5>
+                          <p className="text-xl font-bold text-left">2.5B+ Views</p>
+                       </div>
+                       <div className="p-6 border border-black/5 bg-[#F9F9F9] space-y-2 text-left">
+                          <Binary size={20} className="text-[#F3D7A7] text-left" />
+                          <h5 className="text-[10px] font-bold uppercase tracking-widest text-black/40 text-left">Capital Extraction</h5>
+                          <p className="text-xl font-bold text-left">₹3Cr+ Built</p>
+                       </div>
+                    </div>
+                  </motion.div>
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-black/10 border border-black/10 text-left">
                 {founderStats.map((stat, idx) => (
-                  <div key={idx} className="p-10 bg-white hover:bg-[#F9F9F9] transition-all duration-500 group text-left">
+                  <motion.div key={idx} className="p-10 bg-white hover:bg-[#F9F9F9] transition-all duration-500 group text-left">
                     <div className="mb-6 text-[#F3D7A7] transition-colors duration-500 text-left">{stat.icon}</div>
                     <h4 className="text-sm font-bold uppercase tracking-widest leading-tight mb-3 text-left">{stat.label}</h4>
                     <p className="text-[10px] text-black/30 uppercase tracking-[0.2em] text-left">{stat.desc}</p>
-                  </div>
+                  </motion.div>
                 ))}
+              </div>
+            </section>
+
+            {/* CURRICULUM SECTION - MIRROR IMAGE BUT DOWNSIZED */}
+            <section className="py-24 px-6 md:px-24 bg-white text-left">
+              <div className="max-w-[1280px] mx-auto text-left">
+                <div className="bg-black rounded-[60px] p-10 md:p-16 relative overflow-hidden text-left flex flex-col md:flex-row items-center gap-12 min-h-[500px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)]">
+                  
+                  {/* Decorative Circle */}
+                  <div className="absolute top-16 right-[35%] w-12 h-12 border border-[#F3D7A7]/20 rounded-full hidden md:block text-left" />
+
+                  {/* Content */}
+                  <div className="flex-1 space-y-8 relative z-10 text-left">
+                    <div className="space-y-4 text-left">
+                      <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block text-left">What you will learn</span>
+                      <h2 className="text-white text-5xl md:text-[72px] font-bold uppercase tracking-tight leading-[0.85] mb-8 text-left">
+                        The exact systems <br /> behind ₹3Cr+ in <br /> revenue.
+                      </h2>
+                    </div>
+                    <p className="text-white/30 text-lg md:text-xl font-medium max-w-xl leading-relaxed mb-10 text-left">
+                      We&apos;ve deconstructed the entire agency journey into five easy-to-follow phases. No fluff, just execution.
+                    </p>
+                    <button 
+                      onClick={() => router.push("/curriculum")}
+                      className="bg-white text-black px-12 py-5 rounded-full font-bold uppercase tracking-widest text-[11px] hover:bg-[#F3D7A7] transition-all flex items-center gap-4 shadow-xl text-left"
+                    >
+                      Explore Full Prospectus <ArrowRight size={20}/>
+                    </button>
+                  </div>
+
+                  {/* Stats Cards */}
+                  <div className="flex flex-row md:flex-col gap-6 relative z-10 text-left">
+                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[30px] p-8 w-40 md:w-52 text-center flex flex-col justify-center items-center shadow-xl text-left">
+                       <span className="text-white text-5xl font-bold block tracking-tighter mb-1 text-left">60</span>
+                       <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.3em] block text-left">Days</span>
+                    </div>
+                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[30px] p-8 w-40 md:w-52 text-center flex flex-col justify-center items-center shadow-xl text-left">
+                       <span className="text-white text-5xl font-bold block tracking-tighter mb-1 text-left">5</span>
+                       <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.3em] block text-left">Phases</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </section>
+
+            {/* FINAL CTA */}
+            <section className="py-40 px-6 md:px-24 text-center border-t border-black/5">
+              <div className="max-w-3xl mx-auto text-center">
+                <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-[-0.06em] mb-12 text-black text-center">Proof of work <br/> beats theory.</h2>
+                <button onClick={() => router.push(user ? "/apply/register" : "/apply/login")} className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl">Apply now</button>
               </div>
             </section>
 
@@ -399,7 +730,7 @@ export default function Home() {
         {isAgency && (
           <>
             <h2 className="text-6xl md:text-[9vw] font-bold tracking-[-0.06em] uppercase mb-16 text-white text-center">Ready to scale?</h2>
-            <motion.a whileHover={{ scale: 1.05 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-16 py-8 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-[#F3D7A7] hover:text-black shadow-2xl">Secure a Session</motion.a>
+            <motion.a whileHover={{ scale: 1.05 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-16 py-8 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-[#F3D7A7] hover:text-black shadow-2xl">book a discovery call</motion.a>
           </>
         )}
         <div className={`absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold text-center ${isAgency ? "text-white/20" : "text-black/20"}`}>© 2026 Blade</div>
