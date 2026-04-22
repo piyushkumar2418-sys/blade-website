@@ -177,7 +177,7 @@ export default function ApplicationPortal() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                   <InputField 
                     label="Date of Birth" 
-                    placeholder="DD/MM/YYYY"
+                    type="date"
                     value={formData.dob} 
                     onChange={(val: string) => handleInputChange("dob", val)} 
                   />
@@ -189,7 +189,7 @@ export default function ApplicationPortal() {
                   />
                 </div>
                 <InputField 
-                  label="Current Activity" 
+                  label="What do you currently do?" 
                   placeholder="e.g. Student, Freelancer, Full-time job"
                   value={formData.currentActivity} 
                   onChange={(val: string) => handleInputChange("currentActivity", val)} 
@@ -197,49 +197,59 @@ export default function ApplicationPortal() {
               </div>
             </div>
 
-            <div className="space-y-8 text-left">
+            <div className="space-y-12 text-left">
               <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7] text-left">02. Evidence & Intent</h3>
-              <TextAreaField 
-                label="Portfolio Links"
-                question="Share links to your best work (YouTube, Instagram, Portfolio, etc.)"
-                placeholder="Paste URLs here, one per line..." 
-                value={formData.links}
-                onChange={(val: string) => handleInputChange("links", val)}
-              />
-              <TextAreaField 
-                label="Statement of Intent"
-                question="Why do you want to join the Inner Circle?"
-                placeholder="Tell us about your goals and why you're a good fit..." 
-                value={formData.whyJoin}
-                onChange={(val: string) => handleInputChange("whyJoin", val)}
-              />
-              <TextAreaField 
-                label="The Friction"
-                question="What is currently stopping you from reaching your next level?"
-                placeholder="Describe your current bottlenecks..." 
-                value={formData.friction}
-                onChange={(val: string) => handleInputChange("friction", val)} 
-              />
+              <div className="space-y-12 text-left">
+                <TextAreaField 
+                  label="Portfolio Links"
+                  question="Share links to your best work (YouTube, Instagram, Portfolio, etc.)"
+                  placeholder="Paste URLs here, one per line..." 
+                  value={formData.links}
+                  onChange={(val: string) => handleInputChange("links", val)}
+                />
+                <TextAreaField 
+                  label="Statement of Intent"
+                  question="Why do you want to join the Inner Circle?"
+                  placeholder="Tell us about your goals and why you're a good fit..." 
+                  value={formData.whyJoin}
+                  onChange={(val: string) => handleInputChange("whyJoin", val)}
+                />
+                <TextAreaField 
+                  label="The Friction"
+                  question="What is currently stopping you from reaching your next level?"
+                  placeholder="Describe your current bottlenecks..." 
+                  value={formData.friction}
+                  onChange={(val: string) => handleInputChange("friction", val)} 
+                />
+              </div>
             </div>
 
-            <div className="space-y-8 text-left pt-4">
+            <div className="space-y-8 text-left pt-12">
               <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7] text-left">03. Institutional Commitment</h3>
-              <div 
-                className="flex gap-4 p-6 bg-white border border-black/5 hover:border-[#F3D7A7]/50 transition-all cursor-pointer group"
+              <motion.div 
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                className={`relative overflow-hidden cursor-pointer p-8 rounded-3xl transition-all duration-500 border ${formData.commitment ? "bg-black border-black text-white" : "bg-white border-black/5 text-black hover:border-[#F3D7A7]/30"}`}
                 onClick={() => setFormData(prev => ({ ...prev, commitment: !prev.commitment }))}
               >
-                <div className={`mt-1 w-5 h-5 border-2 flex items-center justify-center transition-all ${formData.commitment ? "bg-black border-black" : "border-black/10 group-hover:border-[#F3D7A7]"}`}>
-                  {formData.commitment && <CheckCircle2 size={12} className="text-white" />}
+                <div className="flex items-start gap-6 relative z-10">
+                  <div className={`mt-1 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-500 ${formData.commitment ? "bg-[#F3D7A7] border-[#F3D7A7]" : "border-black/10"}`}>
+                    {formData.commitment && <CheckCircle2 size={14} className="text-black" />}
+                  </div>
+                  <div className="space-y-3">
+                    <p className={`text-sm md:text-base font-bold uppercase tracking-tight leading-tight ${formData.commitment ? "text-[#F3D7A7]" : "text-black"}`}>
+                      I Commit to the 2-Month Sprint.
+                    </p>
+                    <p className={`text-[11px] md:text-xs leading-relaxed uppercase tracking-wider font-medium ${formData.commitment ? "text-white/60" : "text-black/40"}`}>
+                      I will follow the curriculum entirely and understand that evaluation is based on execution results. I am ready to operate.
+                    </p>
+                  </div>
                 </div>
-                <div className="space-y-2 text-left">
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-black leading-relaxed text-left">
-                    I am ready to commit 2 months to this sprint.
-                  </p>
-                  <p className="text-[10px] text-black/40 leading-relaxed text-left uppercase tracking-wider">
-                    I will follow the curriculum entirely and understand that evaluation is based on the results generated from execution.
-                  </p>
-                </div>
-              </div>
+                {/* Decorative background glow for active state */}
+                {formData.commitment && (
+                  <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-[#F3D7A7]/10 rounded-full blur-[80px]" />
+                )}
+              </motion.div>
             </div>
 
             {errorMessage && (
@@ -289,31 +299,35 @@ export default function ApplicationPortal() {
   );
 }
 
-const InputField = ({ label, placeholder, value, onChange, disabled = false }: any) => (
-  <div className="space-y-2 text-left">
-    <label className="text-[10px] font-bold uppercase tracking-widest text-black/40 block text-left">{label}</label>
-    <input 
-      type="text" 
-      placeholder={placeholder}
-      value={value}
-      onChange={(e) => onChange && onChange(e.target.value)}
-      disabled={disabled}
-      className={`w-full border-b border-black/5 py-4 text-xl font-bold tracking-tight focus:border-[#F3D7A7] outline-none transition-all placeholder:text-black/5 text-left ${disabled ? "opacity-30 cursor-not-allowed" : ""}`}
-    />
+const InputField = ({ label, placeholder, value, onChange, disabled = false, type = "text" }: any) => (
+  <div className="space-y-3 text-left group">
+    <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30 group-focus-within:text-[#F3D7A7] transition-colors duration-300 block text-left">
+      {label}
+    </label>
+    <div className="relative text-left">
+      <input 
+        type={type} 
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => onChange && onChange(e.target.value)}
+        disabled={disabled}
+        className={`w-full bg-[#F5F5F7] border border-black/[0.03] rounded-xl px-6 py-4.5 text-lg font-bold tracking-tight focus:bg-white focus:border-[#F3D7A7]/50 focus:shadow-[0_10px_30px_rgba(0,0,0,0.03)] outline-none transition-all duration-500 placeholder:text-black/5 text-left ${disabled ? "opacity-40 cursor-not-allowed bg-black/[0.02]" : ""}`}
+      />
+    </div>
   </div>
 );
 
 const TextAreaField = ({ label, question, placeholder, value, onChange }: any) => (
-  <div className="space-y-3 text-left">
-    <div className="space-y-1 text-left">
-       <label className="text-[10px] font-bold uppercase tracking-widest text-black/40 block text-left">{label}</label>
-       <p className="text-xs font-bold text-black/80 text-left">{question}</p>
+  <div className="space-y-5 text-left group">
+    <div className="space-y-1.5 text-left">
+       <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#F3D7A7] block text-left">{label}</label>
+       <p className="text-xl font-bold tracking-tight text-black leading-tight text-left">{question}</p>
     </div>
     <textarea 
       placeholder={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full bg-white border border-black/5 p-6 text-sm outline-none focus:border-[#F3D7A7] min-h-[140px] transition-all text-left"
+      className="w-full bg-[#F5F5F7] border border-black/[0.03] rounded-2xl p-8 text-base font-medium leading-relaxed outline-none focus:bg-white focus:border-[#F3D7A7]/50 focus:shadow-[0_20px_40px_rgba(0,0,0,0.03)] min-h-[180px] transition-all duration-500 placeholder:text-black/10 text-left"
     />
   </div>
 );
