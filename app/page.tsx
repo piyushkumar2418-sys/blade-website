@@ -780,30 +780,63 @@ export default function Home() {
               </div>
             </section>
 
-            {/* FINAL CTA */}
-            <section className="py-40 px-6 md:px-24 text-center border-t border-black/5">
-              <div className="max-w-3xl mx-auto text-center">
-                <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-[-0.06em] mb-12 text-black text-center">Proof of work <br/> beats theory.</h2>
-                <button onClick={() => router.push(user ? "/apply/register" : "/apply/login")} className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all shadow-2xl">Apply now</button>
+            {/* FINAL CTA - REDESIGNED FOR BIC */}
+            <section className="py-60 px-6 md:px-24 text-center bg-black relative overflow-hidden">
+              {/* ACCENT GLOW */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#F3D7A7]/5 blur-[120px] rounded-full pointer-events-none" />
+              
+              <div className="max-w-4xl mx-auto relative z-10 space-y-16">
+                <div className="space-y-6 text-center">
+                  <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.8em] block text-center">Final Briefing</span>
+                  <h2 className="text-6xl md:text-[120px] font-bold uppercase tracking-tighter leading-[0.8] text-white text-center">
+                    Proof <br/> <span className="text-white/20 text-center">of work.</span>
+                  </h2>
+                </div>
+                
+                <div className="flex flex-col items-center gap-12 text-center">
+                  <p className="text-white/40 text-sm md:text-base max-w-md uppercase tracking-widest leading-relaxed font-medium text-center">
+                    The difference between an amateur and an operator is execution. Secure your position in the May 2026 intake.
+                  </p>
+                  
+                  <motion.button 
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => router.push(user ? "/dashboard" : "/apply/login")} 
+                    className="bg-[#F3D7A7] text-black px-16 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-white transition-all shadow-[0_20px_50px_rgba(243,215,167,0.1)]"
+                  >
+                    Apply For Access
+                  </motion.button>
+                </div>
+
+                <div className="pt-40 text-center">
+                  <p className="text-[10px] font-bold uppercase tracking-[1em] text-white/10 text-center">Stop Consuming. Start Operating.</p>
+                </div>
               </div>
             </section>
-
-            <footer className="py-20 px-6 text-center border-t border-black/5 bg-[#F9F9F9]">
-              <p className="text-[10px] font-bold uppercase tracking-[0.8em] text-black/20 text-center">Stop Consuming. Start Operating.</p>
-            </footer>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <footer className="h-[50vh] flex flex-col justify-center items-center text-center px-6 relative z-20">
-        {isAgency && (
-          <>
-            <h2 className="text-6xl md:text-[9vw] font-bold tracking-[-0.06em] uppercase mb-16 text-white text-center">Ready to scale?</h2>
-            <motion.a whileHover={{ scale: 1.05 }} href="https://calendly.com/piyushkumar2418/30min" target="_blank" className="px-16 py-8 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-[#F3D7A7] hover:text-black shadow-2xl">book a discovery call</motion.a>
-          </>
-        )}
-        <div className={`absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold text-center ${isAgency ? "text-white/20" : "text-black/20"}`}>© 2026 Blade</div>
-      </footer>
+      {isAgency && (
+        <footer className="h-[50vh] flex flex-col justify-center items-center text-center px-6 relative z-20">
+          <h2 className="text-6xl md:text-[9vw] font-bold tracking-[-0.06em] uppercase mb-16 text-white text-center">Ready to scale?</h2>
+          <motion.a 
+            whileHover={{ scale: 1.05 }} 
+            href="https://calendly.com/piyushkumar2418/30min" 
+            target="_blank" 
+            className="px-16 py-8 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-[#F3D7A7] hover:text-black shadow-2xl"
+          >
+            book a discovery call
+          </motion.a>
+          <div className="absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold text-center text-white/20">© 2026 Blade</div>
+        </footer>
+      )}
+
+      {!isAgency && (
+        <footer className="py-12 bg-black text-center relative z-20">
+          <div className="text-[9px] uppercase tracking-[0.8em] font-bold text-center text-white/10">© 2026 Blade // Institutional Access</div>
+        </footer>
+      )}
     </motion.main>
   );
 }
