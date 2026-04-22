@@ -196,23 +196,38 @@ export default function Home() {
         </>
       )}
 
-      {/* COMPACT PREMIUM HEADER */}
+      {/* SEPARATE LOGO & TOGGLE FROM HEADER */}
+      <div className="fixed top-8 left-8 z-[110] pointer-events-auto">
+        <button 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+          className="w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-105"
+        >
+          <img src="/blade-logo.png" alt="Blade Logo" className="w-full h-full object-contain brightness-0 invert" />
+        </button>
+      </div>
+
+      <div className="fixed top-8 right-8 z-[110] pointer-events-auto">
+        <button 
+          onClick={toggleMode} 
+          className={`px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-[0.1em] transition-all hidden sm:block ${
+            isAgency 
+            ? "bg-white/5 border border-white/10 text-white hover:bg-white/10 backdrop-blur-md" 
+            : "bg-black/5 border border-black/10 text-black hover:bg-black/10 backdrop-blur-md"
+          }`}
+        >
+          {isAgency ? "Inner Circle" : "Agency"}
+        </button>
+      </div>
+
+      {/* COMPACT PREMIUM HEADER (NAV ONLY) */}
       <motion.header 
         style={{ opacity: navButtonOpacity }}
         className="fixed top-8 left-0 right-0 z-[100] px-6 flex justify-center pointer-events-none font-['Helvetica',_sans-serif]"
       >
         <div className="flex items-center gap-2 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-full p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto relative group">
-          {/* Brand Logo Pill */}
-          <button 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-            className="w-12 h-12 flex items-center justify-center bg-white/5 hover:bg-white/10 rounded-full text-white font-bold text-xl transition-all duration-300 hover:scale-105"
-          >
-            B.
-          </button>
-          
           {/* Navigation Links Capsule */}
           {isAgency && (
-            <nav className="hidden md:flex items-center gap-1 px-2">
+            <nav className="flex items-center gap-1 px-2">
               {[
                 { label: 'Process', id: 'section_process' },
                 { label: 'Solutions', id: 'section_solutions' },
@@ -230,18 +245,6 @@ export default function Home() {
           )}
 
           <div className="flex items-center gap-2">
-            {/* Mode Toggle Capsule */}
-            <button 
-              onClick={toggleMode} 
-              className={`px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-[0.1em] transition-all hidden sm:block ${
-                isAgency 
-                ? "bg-white/5 border border-white/10 text-white hover:bg-white/10" 
-                : "bg-black/5 border border-black/10 text-black hover:bg-black/10"
-              }`}
-            >
-              {isAgency ? "Inner Circle" : "Agency"}
-            </button>
-
             {/* CTA Button */}
             {isAgency && (
               <motion.a 
@@ -251,7 +254,7 @@ export default function Home() {
                 target="_blank"
                 className="bg-[#F3D7A7] text-black px-8 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.05em] hover:shadow-[0_0_30px_rgba(243,215,167,0.3)] transition-all shadow-xl"
               >
-                book a discovery call
+                contact us
               </motion.a>
             )}
 
