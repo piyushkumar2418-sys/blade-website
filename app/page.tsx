@@ -604,22 +604,74 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="py-32 px-6 md:px-24 max-w-7xl text-left border-b border-black/5 mx-auto">
-              <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start text-left">
-                <div className="pr-0 md:pr-12 text-left">
-                   <SectionLabel>Institutional Thesis</SectionLabel>
-                   <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-[-0.06em] leading-[0.9] mb-12 text-left">Theoretical learning is a trap. <br/> <span className="text-black/20">This is an execution lab.</span></h2>
-                   <p className="text-xl md:text-2xl text-black/60 leading-relaxed font-light text-left">Blade Inner Circle is a 2-month intensive for those who refuse to be passive. We deploy systems. Revenue is the only metric.</p>
+            <section className="py-40 px-6 md:px-24 bg-white relative overflow-hidden border-b border-black/5">
+              <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div className="space-y-12 text-left">
+                  <SectionLabel>Institutional Thesis</SectionLabel>
+                  <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tighter leading-[0.8] text-black text-left">
+                    Execution <br/> <span className="text-black/10">Over Everything.</span>
+                  </h2>
+                  <p className="text-xl md:text-2xl text-black/40 leading-relaxed font-light max-w-xl text-left">
+                    Theoretical knowledge is a liability in a high-velocity market. We deploy operational infrastructure that produces tangible results. Welcome to the lab.
+                  </p>
+                  
+                  <div className="flex flex-col gap-6 pt-8 text-left">
+                    <div className="flex items-center gap-6 group cursor-default">
+                      <div className="w-12 h-[1px] bg-black/10 group-hover:w-20 transition-all duration-500" />
+                      <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/20 group-hover:text-black transition-colors">Zero Theory Deployment</span>
+                    </div>
+                    <div className="flex items-center gap-6 group cursor-default">
+                      <div className="w-12 h-[1px] bg-black/10 group-hover:w-20 transition-all duration-500" />
+                      <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/20 group-hover:text-black transition-colors">High-Stakes Architecture</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="grid grid-cols-1 gap-px bg-black/10 border border-black/10 text-left">
-                  <div className="bg-white p-8 md:p-12 text-left">
-                    <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">Zero Theory</h4>
-                    <p className="text-black/50 leading-relaxed text-sm md:text-base text-left">Everything decoded over thousands of hours of client work at Blade Media. We share the silent mechanics.</p>
-                  </div>
-                  <div className="bg-white p-8 md:p-12 border-t border-black/10 text-left">
-                    <h4 className="text-xl font-bold uppercase mb-4 text-black text-left">High Stakes</h4>
-                    <p className="text-black/50 leading-relaxed text-sm md:text-base text-left">Designed to move you from amateur creator to agency operator in 60 days.</p>
-                  </div>
+
+                <div className="relative h-[600px] flex items-center justify-center perspective-1000">
+                  <motion.div 
+                    initial={{ opacity: 0, rotateY: 45 }}
+                    whileInView={{ opacity: 1, rotateY: 0 }}
+                    viewport={{ once: true }}
+                    className="relative w-full max-w-md h-[500px] bg-[#fcfcfc] border border-black/5 rounded-[40px] shadow-[0_40px_100px_rgba(0,0,0,0.03)] flex items-center justify-center transform-style-3d group"
+                  >
+                    {/* INNER 3D BOX */}
+                    <motion.div
+                      whileHover={{ 
+                        rotateY: 15,
+                        rotateX: -15,
+                        scale: 1.05
+                      }}
+                      transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                      className="w-56 h-80 bg-white border border-black/5 shadow-[0_30px_60px_rgba(0,0,0,0.08)] relative transform-style-3d rounded-2xl flex flex-col justify-between p-8"
+                    >
+                      <div className="space-y-2">
+                        <div className="w-10 h-[2px] bg-black" />
+                        <p className="text-[8px] font-bold uppercase tracking-[0.4em] text-black/40">Lab Module // 001</p>
+                      </div>
+                      
+                      <div className="space-y-4">
+                        <h4 className="text-3xl font-black italic tracking-tighter text-black">BLADE</h4>
+                        <div className="h-[1px] w-full bg-black/5" />
+                        <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-black/20">Operational Infrastructure</p>
+                      </div>
+
+                      {/* FLOATING TAG */}
+                      <div className="absolute -top-6 -right-6 px-4 py-2 bg-black text-white text-[9px] font-bold uppercase tracking-[0.3em] rounded-sm shadow-xl translate-z-100 group-hover:bg-[#F3D7A7] group-hover:text-black transition-colors">
+                        Active Lab
+                      </div>
+                    </motion.div>
+
+                    {/* METRIC OVERLAYS */}
+                    <div className="absolute top-12 left-12 space-y-1 opacity-20 group-hover:opacity-100 transition-opacity duration-700">
+                      <div className="text-[9px] font-mono uppercase tracking-widest text-black/40">Lat: 34.0522° N</div>
+                      <div className="text-[9px] font-mono uppercase tracking-widest text-black/40">Lng: 118.2437° W</div>
+                    </div>
+                    
+                    <div className="absolute bottom-12 right-12 text-right space-y-1 opacity-20 group-hover:opacity-100 transition-opacity duration-700">
+                      <div className="text-[9px] font-mono uppercase tracking-widest text-black/40">System_Status: Optimal</div>
+                      <div className="text-[9px] font-mono uppercase tracking-widest text-black/40">Target_Intake: May 2026</div>
+                    </div>
+                  </motion.div>
                 </div>
               </div>
             </section>

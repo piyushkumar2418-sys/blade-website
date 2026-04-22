@@ -45,3 +45,19 @@ body {
 .animate-radar {
   animation: pulse-radar 3s ease-out infinite;
 }
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.translate-z-50 {
+  transform: translateZ(50px);
+}
+
+.translate-z-100 {
+  transform: translateZ(100px);
+}
