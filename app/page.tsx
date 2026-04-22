@@ -825,60 +825,43 @@ export default function Home() {
             </section>
 
             {/* FINAL CTA - REDESIGNED FOR BIC */}
-            <section className="py-60 px-6 md:px-24 text-center bg-black relative overflow-hidden">
-              {/* SCANNING LINE */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-[#F3D7A7]/20 to-transparent animate-scan" />
-              </div>
-
-              {/* ACCENT GLOW */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#F3D7A7]/5 blur-[160px] rounded-full pointer-events-none" />
-              
-              <div className="max-w-4xl mx-auto relative z-10 space-y-24">
-                <div className="space-y-10 text-center">
-                  <div className="inline-flex items-center gap-3 px-5 py-2.5 border border-[#F3D7A7]/20 rounded-full bg-white/5 backdrop-blur-md mb-6">
-                    <div className="w-1.5 h-1.5 bg-[#F3D7A7] rounded-full animate-pulse" />
-                    <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.6em] block">Protocol 001 // Final Entry</span>
-                  </div>
+            <section className="py-60 px-6 md:px-24 text-center bg-white relative overflow-hidden">
+              <div className="max-w-4xl mx-auto relative z-10 space-y-32">
+                <div className="space-y-12 text-center">
+                  <span className="text-black/20 text-[10px] font-bold uppercase tracking-[1em] block">Final Briefing</span>
                   
-                  <h2 className="text-6xl md:text-[140px] font-bold uppercase tracking-tighter leading-[0.75] text-white text-center">
-                    Join the <br/> <span className="text-white/10">Operational Elite.</span>
+                  <h2 className="text-6xl md:text-[120px] font-bold uppercase tracking-tighter leading-[0.8] text-black text-center">
+                    The next step <br/> is execution.
                   </h2>
                 </div>
                 
-                <div className="flex flex-col items-center gap-16 text-center">
-                  <p className="text-white/50 text-base md:text-xl max-w-2xl uppercase tracking-[0.25em] leading-relaxed font-light text-center">
-                    Execution is the only currency we trade in. The May 2026 intake is strictly capped. Secure your position before the window collapses.
+                <div className="flex flex-col items-center gap-20 text-center">
+                  <p className="text-black/40 text-sm md:text-base max-w-md uppercase tracking-[0.4em] leading-relaxed font-medium text-center">
+                    Secure your position in the May 2026 intake.
                   </p>
                   
-                  <div className="relative group">
-                    {/* RADAR EFFECT */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-[#F3D7A7]/30 rounded-full animate-radar pointer-events-none" />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-[#F3D7A7]/20 rounded-full animate-radar [animation-delay:1.5s] pointer-events-none" />
-                    
-                    <motion.button 
-                      whileHover={{ scale: 1.05, boxShadow: "0 0 50px rgba(243,215,167,0.3)" }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => router.push(user ? "/dashboard" : "/apply/login")} 
-                      className="relative z-10 bg-[#F3D7A7] text-black px-20 py-10 rounded-full font-bold uppercase tracking-[0.4em] text-xs hover:bg-white transition-all duration-500 shadow-[0_20px_50px_rgba(243,215,167,0.2)]"
-                    >
-                      Secure Position
-                    </motion.button>
-                  </div>
+                  <motion.button 
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => router.push(user ? "/dashboard" : "/apply/login")} 
+                    className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-[0.5em] text-[10px] hover:bg-black/80 transition-all duration-500 shadow-2xl"
+                  >
+                    Apply Now
+                  </motion.button>
                 </div>
 
-                <div className="pt-40 text-center space-y-12">
-                  <div className="flex items-center justify-center gap-10">
-                    <a href="https://wa.me/917082176274" target="_blank" className="p-5 border border-white/10 rounded-full text-white/40 hover:text-[#F3D7A7] hover:border-[#F3D7A7]/30 transition-all group backdrop-blur-sm">
-                      <MessageCircle size={22} className="group-hover:scale-110 transition-transform" />
+                <div className="pt-40 text-center space-y-16">
+                  <div className="flex items-center justify-center gap-12">
+                    <a href="https://wa.me/917082176274" target="_blank" className="text-black/20 hover:text-black transition-all group">
+                      <MessageCircle size={24} className="group-hover:scale-110 transition-transform" />
                     </a>
-                    <a href="https://www.instagram.com/bladeinnercircle/" target="_blank" className="p-5 border border-white/10 rounded-full text-white/40 hover:text-[#F3D7A7] hover:border-[#F3D7A7]/30 transition-all group backdrop-blur-sm">
-                      <InstagramIcon size={22} className="group-hover:scale-110 transition-transform" />
+                    <a href="https://www.instagram.com/bladeinnercircle/" target="_blank" className="text-black/20 hover:text-black transition-all group">
+                      <InstagramIcon size={24} className="group-hover:scale-110 transition-transform" />
                     </a>
                   </div>
-                  <div className="space-y-6">
-                    <p className="text-[11px] font-bold uppercase tracking-[1em] text-white/60">Stop Consuming. Start Operating.</p>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.5em] text-white/30">© 2026 Blade // Institutional Access</p>
+                  <div className="space-y-4">
+                    <p className="text-[9px] font-bold uppercase tracking-[1.2em] text-black/30">Stop Consuming. Start Operating.</p>
+                    <p className="text-[8px] font-bold uppercase tracking-[0.6em] text-black/10">© 2026 Blade // Institutional Access</p>
                   </div>
                 </div>
               </div>
@@ -888,21 +871,21 @@ export default function Home() {
       </AnimatePresence>
 
       {isAgency && (
-        <footer className="h-[50vh] flex flex-col justify-center items-center text-center px-6 relative z-20">
-          <h2 className="text-6xl md:text-[9vw] font-bold tracking-[-0.06em] uppercase mb-16 text-white text-center">Ready to scale?</h2>
+        <footer className="h-[50vh] flex flex-col justify-center items-center text-center px-6 relative z-20 bg-white">
+          <h2 className="text-6xl md:text-[9vw] font-bold tracking-[-0.06em] uppercase mb-16 text-black text-center">Ready to scale?</h2>
           <motion.a 
             whileHover={{ scale: 1.05 }} 
             href="https://calendly.com/piyushkumar2418/30min" 
             target="_blank" 
-            className="px-16 py-8 border border-[#F3D7A7] text-[#F3D7A7] rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-[#F3D7A7] hover:text-black shadow-2xl"
+            className="px-16 py-8 border border-black text-black rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-black hover:text-white shadow-2xl"
           >
             book a discovery call
           </motion.a>
-          <div className="absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold text-center text-white/20">© 2026 Blade</div>
+          <div className="absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold text-center text-black/20">© 2026 Blade</div>
         </footer>
       )}
 
-      {!isAgency && <div className="h-20 bg-black" />}
+      {!isAgency && <div className="h-20 bg-white" />}
     </motion.main>
   );
 }
