@@ -604,72 +604,87 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="py-40 px-6 md:px-24 bg-white relative overflow-hidden border-b border-black/5">
-              <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                <div className="space-y-12 text-left">
-                  <SectionLabel>Institutional Thesis</SectionLabel>
-                  <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tighter leading-[0.8] text-black text-left">
-                    Execution <br/> <span className="text-black/10">Over Everything.</span>
-                  </h2>
-                  <p className="text-xl md:text-2xl text-black/40 leading-relaxed font-light max-w-xl text-left">
-                    Theoretical knowledge is a liability in a high-velocity market. We deploy operational infrastructure that produces tangible results. Welcome to the lab.
-                  </p>
-                  
-                  <div className="flex flex-col gap-6 pt-8 text-left">
-                    <div className="flex items-center gap-6 group cursor-default">
-                      <div className="w-12 h-[1px] bg-black/10 group-hover:w-20 transition-all duration-500" />
-                      <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/20 group-hover:text-black transition-colors">Zero Theory Deployment</span>
+            <section className="py-60 px-6 md:px-24 bg-white relative overflow-hidden border-b border-black/5">
+              <div className="max-w-7xl mx-auto space-y-32">
+                {/* HEADER AREA */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end">
+                  <div className="space-y-12">
+                    <div className="inline-flex items-center gap-4 text-black/20">
+                      <span className="text-[10px] font-bold tracking-[0.5em]">[ 01 // THE THESIS ]</span>
+                      <div className="h-[1px] w-20 bg-black/10" />
                     </div>
-                    <div className="flex items-center gap-6 group cursor-default">
-                      <div className="w-12 h-[1px] bg-black/10 group-hover:w-20 transition-all duration-500" />
-                      <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/20 group-hover:text-black transition-colors">High-Stakes Architecture</span>
-                    </div>
+                    <h2 className="text-6xl md:text-[100px] font-bold uppercase tracking-tighter leading-[0.8] text-black">
+                      Eliminate the <br/> <span className="text-black/10">Theoretical.</span>
+                    </h2>
+                  </div>
+                  <div className="max-w-md pb-4">
+                    <p className="text-xl text-black/40 leading-relaxed font-light uppercase tracking-widest">
+                      Most education is entertainment. <br/> This is an operation.
+                    </p>
                   </div>
                 </div>
 
-                <div className="relative h-[600px] flex items-center justify-center perspective-1000">
+                {/* PRINCIPLES GRID */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-black/5 border border-black/5">
                   <motion.div 
-                    initial={{ opacity: 0, rotateY: 45 }}
-                    whileInView={{ opacity: 1, rotateY: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="relative w-full max-w-md h-[500px] bg-[#fcfcfc] border border-black/5 rounded-[40px] shadow-[0_40px_100px_rgba(0,0,0,0.03)] flex items-center justify-center transform-style-3d group"
+                    className="bg-white p-12 md:p-16 space-y-12 group hover:bg-black transition-colors duration-700"
                   >
-                    {/* INNER 3D BOX */}
-                    <motion.div
-                      whileHover={{ 
-                        rotateY: 15,
-                        rotateX: -15,
-                        scale: 1.05
-                      }}
-                      transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                      className="w-56 h-80 bg-white border border-black/5 shadow-[0_30px_60px_rgba(0,0,0,0.08)] relative transform-style-3d rounded-2xl flex flex-col justify-between p-8"
-                    >
-                      <div className="space-y-2">
-                        <div className="w-10 h-[2px] bg-black" />
-                        <p className="text-[8px] font-bold uppercase tracking-[0.4em] text-black/40">Lab Module // 001</p>
+                    <div className="flex justify-between items-start">
+                      <span className="text-3xl font-bold tracking-tighter text-black/10 group-hover:text-white/20 transition-colors">01</span>
+                      <div className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:border-white/20">
+                        <ArrowUpRight size={14} className="text-black/20 group-hover:text-white transition-colors" />
                       </div>
-                      
-                      <div className="space-y-4">
-                        <h4 className="text-3xl font-black italic tracking-tighter text-black">BLADE</h4>
-                        <div className="h-[1px] w-full bg-black/5" />
-                        <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-black/20">Operational Infrastructure</p>
-                      </div>
-
-                      {/* FLOATING TAG */}
-                      <div className="absolute -top-6 -right-6 px-4 py-2 bg-black text-white text-[9px] font-bold uppercase tracking-[0.3em] rounded-sm shadow-xl translate-z-100 group-hover:bg-[#F3D7A7] group-hover:text-black transition-colors">
-                        Active Lab
-                      </div>
-                    </motion.div>
-
-                    {/* METRIC OVERLAYS */}
-                    <div className="absolute top-12 left-12 space-y-1 opacity-20 group-hover:opacity-100 transition-opacity duration-700">
-                      <div className="text-[9px] font-mono uppercase tracking-widest text-black/40">Lat: 34.0522° N</div>
-                      <div className="text-[9px] font-mono uppercase tracking-widest text-black/40">Lng: 118.2437° W</div>
                     </div>
-                    
-                    <div className="absolute bottom-12 right-12 text-right space-y-1 opacity-20 group-hover:opacity-100 transition-opacity duration-700">
-                      <div className="text-[9px] font-mono uppercase tracking-widest text-black/40">System_Status: Optimal</div>
-                      <div className="text-[9px] font-mono uppercase tracking-widest text-black/40">Target_Intake: May 2026</div>
+                    <div className="space-y-6">
+                      <h4 className="text-xl font-bold uppercase tracking-tight text-black group-hover:text-white transition-colors">Deployment</h4>
+                      <p className="text-black/40 text-sm leading-relaxed group-hover:text-white/60 transition-colors">
+                        We don&apos;t teach theory. We deploy operational infrastructure directly into your workflow to extract immediate market value.
+                      </p>
+                    </div>
+                  </motion.div>
+
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 }}
+                    className="bg-white p-12 md:p-16 space-y-12 group hover:bg-black transition-colors duration-700"
+                  >
+                    <div className="flex justify-between items-start">
+                      <span className="text-3xl font-bold tracking-tighter text-black/10 group-hover:text-white/20 transition-colors">02</span>
+                      <div className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:border-white/20">
+                        <TrendingUp size={14} className="text-black/20 group-hover:text-white transition-colors" />
+                      </div>
+                    </div>
+                    <div className="space-y-6">
+                      <h4 className="text-xl font-bold uppercase tracking-tight text-black group-hover:text-white transition-colors">Velocity</h4>
+                      <p className="text-black/40 text-sm leading-relaxed group-hover:text-white/60 transition-colors">
+                        Revenue-first architecture designed for rapid market extraction. Every system is built for scale and maximum capital efficiency.
+                      </p>
+                    </div>
+                  </motion.div>
+
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 }}
+                    className="bg-white p-12 md:p-16 space-y-12 group hover:bg-black transition-colors duration-700"
+                  >
+                    <div className="flex justify-between items-start">
+                      <span className="text-3xl font-bold tracking-tighter text-black/10 group-hover:text-white/20 transition-colors">03</span>
+                      <div className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:border-white/20">
+                        <Lock size={14} className="text-black/20 group-hover:text-white transition-colors" />
+                      </div>
+                    </div>
+                    <div className="space-y-6">
+                      <h4 className="text-xl font-bold uppercase tracking-tight text-black group-hover:text-white transition-colors">Institutional</h4>
+                      <p className="text-black/40 text-sm leading-relaxed group-hover:text-white/60 transition-colors">
+                        Institutional-grade standards applied to the creator economy. We build the infrastructure that the top 0.1% uses to dominate.
+                      </p>
                     </div>
                   </motion.div>
                 </div>
