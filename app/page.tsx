@@ -826,30 +826,45 @@ export default function Home() {
 
             {/* FINAL CTA - REDESIGNED FOR BIC */}
             <section className="py-60 px-6 md:px-24 text-center bg-black relative overflow-hidden">
+              {/* SCANNING LINE */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-[#F3D7A7]/20 to-transparent animate-scan" />
+              </div>
+
               {/* ACCENT GLOW */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#F3D7A7]/5 blur-[120px] rounded-full pointer-events-none" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#F3D7A7]/5 blur-[160px] rounded-full pointer-events-none" />
               
-              <div className="max-w-4xl mx-auto relative z-10 space-y-16">
-                <div className="space-y-6 text-center">
-                  <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.8em] block text-center">Final Briefing</span>
-                  <h2 className="text-6xl md:text-[120px] font-bold uppercase tracking-tighter leading-[0.8] text-white text-center">
-                    Proof <br/> <span className="text-white/20 text-center">of work.</span>
+              <div className="max-w-4xl mx-auto relative z-10 space-y-24">
+                <div className="space-y-10 text-center">
+                  <div className="inline-flex items-center gap-3 px-5 py-2.5 border border-[#F3D7A7]/20 rounded-full bg-white/5 backdrop-blur-md mb-6">
+                    <div className="w-1.5 h-1.5 bg-[#F3D7A7] rounded-full animate-pulse" />
+                    <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.6em] block">Protocol 001 // Final Entry</span>
+                  </div>
+                  
+                  <h2 className="text-6xl md:text-[140px] font-bold uppercase tracking-tighter leading-[0.75] text-white text-center">
+                    Join the <br/> <span className="text-white/10">Operational Elite.</span>
                   </h2>
                 </div>
                 
-                <div className="flex flex-col items-center gap-12 text-center">
-                  <p className="text-white/40 text-sm md:text-base max-w-md uppercase tracking-widest leading-relaxed font-medium text-center">
-                    The difference between an amateur and an operator is execution. Secure your position in the May 2026 intake.
+                <div className="flex flex-col items-center gap-16 text-center">
+                  <p className="text-white/50 text-base md:text-xl max-w-2xl uppercase tracking-[0.25em] leading-relaxed font-light text-center">
+                    Execution is the only currency we trade in. The May 2026 intake is strictly capped. Secure your position before the window collapses.
                   </p>
                   
-                  <motion.button 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => router.push(user ? "/dashboard" : "/apply/login")} 
-                    className="bg-[#F3D7A7] text-black px-16 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-white transition-all shadow-[0_20px_50px_rgba(243,215,167,0.1)]"
-                  >
-                    Apply For Access
-                  </motion.button>
+                  <div className="relative group">
+                    {/* RADAR EFFECT */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-[#F3D7A7]/30 rounded-full animate-radar pointer-events-none" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-[#F3D7A7]/20 rounded-full animate-radar [animation-delay:1.5s] pointer-events-none" />
+                    
+                    <motion.button 
+                      whileHover={{ scale: 1.05, boxShadow: "0 0 50px rgba(243,215,167,0.3)" }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => router.push(user ? "/dashboard" : "/apply/login")} 
+                      className="relative z-10 bg-[#F3D7A7] text-black px-20 py-10 rounded-full font-bold uppercase tracking-[0.4em] text-xs hover:bg-white transition-all duration-500 shadow-[0_20px_50px_rgba(243,215,167,0.2)]"
+                    >
+                      Secure Position
+                    </motion.button>
+                  </div>
                 </div>
 
                 <div className="pt-40 text-center space-y-12">
