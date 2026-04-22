@@ -604,23 +604,87 @@ export default function Home() {
               </div>
             </section>
 
-            {/* THE SPRINT STRUCTURE */}
-            <section className="py-32 px-6 md:px-24 bg-white border-b border-black/5 text-left">
-              <div className="max-w-7xl mx-auto text-left">
-                <SectionLabel>The 60-Day Sprint</SectionLabel>
-                <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tight leading-[0.85] mb-24 text-left text-left">From Theory to <br /> <span className="text-black/20">Capital Extraction.</span></h2>
+            {/* THE SPRINT STRUCTURE - REDESIGNED */}
+            <section className="py-32 px-6 md:px-24 bg-black text-white overflow-hidden relative">
+              {/* 3D BACKGROUND ELEMENT (FLOATING WIREFRAME) */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-20">
+                <motion.div 
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                  className="w-[800px] h-[800px] border border-white/5 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                />
+                <motion.div 
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                  className="w-[600px] h-[600px] border border-white/5 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                />
+              </div>
+
+              <div className="max-w-7xl mx-auto relative z-10">
+                <SectionLabel gold>Institutional Sprint</SectionLabel>
+                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 mb-24">
+                  <h2 className="text-6xl md:text-8xl font-bold uppercase tracking-tighter leading-[0.8] text-white">
+                    Built for <br/> <span className="text-[#F3D7A7]">Execution.</span>
+                  </h2>
+                  <div className="max-w-md text-left">
+                    <p className="text-white/40 text-sm md:text-base leading-relaxed uppercase tracking-widest font-medium">
+                      The 60-day sprint is not a course. It is an operational pipeline designed to deploy systems and extract capital.
+                    </p>
+                  </div>
+                </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-8 text-left">
-                   {sprintPhases.map((phase, idx) => (
-                     <div key={idx} className="space-y-6 group text-left">
-                        <div className="text-4xl font-bold text-black/10 group-hover:text-black transition-colors duration-500 text-left">{phase.phase}</div>
-                        <div className="h-[2px] w-full bg-black/5 relative overflow-hidden text-left">
-                           <div className="absolute inset-0 bg-[#F3D7A7] translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700" />
-                        </div>
-                        <h4 className="text-sm font-bold uppercase tracking-widest text-left">{phase.title}</h4>
-                        <p className="text-[12px] text-black/40 leading-relaxed uppercase tracking-wider text-left">{phase.desc}</p>
-                     </div>
-                   ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {/* LIVE SESSIONS CARD */}
+                  <motion.div 
+                    whileHover={{ y: -10, rotateX: 5, rotateY: -5 }}
+                    className="p-10 bg-white/5 border border-white/10 rounded-3xl backdrop-blur-xl group hover:bg-[#F3D7A7] transition-all duration-700"
+                  >
+                    <div className="h-12 w-12 bg-white/10 rounded-full flex items-center justify-center mb-12 group-hover:bg-black transition-colors">
+                      <Zap size={20} className="text-[#F3D7A7]" />
+                    </div>
+                    <h3 className="text-2xl font-bold uppercase tracking-tight mb-4 group-hover:text-black">Live <br/> Briefings.</h3>
+                    <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30 group-hover:text-black/50">Mode: Google Meet / Zoom</p>
+                    <p className="mt-4 text-xs leading-relaxed text-white/50 group-hover:text-black/70 font-medium">Real-time execution sessions and strategic feedback loops. Direct access to the operating room.</p>
+                  </motion.div>
+
+                  {/* GUARANTEED PLACEMENT CARD */}
+                  <motion.div 
+                    whileHover={{ y: -10, rotateX: 5, rotateY: 5 }}
+                    className="p-10 bg-white/5 border border-white/10 rounded-3xl backdrop-blur-xl group hover:border-[#F3D7A7]/50 transition-all duration-700"
+                  >
+                    <div className="h-12 w-12 bg-white/10 rounded-full flex items-center justify-center mb-12 group-hover:bg-[#F3D7A7] transition-colors">
+                      <ShieldCheck size={20} className="text-[#F3D7A7] group-hover:text-black" />
+                    </div>
+                    <h3 className="text-2xl font-bold uppercase tracking-tight mb-4">Secured <br/> Pipeline.</h3>
+                    <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#F3D7A7]">Guaranteed Placement</p>
+                    <p className="mt-4 text-xs leading-relaxed text-white/50 font-medium">Verified performers are directly positioned within the Blade Media ecosystem or partner agency networks.</p>
+                  </motion.div>
+
+                  {/* INTENSIVE SPRINT CARD */}
+                  <motion.div 
+                    whileHover={{ y: -10, rotateX: -5, rotateY: 5 }}
+                    className="p-10 bg-white/5 border border-white/10 rounded-3xl backdrop-blur-xl group hover:bg-white transition-all duration-700"
+                  >
+                    <div className="h-12 w-12 bg-white/10 rounded-full flex items-center justify-center mb-12 group-hover:bg-black transition-colors">
+                      <Target size={20} className="text-[#F3D7A7]" />
+                    </div>
+                    <h3 className="text-2xl font-bold uppercase tracking-tight mb-4 group-hover:text-black">60-Day <br/> Velocity.</h3>
+                    <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30 group-hover:text-black/50">Execution Density</p>
+                    <p className="mt-4 text-xs leading-relaxed text-white/50 group-hover:text-black/70 font-medium">A zero-fluff trajectory from choosing your skill moat to booking your first six-figure client.</p>
+                  </motion.div>
+
+                  {/* PROPRIETARY SOPs CARD */}
+                  <motion.div 
+                    whileHover={{ y: -10, rotateX: -5, rotateY: -5 }}
+                    className="p-10 bg-[#F3D7A7] border border-[#F3D7A7] rounded-3xl text-black shadow-[0_20px_50px_rgba(243,215,167,0.2)]"
+                  >
+                    <div className="h-12 w-12 bg-black rounded-full flex items-center justify-center mb-12">
+                      <Binary size={20} className="text-[#F3D7A7]" />
+                    </div>
+                    <h3 className="text-2xl font-bold uppercase tracking-tight mb-4">Elite <br/> SOPs.</h3>
+                    <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-black/40">Market Standard</p>
+                    <p className="mt-4 text-xs leading-relaxed text-black/70 font-bold">Access the exact systems, scripts, and editing frameworks that generated 2.5B+ views for our clients.</p>
+                  </motion.div>
                 </div>
               </div>
             </section>
