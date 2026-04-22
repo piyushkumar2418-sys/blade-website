@@ -214,7 +214,7 @@ export default function Profile() {
                 <p className="text-white/40 text-[11px] leading-relaxed font-light text-left">
                    The initial technical briefing for verified candidates will be unlocked upon admission.
                 </p>
-                <button onClick={() => router.push("/curriculum")} className="w-full py-4 border border-white/10 text-[9px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3">
+                <button onClick={() => router.push("/curriculum?from=dashboard")} className="w-full py-4 border border-white/10 text-[9px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3">
                    View Prospectus <BookOpen size={14} />
                 </button>
              </div>

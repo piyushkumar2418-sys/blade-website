@@ -6,6 +6,7 @@ import { ArrowUpRight, Zap, Award, Eye, ArrowRight, TrendingUp, Shield, Target, 
 import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
+import { useSite } from "@/context/SiteContext";
 import { useAuth } from "@/context/AuthContext";
 
 // --- ANIMATION VARIANTS ---
@@ -138,18 +139,19 @@ const LogoMarquee = () => {
 export default function Home() {
   const { user, profile } = useAuth();
   const router = useRouter();
-  const [siteMode, setSiteMode] = useState<"agency" | "innerCircle">("agency");
+  const { mode, toggleMode } = useSite();
+  const isAgency = mode === "agency";
   const containerRef = useRef(null);
   const philosophyLeftRef = useRef(null);
   const isPhilosophyLeftInView = useInView(philosophyLeftRef, { once: true, margin: "-20%" });
   
   const { scrollYProgress } = useScroll({ target: containerRef });
-  const isAgency = siteMode === "agency";
+  const { scrollYProgress } = useScroll({ target: containerRef });
   const navButtonOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
 
-  const toggleMode = () => {
+  const handleToggle = () => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    setSiteMode(isAgency ? "innerCircle" : "agency");
+    toggleMode();
   };
 
   const youtubeWorks = [
@@ -208,7 +210,7 @@ export default function Home() {
 
       <div className="fixed top-6 right-6 md:top-8 md:right-8 z-[110] pointer-events-auto flex items-center gap-2 md:gap-3">
         <button 
-          onClick={toggleMode} 
+          onClick={handleToggle} 
           className={`px-4 py-2.5 md:px-6 md:py-3 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-[0.1em] transition-all hover:scale-105 active:scale-95 ${
             isAgency 
             ? "bg-white/5 border border-white/10 text-white hover:bg-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.05)]" 

@@ -4,11 +4,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { auth, db } from "@/lib/firebase"; 
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { ArrowRight, TrendingUp, Users, ShieldCheck, Mail, User, Phone } from "lucide-react";
+import { ArrowRight, TrendingUp, Users, ShieldCheck, Mail, User, Phone, ArrowLeft } from "lucide-react";
+import { useSite } from "@/context/SiteContext";
 import { useAuth } from "@/context/AuthContext";
 
 export default function MobileOTPLogin() {
   const { setProfile } = useAuth();
+  const { mode } = useSite();
+  const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -104,8 +107,19 @@ export default function MobileOTPLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-black flex flex-col md:flex-row font-sans">
+    <div className="min-h-screen bg-white text-black flex flex-col md:flex-row font-sans relative">
       <div id="recaptcha-container"></div>
+
+      {/* MINIMAL BACK BUTTON */}
+      <div className="fixed top-8 left-8 z-[120]">
+        <button 
+          onClick={() => router.push("/")}
+          className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-black/40 hover:text-black transition-colors group"
+        >
+          <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
+          Back to Entry
+        </button>
+      </div>
       
       {/* LEFT SIDE: AUTHENTICATION */}
       <div className="w-full md:w-1/2 flex flex-col justify-center px-8 md:px-20 py-20 border-r border-black/5 text-left relative overflow-hidden">

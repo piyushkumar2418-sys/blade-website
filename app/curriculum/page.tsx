@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Target, Laptop, ShieldCheck, Zap } from "lucide-react";
+import { useSite } from "@/context/SiteContext";
 
 // --- ANIMATION VARIANTS ---
 const fadeUp = {
@@ -26,6 +27,17 @@ const SectionLabel = ({ children, gold = false }: { children: React.ReactNode; g
 
 export default function CurriculumPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const { mode } = useSite();
+  const from = searchParams.get("from");
+
+  const handleBack = () => {
+    if (from === "dashboard") {
+      router.push("/dashboard");
+    } else {
+      router.push("/");
+    }
+  };
 
   const framework = [
     {
@@ -59,10 +71,10 @@ export default function CurriculumPage() {
       {/* MINIMAL NAVIGATION */}
       <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-8 py-8 mix-blend-difference text-white">
         <button 
-          onClick={() => router.push("/")}
+          onClick={handleBack}
           className="flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest hover:text-[#D4AF37] transition-colors"
         >
-          <ArrowLeft size={14} /> Back to Entry
+          <ArrowLeft size={14} /> Back to {from === "dashboard" ? "Dashboard" : "Entry"}
         </button>
       </nav>
 
