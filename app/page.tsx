@@ -146,7 +146,6 @@ export default function Home() {
   const isPhilosophyLeftInView = useInView(philosophyLeftRef, { once: true, margin: "-20%" });
   
   const { scrollYProgress } = useScroll({ target: containerRef });
-  const { scrollYProgress } = useScroll({ target: containerRef });
   const navButtonOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
 
   const handleToggle = () => {
