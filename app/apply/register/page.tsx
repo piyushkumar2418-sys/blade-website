@@ -20,12 +20,13 @@ export default function ApplicationPortal() {
     email: "", 
     phone: "", 
     instagram: "",
+    dob: "",
+    location: "",
+    currentActivity: "",
     links: "",
     whyJoin: "",
     friction: "",
-    stack: "",
-    goal: "",
-    committed: false,
+    commitment: false,
   });
 
   useEffect(() => {
@@ -44,7 +45,7 @@ export default function ApplicationPortal() {
     }
   }, [user, profile, loading, router]);
 
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -55,11 +56,12 @@ export default function ApplicationPortal() {
       !formData.links || 
       !formData.whyJoin || 
       !formData.friction ||
-      !formData.stack ||
-      !formData.goal ||
-      !formData.committed
+      !formData.dob ||
+      !formData.location ||
+      !formData.currentActivity ||
+      !formData.commitment
     ) {
-      setErrorMessage("PLEASE COMPLETE ALL ADMISSION QUESTIONS AND ACCEPT THE COMMITMENT.");
+      setErrorMessage("PLEASE COMPLETE ALL ADMISSION QUESTIONS AND AGREE TO THE COMMITMENT.");
       return;
     }
 
@@ -172,6 +174,26 @@ export default function ApplicationPortal() {
                   value={formData.instagram} 
                   onChange={(val: string) => handleInputChange("instagram", val)} 
                 />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <InputField 
+                    label="Date of Birth" 
+                    placeholder="DD/MM/YYYY"
+                    value={formData.dob} 
+                    onChange={(val: string) => handleInputChange("dob", val)} 
+                  />
+                  <InputField 
+                    label="Current Location" 
+                    placeholder="City, Country"
+                    value={formData.location} 
+                    onChange={(val: string) => handleInputChange("location", val)} 
+                  />
+                </div>
+                <InputField 
+                  label="Current Activity" 
+                  placeholder="e.g. Student, Freelancer, Full-time job"
+                  value={formData.currentActivity} 
+                  onChange={(val: string) => handleInputChange("currentActivity", val)} 
+                />
               </div>
             </div>
 
@@ -196,49 +218,27 @@ export default function ApplicationPortal() {
                 question="What is currently stopping you from reaching your next level?"
                 placeholder="Describe your current bottlenecks..." 
                 value={formData.friction}
-                onChange={(val: string) => handleInputChange("friction", val)}
+                onChange={(val: string) => handleInputChange("friction", val)} 
               />
-              <TextAreaField 
-                label="Current Stack"
-                question="What tools and software do you currently use for your workflow?"
-                placeholder="List your software, hardware, and systems..." 
-                value={formData.stack}
-                onChange={(val: string) => handleInputChange("stack", val)}
-              />
-              <TextAreaField 
-                label="Growth Goal"
-                question="What is your primary goal for the next 60 days?"
-                placeholder="Be specific about revenue or output goals..." 
-                value={formData.goal}
-                onChange={(val: string) => handleInputChange("goal", val)}
-              />
+            </div>
 
-              <div className="pt-6 space-y-4 text-left">
-                <label className="flex items-start gap-4 cursor-pointer group text-left">
-                  <div className="relative mt-1">
-                    <input 
-                      type="checkbox" 
-                      checked={formData.committed}
-                      onChange={(e) => handleInputChange("committed", e.target.checked)}
-                      className="peer sr-only"
-                    />
-                    <div className="h-6 w-6 border-2 border-black/10 group-hover:border-[#F3D7A7] peer-checked:bg-black peer-checked:border-black transition-all flex items-center justify-center">
-                      <motion.div 
-                        initial={false}
-                        animate={{ scale: formData.committed ? 1 : 0 }}
-                        className="text-white"
-                      >
-                        <CheckCircle2 size={16} />
-                      </motion.div>
-                    </div>
-                  </div>
-                  <div className="space-y-1 text-left">
-                    <p className="text-[11px] font-bold uppercase tracking-widest text-black/80 text-left">The Blade Commitment</p>
-                    <p className="text-[10px] text-black/40 leading-relaxed uppercase tracking-wider text-left">
-                      I am ready to commit 2 months of high-density execution. I will follow the curriculum strictly and understand that my evaluation is based solely on the results I deliver.
-                    </p>
-                  </div>
-                </label>
+            <div className="space-y-8 text-left pt-4">
+              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7] text-left">03. Institutional Commitment</h3>
+              <div 
+                className="flex gap-4 p-6 bg-white border border-black/5 hover:border-[#F3D7A7]/50 transition-all cursor-pointer group"
+                onClick={() => setFormData(prev => ({ ...prev, commitment: !prev.commitment }))}
+              >
+                <div className={`mt-1 w-5 h-5 border-2 flex items-center justify-center transition-all ${formData.commitment ? "bg-black border-black" : "border-black/10 group-hover:border-[#F3D7A7]"}`}>
+                  {formData.commitment && <CheckCircle2 size={12} className="text-white" />}
+                </div>
+                <div className="space-y-2 text-left">
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-black leading-relaxed text-left">
+                    I am ready to commit 2 months to this sprint.
+                  </p>
+                  <p className="text-[10px] text-black/40 leading-relaxed text-left uppercase tracking-wider">
+                    I will follow the curriculum entirely and understand that evaluation is based on the results generated from execution.
+                  </p>
+                </div>
               </div>
             </div>
 
