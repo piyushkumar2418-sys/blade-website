@@ -14,6 +14,7 @@ export default function ApplicationPortal() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [showExistingModal, setShowExistingModal] = useState(false);
   
   const [formData, setFormData] = useState({
     name: "", 
@@ -43,6 +44,17 @@ export default function ApplicationPortal() {
         phone: profile.phone
       }));
     }
+
+    const checkExisting = async () => {
+      if (user) {
+        const q = query(collection(db, "applications"), where("uid", "==", user.uid));
+        const snapshot = await getDocs(q);
+        if (!snapshot.empty) {
+          setShowExistingModal(true);
+        }
+      }
+    };
+    checkExisting();
   }, [user, profile, loading, router]);
 
   const handleInputChange = (field: string, value: string) => {
@@ -129,6 +141,50 @@ export default function ApplicationPortal() {
                   <div className="h-10 w-10 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all">
                     <ArrowRight size={16} />
                   </div>
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {/* DUPLICATE SUBMISSION MODAL */}
+      <AnimatePresence>
+        {showExistingModal && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-md flex items-center justify-center p-6"
+          >
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="max-w-md w-full bg-white p-10 md:p-12 shadow-2xl space-y-8 rounded-2xl text-left"
+            >
+              <div className="space-y-4 text-left">
+                <div className="w-12 h-12 bg-black flex items-center justify-center rounded-full text-[#F3D7A7]">
+                   <AlertCircle size={24} />
+                </div>
+                <h3 className="text-3xl font-bold uppercase tracking-tight text-black text-left">
+                  Application <br/> Already Found.
+                </h3>
+                <p className="text-black/40 text-sm leading-relaxed text-left font-medium">
+                  You have already submitted a portfolio for the May 2026 Batch. Would you like to check your status or submit a revised version?
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-4 pt-4 text-left">
+                <button 
+                  onClick={() => router.push("/dashboard")}
+                  className="w-full py-4 bg-black text-white font-bold uppercase tracking-widest text-[10px] hover:bg-[#F3D7A7] hover:text-black transition-all duration-300 shadow-lg"
+                >
+                  Visit Student Profile
+                </button>
+                <button 
+                  onClick={() => setShowExistingModal(false)}
+                  className="w-full py-4 bg-transparent border border-black/10 text-black/40 font-bold uppercase tracking-widest text-[9px] hover:text-black hover:border-black transition-all duration-300"
+                >
+                  Submit Another Response
                 </button>
               </div>
             </motion.div>
