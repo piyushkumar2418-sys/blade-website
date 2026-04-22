@@ -2,7 +2,7 @@
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, useInView, Variants, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Zap, Award, Eye, ArrowRight, TrendingUp, Shield, Target, Rocket, BarChart3, Binary, Lock, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Zap, Award, Eye, ArrowRight, TrendingUp, Shield, Target, Rocket, BarChart3, Binary, Lock, ShieldCheck, Instagram, MessageCircle } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import Scene3D from "@/components/Scene3D";
@@ -832,12 +832,19 @@ export default function Home() {
                   </motion.button>
                 </div>
 
-                <div className="pt-40 text-center space-y-8">
-                  <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12">
-                    <a href="https://wa.me/917082176274" target="_blank" className="text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-[#F3D7A7] transition-colors">WhatsApp: +91 7082176274</a>
-                    <a href="https://www.instagram.com/bladeinnercircle/" target="_blank" className="text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-[#F3D7A7] transition-colors">Instagram: @bladeinnercircle</a>
+                <div className="pt-40 text-center space-y-10">
+                  <div className="flex items-center justify-center gap-8">
+                    <a href="https://wa.me/917082176274" target="_blank" className="p-4 border border-white/5 rounded-full text-white/20 hover:text-[#F3D7A7] hover:border-[#F3D7A7]/30 transition-all group">
+                      <MessageCircle size={20} className="group-hover:scale-110 transition-transform" />
+                    </a>
+                    <a href="https://www.instagram.com/bladeinnercircle/" target="_blank" className="p-4 border border-white/5 rounded-full text-white/20 hover:text-[#F3D7A7] hover:border-[#F3D7A7]/30 transition-all group">
+                      <Instagram size={20} className="group-hover:scale-110 transition-transform" />
+                    </a>
                   </div>
-                  <p className="text-[10px] font-bold uppercase tracking-[1em] text-white/10 text-center">Stop Consuming. Start Operating.</p>
+                  <div className="space-y-4">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.8em] text-white/40">Stop Consuming. Start Operating.</p>
+                    <p className="text-[9px] font-bold uppercase tracking-[0.4em] text-white/20">© 2026 Blade // Institutional Access</p>
+                  </div>
                 </div>
               </div>
             </section>
@@ -860,11 +867,7 @@ export default function Home() {
         </footer>
       )}
 
-      {!isAgency && (
-        <footer className="py-12 bg-black text-center relative z-20 border-t border-white/5">
-          <div className="text-[9px] uppercase tracking-[0.8em] font-bold text-center text-white/20">© 2026 Blade // All Rights Reserved</div>
-        </footer>
-      )}
+      {!isAgency && <div className="h-20 bg-black" />}
     </motion.main>
   );
 }
