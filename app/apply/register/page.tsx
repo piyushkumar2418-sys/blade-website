@@ -22,10 +22,7 @@ export default function ApplicationPortal() {
     instagram: "",
     links: "",
     whyJoin: "",
-    brandDeconstruct: "",
-    shadowLeader: "",
-    growthMechanics: "",
-    creativeWin: "",
+    friction: "",
   });
 
   useEffect(() => {
@@ -54,10 +51,7 @@ export default function ApplicationPortal() {
     if (
       !formData.links || 
       !formData.whyJoin || 
-      !formData.brandDeconstruct || 
-      !formData.shadowLeader || 
-      !formData.growthMechanics || 
-      !formData.creativeWin
+      !formData.friction
     ) {
       setErrorMessage("PLEASE COMPLETE ALL ADMISSION QUESTIONS.");
       return;
@@ -192,32 +186,11 @@ export default function ApplicationPortal() {
                 onChange={(val: string) => handleInputChange("whyJoin", val)}
               />
               <TextAreaField 
-                label="Brand Deconstruction"
-                question="Deconstruct one brand you love. What are 3 key points of their content strategy that make them dominant?"
-                placeholder="Break down their strategy here..." 
-                value={formData.brandDeconstruct}
-                onChange={(val: string) => handleInputChange("brandDeconstruct", val)}
-              />
-              <TextAreaField 
-                label="Shadowing & Execution"
-                question="If you could shadow one business leader for a day, who would it be and what specific execution secret would you want to uncover?"
-                placeholder="Name the leader and the secret..." 
-                value={formData.shadowLeader}
-                onChange={(val: string) => handleInputChange("shadowLeader", val)}
-              />
-              <TextAreaField 
-                label="Growth Mechanics"
-                question="How would you improve the audience retention of a creator you follow? Give us 2-3 specific mechanical changes."
-                placeholder="Describe the mechanical changes..." 
-                value={formData.growthMechanics}
-                onChange={(val: string) => handleInputChange("growthMechanics", val)}
-              />
-              <TextAreaField 
-                label="Creative Conviction"
-                question="What is the most creative way you have ever sold an idea or a product? Describe the silent mechanics of that win."
-                placeholder="Tell us the story of your win..." 
-                value={formData.creativeWin}
-                onChange={(val: string) => handleInputChange("creativeWin", val)}
+                label="The Friction"
+                question="What is currently stopping you from reaching your next level?"
+                placeholder="Describe your current bottlenecks..." 
+                value={formData.friction}
+                onChange={(val: string) => handleInputChange("friction", val)}
               />
             </div>
 
