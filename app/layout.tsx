@@ -69,9 +69,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/inner-circle-logo.png",
-    shortcut: "/inner-circle-logo.png",
-    apple: "/inner-circle-logo.png",
+    icon: "/blade-logo.png",
+    shortcut: "/blade-logo.png",
+    apple: "/blade-logo.png",
   },
   verification: {
     google: "s1LJv7f1Cy938IT3wDll5_6ndlN2HaPPB-8mpmCXCf4",
@@ -88,7 +88,7 @@ export default function RootLayout({
     "@type": "Organization",
     "name": "Blade Media",
     "url": "https://blademedia.in",
-    "logo": "https://blademedia.in/inner-circle-logo.png",
+    "logo": "https://blademedia.in/blade-logo.png",
     "description": "The institutional engine for systematized visual dominance.",
     "founder": {
       "@type": "Person",
