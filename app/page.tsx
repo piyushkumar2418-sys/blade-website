@@ -303,7 +303,10 @@ export default function Home() {
                 <source src="/hero-bg.mp4?v=4" type="video/mp4" />
               </video>
               <div className="relative z-20 px-4 text-center">
-                <h1 className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.06em] uppercase mb-8 text-white text-center">Growth,<br/>engineered.</h1>
+                <h1 className="text-[14vw] md:text-[11vw] font-bold leading-[0.8] tracking-[-0.06em] uppercase mb-8 text-white text-center">
+                  <span className="sr-only">Blade Media - High-Ticket Content & Growth Agency</span>
+                  Growth,<br/>engineered.
+                </h1>
                 <p className="text-[#F3D7A7] text-[10px] md:text-[12px] uppercase tracking-[0.8em] font-bold text-center">Blade Media</p>
               </div>
             </section>
