@@ -54,9 +54,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ 
       success: true, 
-      id: docId,
-      resend_id: emailResult.mock ? 'MOCK_MODE_ACTIVE' : (emailResult.data?.id || 'no_id'),
-      debug_email: process.env.BLADE_RESEND_KEY ? 'active' : 'missing_key'
+      id: docId
     });
   } catch (error: any) {
     console.error('Critical API Failure:', error);

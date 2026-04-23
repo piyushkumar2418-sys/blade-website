@@ -96,23 +96,15 @@ export default function ApplicationPortal() {
       });
 
       const data = await response.json();
-      alert("RAW SERVER DATA: " + JSON.stringify(data));
       
       if (!response.ok) {
         throw new Error(data.error || 'Failed to transmit application portfolio.');
       }
 
-      if (data.debug_email === 'missing_key') {
-        toast.error("COMMUNICATION SYSTEM OFFLINE", {
-          description: "Portfolio logged, but confirmation email system is not configured on server.",
-        });
-      } else {
-        toast.success("TRANSMISSION SECURED", {
-          description: `Application logged. Email ID: ${data.resend_id}`,
-        });
-      }
-      
       setShowSuccess(true);
+      toast.success("TRANSMISSION SECURED", {
+        description: "Your admission portfolio has been logged successfully.",
+      });
     } catch (error: any) {
       console.error("Error submitting application:", error);
       toast.error("SYSTEM FAILURE", {
@@ -136,10 +128,6 @@ export default function ApplicationPortal() {
 
   return (
     <div className="min-h-screen bg-[#F9F9F9] text-black flex flex-col md:flex-row relative font-sans selection:bg-[#F3D7A7] selection:text-black">
-      {/* VERSION BANNER */}
-      <div className="fixed top-0 left-0 right-0 z-[200] bg-[#F3D7A7] text-black text-[10px] font-bold text-center py-1 tracking-[0.3em] uppercase">
-        System Version 2.0 - Active Diagnostics
-      </div>
       
       {/* SUCCESS MODAL */}
       <AnimatePresence>
