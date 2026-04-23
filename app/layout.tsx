@@ -6,6 +6,9 @@ import { SiteProvider } from "@/context/SiteContext";
 import { AuthProvider } from "@/context/AuthContext";
 import CookieConsent from "@/components/CookieConsent";
 import { Analytics } from "@vercel/analytics/react";
+import { PostHogProvider } from "@/components/providers/PostHogProvider";
+import PostHogPageview from "@/components/providers/PostHogPageview";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -113,14 +116,19 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-black">
-        <AuthProvider>
-          <Toaster position="top-right" richColors theme="dark" />
-          <SiteProvider>
-            {children}
-            <CookieConsent />
-            <Analytics />
-          </SiteProvider>
-        </AuthProvider>
+        <PostHogProvider>
+          <Suspense fallback={null}>
+            <PostHogPageview />
+          </Suspense>
+          <AuthProvider>
+            <Toaster position="top-right" richColors theme="dark" />
+            <SiteProvider>
+              {children}
+              <CookieConsent />
+              <Analytics />
+            </SiteProvider>
+          </AuthProvider>
+        </PostHogProvider>
       </body>
     </html>
   );
