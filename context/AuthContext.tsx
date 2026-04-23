@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth, db } from "@/lib/firebase";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { onAuthStateChanged, User, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 interface UserProfile {
@@ -18,6 +18,7 @@ interface AuthContextType {
   profile: UserProfile | null;
   loading: boolean;
   setProfile: (profile: UserProfile) => void;
+  loginWithGoogle: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -62,8 +63,35 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setProfileState(newProfile);
   };
 
+  const loginWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      
+      // Check if profile exists, if not create basic one
+      const profileDoc = await getDoc(doc(db, "users", user.uid));
+      if (!profileDoc.exists()) {
+        const basicProfile = {
+          uid: user.uid,
+          name: user.displayName || "",
+          email: user.email || "",
+          phone: "",
+          createdAt: new Date()
+        };
+        await setDoc(doc(db, "users", user.uid), basicProfile);
+        setProfileState(basicProfile);
+      } else {
+        setProfileState(profileDoc.data() as UserProfile);
+      }
+    } catch (error) {
+      console.error("Google Auth Error:", error);
+      throw error;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, profile, loading, setProfile }}>
+    <AuthContext.Provider value={{ user, profile, loading, setProfile, loginWithGoogle }}>
       {children}
     </AuthContext.Provider>
   );
