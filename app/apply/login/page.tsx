@@ -10,7 +10,7 @@ import {
   EmailAuthProvider,
   linkWithCredential
 } from "firebase/auth";
-import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
+import { doc, setDoc, getDoc, serverTimestamp, collection, query, where, getDocs } from "firebase/firestore";
 import { ArrowRight, ShieldCheck, Mail, User, ArrowLeft, Lock, Fingerprint, Globe } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
@@ -64,14 +64,31 @@ function LoginContent() {
     }
     
     setLoading(true);
-    setupRecaptcha();
+
     try {
+      // Check if email or phone already exists
+      const emailQuery = query(collection(db, "users"), where("email", "==", email));
+      const phoneQuery = query(collection(db, "users"), where("phone", "==", phoneNumber));
+      
+      const [emailSnap, phoneSnap] = await Promise.all([
+        getDocs(emailQuery),
+        getDocs(phoneQuery)
+      ]);
+
+      if (!emailSnap.empty || !phoneSnap.empty) {
+        toast.error("Identity already in the Archive. Please log in as an Existing Member.");
+        setAuthMode("login");
+        setLoading(false);
+        return;
+      }
+
+      setupRecaptcha();
       const result = await signInWithPhoneNumber(auth, `+91${phoneNumber}`, (window as any).recaptchaVerifier);
       setConfirmationResult(result);
       setStep(2);
       toast.success("Check your phone for the access key.");
     } catch (error: any) {
-      toast.error("Failed to send code. Please try again.");
+      toast.error("Process interrupted. Please try again or use Google.");
     }
     setLoading(false);
   };
