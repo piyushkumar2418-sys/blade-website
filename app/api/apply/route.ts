@@ -18,32 +18,43 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Name and email are required.' }, { status: 400 });
     }
 
-    // 1. Log the lead to Firestore
-    const docRef = await addDoc(collection(db, 'applications'), {
-      name,
-      email,
-      instagram: instagram || 'not provided',
-      ...otherData,
-      status: 'new',
-      source: 'web_form',
-      createdAt: serverTimestamp(),
-    });
+    let docId = '';
+    try {
+      // 1. Log the lead to Firestore
+      const docRef = await addDoc(collection(db, 'applications'), {
+        name,
+        email,
+        instagram: instagram || 'not provided',
+        ...otherData,
+        status: 'new',
+        source: 'web_form',
+        createdAt: serverTimestamp(),
+      });
+      docId = docRef.id;
+    } catch (dbError: any) {
+      console.error('Database Write Failure:', dbError);
+      return NextResponse.json({ error: `Database failure: ${dbError.message}` }, { status: 500 });
+    }
 
-    // 2. Dispatch Confirmation Email (Non-blocking)
-    // We don't await this so the user gets an instant success response
-    sendEmail({
-      to: email,
-      subject: 'TRANSMISSION SECURED: Application Received',
-      react: React.createElement(ApplicationEmail, { name }),
-      text: `Hello ${name}, your application to Blade Media has been received and is under review.`,
-    }).catch(err => console.error('Delayed Email Error:', err));
+    // 2. Dispatch Confirmation Email (Non-blocking and protected)
+    try {
+      sendEmail({
+        to: email,
+        subject: 'TRANSMISSION SECURED: Application Received',
+        react: React.createElement(ApplicationEmail, { name }),
+        text: `Hello ${name}, your application to Blade Media has been received and is under review.`,
+      }).catch(err => console.error('Background Email Error:', err));
+    } catch (emailError) {
+      console.error('Email Setup Error:', emailError);
+      // We don't return error here because the database write succeeded
+    }
 
     return NextResponse.json({ 
       success: true, 
-      id: docRef.id 
+      id: docId 
     });
-  } catch (error) {
-    console.error('Critical Application Error:', error);
-    return NextResponse.json({ error: 'System processing failure.' }, { status: 500 });
+  } catch (error: any) {
+    console.error('Critical API Failure:', error);
+    return NextResponse.json({ error: `Critical failure: ${error.message}` }, { status: 500 });
   }
 }
