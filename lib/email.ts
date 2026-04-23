@@ -28,7 +28,7 @@ export async function sendEmail({ to, subject, react, text }: SendEmailProps) {
 
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Blade Media <onboarding@resend.dev>', // Default for unverified domains
+      from: 'Blade Media <team@blademedia.in>', // Your new professional address
       to,
       subject,
       react,
