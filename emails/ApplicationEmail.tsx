@@ -79,46 +79,60 @@ export const ApplicationEmail: React.FC<ApplicationEmailProps> = ({ name }) => (
     </div>
     
     {/* Admission Protocol Journey */}
-    <div style={{ marginBottom: '60px' }}>
+    <div style={{ marginBottom: '80px', padding: '0 10px' }}>
       <p style={{ 
         fontSize: '10px', 
         fontWeight: 'bold', 
         textTransform: 'uppercase', 
-        letterSpacing: '0.3em', 
-        color: 'rgba(255, 255, 255, 0.4)',
-        marginBottom: '30px'
+        letterSpacing: '0.4em', 
+        color: 'rgba(255, 255, 255, 0.3)',
+        marginBottom: '40px',
+        textAlign: 'center'
       }}>
         Admission Journey
       </p>
       
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <tr>
-          {/* Step 1 */}
-          <td style={{ width: '25%', textAlign: 'center', verticalAlign: 'top', padding: '0 5px' }}>
-            <div style={{ margin: '0 auto 15px auto', width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#F3D7A7', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 'bold' }}>✓</div>
-            <div style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', color: '#ffffff', marginBottom: '4px' }}>Received</div>
-            <div style={{ fontSize: '8px', textTransform: 'uppercase', color: 'rgba(255, 255, 255, 0.3)' }}>Portfolio Secured</div>
-          </td>
-          {/* Step 2 */}
-          <td style={{ width: '25%', textAlign: 'center', verticalAlign: 'top', padding: '0 5px' }}>
-            <div style={{ margin: '0 auto 15px auto', width: '32px', height: '32px', borderRadius: '50%', border: '1px solid #F3D7A7', color: '#F3D7A7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 'bold' }}>2</div>
-            <div style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', color: '#F3D7A7', marginBottom: '4px' }}>Review</div>
-            <div style={{ fontSize: '8px', textTransform: 'uppercase', color: 'rgba(243, 215, 167, 0.4)' }}>Intent Check</div>
-          </td>
-          {/* Step 3 */}
-          <td style={{ width: '25%', textAlign: 'center', verticalAlign: 'top', padding: '0 5px', opacity: '0.2' }}>
-            <div style={{ margin: '0 auto 15px auto', width: '32px', height: '32px', borderRadius: '50%', border: '1px solid #ffffff', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 'bold' }}>3</div>
-            <div style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', color: '#ffffff', marginBottom: '4px' }}>Interview</div>
-            <div style={{ fontSize: '8px', textTransform: 'uppercase', color: 'rgba(255, 255, 255, 0.5)' }}>Direct Evaluation</div>
-          </td>
-          {/* Step 4 */}
-          <td style={{ width: '25%', textAlign: 'center', verticalAlign: 'top', padding: '0 5px', opacity: '0.2' }}>
-            <div style={{ margin: '0 auto 15px auto', width: '32px', height: '32px', borderRadius: '50%', border: '1px solid #ffffff', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 'bold' }}>4</div>
-            <div style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', color: '#ffffff', marginBottom: '4px' }}>Verdict</div>
-            <div style={{ fontSize: '8px', textTransform: 'uppercase', color: 'rgba(255, 255, 255, 0.5)' }}>Final Selection</div>
-          </td>
-        </tr>
-      </table>
+      <div style={{ position: 'relative', textAlign: 'center' }}>
+        {/* Connecting Line */}
+        <div style={{ 
+          position: 'absolute', 
+          top: '16px', 
+          left: '12.5%', 
+          right: '12.5%', 
+          height: '1px', 
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          zIndex: 0
+        }}></div>
+
+        <table style={{ width: '100%', borderCollapse: 'collapse', position: 'relative', zIndex: 1 }}>
+          <tr>
+            {/* Step 1 */}
+            <td style={{ width: '25%', textAlign: 'center', verticalAlign: 'top' }}>
+              <div style={{ margin: '0 auto 15px auto', width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#F3D7A7', color: '#000', lineHeight: '32px', fontSize: '14px', fontWeight: 'bold' }}>✓</div>
+              <div style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', color: '#ffffff', marginBottom: '4px', letterSpacing: '0.1em' }}>Received</div>
+              <div style={{ fontSize: '8px', textTransform: 'uppercase', color: 'rgba(255, 255, 255, 0.3)', letterSpacing: '0.05em' }}>Portfolio</div>
+            </td>
+            {/* Step 2 */}
+            <td style={{ width: '25%', textAlign: 'center', verticalAlign: 'top' }}>
+              <div style={{ margin: '0 auto 15px auto', width: '32px', height: '32px', borderRadius: '50%', border: '1px solid #F3D7A7', backgroundColor: '#000', color: '#F3D7A7', lineHeight: '30px', fontSize: '14px', fontWeight: 'bold' }}>2</div>
+              <div style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', color: '#F3D7A7', marginBottom: '4px', letterSpacing: '0.1em' }}>Review</div>
+              <div style={{ fontSize: '8px', textTransform: 'uppercase', color: 'rgba(243, 215, 167, 0.4)', letterSpacing: '0.05em' }}>Intent Audit</div>
+            </td>
+            {/* Step 3 */}
+            <td style={{ width: '25%', textAlign: 'center', verticalAlign: 'top', opacity: '0.2' }}>
+              <div style={{ margin: '0 auto 15px auto', width: '32px', height: '32px', borderRadius: '50%', border: '1px solid #ffffff', color: '#ffffff', lineHeight: '30px', fontSize: '14px', fontWeight: 'bold' }}>3</div>
+              <div style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', color: '#ffffff', marginBottom: '4px', letterSpacing: '0.1em' }}>Interview</div>
+              <div style={{ fontSize: '8px', textTransform: 'uppercase', color: 'rgba(255, 255, 255, 0.3)', letterSpacing: '0.05em' }}>Evaluation</div>
+            </td>
+            {/* Step 4 */}
+            <td style={{ width: '25%', textAlign: 'center', verticalAlign: 'top', opacity: '0.2' }}>
+              <div style={{ margin: '0 auto 15px auto', width: '32px', height: '32px', borderRadius: '50%', border: '1px solid #ffffff', color: '#ffffff', lineHeight: '30px', fontSize: '14px', fontWeight: 'bold' }}>4</div>
+              <div style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', color: '#ffffff', marginBottom: '4px', letterSpacing: '0.1em' }}>Verdict</div>
+              <div style={{ fontSize: '8px', textTransform: 'uppercase', color: 'rgba(255, 255, 255, 0.3)', letterSpacing: '0.05em' }}>Selection</div>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
     
     {/* Clean Footer */}
