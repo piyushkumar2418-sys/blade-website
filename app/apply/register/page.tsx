@@ -7,6 +7,8 @@ import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp, query, where, getDocs } from "firebase/firestore";
 import { useAuth } from "@/context/AuthContext";
 
+import { toast } from "sonner";
+
 export default function ApplicationPortal() {
   const router = useRouter();
   const { user, profile, loading } = useAuth();
@@ -73,6 +75,9 @@ export default function ApplicationPortal() {
       !formData.currentActivity ||
       !formData.commitment
     ) {
+      toast.warning("INCOMPLETE PORTFOLIO", {
+        description: "Please complete all admission questions before transmitting.",
+      });
       setErrorMessage("PLEASE COMPLETE ALL ADMISSION QUESTIONS AND AGREE TO THE COMMITMENT.");
       return;
     }
@@ -81,15 +86,28 @@ export default function ApplicationPortal() {
     setErrorMessage("");
 
     try {
-      await addDoc(collection(db, "applications"), {
-        ...formData,
-        uid: user?.uid,
-        createdAt: serverTimestamp(),
-        status: "submitted",
+      const response = await fetch('/api/apply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          uid: user?.uid,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to transmit application portfolio.');
+      }
+
+      toast.success("TRANSMISSION SECURED", {
+        description: "Application logged. Check your inbox for confirmation.",
       });
       setShowSuccess(true);
     } catch (error: any) {
       console.error("Error submitting application:", error);
+      toast.error("SYSTEM FAILURE", {
+        description: "Application failed to transmit. Please retry.",
+      });
       setErrorMessage(`FAILED TO SUBMIT: ${error.message || "PLEASE TRY AGAIN LATER"}`);
       setIsSubmitting(false);
     }

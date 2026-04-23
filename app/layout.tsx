@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 import { SiteProvider } from "@/context/SiteContext";
 import { AuthProvider } from "@/context/AuthContext";
@@ -104,6 +105,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <AuthProvider>
+          <Toaster position="top-right" richColors theme="dark" />
           <SiteProvider>{children}</SiteProvider>
         </AuthProvider>
       </body>
