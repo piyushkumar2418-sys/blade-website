@@ -13,7 +13,7 @@ interface SendEmailProps {
  * Falls back to Mock Mode if no API key is provided.
  */
 export async function sendEmail({ to, subject, react, text }: SendEmailProps) {
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = process.env.BLADE_RESEND_KEY;
 
   if (!apiKey) {
     console.log('SYSTEM: RESEND_API_KEY is missing. Operating in MOCK MODE.');
