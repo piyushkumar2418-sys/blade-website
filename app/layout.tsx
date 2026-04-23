@@ -5,6 +5,7 @@ import "./globals.css";
 import { SiteProvider } from "@/context/SiteContext";
 import { AuthProvider } from "@/context/AuthContext";
 import CookieConsent from "@/components/CookieConsent";
+import { Analytics } from "@vercel/analytics/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -117,6 +118,7 @@ export default function RootLayout({
           <SiteProvider>
             {children}
             <CookieConsent />
+            <Analytics />
           </SiteProvider>
         </AuthProvider>
       </body>
