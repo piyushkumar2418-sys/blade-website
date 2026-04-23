@@ -36,17 +36,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: `Database failure: ${dbError.message}` }, { status: 500 });
     }
 
-    // 2. Dispatch Confirmation Email (Non-blocking and protected)
-    try {
-      sendEmail({
-        to: email,
-        subject: 'TRANSMISSION SECURED: Application Received',
-        react: React.createElement(ApplicationEmail, { name }),
-        text: `Hello ${name}, your application to Blade Media has been received and is under review.`,
-      }).catch(err => console.error('Background Email Error:', err));
-    } catch (emailError) {
-      console.error('Email Setup Error:', emailError);
-      // We don't return error here because the database write succeeded
+    // 2. Dispatch Confirmation Email (Awaited for debugging)
+    const emailResult = await sendEmail({
+      to: email,
+      subject: 'TRANSMISSION SECURED: Application Received',
+      react: React.createElement(ApplicationEmail, { name }),
+      text: `Hello ${name}, your application to Blade Media has been received and is under review.`,
+    });
+
+    if (!emailResult.success) {
+      console.error('Email Dispatch Failure:', emailResult.error);
+      return NextResponse.json({ 
+        success: false, 
+        error: `Email failed: ${JSON.stringify(emailResult.error)}` 
+      });
     }
 
     return NextResponse.json({ 
