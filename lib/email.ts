@@ -1,10 +1,6 @@
 import { Resend } from 'resend';
 import React from 'react';
 
-const resend = process.env.RESEND_API_KEY 
-  ? new Resend(process.env.RESEND_API_KEY) 
-  : null;
-
 interface SendEmailProps {
   to: string | string[];
   subject: string;
@@ -17,14 +13,18 @@ interface SendEmailProps {
  * Falls back to Mock Mode if no API key is provided.
  */
 export async function sendEmail({ to, subject, react, text }: SendEmailProps) {
-  if (!resend) {
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey) {
     console.log('\x1b[35m%s\x1b[0m', '--- [MOCK EMAIL SYSTEM] ---');
     console.log('To:', to);
     console.log('Subject:', subject);
-    console.log('Status: Verification code or API key missing. Email logged to console.');
+    console.log('Status: API key missing. Operating in Mock Mode.');
     console.log('---------------------------');
     return { success: true, mock: true };
   }
+
+  const resend = new Resend(apiKey);
 
   try {
     const { data, error } = await resend.emails.send({
