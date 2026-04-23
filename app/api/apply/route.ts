@@ -48,8 +48,8 @@ export async function POST(req: NextRequest) {
       console.error('Email Dispatch Failure:', emailResult.error);
       return NextResponse.json({ 
         success: false, 
-        error: `Email failed: ${JSON.stringify(emailResult.error)}` 
-      });
+        error: `Email failed: ${emailResult.error?.message || 'Unknown Resend Error'}` 
+      }, { status: 500 });
     }
 
     return NextResponse.json({ 
