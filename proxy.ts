@@ -5,7 +5,7 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Basic info
-  const ip = request.ip || request.headers.get('x-forwarded-for')?.split(',')[0] || 'unknown';
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0] || request.headers.get('x-real-ip') || 'unknown';
   const userAgent = request.headers.get('user-agent') || 'unknown';
   const referrer = request.headers.get('referer') || 'direct';
   
