@@ -254,6 +254,7 @@ export default function ApplicationPortal() {
                     type="date"
                     value={formData.dob} 
                     onChange={(val: string) => handleInputChange("dob", val)} 
+                    max={new Date().toISOString().split('T')[0]}
                   />
                   <InputField 
                     label="Current Location" 
@@ -373,7 +374,7 @@ export default function ApplicationPortal() {
   );
 }
 
-const InputField = ({ label, placeholder, value, onChange, disabled = false, type = "text" }: any) => (
+const InputField = ({ label, placeholder, value, onChange, disabled = false, type = "text", ...props }: any) => (
   <div className="space-y-3 text-left group">
     <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30 group-focus-within:text-[#F3D7A7] transition-colors duration-300 block text-left">
       {label}
@@ -386,6 +387,7 @@ const InputField = ({ label, placeholder, value, onChange, disabled = false, typ
         onChange={(e) => onChange && onChange(e.target.value)}
         disabled={disabled}
         className={`w-full bg-[#F5F5F7] border border-black/[0.03] rounded-xl px-6 py-4.5 text-lg font-bold tracking-tight focus:bg-white focus:border-[#F3D7A7]/50 focus:shadow-[0_10px_30px_rgba(0,0,0,0.03)] outline-none transition-all duration-500 placeholder:text-black/5 text-left ${disabled ? "opacity-40 cursor-not-allowed bg-black/[0.02]" : ""}`}
+        {...props}
       />
     </div>
   </div>
