@@ -135,6 +135,10 @@ export default function ApplicationPortal() {
 
   return (
     <div className="min-h-screen bg-[#F9F9F9] text-black flex flex-col md:flex-row relative font-sans selection:bg-[#F3D7A7] selection:text-black">
+      {/* VERSION BANNER */}
+      <div className="fixed top-0 left-0 right-0 z-[200] bg-[#F3D7A7] text-black text-[10px] font-bold text-center py-1 tracking-[0.3em] uppercase">
+        System Version 2.0 - Active Diagnostics
+      </div>
       
       {/* SUCCESS MODAL */}
       <AnimatePresence>
