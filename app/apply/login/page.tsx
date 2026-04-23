@@ -11,7 +11,7 @@ import {
   linkWithCredential
 } from "firebase/auth";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
-import { ArrowRight, ShieldCheck, Mail, User, ArrowLeft, Lock, Fingerprint, Chrome } from "lucide-react";
+import { ArrowRight, ShieldCheck, Mail, User, ArrowLeft, Lock, Fingerprint, Globe } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 
@@ -169,7 +169,7 @@ function LoginContent() {
                 disabled={loading}
                 className="w-full py-4 bg-[#F9F9F9] text-black border border-black/5 rounded-sm flex items-center justify-center gap-3 hover:bg-black hover:text-white transition-all duration-300 group"
               >
-                <Chrome size={18} />
+                <Globe size={18} />
                 <span className="text-[10px] uppercase tracking-widest font-bold">Continue with Google</span>
               </button>
               
