@@ -5,8 +5,8 @@ interface ApplicationEmailProps {
 }
 
 /**
- * Blade Media "Inner Circle" Human-Centric Template
- * Clean, personal, and premium.
+ * Blade Media "Inner Circle" Journey Template
+ * Architectural progress tracking and human-centric copy.
  */
 export const ApplicationEmail: React.FC<ApplicationEmailProps> = ({ name }) => (
   <div style={{
@@ -33,7 +33,7 @@ export const ApplicationEmail: React.FC<ApplicationEmailProps> = ({ name }) => (
           fontWeight: 'bold', 
           textTransform: 'uppercase'
         }}>
-          Cohort 01
+          Cohort 01 — May 2026
         </span>
       </div>
     </div>
@@ -48,7 +48,7 @@ export const ApplicationEmail: React.FC<ApplicationEmailProps> = ({ name }) => (
         margin: '0 0 24px 0',
         color: '#ffffff'
       }}>
-        We've received your application.
+        We've received your portfolio.
       </h1>
       <p style={{ 
         fontSize: '16px', 
@@ -66,7 +66,7 @@ export const ApplicationEmail: React.FC<ApplicationEmailProps> = ({ name }) => (
         fontWeight: '400',
         margin: '0 0 20px 0'
       }}>
-        Thank you for sharing your portfolio with us. Our team is currently reviewing your work and intent to ensure a perfect fit for the upcoming cohort. 
+        Thank you for sharing your work with us. Every application for Cohort 01 is reviewed personally by our team to ensure we’re building the right environment for everyone involved.
       </p>
       <p style={{ 
         fontSize: '16px', 
@@ -74,26 +74,51 @@ export const ApplicationEmail: React.FC<ApplicationEmailProps> = ({ name }) => (
         color: 'rgba(255, 255, 255, 0.8)', 
         fontWeight: '400'
       }}>
-        We value the effort you've put into this submission. You can expect a personal response from us within the next 48 hours.
+        We've officially started your admission journey. You can expect to hear from us regarding the next steps within the next 48 hours.
       </p>
     </div>
     
-    {/* Simple Status Track */}
-    <div style={{ 
-      padding: '30px', 
-      border: '1px solid rgba(255, 255, 255, 0.1)', 
-      backgroundColor: 'rgba(255, 255, 255, 0.03)',
-      marginBottom: '60px',
-      borderRadius: '12px'
-    }}>
-      <div style={{ marginBottom: '20px' }}>
-        <span style={{ fontSize: '12px', color: '#ffffff', display: 'block', fontWeight: 'bold' }}>Application Review</span>
-        <span style={{ fontSize: '10px', color: '#F3D7A7', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Currently in progress</span>
-      </div>
-      <div style={{ opacity: '0.3' }}>
-        <span style={{ fontSize: '12px', color: '#ffffff', display: 'block', fontWeight: 'bold' }}>Final Selection</span>
-        <span style={{ fontSize: '10px', color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Awaiting review</span>
-      </div>
+    {/* Admission Protocol Journey */}
+    <div style={{ marginBottom: '60px' }}>
+      <p style={{ 
+        fontSize: '10px', 
+        fontWeight: 'bold', 
+        textTransform: 'uppercase', 
+        letterSpacing: '0.3em', 
+        color: 'rgba(255, 255, 255, 0.4)',
+        marginBottom: '30px'
+      }}>
+        Admission Journey
+      </p>
+      
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <tr>
+          {/* Step 1 */}
+          <td style={{ width: '25%', textAlign: 'center', verticalAlign: 'top', padding: '0 5px' }}>
+            <div style={{ margin: '0 auto 15px auto', width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#F3D7A7', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 'bold' }}>✓</div>
+            <div style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', color: '#ffffff', marginBottom: '4px' }}>Received</div>
+            <div style={{ fontSize: '8px', textTransform: 'uppercase', color: 'rgba(255, 255, 255, 0.3)' }}>Portfolio Secured</div>
+          </td>
+          {/* Step 2 */}
+          <td style={{ width: '25%', textAlign: 'center', verticalAlign: 'top', padding: '0 5px' }}>
+            <div style={{ margin: '0 auto 15px auto', width: '32px', height: '32px', borderRadius: '50%', border: '1px solid #F3D7A7', color: '#F3D7A7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 'bold' }}>2</div>
+            <div style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', color: '#F3D7A7', marginBottom: '4px' }}>Review</div>
+            <div style={{ fontSize: '8px', textTransform: 'uppercase', color: 'rgba(243, 215, 167, 0.4)' }}>Intent Check</div>
+          </td>
+          {/* Step 3 */}
+          <td style={{ width: '25%', textAlign: 'center', verticalAlign: 'top', padding: '0 5px', opacity: '0.2' }}>
+            <div style={{ margin: '0 auto 15px auto', width: '32px', height: '32px', borderRadius: '50%', border: '1px solid #ffffff', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 'bold' }}>3</div>
+            <div style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', color: '#ffffff', marginBottom: '4px' }}>Interview</div>
+            <div style={{ fontSize: '8px', textTransform: 'uppercase', color: 'rgba(255, 255, 255, 0.5)' }}>Direct Evaluation</div>
+          </td>
+          {/* Step 4 */}
+          <td style={{ width: '25%', textAlign: 'center', verticalAlign: 'top', padding: '0 5px', opacity: '0.2' }}>
+            <div style={{ margin: '0 auto 15px auto', width: '32px', height: '32px', borderRadius: '50%', border: '1px solid #ffffff', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 'bold' }}>4</div>
+            <div style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', color: '#ffffff', marginBottom: '4px' }}>Verdict</div>
+            <div style={{ fontSize: '8px', textTransform: 'uppercase', color: 'rgba(255, 255, 255, 0.5)' }}>Final Selection</div>
+          </td>
+        </tr>
+      </table>
     </div>
     
     {/* Clean Footer */}

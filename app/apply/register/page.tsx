@@ -102,8 +102,8 @@ export default function ApplicationPortal() {
       }
 
       setShowSuccess(true);
-      toast.success("TRANSMISSION SECURED", {
-        description: "Your admission portfolio has been logged successfully.",
+      toast.success("WE'VE RECEIVED YOUR PORTFOLIO", {
+        description: "Your admission materials are now with our team.",
       });
     } catch (error: any) {
       console.error("Error submitting application:", error);
