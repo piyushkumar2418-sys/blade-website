@@ -96,6 +96,7 @@ export default function ApplicationPortal() {
       });
 
       const data = await response.json();
+      alert("RAW SERVER DATA: " + JSON.stringify(data));
       
       if (!response.ok) {
         throw new Error(data.error || 'Failed to transmit application portfolio.');
