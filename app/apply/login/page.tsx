@@ -116,7 +116,13 @@ function LoginContent() {
         router.push("/apply/register");
       }
     } catch (error: any) {
-      toast.error(error.message);
+      if (error.code === 'auth/email-already-in-use' || error.code === 'auth/credential-already-in-use') {
+        toast.error("Email already in the Archive. Please use 'Existing Member' login.");
+        setStep(1);
+        setAuthMode("login");
+      } else {
+        toast.error(error.message);
+      }
     }
     setLoading(false);
   };
