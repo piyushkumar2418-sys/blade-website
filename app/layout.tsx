@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import "./globals.css";
 import { SiteProvider } from "@/context/SiteContext";
 import { AuthProvider } from "@/context/AuthContext";
+import CookieConsent from "@/components/CookieConsent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +29,12 @@ export const metadata: Metadata = {
   },
   description: "Blade Media - The institutional engine for systematized visual dominance. High-velocity content production and strategic growth systems for elite creators.",
   keywords: ["Content Agency", "Video Editing", "Social Media Growth", "Visual Dominance", "Viral Content", "Blade Media", "Content Strategy", "Retention Editing"],
+  themeColor: "#000000",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+  appleWebApp: {
+    title: "Blade Media",
+    statusBarStyle: "black-translucent",
+  },
   authors: [{ name: "Piyush", url: "https://blademedia.in" }],
   creator: "Blade Media",
   publisher: "Blade Media",
@@ -62,8 +69,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/blade-logo.png",
-    apple: "/blade-logo.png",
+    icon: "/inner-circle-logo.png",
+    shortcut: "/inner-circle-logo.png",
+    apple: "/inner-circle-logo.png",
   },
   verification: {
     google: "s1LJv7f1Cy938IT3wDll5_6ndlN2HaPPB-8mpmCXCf4",
@@ -80,7 +88,7 @@ export default function RootLayout({
     "@type": "Organization",
     "name": "Blade Media",
     "url": "https://blademedia.in",
-    "logo": "https://blademedia.in/blade-logo.png",
+    "logo": "https://blademedia.in/inner-circle-logo.png",
     "description": "The institutional engine for systematized visual dominance.",
     "founder": {
       "@type": "Person",
@@ -103,10 +111,13 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-black">
         <AuthProvider>
           <Toaster position="top-right" richColors theme="dark" />
-          <SiteProvider>{children}</SiteProvider>
+          <SiteProvider>
+            {children}
+            <CookieConsent />
+          </SiteProvider>
         </AuthProvider>
       </body>
     </html>
