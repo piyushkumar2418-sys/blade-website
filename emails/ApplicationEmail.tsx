@@ -108,7 +108,7 @@ export const ApplicationEmail: React.FC<ApplicationEmailProps> = ({ name }) => (
       }}>
         Vetting Protocol
       </h2>
-      <div style={{ spaceY: '16px' }}>
+      <div>
         <div style={{ marginBottom: '16px' }}>
           <span style={{ fontSize: '11px', color: '#ffffff', display: 'block' }}>01. PORTFOLIO AUDIT</span>
           <span style={{ fontSize: '10px', color: '#F3D7A7', textTransform: 'uppercase' }}>[ IN PROGRESS ]</span>
