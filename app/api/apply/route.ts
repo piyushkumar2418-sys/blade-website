@@ -51,7 +51,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ 
       success: true, 
-      id: docId 
+      id: docId,
+      debug_email: process.env.RESEND_API_KEY ? 'active' : 'missing_key'
     });
   } catch (error: any) {
     console.error('Critical API Failure:', error);
