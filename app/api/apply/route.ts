@@ -1,18 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { sendEmail } from '@/lib/email';
-import { ApplicationEmail } from '@/emails/ApplicationEmail';
-import React from 'react';
+import { sendApplicationEmail } from '@/lib/email';
+import { pushToNotion } from '@/lib/notion';
 
 /**
  * Handles professional application processing.
- * Saves to Firestore and triggers an automated confirmation email.
+ * Saves to Firestore, triggers confirmation email, and pushes to Notion CRM.
  */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, instagram, ...otherData } = body;
+    const { name, email, phone, instagram, ...otherData } = body;
 
     if (!name || !email) {
       return NextResponse.json({ error: 'Name and email are required.' }, { status: 400 });
@@ -24,6 +23,7 @@ export async function POST(req: NextRequest) {
       const docRef = await addDoc(collection(db, 'applications'), {
         name,
         email,
+        phone: phone || 'not provided',
         instagram: instagram || 'not provided',
         ...otherData,
         status: 'new',
@@ -36,13 +36,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: `Database failure: ${dbError.message}` }, { status: 500 });
     }
 
-    // 2. Dispatch Confirmation Email (Awaited for debugging)
-    const emailResult = await sendEmail({
-      to: email,
-      subject: 'TRANSMISSION SECURED: Application Received',
-      react: React.createElement(ApplicationEmail, { name }),
-      text: `Hello ${name}, your application to Blade Media has been received and is under review.`,
+    // 2. Push to Notion CRM (Non-blocking)
+    pushToNotion({ name, email, phone: phone || 'not provided' }).catch(err => {
+      console.error('Non-blocking Notion Error:', err);
     });
+
+    // 3. Dispatch Human-Centric Confirmation Email
+    const emailResult = await sendApplicationEmail(email, name);
 
     if (!emailResult.success) {
       console.error('Email Dispatch Failure:', emailResult.error);
