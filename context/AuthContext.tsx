@@ -19,6 +19,7 @@ interface AuthContextType {
   loading: boolean;
   setProfile: (profile: UserProfile) => void;
   loginWithGoogle: () => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -90,8 +91,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const logout = async () => {
+    try {
+      await auth.signOut();
+      setProfileState(null);
+    } catch (error) {
+      console.error("Logout Error:", error);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, profile, loading, setProfile, loginWithGoogle }}>
+    <AuthContext.Provider value={{ user, profile, loading, setProfile, loginWithGoogle, logout }}>
       {children}
     </AuthContext.Provider>
   );
