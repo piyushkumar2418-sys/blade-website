@@ -107,7 +107,7 @@ export default function ApplicationPortal() {
         });
       } else {
         toast.success("TRANSMISSION SECURED", {
-          description: "Application logged. Check your inbox for confirmation.",
+          description: `Application logged. Email ID: ${data.resend_id}`,
         });
       }
       
