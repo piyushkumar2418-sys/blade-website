@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { sendApplicationEmail } from '@/lib/email';
-import { pushToNotion } from '@/lib/notion';
 
 /**
  * Handles professional application processing.
@@ -36,12 +35,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: `Database failure: ${dbError.message}` }, { status: 500 });
     }
 
-    // 2. Push to Notion CRM (Non-blocking)
-    pushToNotion({ name, email, phone: phone || 'not provided' }).catch(err => {
-      console.error('Non-blocking Notion Error:', err);
-    });
-
-    // 3. Dispatch Human-Centric Confirmation Email
+    // 2. Dispatch Human-Centric Confirmation Email
     const emailResult = await sendApplicationEmail(email, name);
 
     if (!emailResult.success) {
