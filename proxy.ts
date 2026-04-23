@@ -1,11 +1,37 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+// Simple in-memory rate limiter for Edge
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const MAX_REQUESTS = 30; // Maximum requests per window
+const ipCache = new Map<string, { count: number, lastReset: number }>();
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const data = ipCache.get(ip) || { count: 0, lastReset: now };
+  
+  if (now - data.lastReset > RATE_LIMIT_WINDOW) {
+    data.count = 1;
+    data.lastReset = now;
+    ipCache.set(ip, data);
+    return true;
+  }
+  
+  data.count++;
+  ipCache.set(ip, data);
+  return data.count <= MAX_REQUESTS;
+}
+
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Basic info
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0] || request.headers.get('x-real-ip') || 'unknown';
+
+  // Security Check: Rate Limiting
+  if (ip !== 'unknown' && !checkRateLimit(ip)) {
+    return new NextResponse('Too Many Requests', { status: 429 });
+  }
   const userAgent = request.headers.get('user-agent') || 'unknown';
   const referrer = request.headers.get('referer') || 'direct';
   
