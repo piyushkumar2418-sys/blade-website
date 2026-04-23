@@ -96,7 +96,8 @@ export default function ApplicationPortal() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to transmit application portfolio.');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to transmit application portfolio.');
       }
 
       toast.success("TRANSMISSION SECURED", {
