@@ -95,14 +95,22 @@ export default function ApplicationPortal() {
         }),
       });
 
+      const data = await response.json();
+      
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to transmit application portfolio.');
+        throw new Error(data.error || 'Failed to transmit application portfolio.');
       }
 
-      toast.success("TRANSMISSION SECURED", {
-        description: "Application logged. Check your inbox for confirmation.",
-      });
+      if (data.debug_email === 'missing_key') {
+        toast.error("COMMUNICATION SYSTEM OFFLINE", {
+          description: "Portfolio logged, but confirmation email system is not configured on server.",
+        });
+      } else {
+        toast.success("TRANSMISSION SECURED", {
+          description: "Application logged. Check your inbox for confirmation.",
+        });
+      }
+      
       setShowSuccess(true);
     } catch (error: any) {
       console.error("Error submitting application:", error);
