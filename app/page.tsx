@@ -17,12 +17,14 @@ const LogoMarquee = dynamic(() => import("@/components/sections/LogoMarquee"));
 const Process = dynamic(() => import("@/components/sections/Process"));
 const Solutions = dynamic(() => import("@/components/sections/Solutions"));
 const Galleries = dynamic(() => import("@/components/sections/Galleries"));
+const AgencyFooter = dynamic(() => import("@/components/sections/AgencyFooter"));
 
 const InnerCircleHero = dynamic(() => import("@/components/sections/InnerCircleHero"));
 const Crisis = dynamic(() => import("@/components/sections/Crisis"));
 const Manifesto = dynamic(() => import("@/components/sections/Manifesto"));
 const SprintProtocol = dynamic(() => import("@/components/sections/SprintProtocol"));
 const FounderAuthority = dynamic(() => import("@/components/sections/FounderAuthority"));
+const InnerCircleCTA = dynamic(() => import("@/components/sections/InnerCircleCTA"));
 
 export default function Home() {
   const { user } = useAuth();
@@ -147,6 +149,7 @@ export default function Home() {
             <Process />
             <Solutions />
             <Galleries />
+            <AgencyFooter />
           </motion.div>
         ) : (
           <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-black bg-white min-h-screen">
@@ -155,6 +158,7 @@ export default function Home() {
             <Manifesto />
             <SprintProtocol />
             <FounderAuthority />
+            <InnerCircleCTA />
           </motion.div>
         )}
       </AnimatePresence>
