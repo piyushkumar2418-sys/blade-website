@@ -9,6 +9,7 @@ import {
   LogOut, User, CheckCircle2, 
   Clock, BookOpen, Mail, Phone, Shield
 } from "lucide-react";
+import { motion } from "framer-motion";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
 
