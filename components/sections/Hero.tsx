@@ -9,8 +9,8 @@ const Hero = () => {
     <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden bg-black">
       {/* High-priority placeholder image */}
       <Image 
-        src="/thumb-hero.jpg" 
-        alt="Blade Hero Background" 
+        src="/thumb1.jpg" 
+        alt="" 
         fill 
         priority 
         className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-0' : 'opacity-70'}`}
