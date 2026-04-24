@@ -31,12 +31,14 @@ const WorkItem = ({ work, aspect, index, autoplay = false }: { work: Work, aspec
   const ref = useRef(null);
   
   // Use a more aggressive margin for autoplaying videos
-  const isInView = useInView(ref, { once: true, margin: "20%" });
+  const isInView = useInView(ref, { margin: "50%" });
   const shouldLoadVideo = isInView || isHovered;
 
   useEffect(() => {
     if (autoplay && isInView && videoRef.current && videoLoaded) {
       videoRef.current.play().catch(() => null);
+    } else if (autoplay && !isInView && videoRef.current) {
+      videoRef.current.pause();
     }
   }, [autoplay, isInView, videoLoaded]);
 
@@ -85,6 +87,7 @@ const WorkItem = ({ work, aspect, index, autoplay = false }: { work: Work, aspec
             loop 
             muted 
             playsInline 
+            autoPlay={autoplay}
             onLoadedData={() => setVideoLoaded(true)}
             className="absolute inset-0 w-full h-full object-cover z-10" 
             preload="auto"
