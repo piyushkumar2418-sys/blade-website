@@ -48,7 +48,7 @@ export const ApplicationEmail: React.FC<ApplicationEmailProps> = ({ name }) => (
         margin: '0 0 24px 0',
         color: '#ffffff'
       }}>
-        We've received your portfolio.
+        We&apos;ve received your portfolio.
       </h1>
       <p style={{ 
         fontSize: '16px', 
@@ -66,7 +66,7 @@ export const ApplicationEmail: React.FC<ApplicationEmailProps> = ({ name }) => (
         fontWeight: '400',
         margin: '0 0 20px 0'
       }}>
-        Thank you for sharing your work with us. Every application for Cohort 01 is reviewed personally by our team to ensure we’re building the right environment for everyone involved.
+        Thank you for sharing your work with us. Every application for Cohort 01 is reviewed personally by our team to ensure we&rsquo;re building the right environment for everyone involved.
       </p>
       <p style={{ 
         fontSize: '16px', 
@@ -74,7 +74,7 @@ export const ApplicationEmail: React.FC<ApplicationEmailProps> = ({ name }) => (
         color: 'rgba(255, 255, 255, 0.8)', 
         fontWeight: '400'
       }}>
-        We've officially started your admission journey. You can expect to hear from us regarding the next steps within the next 48 hours.
+        We&apos;ve officially started your admission journey. You can expect to hear from us regarding the next steps within the next 48 hours.
       </p>
     </div>
     

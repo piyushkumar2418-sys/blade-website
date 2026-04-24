@@ -1,16 +1,23 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
 import { db } from "@/lib/firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, Timestamp } from "firebase/firestore";
 import { 
   LogOut, User, CheckCircle2, 
   Clock, BookOpen, Mail, Phone, Shield
 } from "lucide-react";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
+
+interface Application {
+  id: string;
+  uid: string;
+  createdAt?: Timestamp;
+  [key: string]: any;
+}
 
 // --- ADMISSION STEPS ---
 const STEPS = [
@@ -23,7 +30,7 @@ const STEPS = [
 export default function Profile() {
   const { user, profile, loading } = useAuth();
   const router = useRouter();
-  const [applications, setApplications] = useState<any[]>([]);
+  const [applications, setApplications] = useState<Application[]>([]);
   const [fetchingApps, setFetchingApps] = useState(true);
 
   useEffect(() => {
@@ -44,7 +51,7 @@ export default function Profile() {
           const apps = querySnapshot.docs.map(doc => ({ 
             id: doc.id, 
             ...doc.data() 
-          })).sort((a: any, b: any) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+          } as Application)).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
           
           setApplications(apps);
         } catch (err) {
@@ -79,7 +86,7 @@ export default function Profile() {
       <nav className="w-full bg-white border-b border-black/[0.05] px-8 py-6 flex justify-between items-center sticky top-0 z-[100]">
         <div className="flex items-center gap-10">
           <div className="cursor-pointer" onClick={() => router.push("/")}>
-            <img src="/bic-black.png" alt="BIC" className="h-6 object-contain" />
+            <Image src="/bic-black.png" alt="BIC" width={48} height={24} className="h-6 w-auto object-contain" />
           </div>
           <div className="h-4 w-[1px] bg-black/10 hidden md:block" />
           <div className="hidden md:flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-black/40">
@@ -88,12 +95,13 @@ export default function Profile() {
         </div>
         
         <div className="flex items-center gap-6">
-          <button 
+          <motion.button 
+            whileTap={{ scale: 0.95 }}
             onClick={handleSignOut}
             className="group flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-black/30 hover:text-black transition-colors"
           >
             Sign Out <LogOut size={14} className="group-hover:translate-x-1 transition-transform" />
-          </button>
+          </motion.button>
         </div>
       </nav>
 
@@ -214,9 +222,14 @@ export default function Profile() {
                 <p className="text-white/40 text-[11px] leading-relaxed font-light text-left">
                    The initial technical briefing for verified candidates will be unlocked upon admission.
                 </p>
-                <button onClick={() => router.push("/curriculum?from=dashboard")} className="w-full py-4 border border-white/10 text-[9px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3">
+                <motion.button 
+                  whileTap={{ scale: 0.98 }}
+                  onMouseEnter={() => router.prefetch("/curriculum")}
+                  onClick={() => router.push("/curriculum?from=dashboard")} 
+                  className="w-full py-4 border border-white/10 text-[9px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3"
+                >
                    View Prospectus <BookOpen size={14} />
-                </button>
+                </motion.button>
              </div>
           </div>
 
@@ -230,7 +243,13 @@ export default function Profile() {
   );
 }
 
-const InfoItem = ({ icon, label, value }: any) => (
+interface InfoItemProps {
+  icon: React.ReactNode;
+  label: string;
+  value?: string;
+}
+
+const InfoItem = ({ icon, label, value }: InfoItemProps) => (
   <div className="flex items-start gap-4 text-left">
      <div className="mt-1 text-black/20">{icon}</div>
      <div className="space-y-1 text-left">
@@ -239,3 +258,4 @@ const InfoItem = ({ icon, label, value }: any) => (
      </div>
   </div>
 );
+

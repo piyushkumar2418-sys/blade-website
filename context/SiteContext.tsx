@@ -19,7 +19,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const savedMode = sessionStorage.getItem("site-mode") as Mode;
-    if (savedMode) {
+    if (savedMode && savedMode !== mode) {
       setMode(savedMode);
     }
     setIsInitialized(true);

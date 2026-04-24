@@ -166,9 +166,13 @@ function LoginContent() {
     <div className="min-h-screen bg-white text-black flex flex-col md:flex-row font-sans relative">
       <div id="recaptcha-container"></div>
       <div className="fixed top-8 left-8 z-[120]">
-        <button onClick={() => router.push("/")} className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-black/40 hover:text-black transition-colors group">
+        <motion.button 
+          whileTap={{ scale: 0.95 }}
+          onClick={() => router.push("/")} 
+          className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-black/40 hover:text-black transition-colors group"
+        >
           <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Back
-        </button>
+        </motion.button>
       </div>
       
       <div className="w-full md:w-1/2 flex flex-col justify-center px-8 md:px-20 py-24 border-r border-black/5 relative overflow-hidden">
@@ -265,7 +269,7 @@ export default function HybridLogin() {
   );
 }
 
-const InputField = ({ label, icon, value, onChange, placeholder, type = "text" }: any) => (
+const InputField = ({ label, icon, value, onChange, placeholder, type = "text" }: { label: string, icon: React.ReactNode, value: string, onChange: (v: string) => void, placeholder: string, type?: string }) => (
   <div className="group space-y-1 text-left">
     <label className="text-[10px] font-bold uppercase tracking-widest text-black/30 px-1 block text-left">{label}</label>
     <div className="flex items-center gap-4 bg-[#F9F9F9] px-6 rounded-sm focus-within:ring-1 focus-within:ring-[#F3D7A7] transition-all">
@@ -275,14 +279,19 @@ const InputField = ({ label, icon, value, onChange, placeholder, type = "text" }
   </div>
 );
 
-const AuthButton = ({ loading, text, icon }: any) => (
-  <button type="submit" disabled={loading} className="w-full py-4 bg-black text-white rounded-sm flex items-center justify-center gap-3 hover:bg-[#F3D7A7] hover:text-black transition-all duration-500 group">
+const AuthButton = ({ loading, text, icon }: { loading: boolean, text: string, icon: React.ReactNode }) => (
+  <motion.button 
+    whileTap={{ scale: 0.98 }}
+    type="submit" 
+    disabled={loading} 
+    className="w-full py-4 bg-black text-white rounded-sm flex items-center justify-center gap-3 hover:bg-[#F3D7A7] hover:text-black transition-all duration-500 group"
+  >
     <span className="text-[10px] uppercase tracking-[0.3em] font-bold">{loading ? "Wait..." : text}</span>
     <span className="group-hover:translate-x-1 transition-transform">{icon}</span>
-  </button>
+  </motion.button>
 );
 
-const ValueProp = ({ title, desc }: any) => (
+const ValueProp = ({ title, desc }: { title: string, desc: string }) => (
   <div className="space-y-2 text-left">
     <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/80 text-left">{title}</h4>
     <p className="text-xs text-black/40 leading-relaxed font-light text-left">{desc}</p>

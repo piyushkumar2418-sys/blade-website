@@ -194,18 +194,21 @@ export default function ApplicationPortal() {
               </div>
 
               <div className="flex flex-col gap-4 pt-4 text-left">
-                <button 
+                <motion.button 
+                  whileTap={{ scale: 0.95 }}
+                  onMouseEnter={() => router.prefetch("/dashboard")}
                   onClick={() => router.push("/dashboard")}
                   className="w-full py-4 bg-black text-white font-bold uppercase tracking-widest text-[10px] hover:bg-[#F3D7A7] hover:text-black transition-all duration-300 shadow-lg"
                 >
                   Visit Student Profile
-                </button>
-                <button 
+                </motion.button>
+                <motion.button 
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => setShowExistingModal(false)}
                   className="w-full py-4 bg-transparent border border-black/10 text-black/40 font-bold uppercase tracking-widest text-[9px] hover:text-black hover:border-black transition-all duration-300"
                 >
                   Submit Another Response
-                </button>
+                </motion.button>
               </div>
             </motion.div>
           </motion.div>
@@ -333,13 +336,14 @@ export default function ApplicationPortal() {
               <div className="text-red-500 text-[10px] font-bold uppercase tracking-widest text-left">{errorMessage}</div>
             )}
 
-            <button 
+            <motion.button 
               type="submit" 
+              whileTap={{ scale: 0.98 }}
               disabled={isSubmitting || showSuccess}
               className="w-full py-6 bg-black text-white font-bold uppercase tracking-widest text-[10px] hover:bg-[#F3D7A7] hover:text-black transition-all duration-500 shadow-2xl disabled:opacity-50"
             >
               {isSubmitting ? "TRANSMITTING..." : "Submit Admission Portfolio"}
-            </button>
+            </motion.button>
           </form>
         </motion.div>
       </div>

@@ -22,7 +22,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-white font-bold mb-4 uppercase tracking-widest text-xs">02. INTELLECTUAL PROPERTY</h2>
             <p>
-              The Blade Media logo, the "Inner Circle" curriculum, and all architectural designs on this platform are the sole property of Blade Media. Unauthorized reproduction is strictly prohibited.
+              The Blade Media logo, the &quot;Inner Circle&quot; curriculum, and all architectural designs on this platform are the sole property of Blade Media. Unauthorized reproduction is strictly prohibited.
             </p>
           </section>
 
