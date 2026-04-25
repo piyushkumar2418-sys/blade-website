@@ -1,28 +1,18 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
 
 const Hero = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
 
   return (
     <section className="h-screen w-full flex flex-col justify-center items-center text-center relative overflow-hidden bg-black">
-      {/* High-priority placeholder image */}
-      <Image 
-        src="/thumb1.jpg" 
-        alt="" 
-        fill 
-        priority 
-        className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-0' : 'opacity-70'}`}
-      />
-
       <video 
         autoPlay 
         muted 
         loop 
         playsInline 
         onLoadedData={() => setVideoLoaded(true)}
-        className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-70' : 'opacity-0'}`}
+        className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1500 ${videoLoaded ? 'opacity-70' : 'opacity-0'}`}
       >
         <source src="/hero-bg.mp4?v=4" type="video/mp4" />
       </video>
