@@ -14,6 +14,7 @@ import { doc, setDoc, getDoc, serverTimestamp, collection, query, where, getDocs
 import { ArrowRight, ShieldCheck, Mail, User, ArrowLeft, Lock, Fingerprint, Globe } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
+import { logSystemError } from "@/lib/logging";
 
 function LoginContent() {
   const { setProfile, loginWithGoogle } = useAuth();
@@ -88,7 +89,8 @@ function LoginContent() {
       setStep(2);
       toast.success("Check your phone for the access key.");
     } catch (error: any) {
-      toast.error("Process interrupted. Please try again or use Google.");
+      await logSystemError(error, "OTP_SEND_FAILURE");
+      toast.error(error.message || "Process interrupted. Please try again or use Google.");
     }
     setLoading(false);
   };
@@ -109,7 +111,8 @@ function LoginContent() {
         setStep(3); // New user must set password
       }
     } catch (error: any) {
-      toast.error("Invalid key.");
+      await logSystemError(error, "OTP_VERIFY_FAILURE");
+      toast.error("Invalid key or verification failed.");
     }
     setLoading(false);
   };
@@ -133,6 +136,7 @@ function LoginContent() {
         router.push("/apply/register");
       }
     } catch (error: any) {
+      await logSystemError(error, "SET_PASSWORD_FAILURE");
       if (error.code === 'auth/email-already-in-use' || error.code === 'auth/credential-already-in-use') {
         toast.error("Email already in the Archive. Please use 'Existing Member' login.");
         setStep(1);
@@ -157,6 +161,7 @@ function LoginContent() {
         toast.error("Profile not found.");
       }
     } catch (error: any) {
+      await logSystemError(error, "PASSWORD_LOGIN_FAILURE");
       toast.error("Incorrect email or password.");
     }
     setLoading(false);
