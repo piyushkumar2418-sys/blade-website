@@ -67,7 +67,7 @@ function LoginContent() {
     setLoading(true);
 
     try {
-      // Check if email or phone already exists
+      // 1. Parallelize Firestore checks for maximum speed
       const emailQuery = query(collection(db, "users"), where("email", "==", email));
       const phoneQuery = query(collection(db, "users"), where("phone", "==", phoneNumber));
       
@@ -77,22 +77,31 @@ function LoginContent() {
       ]);
 
       if (!emailSnap.empty || !phoneSnap.empty) {
-        toast.error("Identity already in the Archive. Please log in as an Existing Member.");
+        toast.error("Identity already exists. Please log in.");
         setAuthMode("login");
-        setLoading(false);
         return;
       }
 
+      // 2. Setup Recaptcha and trigger Phone Auth
       setupRecaptcha();
       const result = await signInWithPhoneNumber(auth, `+91${phoneNumber}`, (window as any).recaptchaVerifier);
+      
       setConfirmationResult(result);
       setStep(2);
       toast.success("Check your phone for the access key.");
     } catch (error: any) {
-      await logSystemError(error, "OTP_SEND_FAILURE");
-      toast.error(error.message || "Process interrupted. Please try again or use Google.");
+      // Non-blocking log to prevent hanging the UI
+      logSystemError(error, "OTP_SEND_FAILURE").catch(console.error);
+      
+      // More descriptive error messages for common Firebase issues
+      if (error.code === 'auth/too-many-requests') {
+        toast.error("Too many attempts. Please try Google login or wait 10 minutes.");
+      } else {
+        toast.error(error.message || "Process interrupted. Please try Google.");
+      }
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleVerifyOTP = async (e: React.FormEvent) => {
@@ -111,10 +120,11 @@ function LoginContent() {
         setStep(3); // New user must set password
       }
     } catch (error: any) {
-      await logSystemError(error, "OTP_VERIFY_FAILURE");
+      logSystemError(error, "OTP_VERIFY_FAILURE").catch(console.error);
       toast.error("Invalid key or verification failed.");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleSetPassword = async (e: React.FormEvent) => {
@@ -136,7 +146,7 @@ function LoginContent() {
         router.push("/apply/register");
       }
     } catch (error: any) {
-      await logSystemError(error, "SET_PASSWORD_FAILURE");
+      logSystemError(error, "SET_PASSWORD_FAILURE").catch(console.error);
       if (error.code === 'auth/email-already-in-use' || error.code === 'auth/credential-already-in-use') {
         toast.error("Email already in the Archive. Please use 'Existing Member' login.");
         setStep(1);
@@ -144,8 +154,9 @@ function LoginContent() {
       } else {
         toast.error(error.message);
       }
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handlePasswordLogin = async (e: React.FormEvent) => {
@@ -161,10 +172,11 @@ function LoginContent() {
         toast.error("Profile not found.");
       }
     } catch (error: any) {
-      await logSystemError(error, "PASSWORD_LOGIN_FAILURE");
+      logSystemError(error, "PASSWORD_LOGIN_FAILURE").catch(console.error);
       toast.error("Incorrect email or password.");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
