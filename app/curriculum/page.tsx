@@ -42,27 +42,49 @@ export default function CurriculumPage() {
   const framework = [
     {
       phase: "01",
-      title: "Synthesis & Foundation",
-      description: "Stripping away amateur habits and selecting a high-leverage skill moat.",
-      items: ["Skill selection & Market Validation", "Editing Frameworks (Retention Physics)", "Social Media Marketing Logic", "Niche Demand Mapping"]
+      title: "The Foundation",
+      description: "Getting started, picking your path, and learning the core skills you need to succeed.",
+      items: [
+        "Orientation, Roadmap & Setting Expectations",
+        "Understanding the Agency Model & Choosing a Skill",
+        "Content Editing Basics (Hook, Retention, Payoff)",
+        "Finding Your Niche",
+        "Live Hot Seat: Fixing Early Mistakes"
+      ]
     },
     {
       phase: "02",
-      title: "Asset Architecture",
-      description: "Building the personal and professional infrastructure required to command high tickets.",
-      items: ["Offer Engineering", "Authority Personal Branding", "Profile Funnel Optimization", "Pricing & Retainer Psychology"]
+      title: "Brand & Offer",
+      description: "Creating a service people actually want to buy and building a profile that proves you are a pro.",
+      items: [
+        "Crafting a Service You Can Sell",
+        "Positioning Yourself & Building Authority",
+        "Fixing Your Instagram Profile for First Impressions",
+        "Live Hot Seat: Live Profile Reviews"
+      ]
     },
     {
       phase: "03",
-      title: "The Acquisition Engine",
-      description: "Replacing luck with repeatable systems for booking global high-ticket clients.",
-      items: ["Cold Outreach & Calling Mastery", "Automated Lead Gen Systems", "Objection Handling Matrix", "Client Onboarding SOPs"]
+      title: "Getting Clients",
+      description: "Step-by-step systems to find leads, send outreach messages, and close deals over the phone.",
+      items: [
+        "Mastering DMs, Emails, and Cold Calls",
+        "Building a Consistent Lead Pipeline",
+        "How to Price Services & Avoid Undercharging",
+        "Mindset: Handling Objections & Imposter Syndrome"
+      ]
     },
     {
       phase: "04",
-      title: "Velocity & Scale",
-      description: "Moving from manual operator to system owner. Removing yourself from the loop.",
-      items: ["Quality Delivery Systems", "Mini-Team Construction", "Retention & Upselling Strategy", "Agency Systemization"]
+      title: "Delivery & Scaling",
+      description: "Managing the actual work, keeping clients happy, hiring a team, and handling your money right.",
+      items: [
+        "Managing Client Work, Workflows & Revisions",
+        "Keeping Clients, Upselling & Hiring Your First Team",
+        "Handling Your First Income & Financial Discipline",
+        "Hosted Class: Avoiding Common Failure Patterns",
+        "Final Call: Reviewing Progress & Next Steps"
+      ]
     }
   ];
 
@@ -81,25 +103,25 @@ export default function CurriculumPage() {
       {/* HERO SECTION */}
       <section className="pt-40 pb-24 px-6 md:px-24 border-b border-black/5">
         <div className="max-w-7xl mx-auto">
-          <SectionLabel gold>The Build Process</SectionLabel>
+          <SectionLabel gold>The Roadmap</SectionLabel>
           <motion.h1 
             initial="hidden" animate="visible" variants={fadeUp}
             className="text-[10vw] md:text-[7vw] font-bold uppercase leading-[0.85] tracking-[-0.06em] mb-12"
           >
-            The Execution <br/> Framework.
+            The Step-By-Step <br/> Curriculum.
           </motion.h1>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-12 border-t border-black/5">
             <div>
               <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/55 mb-4">Focus</h4>
-              <p className="font-bold text-xl uppercase tracking-[-0.06em]">Institutional Infrastructure</p>
+              <p className="font-bold text-xl uppercase tracking-[-0.06em]">Real Business Skills</p>
             </div>
             <div>
               <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/55 mb-4">Standard</h4>
-              <p className="font-bold text-xl uppercase tracking-[-0.06em]">Practitioner-Led</p>
+              <p className="font-bold text-xl uppercase tracking-[-0.06em]">Taught By Doers</p>
             </div>
             <div>
               <h4 className="text-[10px] font-bold uppercase tracking-widest text-black/55 mb-4">Outcome</h4>
-              <p className="font-bold text-xl uppercase tracking-[-0.06em]">₹1L/mo Trajectory</p>
+              <p className="font-bold text-xl uppercase tracking-[-0.06em]">Path to ₹1L/mo</p>
             </div>
           </div>
         </div>
@@ -125,8 +147,8 @@ export default function CurriculumPage() {
                 <div className="md:col-span-6 flex flex-col justify-center border-l border-black/5 md:pl-12">
                   <ul className="space-y-4">
                     {phase.items.map((item, idx) => (
-                      <li key={idx} className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-black/70">
-                        <div className="h-1.5 w-1.5 bg-[#D4AF37]" />
+                      <li key={idx} className="flex items-start gap-4 text-xs font-bold uppercase tracking-widest text-black/70 leading-relaxed">
+                        <div className="h-1.5 w-1.5 bg-[#D4AF37] mt-1.5 shrink-0" />
                         {item}
                       </li>
                     ))}
@@ -141,15 +163,15 @@ export default function CurriculumPage() {
       {/* TANGIBLE LEDGER (OUTCOMES) */}
       <section className="py-32 px-6 md:px-24 bg-black text-white">
         <div className="max-w-7xl mx-auto">
-          <SectionLabel gold>The Tangible Ledger</SectionLabel>
-          <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-[-0.06em] mb-20">We build assets, <br/> <span className="text-white/20">not attendance.</span></h2>
+          <SectionLabel gold>The Results</SectionLabel>
+          <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-[-0.06em] mb-20">We build real businesses, <br/> <span className="text-white/20">not just motivation.</span></h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">
             {[
-              { icon: <Laptop />, t: "Agency Infrastructure", d: "A fully functioning business model ready to handle scale." },
-              { icon: <Target />, t: "₹1L/mo Path", d: "A mathematically backed roadmap to six-figure consistency." },
-              { icon: <Zap />, t: "Proprietary SOPs", d: "Direct access to Blade Media's outreach and delivery systems." },
-              { icon: <ShieldCheck />, t: "Owner Mindset", d: "Transformation from a freelancer to a system builder." }
+              { icon: <Laptop />, t: "A Real Agency Setup", d: "A fully working business model ready to take on clients and grow." },
+              { icon: <Target />, t: "₹1L/mo Roadmap", d: "A simple, mathematically backed plan to reach six-figure consistency." },
+              { icon: <Zap />, t: "Our Proven Processes", d: "Direct access to exactly how we reach out to leads and deliver work." },
+              { icon: <ShieldCheck />, t: "Business Mindset", d: "Transforming from a simple freelancer to an actual business owner." }
             ].map((outcome, i) => (
               <div key={i} className="bg-black p-10 hover:bg-white/5 transition-all">
                 <div className="text-[#D4AF37] mb-8">{outcome.icon}</div>
