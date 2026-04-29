@@ -78,7 +78,11 @@ export default function Profile() {
   }
 
   const candidateId = `BIC-26-${user.uid.slice(0, 6).toUpperCase()}`;
-  const currentStep = applications.length > 0 ? 2 : 1; 
+  let currentStep = 1;
+  if (applications.length > 0) {
+    const hasConfirmed = applications.some(app => app.status === 'confirmed');
+    currentStep = hasConfirmed ? 4 : 2;
+  }
 
   return (
     <div className="min-h-screen bg-[#F9F9F9] text-black font-sans selection:bg-[#F3D7A7] selection:text-black">
@@ -195,10 +199,21 @@ export default function Profile() {
                           
                           <div className="flex flex-col items-start md:items-end gap-6">
                              <div className="text-left md:text-right">
-                                <div className="text-[10px] font-bold uppercase tracking-widest text-[#F3D7A7] flex items-center gap-2 md:justify-end">
-                                  <div className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /> Under Review
-                                </div>
-                                <p className="text-[9px] text-black/30 uppercase tracking-widest mt-1">Expected decision in 3 days</p>
+                                {app.status === 'confirmed' ? (
+                                  <>
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-green-600 flex items-center gap-2 md:justify-end">
+                                      <div className="w-1.5 h-1.5 rounded-full bg-green-600 animate-pulse" /> Admission Confirmed
+                                    </div>
+                                    <button onClick={() => router.push("/apply/payment")} className="mt-6 px-6 py-4 bg-black text-white text-[10px] font-bold uppercase tracking-widest hover:bg-[#D4AF37] hover:text-black transition-all">Secure Seat (Pay Rs. 749)</button>
+                                  </>
+                                ) : (
+                                  <>
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-[#F3D7A7] flex items-center gap-2 md:justify-end">
+                                      <div className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /> Under Review
+                                    </div>
+                                    <p className="text-[9px] text-black/30 uppercase tracking-widest mt-1">Expected decision in 3 days</p>
+                                  </>
+                                )}
                              </div>
                           </div>
                        </div>
