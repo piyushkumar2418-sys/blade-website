@@ -10,7 +10,6 @@ import { signOut } from "firebase/auth";
 
 const ADMIN_EMAILS = [
   'piyushkumar2418@gmail.com',
-  'iamteenager.help@gmail.com',
   'sharma125prashant@gmail.com'
 ];
 
