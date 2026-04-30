@@ -9,8 +9,7 @@ import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
 
 const ADMIN_EMAILS = [
-  'piyushkumar2418@gmail.com',
-  'sharma125prashant@gmail.com'
+  'piyushkumar2418@gmail.com'
 ];
 
 interface Application {

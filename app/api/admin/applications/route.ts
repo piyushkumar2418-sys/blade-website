@@ -4,8 +4,7 @@ import * as admin from 'firebase-admin';
 import { sendAdmissionConfirmedEmail } from '@/lib/email';
 
 const ADMIN_EMAILS = [
-  'piyushkumar2418@gmail.com',
-  'sharma125prashant@gmail.com'
+  'piyushkumar2418@gmail.com'
 ];
 
 /**
