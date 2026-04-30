@@ -1,26 +1,37 @@
 import * as admin from 'firebase-admin';
+import { getFirestore } from 'firebase-admin/firestore';
+import { join } from 'path';
+import { readFileSync, existsSync } from 'fs';
 
 if (!admin.apps.length) {
   try {
-    // Check if we have a service account key in the environment
-    const serviceAccountKey = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
+    let credential;
+
+    const serviceAccountPath = join(process.cwd(), 'service-account.json');
     
-    if (serviceAccountKey) {
-      const serviceAccount = JSON.parse(serviceAccountKey);
-      admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-      });
-    } else {
-      // Fallback to project ID. 
-      // Note: This works if you are logged in via Firebase CLI locally 
-      // or running on a Google Cloud environment.
-      admin.initializeApp({
-        projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-      });
+    // 1. Try local service-account.json file (Development / Local Script)
+    if (existsSync(serviceAccountPath)) {
+      const serviceAccountRaw = readFileSync(serviceAccountPath, 'utf8');
+      credential = admin.credential.cert(JSON.parse(serviceAccountRaw));
+    } 
+    // 2. Try Environment Variable (Vercel Production)
+    else if (process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
+      credential = admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY));
+    } 
+    // 3. Fallback
+    else {
+      console.warn("⚠️ No service account found. Firestore admin features may fail.");
     }
+
+    if (credential) {
+      admin.initializeApp({ credential });
+    } else {
+      admin.initializeApp();
+    }
+    
   } catch (error) {
-    console.error('Firebase admin initialization error:', error);
+    console.error('❌ Firebase admin initialization error:', error);
   }
 }
 
-export const adminDb = admin.firestore();
+export const adminDb = admin.apps.length ? getFirestore(admin.app(), "bladeinnercircle") : null;
