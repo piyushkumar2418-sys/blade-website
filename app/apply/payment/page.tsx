@@ -78,9 +78,7 @@ export default function PaymentPage() {
     name: "",
     email: "",
     phone: "",
-    selectionCode: "",
-    transactionId: "",
-    transactionTime: "",
+    paymentConfirmed: false,
   });
   const [copiedField, setCopiedField] = useState("");
 
@@ -94,7 +92,8 @@ export default function PaymentPage() {
   }, [upiLink]);
 
   const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((prev) => ({ ...prev, [field]: e.target.value }));
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setForm((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleCopy = async (value: string, field: string) => {
@@ -109,8 +108,12 @@ export default function PaymentPage() {
   };
 
   const handleSubmitProof = () => {
-    if (!form.name || !form.email || !form.transactionId) {
-      setErrorMessage("PLEASE FILL IN NAME, EMAIL, AND TRANSACTION ID.");
+    if (!form.name || !form.email || !form.phone) {
+      setErrorMessage("PLEASE FILL IN YOUR DETAILS.");
+      return;
+    }
+    if (!form.paymentConfirmed) {
+      setErrorMessage("YOU MUST CONFIRM YOUR PAYMENT TO PROCEED.");
       return;
     }
     setSubmitted(true);
@@ -212,21 +215,25 @@ export default function PaymentPage() {
                   <InputField label="CANDIDATE NAME" onChange={handleChange("name")} placeholder="Your full name" value={form.name} />
                   <InputField label="EMAIL ADDRESS" onChange={handleChange("email")} placeholder="name@email.com" value={form.email} />
                   <InputField label="WHATSAPP NUMBER" onChange={handleChange("phone")} placeholder="+91 98765 43210" value={form.phone} />
-                  <InputField label="TRANSACTION ID / UTR" onChange={handleChange("transactionId")} placeholder="Enter reference number" value={form.transactionId} />
                   
-                  <label className="block">
-                    <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.3em] text-black/45">SCREENSHOT PROOF (OPTIONAL)</span>
-                    <div className="flex cursor-pointer items-center gap-3 rounded-2xl border border-dashed border-black/20 bg-[#faf8f2] px-4 py-4 text-sm text-black/60 transition-colors hover:border-[#d9b465]/45">
-                      <ImageIcon size={18} className="text-[#9b7328]" />
-                      <span>{proofFileName || "SELECT SCREENSHOT"}</span>
-                      <input type="file" className="hidden" onChange={(e) => setProofFileName(e.target.files?.[0]?.name || "")} />
+                  <label className="flex items-start gap-4 mt-6 p-4 rounded-2xl border border-black/10 bg-[#faf8f2] cursor-pointer transition-colors hover:border-[#d9b465]/45">
+                    <div className="flex items-center h-5">
+                      <input
+                        type="checkbox"
+                        checked={form.paymentConfirmed}
+                        onChange={handleChange("paymentConfirmed")}
+                        className="w-5 h-5 accent-black border-black/20 rounded focus:ring-black cursor-pointer"
+                      />
+                    </div>
+                    <div className="text-sm font-bold uppercase tracking-widest text-black/80 leading-relaxed">
+                      I confirm that I have successfully transferred {joiningFee} via UPI to secure my seat.
                     </div>
                   </label>
 
                   {errorMessage && <div className="rounded-xl bg-red-50 p-4 text-xs text-red-600 font-bold uppercase tracking-widest">{errorMessage}</div>}
                   
                   <button onClick={handleSubmitProof} className="flex w-full items-center justify-center gap-3 rounded-full bg-black px-8 py-5 text-xs font-bold uppercase tracking-[0.35em] text-white transition-all hover:bg-[#d9b465] hover:text-black">
-                    APPLY NOW <ArrowUpRight size={16} />
+                    CONFIRM PAYMENT <ArrowUpRight size={16} />
                   </button>
                 </div>
               </>
