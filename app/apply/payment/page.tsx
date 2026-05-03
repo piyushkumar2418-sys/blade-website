@@ -107,7 +107,9 @@ export default function PaymentPage() {
     setErrorMessage("UPI apps usually do not open in desktop browsers. Scan the QR with your phone or use the copied UPI ID.");
   };
 
-  const handleSubmitProof = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmitProof = async () => {
     if (!form.name || !form.email || !form.phone) {
       setErrorMessage("PLEASE FILL IN YOUR DETAILS.");
       return;
@@ -116,7 +118,33 @@ export default function PaymentPage() {
       setErrorMessage("YOU MUST CONFIRM YOUR PAYMENT TO PROCEED.");
       return;
     }
-    setSubmitted(true);
+
+    setIsSubmitting(true);
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("/api/payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        setErrorMessage(data.error || "Failed to process payment confirmation.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setErrorMessage("Network error. Please try again.");
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -232,8 +260,12 @@ export default function PaymentPage() {
 
                   {errorMessage && <div className="rounded-xl bg-red-50 p-4 text-xs text-red-600 font-bold uppercase tracking-widest">{errorMessage}</div>}
                   
-                  <button onClick={handleSubmitProof} className="flex w-full items-center justify-center gap-3 rounded-full bg-black px-8 py-5 text-xs font-bold uppercase tracking-[0.35em] text-white transition-all hover:bg-[#d9b465] hover:text-black">
-                    CONFIRM PAYMENT <ArrowUpRight size={16} />
+                  <button 
+                    onClick={handleSubmitProof} 
+                    disabled={isSubmitting}
+                    className="flex w-full items-center justify-center gap-3 rounded-full bg-black px-8 py-5 text-xs font-bold uppercase tracking-[0.35em] text-white transition-all hover:bg-[#d9b465] hover:text-black disabled:opacity-50"
+                  >
+                    {isSubmitting ? "PROCESSING..." : <><span className="mt-[2px]">CONFIRM PAYMENT</span> <ArrowUpRight size={16} /></>}
                   </button>
                 </div>
               </>

@@ -223,12 +223,13 @@ export default function AdminDashboard() {
                       </td>
                       <td className="p-6">
                         <span className={`text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 border ${
-                          app.status === 'confirmed' ? 'bg-green-500/10 text-green-400 border-green-500/20' :
+                          app.status === 'booked' ? 'bg-green-500/10 text-green-400 border-green-500/20' :
+                          app.status === 'confirmed' ? 'bg-[#D4AF37]/10 text-[#D4AF37] border-[#D4AF37]/20' :
                           app.status === 'rejected' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
-                          app.status === 'enrolled' ? 'bg-[#D4AF37]/10 text-[#D4AF37] border-[#D4AF37]/20' :
+                          app.status === 'enrolled' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
                           'bg-white/5 text-white/60 border-white/10'
                         }`}>
-                          {app.status}
+                          {app.status === 'confirmed' ? 'Payment Pending' : app.status}
                         </span>
                       </td>
                       <td className="p-6 text-right space-x-3 whitespace-nowrap">
