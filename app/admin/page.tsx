@@ -67,7 +67,7 @@ export default function AdminDashboard() {
     }
   }, [user]);
 
-  const handleAction = async (id: string, email: string, name: string, action: 'accept' | 'reject') => {
+  const handleAction = async (id: string, email: string, name: string, action: 'accept' | 'reject' | 'enroll') => {
     if (!user) return;
     if (action === 'accept' && !confirm(`Are you sure you want to ACCEPT ${name} and send the confirmation email?`)) return;
     if (action === 'reject' && !confirm(`Are you sure you want to REJECT ${name}?`)) return;

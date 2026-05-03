@@ -80,8 +80,9 @@ export default function Profile() {
   const candidateId = `BIC-26-${user.uid.slice(0, 6).toUpperCase()}`;
   let currentStep = 1;
   if (applications.length > 0) {
-    const hasConfirmed = applications.some(app => app.status === 'confirmed');
-    currentStep = hasConfirmed ? 4 : 2;
+    const hasEnrolled = applications.some(app => app.status === 'enrolled');
+    const hasConfirmedOrBooked = applications.some(app => ['confirmed', 'booked'].includes(app.status));
+    currentStep = hasEnrolled ? 5 : (hasConfirmedOrBooked ? 4 : 2);
   }
 
   return (
@@ -199,7 +200,22 @@ export default function Profile() {
                           
                           <div className="flex flex-col items-start md:items-end gap-6">
                              <div className="text-left md:text-right">
-                                {app.status === 'confirmed' ? (
+                                {app.status === 'enrolled' ? (
+                                  <>
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-[#D4AF37] flex items-center gap-2 md:justify-end">
+                                      <div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse" /> Officially Enrolled
+                                    </div>
+                                    <p className="text-[9px] text-black/50 uppercase tracking-widest mt-1">Welcome to the Inner Circle.</p>
+                                    <button onClick={() => window.open("https://chat.whatsapp.com/your-group-link", "_blank")} className="mt-6 px-6 py-4 border border-black text-black text-[10px] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all">Join WhatsApp Community</button>
+                                  </>
+                                ) : app.status === 'booked' ? (
+                                  <>
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-blue-600 flex items-center gap-2 md:justify-end">
+                                      <div className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" /> Payment Processing
+                                    </div>
+                                    <p className="text-[9px] text-black/50 uppercase tracking-widest mt-1">We are verifying your transaction.</p>
+                                  </>
+                                ) : app.status === 'confirmed' ? (
                                   <>
                                     <div className="text-[10px] font-bold uppercase tracking-widest text-green-600 flex items-center gap-2 md:justify-end">
                                       <div className="w-1.5 h-1.5 rounded-full bg-green-600 animate-pulse" /> Admission Confirmed
@@ -208,7 +224,7 @@ export default function Profile() {
                                   </>
                                 ) : (
                                   <>
-                                    <div className="text-[10px] font-bold uppercase tracking-widest text-[#F3D7A7] flex items-center gap-2 md:justify-end">
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-black/40 flex items-center gap-2 md:justify-end">
                                       <div className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" /> Under Review
                                     </div>
                                     <p className="text-[9px] text-black/30 uppercase tracking-widest mt-1">Expected decision in 3 days</p>
