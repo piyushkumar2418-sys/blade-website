@@ -24,29 +24,18 @@ const verticalWorks: Work[] = [
   { title: "Retention Edit", category: "Viral Edit", link: "https://www.instagram.com/DTIgqVyjVcJ/", video: "/preview8.mp4", img: "/thumb8.jpeg" },
 ];
 
-const WorkItem = ({ work, aspect, index, autoplay = false }: { work: Work, aspect: string, index: number, autoplay?: boolean }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
+const WorkItem = ({ work, aspect, index }: { work: Work, aspect: string, index: number }) => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const ref = useRef(null);
   
-  // Use a more aggressive margin for autoplaying videos
-  const isInView = useInView(ref, { margin: "50%" });
-  const shouldLoadVideo = isInView || isHovered;
-
-  useEffect(() => {
-    if (autoplay && isInView && videoRef.current && videoLoaded) {
-      videoRef.current.play().catch(() => null);
-    } else if (autoplay && !isInView && videoRef.current) {
-      videoRef.current.pause();
-    }
-  }, [autoplay, isInView, videoLoaded]);
+  // Start loading/playing when it comes near the viewport
+  const isInView = useInView(ref, { margin: "100%" });
 
   return (
     <motion.div
       ref={ref}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      animate="visible"
       variants={{
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0, transition: { delay: index * 0.1, duration: 0.6 } }
@@ -56,19 +45,6 @@ const WorkItem = ({ work, aspect, index, autoplay = false }: { work: Work, aspec
         href={work.link} 
         target="_blank"
         whileTap={{ scale: 0.98 }}
-        onMouseEnter={() => { 
-          setIsHovered(true); 
-          if (!autoplay && videoRef.current) {
-            videoRef.current.play().catch(() => null); 
-          }
-        }}
-        onMouseLeave={() => { 
-          setIsHovered(false); 
-          if (!autoplay && videoRef.current) {
-            videoRef.current.pause(); 
-            videoRef.current.currentTime = 0; 
-          }
-        }}
         className={`group relative block ${aspect} bg-[#0a0a0a] border border-white/5 overflow-hidden rounded-sm shadow-2xl cursor-none`}
       >
         <Image 
@@ -76,26 +52,23 @@ const WorkItem = ({ work, aspect, index, autoplay = false }: { work: Work, aspec
           alt={work.title} 
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${(isHovered && videoLoaded) || (autoplay && isInView && videoLoaded) ? 'opacity-0' : 'opacity-100'}`} 
+          className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-700 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`} 
         />
         
-        {shouldLoadVideo && (
+        {isInView && (
           <video 
-            ref={videoRef} 
-            key={work.video} 
             src={work.video} 
             loop 
             muted 
             playsInline 
-            autoPlay={autoplay}
+            autoPlay
             onLoadedData={() => setVideoLoaded(true)}
             className="absolute inset-0 w-full h-full object-cover z-10" 
-            preload="auto"
           />
         )}
         
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent z-30" />
-        <div className="absolute bottom-5 left-5 z-40 text-left">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent z-30 opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute bottom-5 left-5 z-40 text-left transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
           <span className="text-[#F3D7A7] text-[8px] uppercase tracking-[0.3em] block mb-1 font-bold">{work.category}</span>
           <h4 className="text-sm md:text-base font-bold uppercase tracking-tight text-white">{work.title}</h4>
         </div>
@@ -117,7 +90,7 @@ const Galleries = () => {
         <div className="text-left">
           <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-[-0.06em] mb-12 text-[#F3D7A7] text-left">Viral Originals</h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-            {verticalWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} autoplay={true} /> ))}
+            {verticalWorks.map((work, i) => ( <WorkItem key={i} work={work} aspect="aspect-[9/16]" index={i} /> ))}
           </div>
         </div>
       </div>
