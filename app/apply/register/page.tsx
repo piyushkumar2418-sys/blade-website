@@ -67,6 +67,7 @@ export default function ApplicationPortal() {
     if (e) e.preventDefault();
     
     if (
+      !formData.phone ||
       !formData.links || 
       !formData.whyJoin || 
       !formData.friction ||
@@ -78,7 +79,7 @@ export default function ApplicationPortal() {
       toast.warning("INCOMPLETE PORTFOLIO", {
         description: "Please complete all admission questions before transmitting.",
       });
-      setErrorMessage("PLEASE COMPLETE ALL ADMISSION QUESTIONS AND AGREE TO THE COMMITMENT.");
+      setErrorMessage("PLEASE COMPLETE ALL ADMISSION QUESTIONS, INCLUDING YOUR CONTACT NUMBER.");
       return;
     }
 
@@ -243,8 +244,10 @@ export default function ApplicationPortal() {
                   />
                   <InputField 
                     label="Contact Number" 
+                    placeholder="+91 98765 43210"
                     value={formData.phone} 
-                    disabled={true}
+                    onChange={(val: string) => handleInputChange("phone", val)} 
+                    disabled={!!profile?.phone}
                   />
                 </div>
                 <InputField 
