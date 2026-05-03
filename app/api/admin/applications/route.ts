@@ -81,6 +81,14 @@ export async function PATCH(req: NextRequest) {
       await docRef.update({ status: 'rejected' });
       return NextResponse.json({ success: true, status: 'rejected' });
     }
+    
+    if (action === 'enroll') {
+      await docRef.update({ 
+        status: 'enrolled',
+        enrolledAt: new Date().toISOString()
+      });
+      return NextResponse.json({ success: true, status: 'enrolled' });
+    }
 
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
 

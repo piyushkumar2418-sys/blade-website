@@ -71,6 +71,7 @@ export default function AdminDashboard() {
     if (!user) return;
     if (action === 'accept' && !confirm(`Are you sure you want to ACCEPT ${name} and send the confirmation email?`)) return;
     if (action === 'reject' && !confirm(`Are you sure you want to REJECT ${name}?`)) return;
+    if (action === 'enroll' && !confirm(`Have you verified the payment for ${name}? Marking them as ENROLLED will lock their seat.`)) return;
 
     setActionLoading(id);
     try {
@@ -251,7 +252,16 @@ export default function AdminDashboard() {
                             </button>
                           </>
                         )}
-                        {app.status !== 'new' && (
+                        {(app.status === 'booked' || app.status === 'confirmed') && (
+                          <button 
+                            onClick={() => handleAction(app.id, app.email, app.name, 'enroll')}
+                            disabled={actionLoading === app.id}
+                            className="text-[10px] font-bold uppercase tracking-widest px-4 py-2 bg-[#D4AF37] text-black hover:bg-white disabled:opacity-50 transition-all flex items-center gap-2 inline-flex"
+                          >
+                            {actionLoading === app.id ? 'Processing...' : <><CheckCircle size={14} /> Verify & Enroll</>}
+                          </button>
+                        )}
+                        {(app.status === 'rejected' || app.status === 'enrolled') && (
                           <span className="text-[9px] uppercase tracking-widest text-white/20">Action Completed</span>
                         )}
                       </td>
