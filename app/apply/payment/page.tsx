@@ -86,10 +86,7 @@ export default function PaymentPage() {
     return `upi://pay?pa=${paymentConfig.upiId}&pn=${encodeURIComponent(paymentConfig.upiName)}&am=749&cu=INR`;
   }, []);
 
-  const qrImageUrl = useMemo(() => {
-    const encodedLink = encodeURIComponent(upiLink);
-    return `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodedLink}`;
-  }, [upiLink]);
+  const qrImageUrl = "/payment-qr.jpg";
 
   const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
