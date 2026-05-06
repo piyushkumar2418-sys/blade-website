@@ -206,7 +206,9 @@ export default function Profile() {
                                       <div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse" /> Officially Enrolled
                                     </div>
                                     <p className="text-[9px] text-black/50 uppercase tracking-widest mt-1">Welcome to the Inner Circle.</p>
-                                    <button onClick={() => window.open("https://chat.whatsapp.com/your-group-link", "_blank")} className="mt-6 px-6 py-4 border border-black text-black text-[10px] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all">Join WhatsApp Community</button>
+                                    <div className="mt-6 px-6 py-4 border border-black/10 bg-black/5 text-black/40 text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+                                      <span>Community Unlocking Soon</span>
+                                    </div>
                                   </>
                                 ) : app.status === 'booked' ? (
                                   <>
