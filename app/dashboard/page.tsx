@@ -95,7 +95,7 @@ export default function Profile() {
         <nav className="w-full bg-[#111] border-b border-white/[0.05] px-8 py-6 flex justify-between items-center sticky top-0 z-[100]">
           <div className="flex items-center gap-10">
             <div className="cursor-pointer" onClick={() => router.push("/")}>
-              <Image src="/bic-white.png" alt="BIC" width={48} height={24} className="h-6 w-auto object-contain" />
+              <Image src="/bic-black.png" alt="BIC" width={48} height={24} className="h-6 w-auto object-contain invert brightness-0" />
             </div>
             <div className="h-4 w-[1px] bg-white/10 hidden md:block" />
             <div className="hidden md:flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/40">
