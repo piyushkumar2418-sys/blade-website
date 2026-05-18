@@ -79,8 +79,9 @@ export default function Profile() {
 
   const candidateId = `BIC-26-${user.uid.slice(0, 6).toUpperCase()}`;
   let currentStep = 1;
+  let hasEnrolled = false;
   if (applications.length > 0) {
-    const hasEnrolled = applications.some(app => app.status === 'enrolled');
+    hasEnrolled = applications.some(app => app.status === 'enrolled');
     const hasConfirmedOrBooked = applications.some(app => ['confirmed', 'booked'].includes(app.status));
     currentStep = hasEnrolled ? 5 : (hasConfirmedOrBooked ? 4 : 2);
   }
