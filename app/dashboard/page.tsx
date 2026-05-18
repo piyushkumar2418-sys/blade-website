@@ -172,58 +172,7 @@ export default function Profile() {
                </div>
             </div>
 
-            {/* RECORDINGS VAULT (Only visible if enrolled) */}
-            {hasEnrolled && (
-              <div className="space-y-8 text-left mb-16">
-                 <div className="flex justify-between items-center border-b border-[#D4AF37]/30 pb-4">
-                    <h3 className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">The Vault: Session Recordings</h3>
-                 </div>
-                 
-                 <div className="grid grid-cols-1 gap-12">
-                   {/* Session 01 */}
-                   <div className="space-y-4">
-                     <h4 className="text-[10px] font-bold uppercase tracking-widest">Session 01: Orientation & Briefing</h4>
-                     <a 
-                       href="https://tldv.io/app/meetings/6a03446299af0100139c6d85" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       className="group bg-[#111] border border-black/10 w-full p-8 md:p-12 relative flex flex-col items-center justify-center shadow-2xl hover:bg-black transition-all"
-                     >
-                        <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                        </div>
-                        <span className="text-[12px] font-bold uppercase tracking-widest text-white/80 group-hover:text-[#D4AF37] transition-colors text-center">
-                          Watch Full Recording
-                        </span>
-                        <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/30 mt-2 text-center flex items-center gap-2">
-                          Opens in tl;dv <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                        </span>
-                     </a>
-                   </div>
 
-                   {/* Session 02 */}
-                   <div className="space-y-4">
-                     <h4 className="text-[10px] font-bold uppercase tracking-widest">Session 02: Social Media Marketing & Skill Selection</h4>
-                     <a 
-                       href="https://tldv.io/app/meetings/6a05e381ee3419001394f16f" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       className="group bg-[#111] border border-black/10 w-full p-8 md:p-12 relative flex flex-col items-center justify-center shadow-2xl hover:bg-black transition-all"
-                     >
-                        <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                        </div>
-                        <span className="text-[12px] font-bold uppercase tracking-widest text-white/80 group-hover:text-[#D4AF37] transition-colors text-center">
-                          Watch Full Recording
-                        </span>
-                        <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/30 mt-2 text-center flex items-center gap-2">
-                          Opens in tl;dv <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                        </span>
-                     </a>
-                   </div>
-                 </div>
-              </div>
-            )}
 
             {/* ADMISSION RECORDS */}
             <div className="space-y-8 text-left">
