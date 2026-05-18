@@ -95,11 +95,11 @@ export default function Profile() {
         <nav className="w-full bg-[#111] border-b border-white/[0.05] px-8 py-6 flex justify-between items-center sticky top-0 z-[100]">
           <div className="flex items-center gap-10">
             <div className="cursor-pointer" onClick={() => router.push("/")}>
-              <Image src="/bic-black.png" alt="BIC" width={48} height={24} className="h-6 w-auto object-contain invert brightness-0" />
+              <Image src="/bic-white.png" alt="BIC" width={48} height={24} className="h-6 w-auto object-contain" />
             </div>
             <div className="h-4 w-[1px] bg-white/10 hidden md:block" />
             <div className="hidden md:flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/40">
-              <span className="text-white">Inner Circle // {profile?.name.split(' ')[0]}</span>
+              <span className="text-white">Inner Circle — {profile?.name.split(' ')[0]}</span>
             </div>
           </div>
           
@@ -179,13 +179,13 @@ export default function Profile() {
                   Review Curriculum <BookOpen size={14} />
                </motion.button>
 
-               {/* SUPPORT & CONTACT */}
-               <div className="pt-8 border-t border-white/10">
-                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">Need Assistance?</h4>
-                  <p className="text-xs font-light text-white/60">
-                    If you have any questions or require support, please reach out to us directly at <br/>
-                    <a href="mailto:team@blademedia.in" className="text-[#D4AF37] hover:underline font-bold mt-2 inline-block">team@blademedia.in</a>
-                  </p>
+               {/* SUPPORT INFO */}
+               <div className="border border-white/10 p-6 flex flex-col items-center justify-center text-center space-y-2">
+                 <span className="text-[10px] font-bold uppercase tracking-widest text-white/30">Need Assistance?</span>
+                 <p className="text-[11px] font-light text-white/50">
+                   Reach out to us directly at <br/>
+                   <a href="mailto:team@blademedia.in" className="text-[#D4AF37] hover:underline font-bold">team@blademedia.in</a>
+                 </p>
                </div>
             </div>
 
@@ -193,7 +193,7 @@ export default function Profile() {
         </main>
 
         <footer className="py-12 border-t border-white/[0.03] text-center">
-          <p className="text-[8px] font-bold uppercase tracking-[1em] text-white/20">Blade Media // Inner Circle Verified</p>
+          <p className="text-[8px] font-bold uppercase tracking-[1em] text-white/20">Blade Media — Inner Circle Verified</p>
         </footer>
       </div>
     );
@@ -388,7 +388,7 @@ export default function Profile() {
       </main>
 
       <footer className="py-12 border-t border-black/[0.03] text-center">
-        <p className="text-[8px] font-bold uppercase tracking-[1em] text-black/10">Blade Media // System Verified</p>
+        <p className="text-[8px] font-bold uppercase tracking-[1em] text-black/10">Blade Media — System Verified</p>
       </footer>
     </div>
   );
