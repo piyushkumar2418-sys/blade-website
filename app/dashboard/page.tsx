@@ -183,14 +183,11 @@ export default function Profile() {
                    <div className="space-y-4">
                      <h4 className="text-[10px] font-bold uppercase tracking-widest">Session 01: Orientation & Briefing</h4>
                      <div className="bg-[#111] border border-black/10 w-full aspect-video relative flex items-center justify-center shadow-2xl">
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-white/30 z-10 text-center px-4">Admin: Provide tl;dv link to unlock<br/><br/>(Awaiting embed URL)</span>
-                        {/* 
                         <iframe 
-                          src="PLACE_YOUR_TLDV_LINK_HERE" 
+                          src="https://tldv.io/app/meetings/6a03446299af0100139c6d85" 
                           allowFullScreen 
                           className="absolute top-0 left-0 w-full h-full border-0 z-20"
                         /> 
-                        */}
                      </div>
                    </div>
 
@@ -198,14 +195,11 @@ export default function Profile() {
                    <div className="space-y-4">
                      <h4 className="text-[10px] font-bold uppercase tracking-widest">Session 02: Social Media Marketing & Skill Selection</h4>
                      <div className="bg-[#111] border border-black/10 w-full aspect-video relative flex items-center justify-center shadow-2xl">
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-white/30 z-10 text-center px-4">Admin: Provide tl;dv link to unlock<br/><br/>(Awaiting embed URL)</span>
-                        {/* 
                         <iframe 
-                          src="PLACE_YOUR_TLDV_LINK_HERE" 
+                          src="https://tldv.io/app/meetings/6a05e381ee3419001394f16f" 
                           allowFullScreen 
                           className="absolute top-0 left-0 w-full h-full border-0 z-20"
                         /> 
-                        */}
                      </div>
                    </div>
                  </div>
