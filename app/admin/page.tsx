@@ -39,6 +39,10 @@ export default function AdminDashboard() {
   const [bBody, setBBody] = useState("");
   const [bAudience, setBAudience] = useState<'enrolled' | 'test'>('test');
   const [bSending, setBSending] = useState(false);
+  
+  // AI Copilot State
+  const [aiPrompt, setAiPrompt] = useState("");
+  const [aiGenerating, setAiGenerating] = useState(false);
 
   // Cohort Manager State
   const COHORT_SESSIONS = [
@@ -159,6 +163,7 @@ export default function AdminDashboard() {
         alert(`Broadcast successful. Sent to ${data.total} recipients.`);
         setBSubject("");
         setBBody("");
+        setAiPrompt("");
       } else {
         alert("Failed: " + data.error);
       }
@@ -167,6 +172,35 @@ export default function AdminDashboard() {
       alert("Critical error sending broadcast.");
     } finally {
       setBSending(false);
+    }
+  };
+
+  const handleGenerateAI = async () => {
+    if (!aiPrompt) return alert("Please provide instructions for the AI.");
+    if (!user) return;
+
+    setAiGenerating(true);
+    try {
+      const token = await user.getIdToken();
+      const res = await fetch("/api/admin/generate-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ prompt: aiPrompt })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setBBody(data.generatedBody);
+      } else {
+        alert("Failed to generate AI draft: " + data.error);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Critical error connecting to AI engine.");
+    } finally {
+      setAiGenerating(false);
     }
   };
 
@@ -388,6 +422,24 @@ export default function AdminDashboard() {
 
               <div className="bg-[#0a0a0a] border border-white/10 p-10 space-y-8">
                 <div className="space-y-4">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-[#D4AF37]">AI Copilot Instructions</label>
+                  <textarea 
+                    rows={4}
+                    value={aiPrompt}
+                    onChange={(e) => setAiPrompt(e.target.value)}
+                    placeholder="Tell the AI what you want to communicate. E.g., 'Tell the students session 3 is moved to 9PM tomorrow. Make it sound urgent but professional.'" 
+                    className="w-full bg-black border border-[#D4AF37]/30 py-4 px-6 text-sm text-white focus:outline-none focus:border-[#D4AF37] font-mono"
+                  />
+                  <button 
+                    onClick={handleGenerateAI}
+                    disabled={aiGenerating || !aiPrompt}
+                    className="w-full py-4 text-[10px] font-bold uppercase tracking-[0.2em] bg-white text-black hover:bg-[#D4AF37] disabled:opacity-50 transition-all"
+                  >
+                    {aiGenerating ? 'Generating Draft...' : 'Generate AI Draft'}
+                  </button>
+                </div>
+                
+                <div className="border-t border-white/10 pt-8 space-y-4">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/60">Subject Line</label>
                   <input 
                     type="text" 
@@ -409,20 +461,20 @@ export default function AdminDashboard() {
                   </select>
                 </div>
                 <div className="space-y-4">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/60">Message Body</label>
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/60">Draft Review (HTML Body)</label>
                   <textarea 
-                    rows={10}
+                    rows={12}
                     value={bBody}
                     onChange={(e) => setBBody(e.target.value)}
-                    placeholder="Enter plain text or HTML. It will be injected into the premium email template..." 
+                    placeholder="The AI generated HTML will appear here. You can edit it manually before sending..." 
                     className="w-full bg-black border border-white/10 py-4 px-6 text-sm text-white focus:outline-none focus:border-[#D4AF37] font-mono"
                   />
                 </div>
 
                 <button 
                   onClick={handleSendBroadcast}
-                  disabled={bSending}
-                  className={`w-full py-5 text-[10px] font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 ${
+                  disabled={bSending || !bBody}
+                  className={`w-full py-5 text-[10px] font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 disabled:opacity-50 ${
                     bAudience === 'enrolled' 
                       ? 'bg-red-600 text-white hover:bg-red-700 shadow-[0_0_20px_rgba(220,38,38,0.3)]' 
                       : 'bg-white text-black hover:bg-[#D4AF37]'
