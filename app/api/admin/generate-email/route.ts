@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import '@/lib/firebase-admin';
 import * as admin from 'firebase-admin';
 import { GoogleGenAI } from '@google/genai';
-
 const ADMIN_EMAILS = [
   'piyushkumar2418@gmail.com'
 ];
