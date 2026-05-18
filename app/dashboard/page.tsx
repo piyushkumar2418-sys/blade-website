@@ -171,6 +171,47 @@ export default function Profile() {
                </div>
             </div>
 
+            {/* RECORDINGS VAULT (Only visible if enrolled) */}
+            {hasEnrolled && (
+              <div className="space-y-8 text-left mb-16">
+                 <div className="flex justify-between items-center border-b border-[#D4AF37]/30 pb-4">
+                    <h3 className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">The Vault: Session Recordings</h3>
+                 </div>
+                 
+                 <div className="grid grid-cols-1 gap-12">
+                   {/* Session 01 */}
+                   <div className="space-y-4">
+                     <h4 className="text-[10px] font-bold uppercase tracking-widest">Session 01: Orientation & Briefing</h4>
+                     <div className="bg-[#111] border border-black/10 w-full aspect-video relative flex items-center justify-center shadow-2xl">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-white/30 z-10 text-center px-4">Admin: Provide tl;dv link to unlock<br/><br/>(Awaiting embed URL)</span>
+                        {/* 
+                        <iframe 
+                          src="PLACE_YOUR_TLDV_LINK_HERE" 
+                          allowFullScreen 
+                          className="absolute top-0 left-0 w-full h-full border-0 z-20"
+                        /> 
+                        */}
+                     </div>
+                   </div>
+
+                   {/* Session 02 */}
+                   <div className="space-y-4">
+                     <h4 className="text-[10px] font-bold uppercase tracking-widest">Session 02: Social Media Marketing & Skill Selection</h4>
+                     <div className="bg-[#111] border border-black/10 w-full aspect-video relative flex items-center justify-center shadow-2xl">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-white/30 z-10 text-center px-4">Admin: Provide tl;dv link to unlock<br/><br/>(Awaiting embed URL)</span>
+                        {/* 
+                        <iframe 
+                          src="PLACE_YOUR_TLDV_LINK_HERE" 
+                          allowFullScreen 
+                          className="absolute top-0 left-0 w-full h-full border-0 z-20"
+                        /> 
+                        */}
+                     </div>
+                   </div>
+                 </div>
+              </div>
+            )}
+
             {/* ADMISSION RECORDS */}
             <div className="space-y-8 text-left">
                <div className="flex justify-between items-center border-b border-black/5 pb-4">
