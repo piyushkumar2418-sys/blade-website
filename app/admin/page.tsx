@@ -42,10 +42,23 @@ export default function AdminDashboard() {
 
   // Cohort Manager State
   const COHORT_SESSIONS = [
-    { id: 1, name: 'Orientation Briefing', date: 'May 12, 2026' },
-    { id: 2, name: 'Social Media Marketing & Skill Selection', date: 'May 14, 2026' },
-    { id: 3, name: 'The Agency Blueprint', date: 'May 19, 2026' },
-    { id: 4, name: 'Client Acquisition Systems', date: 'May 21, 2026' }
+    { id: 1, name: 'Orientation', date: 'Tue, 12 May' },
+    { id: 2, name: 'Social Media Marketing & Skill Selection', date: 'Thu, 14 May' },
+    { id: 3, name: 'Editing Framework & Niche Selection', date: 'Tue, 19 May' },
+    { id: 4, name: 'Hot Seat Session', date: 'Thu, 21 May' },
+    { id: 5, name: 'Offer Creation & Personal Branding', date: 'Tue, 26 May' },
+    { id: 6, name: 'Profile Optimization & Hot Seat', date: 'Thu, 28 May' },
+    { id: 7, name: 'Cold Outreach & Calling Mastery', date: 'Tue, 02 Jun' },
+    { id: 8, name: 'Lead Generation Systems & Hot Seat', date: 'Thu, 04 Jun' },
+    { id: 9, name: 'Pricing Psychology & Client Onboarding', date: 'Tue, 09 Jun' },
+    { id: 10, name: 'Delivery Systems & Hot Seat', date: 'Thu, 11 Jun' },
+    { id: 11, name: 'Retention, Upselling & Building a Team', date: 'Tue, 16 Jun' },
+    { id: 12, name: 'Systemizing Your Agency & Hot Seat', date: 'Thu, 18 Jun' },
+    { id: 13, name: 'Profile Auditing & Starting Any Business', date: 'Tue, 23 Jun' },
+    { id: 14, name: 'Hot Seat Class & Why Most People Fail', date: 'Thu, 25 Jun' },
+    { id: 15, name: 'First Money Psychology', date: 'Tue, 30 Jun' },
+    { id: 16, name: 'Objection Handling, Imposter Syndrome & Perfectionism', date: 'Thu, 02 Jul' },
+    { id: 17, name: 'THE LAUNCH DAY', date: 'TBA' }
   ];
   const [presentationLinks, setPresentationLinks] = useState<Record<number, string>>({});
 
