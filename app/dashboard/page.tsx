@@ -86,6 +86,113 @@ export default function Profile() {
     currentStep = hasEnrolled ? 5 : (hasConfirmedOrBooked ? 4 : 2);
   }
 
+  // ---------------------------------------------------------------------------
+  // ENROLLED DASHBOARD (INNER CIRCLE)
+  // ---------------------------------------------------------------------------
+  if (hasEnrolled) {
+    return (
+      <div className="min-h-screen bg-[#111] text-white font-sans selection:bg-[#D4AF37] selection:text-black">
+        <nav className="w-full bg-[#111] border-b border-white/[0.05] px-8 py-6 flex justify-between items-center sticky top-0 z-[100]">
+          <div className="flex items-center gap-10">
+            <div className="cursor-pointer" onClick={() => router.push("/")}>
+              <Image src="/bic-white.png" alt="BIC" width={48} height={24} className="h-6 w-auto object-contain" />
+            </div>
+            <div className="h-4 w-[1px] bg-white/10 hidden md:block" />
+            <div className="hidden md:flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/40">
+              <span className="text-white">Inner Circle // {profile?.name.split(' ')[0]}</span>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-6">
+            <motion.button 
+              whileTap={{ scale: 0.95 }}
+              onClick={handleSignOut}
+              className="group flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/30 hover:text-white transition-colors"
+            >
+              Sign Out <LogOut size={14} className="group-hover:translate-x-1 transition-transform" />
+            </motion.button>
+          </div>
+        </nav>
+
+        <main className="max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-20">
+          
+          {/* WELCOME HEADER */}
+          <section className="mb-20 text-left">
+             <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-[#D4AF37] block mb-4">Official Member Portal</span>
+             <h1 className="text-5xl md:text-7xl font-bold tracking-tighter uppercase leading-none">
+               Welcome to the circle, <br /> <span className="text-white/30">{profile?.name}</span>
+             </h1>
+          </section>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+            
+            <div className="lg:col-span-2 space-y-16">
+              
+              {/* THE VAULT */}
+              <div className="space-y-8">
+                 <div className="flex justify-between items-center border-b border-[#D4AF37]/30 pb-4">
+                    <h3 className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">The Vault: Session Recordings</h3>
+                 </div>
+                 <div className="bg-[#1a1a1a] border border-white/5 p-12 text-center md:text-left shadow-2xl">
+                    <p className="text-[12px] font-light leading-relaxed text-white/70">
+                      Official session recordings will be available starting from <strong>Session 03</strong>. Ensure you are attending the live classes and taking notes until then.
+                    </p>
+                 </div>
+              </div>
+
+              {/* PERSONAL DATA CARD */}
+              <div className="space-y-8">
+                 <div className="flex justify-between items-center border-b border-white/10 pb-4">
+                    <h3 className="text-xs font-bold uppercase tracking-widest text-white/60">Identity Credentials</h3>
+                 </div>
+                 <div className="bg-[#1a1a1a] border border-white/5 p-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <InfoItemDark icon={<User size={14}/>} label="Full Name" value={profile?.name} />
+                    <InfoItemDark icon={<Mail size={14}/>} label="Verified Email" value={profile?.email} />
+                    <InfoItemDark icon={<Phone size={14}/>} label="Contact Number" value={profile?.phone} />
+                    <InfoItemDark icon={<Shield size={14}/>} label="Inner Circle ID" value={candidateId} />
+                 </div>
+              </div>
+            </div>
+
+            <div className="space-y-12">
+               
+               {/* COMMUNITY HUB */}
+               <div className="bg-[#1a1a1a] border border-white/5 text-white p-10 space-y-8 shadow-2xl">
+                  <div className="space-y-2 text-left">
+                     <p className="text-[#D4AF37] text-[9px] font-bold uppercase tracking-[0.5em]">Network Status</p>
+                     <h3 className="text-2xl font-bold uppercase tracking-tighter">Community Hub</h3>
+                  </div>
+                  <p className="text-white/40 text-[11px] leading-relaxed font-light text-left">
+                     The official WhatsApp community is currently closed. You will receive an email once the gates open.
+                  </p>
+                  <div className="w-full py-4 border border-white/5 bg-black/50 text-[9px] font-bold uppercase tracking-widest text-white/30 text-center cursor-not-allowed">
+                     Unlocking Soon
+                  </div>
+               </div>
+
+               {/* CURRICULUM SHORTCUT */}
+               <motion.button 
+                 whileTap={{ scale: 0.98 }}
+                 onClick={() => router.push("/curriculum?from=dashboard")} 
+                 className="w-full py-6 bg-white text-black text-[10px] font-bold uppercase tracking-widest hover:bg-[#D4AF37] transition-all flex items-center justify-center gap-3"
+               >
+                  Review Curriculum <BookOpen size={14} />
+               </motion.button>
+            </div>
+
+          </div>
+        </main>
+
+        <footer className="py-12 border-t border-white/[0.03] text-center">
+          <p className="text-[8px] font-bold uppercase tracking-[1em] text-white/20">Blade Media // Inner Circle Verified</p>
+        </footer>
+      </div>
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // APPLICANT DASHBOARD (UNENROLLED)
+  // ---------------------------------------------------------------------------
   return (
     <div className="min-h-screen bg-[#F9F9F9] text-black font-sans selection:bg-[#F3D7A7] selection:text-black">
       
@@ -171,8 +278,6 @@ export default function Profile() {
                   <InfoItem icon={<Shield size={14}/>} label="Institutional ID" value={candidateId} />
                </div>
             </div>
-
-
 
             {/* ADMISSION RECORDS */}
             <div className="space-y-8 text-left">
@@ -292,6 +397,16 @@ const InfoItem = ({ icon, label, value }: InfoItemProps) => (
      <div className="space-y-1 text-left">
         <span className="text-[9px] font-bold uppercase tracking-widest text-black/30">{label}</span>
         <p className="text-sm font-semibold">{value || 'N/A'}</p>
+     </div>
+  </div>
+);
+
+const InfoItemDark = ({ icon, label, value }: InfoItemProps) => (
+  <div className="flex items-start gap-4 text-left">
+     <div className="mt-1 text-white/30">{icon}</div>
+     <div className="space-y-1 text-left">
+        <span className="text-[9px] font-bold uppercase tracking-widest text-white/40">{label}</span>
+        <p className="text-sm font-semibold text-white">{value || 'N/A'}</p>
      </div>
   </div>
 );
