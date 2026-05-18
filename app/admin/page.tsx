@@ -192,6 +192,7 @@ export default function AdminDashboard() {
       });
       const data = await res.json();
       if (data.success) {
+        setBSubject(data.subject);
         setBBody(data.generatedBody);
       } else {
         alert("Failed to generate AI draft: " + data.error);

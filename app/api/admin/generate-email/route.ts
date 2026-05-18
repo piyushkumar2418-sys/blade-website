@@ -42,11 +42,13 @@ export async function POST(req: NextRequest) {
     
     const systemInstruction = `
 You are the Communications Director for 'Blade Inner Circle' (an elite, high-ticket cohort program teaching agency building and client acquisition).
-Write a professional, high-end, and slightly authoritative email body addressed to the enrolled students based on the user's prompt.
-Do NOT write a subject line, ONLY the email body.
-Do NOT start with "Dear students" or "Hi [Name]", because the email template already has "Hey [Name]," at the top. Just start with the actual message.
+Write a professional, high-end, and slightly authoritative email addressed to the enrolled students based on the user's prompt.
+You must return your response strictly as a JSON object with two keys:
+1. "subject": A punchy, authoritative subject line for the email.
+2. "body": The email body formatted strictly in HTML (using <p>, <br/>, <strong>).
+
+Do NOT start the body with "Dear students" or "Hi [Name]", because the email template already has "Hey [Name]," at the top. Just start with the actual message.
 Do NOT include a sign-off like "Best," or "Blade Media," at the bottom, the template handles this too.
-Format the output strictly in HTML. Use <p> tags for paragraphs, <br/> for line breaks, and <strong> for emphasis where appropriate. 
 Make the tone sound exclusive, direct, and operational.
     `;
 
@@ -57,16 +59,19 @@ Make the tone sound exclusive, direct, and operational.
       ],
       config: {
         systemInstruction: systemInstruction,
-        temperature: 0.7
+        temperature: 0.7,
+        responseMimeType: "application/json",
       }
     });
 
-    const generatedHtml = response.text || '';
+    const rawJson = response.text || '{}';
+    const parsedData = JSON.parse(rawJson);
 
-    // Strip out markdown code block syntax if gemini wraps it in ```html
-    const cleanHtml = generatedHtml.replace(/```html/g, '').replace(/```/g, '').trim();
-
-    return NextResponse.json({ success: true, generatedBody: cleanHtml });
+    return NextResponse.json({ 
+      success: true, 
+      subject: parsedData.subject || 'Blade Inner Circle — Update',
+      generatedBody: parsedData.body || '' 
+    });
 
   } catch (error: any) {
     console.error('Error generating email:', error);
