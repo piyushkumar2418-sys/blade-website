@@ -37,9 +37,9 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { subject, htmlBody, audience, testEmail } = body;
+    const { subject, h1Title, htmlBody, audience, testEmail } = body;
 
-    if (!subject || !htmlBody || !audience) {
+    if (!subject || !htmlBody || !h1Title || !audience) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
                 Cohort 01 — May 2026
               </p>
               <h1 style="margin: 16px 0 0 0; font-size: 32px; font-weight: 800; letter-spacing: -0.04em; text-transform: uppercase; color: #000000; line-height: 1.1;">
-                Institutional<br/>Broadcast.
+                ${h1Title}
               </h1>
             </td>
           </tr>

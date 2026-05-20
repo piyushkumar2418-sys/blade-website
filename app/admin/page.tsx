@@ -36,6 +36,7 @@ export default function AdminDashboard() {
 
   // Broadcast Engine State
   const [bSubject, setBSubject] = useState("");
+  const [bH1Title, setBH1Title] = useState("Institutional<br/>Broadcast.");
   const [bBody, setBBody] = useState("");
   const [bAudience, setBAudience] = useState<'enrolled' | 'test'>('test');
   const [bSending, setBSending] = useState(false);
@@ -153,6 +154,7 @@ export default function AdminDashboard() {
         },
         body: JSON.stringify({
           subject: bSubject,
+          h1Title: bH1Title,
           htmlBody: bBody,
           audience: bAudience,
           testEmail: user.email
@@ -162,6 +164,7 @@ export default function AdminDashboard() {
       if (data.success) {
         alert(`Broadcast successful. Sent to ${data.total} recipients.`);
         setBSubject("");
+        setBH1Title("Institutional<br/>Broadcast.");
         setBBody("");
         setAiPrompt("");
       } else {
@@ -193,6 +196,7 @@ export default function AdminDashboard() {
       const data = await res.json();
       if (data.success) {
         setBSubject(data.subject);
+        setBH1Title(data.h1Title);
         setBBody(data.generatedBody);
       } else {
         alert("Failed to generate AI draft: " + data.error);
@@ -208,6 +212,7 @@ export default function AdminDashboard() {
   const prepSessionEmail = (session: any) => {
     setActiveTab('broadcast');
     setBSubject(`Material Access: Session 0${session.id} — ${session.name}`);
+    setBH1Title(`Session 0${session.id}:<br/>Access Materials.`);
     const link = presentationLinks[session.id] || '[INSERT LINK HERE]';
     setBBody(`The official presentation deck and materials for Session 0${session.id} are now available.\n\nAccess them securely here:\n<a href="${link}" style="color: #d4af37;">${link}</a>\n\nEnsure you review these before the next session.`);
     setBAudience('test'); // Default to test for safety
@@ -449,6 +454,17 @@ export default function AdminDashboard() {
                     placeholder="Blade Inner Circle Cohort 01 — Update" 
                     className="w-full bg-black border border-white/10 py-4 px-6 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
                   />
+                </div>
+                <div className="space-y-4">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/60">Main Headline (H1)</label>
+                  <input 
+                    type="text" 
+                    value={bH1Title}
+                    onChange={(e) => setBH1Title(e.target.value)}
+                    placeholder="Session 03:<br/>Editing & Niches." 
+                    className="w-full bg-black border border-white/10 py-4 px-6 text-sm text-white focus:outline-none focus:border-[#D4AF37] font-mono"
+                  />
+                  <p className="text-[9px] text-white/40 uppercase tracking-widest">Use &lt;br/&gt; to break the headline into two lines.</p>
                 </div>
                 <div className="space-y-4">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-white/60">Audience Targeting</label>
