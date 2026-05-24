@@ -253,13 +253,75 @@ export default function AdminDashboard() {
     e.target.value = '';
   };
 
+  const generateICSBase64 = (sessionName: string, dateString: string) => {
+    if (dateString === 'TBA') return null;
+    const months: Record<string, string> = { 'May': '05', 'Jun': '06', 'Jul': '07' };
+    const parts = dateString.split(' ');
+    if (parts.length < 3) return null;
+    const day = parts[1].padStart(2, '0');
+    const month = months[parts[2]];
+    if (!month) return null;
+
+    const dtStart = `2026${month}${day}T150000Z`; // 8:30 PM IST -> 15:00 UTC
+    const dtEnd = `2026${month}${day}T160000Z`;   // 9:30 PM IST -> 16:00 UTC
+    const dtStamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+
+    const icsString = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Blade Media//Blade Inner Circle//EN
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VEVENT
+UID:session-${day}-${month}-2026@blademedia.in
+DTSTAMP:${dtStamp}
+DTSTART:${dtStart}
+DTEND:${dtEnd}
+SUMMARY:Blade Inner Circle — Session 0${sessionName.split(' ')[0]}
+DESCRIPTION:Join the secure Google Meet link provided in your dashboard/email. Attendance is strictly mandatory.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR`;
+
+    return "data:text/calendar;base64," + btoa(icsString);
+  };
+
+  const prepCalendarInvite = (session: any) => {
+    setActiveTab('broadcast');
+    setBSubject(`Briefing: Session 0${session.id} — ${session.name}`);
+    setBH1Title(`Session 0${session.id}:<br/>Briefing.`);
+    
+    // AI Prompt instruction for the admin to easily generate the body
+    setAiPrompt(`Write a briefing for Session 0${session.id} (${session.name}). Tell them it is tonight at 8:30pm IST. Remind them attendance is strictly mandatory. Here is the meeting link: [INSERT MEET LINK]`);
+    setBBody("");
+    
+    // Inject ICS Attachment
+    const icsBase64 = generateICSBase64(session.id.toString(), session.date);
+    if (icsBase64) {
+      const size = Math.round((icsBase64.length * 3) / 4);
+      setBAttachments([{
+        filename: `Session_0${session.id}_Invite.ics`,
+        content: icsBase64,
+        size: size
+      }]);
+    } else {
+      setBAttachments([]);
+    }
+
+    setBAudience('test');
+  };
+
   const prepSessionEmail = (session: any) => {
     setActiveTab('broadcast');
     setBSubject(`Material Access: Session 0${session.id} — ${session.name}`);
     setBH1Title(`Session 0${session.id}:<br/>Access Materials.`);
     const link = presentationLinks[session.id] || '[INSERT LINK HERE]';
     setBBody(`The official presentation deck and materials for Session 0${session.id} are now available.\n\nAccess them securely here:\n<a href="${link}" style="color: #d4af37;">${link}</a>\n\nEnsure you review these before the next session.`);
-    setBAudience('test'); // Default to test for safety
+    setBAttachments([]); // Clear attachments for material delivery
+    setBAudience('test'); 
   };
 
   const handleSignOut = async () => {
@@ -623,12 +685,20 @@ export default function AdminDashboard() {
                     />
                   </div>
 
-                  <button 
-                    onClick={() => prepSessionEmail(session)}
-                    className="w-full py-4 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white hover:bg-white hover:text-black transition-colors"
-                  >
-                    Draft Session Broadcast
-                  </button>
+                  <div className="flex space-x-4">
+                    <button 
+                      onClick={() => prepCalendarInvite(session)}
+                      className="w-full py-4 bg-[#D4AF37] text-[10px] font-bold uppercase tracking-widest text-black hover:bg-white transition-colors"
+                    >
+                      Draft Invite
+                    </button>
+                    <button 
+                      onClick={() => prepSessionEmail(session)}
+                      className="w-full py-4 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white hover:bg-white hover:text-black transition-colors"
+                    >
+                      Draft Materials
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
