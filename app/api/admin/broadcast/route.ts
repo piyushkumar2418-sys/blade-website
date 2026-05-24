@@ -100,7 +100,7 @@ export async function POST(req: NextRequest) {
                 Hey ${student.name.split(' ')[0]},
               </p>
               
-              <div style="font-size: 16px; line-height: 1.6; color: #4a4a4a; white-space: pre-wrap;">
+              <div style="font-size: 16px; line-height: 1.6; color: #4a4a4a;">
 ${htmlBody}
               </div>
               

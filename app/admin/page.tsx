@@ -295,7 +295,7 @@ END:VCALENDAR`;
     setBH1Title(`Session 0${session.id}:<br/>Briefing.`);
     
     // AI Prompt instruction for the admin to easily generate the body
-    setAiPrompt(`Write a briefing for Session 0${session.id} (${session.name}). Tell them it is tonight at 8:30pm IST. Remind them attendance is strictly mandatory. Here is the meeting link: [INSERT MEET LINK]`);
+    setAiPrompt(`Write a briefing for Session 0${session.id}. The topic is "${session.name}". Briefly explain why mastering this topic is critical to their success. Tell them the session is tonight at 8:30pm IST. Remind them attendance is strictly mandatory. Here is the meeting link: [INSERT MEET LINK]`);
     setBBody("");
     
     // Inject ICS Attachment
