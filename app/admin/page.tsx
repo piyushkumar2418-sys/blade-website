@@ -163,10 +163,15 @@ export default function AdminDashboard() {
       const data = await res.json();
       if (data.success) {
         alert(`Broadcast successful. Sent to ${data.total} recipients.`);
-        setBSubject("");
-        setBH1Title("Institutional<br/>Broadcast.");
-        setBBody("");
-        setAiPrompt("");
+        
+        // Only clear the form if the broadcast was actually blasted to all enrolled members.
+        // If it was a test deployment, keep the draft intact so the user can easily deploy it live.
+        if (bAudience === 'enrolled') {
+          setBSubject("");
+          setBH1Title("Institutional<br/>Broadcast.");
+          setBBody("");
+          setAiPrompt("");
+        }
       } else {
         alert("Failed: " + data.error);
       }
