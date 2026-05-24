@@ -227,7 +227,7 @@ export default function AdminDashboard() {
 
     Array.from(files).forEach((file) => {
       if (totalSize + file.size > MAX_SIZE) {
-        alert(\`Cannot add "\${file.name}". The total attachment size exceeds the 3.5MB server limit. Please link large files instead.\`);
+        alert(`Cannot add "${file.name}". The total attachment size exceeds the 3.5MB server limit. Please link large files instead.`);
         return;
       }
       totalSize += file.size;
