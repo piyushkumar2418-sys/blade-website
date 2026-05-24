@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { subject, h1Title, htmlBody, audience, testEmail } = body;
+    const { subject, h1Title, htmlBody, audience, testEmail, attachments = [] } = body;
 
     if (!subject || !htmlBody || !h1Title || !audience) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
@@ -125,12 +125,21 @@ ${htmlBody}
       `;
 
       try {
-        const data = await resend.emails.send({
+        const payload: any = {
           from: 'Blade Inner Circle <admissions@blademedia.in>',
           to: [student.email],
           subject: subject,
           html: personalizedHtml,
-        });
+        };
+
+        if (attachments && attachments.length > 0) {
+          payload.attachments = attachments.map((att: any) => ({
+            filename: att.filename,
+            content: att.content.split(',')[1] // Strip "data:image/png;base64," prefix if present
+          }));
+        }
+
+        const data = await resend.emails.send(payload);
         results.push({ email: student.email, success: true, id: data.data?.id });
       } catch (e: any) {
         results.push({ email: student.email, success: false, error: e.message });

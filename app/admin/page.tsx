@@ -38,6 +38,7 @@ export default function AdminDashboard() {
   const [bSubject, setBSubject] = useState("");
   const [bH1Title, setBH1Title] = useState("Institutional<br/>Broadcast.");
   const [bBody, setBBody] = useState("");
+  const [bAttachments, setBAttachments] = useState<{ filename: string, content: string, size: number }[]>([]);
   const [bAudience, setBAudience] = useState<'enrolled' | 'test'>('test');
   const [bSending, setBSending] = useState(false);
   
@@ -157,7 +158,8 @@ export default function AdminDashboard() {
           h1Title: bH1Title,
           htmlBody: bBody,
           audience: bAudience,
-          testEmail: user.email
+          testEmail: user.email,
+          attachments: bAttachments
         })
       });
       const data = await res.json();
@@ -170,6 +172,7 @@ export default function AdminDashboard() {
           setBSubject("");
           setBH1Title("Institutional<br/>Broadcast.");
           setBBody("");
+          setBAttachments([]);
           setAiPrompt("");
         }
       } else {
@@ -212,6 +215,42 @@ export default function AdminDashboard() {
     } finally {
       setAiGenerating(false);
     }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
+
+    const newAttachments: { filename: string, content: string, size: number }[] = [];
+    let totalSize = bAttachments.reduce((sum, att) => sum + att.size, 0);
+    const MAX_SIZE = 3.5 * 1024 * 1024; // 3.5MB to leave room for JSON overhead
+
+    Array.from(files).forEach((file) => {
+      if (totalSize + file.size > MAX_SIZE) {
+        alert(\`Cannot add "\${file.name}". The total attachment size exceeds the 3.5MB server limit. Please link large files instead.\`);
+        return;
+      }
+      totalSize += file.size;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          newAttachments.push({
+            filename: file.name,
+            content: event.target.result as string,
+            size: file.size
+          });
+          // Update state when all files are processed
+          if (newAttachments.length > 0) {
+            setBAttachments(prev => [...prev, ...newAttachments]);
+          }
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+    
+    // Clear input
+    e.target.value = '';
   };
 
   const prepSessionEmail = (session: any) => {
@@ -491,6 +530,37 @@ export default function AdminDashboard() {
                     placeholder="The AI generated HTML will appear here. You can edit it manually before sending..." 
                     className="w-full bg-black border border-white/10 py-4 px-6 text-sm text-white focus:outline-none focus:border-[#D4AF37] font-mono"
                   />
+                </div>
+
+                <div className="border-t border-white/10 pt-8 space-y-4">
+                  <div className="flex justify-between items-center">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/60">Native Attachments (Max 3.5MB)</label>
+                    <label className="cursor-pointer text-[9px] font-bold uppercase tracking-widest bg-white/5 hover:bg-white/10 text-white py-2 px-4 transition-colors">
+                      + Add Files
+                      <input 
+                        type="file" 
+                        multiple 
+                        className="hidden" 
+                        onChange={handleFileChange} 
+                      />
+                    </label>
+                  </div>
+                  
+                  {bAttachments.length > 0 && (
+                    <div className="bg-black border border-white/5 p-4 space-y-2">
+                      {bAttachments.map((att, index) => (
+                        <div key={index} className="flex justify-between items-center text-xs text-white/70">
+                          <span className="truncate max-w-[80%]">{att.filename} <span className="text-white/30 ml-2">({(att.size / 1024 / 1024).toFixed(2)} MB)</span></span>
+                          <button 
+                            onClick={() => setBAttachments(prev => prev.filter((_, i) => i !== index))}
+                            className="text-red-400 hover:text-red-300 transition-colors"
+                          >
+                            <XCircle size={14} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <button 
