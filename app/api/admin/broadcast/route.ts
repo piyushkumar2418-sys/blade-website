@@ -139,14 +139,18 @@ ${htmlBody}
           }));
         }
 
-        const data = await resend.emails.send(payload);
-        results.push({ email: student.email, success: true, id: data.data?.id });
+        const { data, error } = await resend.emails.send(payload);
+        if (error) {
+          results.push({ email: student.email, success: false, error: error.message || JSON.stringify(error) });
+        } else {
+          results.push({ email: student.email, success: true, id: data?.id });
+        }
       } catch (e: any) {
         results.push({ email: student.email, success: false, error: e.message });
       }
       
-      // Delay to avoid hitting rate limits
-      await new Promise(resolve => setTimeout(resolve, 300));
+      // Delay to avoid hitting rate limits (Resend free accounts limit is 2 req/sec)
+      await new Promise(resolve => setTimeout(resolve, 1000));
     }
 
     return NextResponse.json({ success: true, results, total: targetStudents.length });
