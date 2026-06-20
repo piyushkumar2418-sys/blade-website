@@ -1,19 +1,15 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Terminal } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Terminal } from "lucide-react";
 import { User } from "firebase/auth";
-import WaitlistTerminal from "./WaitlistTerminal";
 
 interface InnerCircleHeroProps {
   user: User | null;
+  onJoinWaitlist: () => void;
 }
 
-export default function InnerCircleHero({ user }: InnerCircleHeroProps) {
-  const router = useRouter();
-  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
-  
+export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHeroProps) {
   // Interactive Cursor-Reactive Spotlight Glow
   const heroRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
@@ -68,23 +64,27 @@ export default function InnerCircleHero({ user }: InnerCircleHeroProps) {
         <motion.span 
           initial={{ opacity: 0 }} 
           animate={{ opacity: 1 }} 
-          className="text-xs uppercase tracking-[0.5em] font-bold block text-white/40 text-left"
+          className="text-xs uppercase tracking-[0.5em] font-bold block text-white/45 text-left"
         >
           Blade Inner Circle
         </motion.span>
-        <div className="px-4 py-2 border border-[#F3D7A7]/20 bg-white/5 text-[#F3D7A7] font-bold uppercase tracking-[0.3em] text-[10px] text-left rounded-sm backdrop-blur-md">
-          August 2026 Intake
-        </div>
       </div>
 
       <motion.h1 
         initial={{ y: 20, opacity: 0 }} 
         animate={{ y: 0, opacity: 1 }} 
         transition={{ delay: 0.2, duration: 0.8 }} 
-        className="text-[12vw] md:text-[8vw] font-bold leading-[0.85] tracking-[-0.06em] uppercase mb-12 text-left relative z-10 selection:bg-white selection:text-black"
+        className="text-[13vw] md:text-[9.5vw] font-black leading-[0.82] tracking-[-0.07em] uppercase mb-6 text-left relative z-10 selection:bg-white selection:text-black"
       >
         The School of <br/> Modern Content.
       </motion.h1>
+
+      {/* August Intake tag placed directly below the main title */}
+      <div className="flex relative z-10 text-left mb-12">
+        <span className="text-[#F3D7A7] text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] border border-[#F3D7A7]/30 bg-[#F3D7A7]/5 px-4 py-2 rounded-sm text-left backdrop-blur-md">
+          August 2026 Intake // Cohort 02 Waitlist
+        </span>
+      </div>
 
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 text-left relative z-10">
         <p className="text-2xl md:text-4xl text-white/60 leading-tight font-medium max-w-2xl text-left">
@@ -92,24 +92,15 @@ export default function InnerCircleHero({ user }: InnerCircleHeroProps) {
         </p>
         
         <div className="flex flex-col items-start md:items-end gap-6 text-left">
-          <span className="text-[#F3D7A7] font-bold uppercase tracking-[0.3em] text-[10px] border border-[#F3D7A7]/30 px-4 py-2 text-left rounded-sm">
-            Cohort 02 — Waitlist Only
-          </span>
           <button 
-            onClick={() => setIsTerminalOpen(true)} 
-            className="bg-white text-black px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:scale-105 transition-all duration-300 flex items-center gap-4 shadow-2xl text-left group"
+            onClick={onJoinWaitlist} 
+            className="bg-white text-black px-12 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:scale-105 transition-all duration-300 flex items-center gap-4 shadow-2xl text-left group cursor-none"
           >
             Request waitlist entry 
             <Terminal size={16} className="group-hover:scale-110 transition-transform" />
           </button>
         </div>
       </div>
-
-      {/* Terminal Waitlist Modal */}
-      <WaitlistTerminal 
-        isOpen={isTerminalOpen} 
-        onClose={() => setIsTerminalOpen(false)} 
-      />
     </section>
   );
 }

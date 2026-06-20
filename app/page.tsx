@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
@@ -25,6 +25,7 @@ const Manifesto = dynamic(() => import("@/components/sections/Manifesto"));
 const SprintProtocol = dynamic(() => import("@/components/sections/SprintProtocol"));
 const FounderAuthority = dynamic(() => import("@/components/sections/FounderAuthority"));
 const InnerCircleCTA = dynamic(() => import("@/components/sections/InnerCircleCTA"));
+const WaitlistTerminal = dynamic(() => import("@/components/sections/WaitlistTerminal"));
 
 export default function Home() {
   const { user } = useAuth();
@@ -32,6 +33,7 @@ export default function Home() {
   const { mode, toggleMode } = useSite();
   const isAgency = mode === "agency";
   const containerRef = useRef(null);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   
   const { scrollYProgress } = useScroll({ target: containerRef });
   const navButtonOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
@@ -44,7 +46,7 @@ export default function Home() {
   return (
     <motion.main 
       ref={containerRef} 
-      animate={{ backgroundColor: isAgency ? "#000000" : "#ffffff" }}
+      animate={{ backgroundColor: isAgency ? "#000000" : "#050505" }}
       className="relative overflow-x-hidden selection:bg-[#F3D7A7] selection:text-black"
       style={{ transition: "background-color 0.8s ease" }}
     >
@@ -69,33 +71,17 @@ export default function Home() {
         </motion.button>
       </div>
 
-      <div className="fixed top-6 right-6 md:top-8 md:right-8 z-[110] pointer-events-auto flex items-center gap-2 md:gap-3">
-        <motion.button 
-          whileTap={{ scale: 0.95 }}
-          onClick={handleToggle} 
-          className="px-4 py-2.5 md:px-6 md:py-3 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-[0.15em] transition-all hover:scale-105 bg-white/5 border border-white/10 text-white hover:bg-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.05)]"
-        >
-          {isAgency ? "The Inner Circle" : "Exit To Agency"}
-        </motion.button>
-
-        {!isAgency && (
-          <motion.button
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
+      {isAgency && (
+        <div className="fixed top-6 right-6 md:top-8 md:right-8 z-[110] pointer-events-auto flex items-center gap-2 md:gap-3">
+          <motion.button 
             whileTap={{ scale: 0.95 }}
-            onMouseEnter={() => router.prefetch(user ? "/dashboard" : "/apply/login")}
-            onClick={() => router.push(user ? "/dashboard" : "/apply/login")}
-            className="px-4 py-2.5 md:px-6 md:py-3 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-[0.15em] transition-all hover:scale-105 bg-[#F3D7A7] text-black border border-[#F3D7A7]/20 shadow-xl flex items-center gap-2 hover:shadow-[0_0_20px_rgba(243,215,167,0.2)]"
+            onClick={handleToggle} 
+            className="px-4 py-2.5 md:px-6 md:py-3 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-[0.15em] transition-all hover:scale-105 bg-white/5 border border-white/10 text-white hover:bg-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.05)]"
           >
-            {user ? (
-              <>
-                <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                Profile
-              </>
-            ) : "Sign In"}
+            The Inner Circle
           </motion.button>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* COMPACT PREMIUM HEADER (NAV ONLY) - AGENCY ONLY */}
       {isAgency && (
@@ -136,6 +122,39 @@ export default function Home() {
         </motion.header>
       )}
 
+      {/* COMPACT PREMIUM HEADER (NAV ONLY) - INNER CIRCLE */}
+      {!isAgency && (
+        <motion.header 
+          className="fixed top-6 md:top-8 left-0 right-0 z-[100] px-6 flex justify-center pointer-events-none font-['Helvetica',_sans-serif]"
+        >
+          <div className="flex items-center gap-1.5 md:gap-2 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-full p-1 md:p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto relative group">
+            <nav className="flex items-center gap-0.5 md:gap-1 px-1 md:px-2">
+              <motion.button 
+                onClick={handleToggle} 
+                className="px-3 md:px-5 py-2 md:py-2.5 text-white/50 hover:text-white text-[10px] md:text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 rounded-full hover:bg-white/5 cursor-none"
+              >
+                Exit to Agency
+              </motion.button>
+              <motion.button 
+                onClick={() => router.push(user ? "/dashboard" : "/apply/login")}
+                className="px-3 md:px-5 py-2 md:py-2.5 text-white/50 hover:text-white text-[10px] md:text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 rounded-full hover:bg-white/5 cursor-none"
+              >
+                {user ? "Profile" : "Sign In"}
+              </motion.button>
+            </nav>
+
+            <div className="flex items-center">
+              <motion.button 
+                onClick={() => setIsTerminalOpen(true)}
+                className="bg-[#F3D7A7] text-black px-5 md:px-8 py-3 md:py-3.5 rounded-full text-[10px] md:text-[11px] font-bold uppercase tracking-[0.05em] hover:shadow-[0_0_30px_rgba(243,215,167,0.3)] transition-all shadow-xl whitespace-nowrap cursor-none"
+              >
+                Join Waitlist
+              </motion.button>
+            </div>
+          </div>
+        </motion.header>
+      )}
+
       <AnimatePresence mode="wait">
         {isAgency ? (
           <motion.div key="agency" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -149,15 +168,21 @@ export default function Home() {
           </motion.div>
         ) : (
           <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-white bg-[#050505] min-h-screen">
-            <InnerCircleHero user={user} />
+            <InnerCircleHero user={user} onJoinWaitlist={() => setIsTerminalOpen(true)} />
             <Crisis />
             <Manifesto />
             <SprintProtocol />
             <FounderAuthority />
-            <InnerCircleCTA />
+            <InnerCircleCTA onJoinWaitlist={() => setIsTerminalOpen(true)} />
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Terminal Waitlist Modal */}
+      <WaitlistTerminal 
+        isOpen={isTerminalOpen} 
+        onClose={() => setIsTerminalOpen(false)} 
+      />
     </motion.main>
   );
 }

@@ -6,7 +6,6 @@ import {
   ShieldCheck, Zap, Award, Lock, Terminal 
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import WaitlistTerminal from "./WaitlistTerminal";
 
 const InstagramIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -80,9 +79,12 @@ const InteractiveStatCard = ({ stat }: { stat: { icon: React.ReactNode; label: s
   );
 };
 
-const InnerCircleCTA = () => {
+interface InnerCircleCTAProps {
+  onJoinWaitlist: () => void;
+}
+
+const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
   const router = useRouter();
-  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
 
   const founderStats = [
     { icon: <ShieldCheck size={24} />, label: "Verified Record", desc: "No theories. Only market-proven deployment." },
@@ -162,8 +164,8 @@ const InnerCircleCTA = () => {
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => setIsTerminalOpen(true)} 
-              className="bg-[#F3D7A7] text-black px-20 py-8 rounded-full font-bold uppercase tracking-[0.4em] text-[11px] hover:shadow-[0_0_40px_rgba(243,215,167,0.25)] transition-all duration-300 flex items-center gap-4 group"
+              onClick={onJoinWaitlist} 
+              className="bg-[#F3D7A7] text-black px-20 py-8 rounded-full font-bold uppercase tracking-[0.4em] text-[11px] hover:shadow-[0_0_40px_rgba(243,215,167,0.25)] transition-all duration-300 flex items-center gap-4 group cursor-none"
             >
               Request Access Key
               <Terminal size={14} className="group-hover:scale-110 transition-transform" />
@@ -186,11 +188,6 @@ const InnerCircleCTA = () => {
           </div>
         </div>
       </section>
-
-      <WaitlistTerminal 
-        isOpen={isTerminalOpen} 
-        onClose={() => setIsTerminalOpen(false)} 
-      />
     </>
   );
 };
