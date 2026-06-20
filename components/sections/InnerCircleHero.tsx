@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Terminal } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { User } from "firebase/auth";
 
 interface InnerCircleHeroProps {
@@ -79,7 +79,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
       >
         <span className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#F3D7A7]/10 border border-[#F3D7A7]/30 rounded-full text-[#F3D7A7] text-[11px] font-bold uppercase tracking-[0.25em] shadow-[0_0_35px_rgba(243,215,167,0.12)] backdrop-blur-md transition-all duration-300 hover:border-[#F3D7A7]/50 hover:shadow-[0_0_45px_rgba(243,215,167,0.25)] hover:scale-102">
           <span className="w-1.5 h-1.5 rounded-full bg-[#F3D7A7] animate-pulse" />
-          August 2026 Intake
+          August 2026 Intake // Applications Open
         </span>
       </motion.div>
 
@@ -92,10 +92,10 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
       >
         <button 
           onClick={onJoinWaitlist} 
-          className="bg-white text-black px-12 py-5.5 rounded-full font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-[#F3D7A7] hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.15)] transition-all duration-300 flex items-center gap-4 shadow-2xl group cursor-none"
+          className="bg-[#F3D7A7] text-black px-12 py-5.5 rounded-full font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-white hover:text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(243,215,167,0.25)] transition-all duration-300 flex items-center gap-4 shadow-2xl group cursor-none"
         >
-          Request waitlist entry 
-          <Terminal size={16} className="group-hover:scale-115 transition-transform duration-300" />
+          <span>Apply for August Intake</span>
+          <ArrowRight size={16} className="group-hover:translate-x-1.5 transition-transform duration-300" />
         </button>
       </motion.div>
     </section>
