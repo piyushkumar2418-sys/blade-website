@@ -62,7 +62,7 @@ const WorkItem = ({ work, aspect, index }: { work: Work, aspect: string, index: 
             muted 
             playsInline 
             autoPlay
-            onLoadedData={() => setVideoLoaded(true)}
+            onPlay={() => setVideoLoaded(true)}
             className="absolute inset-0 w-full h-full object-cover z-10" 
           />
         )}
