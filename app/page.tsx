@@ -60,16 +60,18 @@ export default function Home() {
       )}
 
       {/* SEPARATE LOGO & TOGGLE FROM HEADER */}
-      <div className="fixed top-6 left-6 md:top-8 md:left-8 z-[110] pointer-events-auto">
-        <motion.button 
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-          className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300"
-        >
-          <Image src="/blade-logo.png" alt="Blade Logo" width={48} height={48} priority className="w-full h-full object-contain brightness-0 invert" />
-        </motion.button>
-      </div>
+      {isAgency && (
+        <div className="fixed top-6 left-6 md:top-8 md:left-8 z-[110] pointer-events-auto">
+          <motion.button 
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+            className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300"
+          >
+            <Image src="/blade-logo.png" alt="Blade Logo" width={48} height={48} priority className="w-full h-full object-contain brightness-0 invert" />
+          </motion.button>
+        </div>
+      )}
 
       {isAgency && (
         <div className="fixed top-6 right-6 md:top-8 md:right-8 z-[110] pointer-events-auto flex items-center gap-2 md:gap-3">
@@ -122,31 +124,56 @@ export default function Home() {
         </motion.header>
       )}
 
-      {/* COMPACT PREMIUM HEADER (NAV ONLY) - INNER CIRCLE */}
+      {/* SOLID FULL-LENGTH HEADER - INNER CIRCLE */}
       {!isAgency && (
         <motion.header 
-          className="fixed top-6 md:top-8 left-0 right-0 z-[100] px-6 flex justify-center pointer-events-none font-['Helvetica',_sans-serif]"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="fixed top-0 left-0 right-0 w-full z-[100] bg-[#030303]/80 backdrop-blur-xl border-b border-white/5 px-6 md:px-24 h-20 md:h-24 flex items-center justify-between font-['Helvetica',_sans-serif]"
         >
-          <div className="flex items-center gap-1.5 md:gap-2 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-full p-1 md:p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto relative group">
-            <nav className="flex items-center gap-0.5 md:gap-1 px-1 md:px-2">
+          {/* Logo on the left */}
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+            className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-none"
+          >
+            <Image src="/blade-logo.png" alt="Blade Logo" width={40} height={40} priority className="w-full h-full object-contain brightness-0 invert" />
+          </motion.button>
+
+          {/* Navigation Links and CTA on the right */}
+          <div className="flex items-center gap-8 md:gap-12">
+            <nav className="hidden md:flex items-center gap-8">
               <motion.button 
                 onClick={handleToggle} 
-                className="px-3 md:px-5 py-2 md:py-2.5 text-white/50 hover:text-white text-[10px] md:text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 rounded-full hover:bg-white/5 cursor-none"
+                className="text-white/60 hover:text-white text-xs font-bold uppercase tracking-[0.2em] transition-colors cursor-none"
               >
                 Exit to Agency
               </motion.button>
               <motion.button 
                 onClick={() => router.push(user ? "/dashboard" : "/apply/login")}
-                className="px-3 md:px-5 py-2 md:py-2.5 text-white/50 hover:text-white text-[10px] md:text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 rounded-full hover:bg-white/5 cursor-none"
+                className="text-white/60 hover:text-white text-xs font-bold uppercase tracking-[0.2em] transition-colors cursor-none"
               >
                 {user ? "Profile" : "Sign In"}
               </motion.button>
             </nav>
 
-            <div className="flex items-center">
+            <div className="flex items-center gap-4">
+              <nav className="flex md:hidden items-center gap-4">
+                <motion.button 
+                  onClick={() => router.push(user ? "/dashboard" : "/apply/login")}
+                  className="text-white/60 hover:text-white text-[10px] font-bold uppercase tracking-[0.15em] transition-colors cursor-none"
+                >
+                  {user ? "Profile" : "Sign In"}
+                </motion.button>
+              </nav>
+
               <motion.button 
+                whileHover={{ scale: 1.02, boxShadow: "0 0 25px rgba(243, 215, 167, 0.25)" }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => setIsTerminalOpen(true)}
-                className="bg-[#F3D7A7] text-black px-5 md:px-8 py-3 md:py-3.5 rounded-full text-[10px] md:text-[11px] font-bold uppercase tracking-[0.05em] hover:shadow-[0_0_30px_rgba(243,215,167,0.3)] transition-all shadow-xl whitespace-nowrap cursor-none"
+                className="bg-[#F3D7A7] text-black px-6 md:px-8 py-3 md:py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.1em] shadow-xl whitespace-nowrap cursor-none hover:bg-white hover:text-black transition-all duration-300"
               >
                 Join Waitlist
               </motion.button>
