@@ -73,11 +73,7 @@ export default function Home() {
         <motion.button 
           whileTap={{ scale: 0.95 }}
           onClick={handleToggle} 
-          className={`px-4 py-2.5 md:px-6 md:py-3 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-[0.1em] transition-all hover:scale-105 ${
-            isAgency 
-            ? "bg-white/5 border border-white/10 text-white hover:bg-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.05)]" 
-            : "bg-black/5 border border-black/10 text-black hover:bg-black/10 backdrop-blur-md shadow-[0_0_20px_rgba(0,0,0,0.05)]"
-          }`}
+          className="px-4 py-2.5 md:px-6 md:py-3 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-[0.15em] transition-all hover:scale-105 bg-white/5 border border-white/10 text-white hover:bg-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.05)]"
         >
           {isAgency ? "The Inner Circle" : "Exit To Agency"}
         </motion.button>
@@ -89,7 +85,7 @@ export default function Home() {
             whileTap={{ scale: 0.95 }}
             onMouseEnter={() => router.prefetch(user ? "/dashboard" : "/apply/login")}
             onClick={() => router.push(user ? "/dashboard" : "/apply/login")}
-            className="px-4 py-2.5 md:px-6 md:py-3 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-[0.1em] transition-all hover:scale-105 bg-black text-white border border-black/10 shadow-xl flex items-center gap-2"
+            className="px-4 py-2.5 md:px-6 md:py-3 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-[0.15em] transition-all hover:scale-105 bg-[#F3D7A7] text-black border border-[#F3D7A7]/20 shadow-xl flex items-center gap-2 hover:shadow-[0_0_20px_rgba(243,215,167,0.2)]"
           >
             {user ? (
               <>
@@ -152,7 +148,7 @@ export default function Home() {
             <AgencyFooter />
           </motion.div>
         ) : (
-          <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-black bg-white min-h-screen">
+          <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-white bg-[#050505] min-h-screen">
             <InnerCircleHero user={user} />
             <Crisis />
             <Manifesto />

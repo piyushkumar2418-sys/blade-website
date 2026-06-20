@@ -1,6 +1,7 @@
 import { Resend } from 'resend';
 import React from 'react';
 import { ApplicationEmail } from '@/emails/ApplicationEmail';
+import { WaitlistEmail } from '@/emails/WaitlistEmail';
 
 interface SendEmailOptions {
   to: string | string[];
@@ -50,6 +51,18 @@ export async function sendApplicationEmail(to: string, name: string) {
     subject: 'We\'ve received your portfolio.',
     react: React.createElement(ApplicationEmail, { name }),
     text: `Hi ${name}, thank you for sharing your work with us. Every application for Cohort 01 is reviewed personally by our team. You can expect a response within 48 hours.`,
+  });
+}
+
+/**
+ * Sends waitlist registration email.
+ */
+export async function sendWaitlistEmail(to: string, name: string, waitlistKey: string) {
+  return sendEmail({
+    to,
+    subject: 'Waitlist Key: Verified.',
+    react: React.createElement(WaitlistEmail, { name, waitlistKey }),
+    text: `Hi ${name}, we have logged your request for early access to Cohort 02 (August 2026). Your access key is: ${waitlistKey}.`,
   });
 }
 

@@ -1,27 +1,29 @@
 "use client";
-// Deployment Trigger: Institutional Gatekeeper v2
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { db } from "@/lib/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShieldCheck, ArrowRight, X, Clock, CheckCircle2, Lock, Eye, Zap } from "lucide-react";
+import { ShieldCheck, ArrowRight, X, Clock, Lock, Terminal } from "lucide-react";
+import WaitlistTerminal from "@/components/sections/WaitlistTerminal";
 
 export default function ApplyGatekeeper() {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const [status, setStatus] = useState<"verifying" | "unauthorized" | "redirecting" | "applied">("verifying");
+  const [status, setStatus] = useState<"verifying" | "unauthorized" | "closed" | "applied">("verifying");
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
 
   useEffect(() => {
     async function checkClearance() {
       if (!loading) {
         if (!user) {
-          // Rule 1: Not authenticated
+          // If not signed in, redirect to login so we can identify them
           setStatus("unauthorized");
           setTimeout(() => router.push("/apply/login"), 2000);
         } else {
           try {
+            // Check if they already have a Cohort 01 application
             const q = query(
               collection(db, "applications"),
               where("uid", "==", user.uid)
@@ -29,11 +31,10 @@ export default function ApplyGatekeeper() {
             const querySnapshot = await getDocs(q);
             
             if (querySnapshot.empty) {
-              // Rule 2: Redirect to registration
-              setStatus("redirecting");
-              setTimeout(() => router.push("/apply/register"), 1500);
+              // No application found: registration is closed, show waitlist option
+              setStatus("closed");
             } else {
-              // Rule 3: Already applied
+              // Existing application found: show application status
               setStatus("applied");
             }
           } catch (err) {
@@ -47,7 +48,7 @@ export default function ApplyGatekeeper() {
   }, [user, loading, router]);
 
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center p-6 font-sans overflow-hidden selection:bg-[#F3D7A7] selection:text-black">
+    <div className="min-h-screen bg-black text-white flex items-center justify-center p-6 font-sans overflow-hidden selection:bg-[#F3D7A7] selection:text-black relative">
       
       {/* Background Matrix Effect */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
@@ -92,6 +93,53 @@ export default function ApplyGatekeeper() {
           </motion.div>
         )}
 
+        {status === "closed" && (
+          <motion.div 
+            key="closed"
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="max-w-2xl w-full bg-[#0a0a0a] border border-white/5 p-12 md:p-20 shadow-2xl relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#F3D7A7]/5 blur-[100px] rounded-full -mr-32 -mt-32" />
+            
+            <div className="relative z-10 space-y-12 text-left">
+              <div className="flex justify-between items-start">
+                 <div className="px-4 py-2 border border-[#F3D7A7]/20 text-[#F3D7A7] text-[8px] font-bold uppercase tracking-[0.4em]">
+                    Intake Status Report
+                 </div>
+                 <button onClick={() => router.push("/")} className="text-white/10 hover:text-white transition-colors">
+                    <X size={24} />
+                 </button>
+              </div>
+
+              <div className="space-y-6">
+                 <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-[0.85] text-white">
+                   May Intake <br /> Closed.
+                 </h2>
+                 <p className="text-sm text-white/40 leading-relaxed max-w-md font-light">
+                   Admissions for Cohort 01 (May 2026) are officially closed and the sprint is currently in progress. 
+                   We are now accepting requests for the exclusive August 2026 Cohort 02 Waitlist.
+                 </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/5">
+                 <StatusCard icon={<Clock size={16}/>} label="Cohort 01 Status" value="In Operations" highlight={false} />
+                 <StatusCard icon={<ShieldCheck size={16}/>} label="Cohort 02 Waitlist" value="Open & Active" highlight={true} />
+              </div>
+
+              <div className="pt-8">
+                 <button 
+                   onClick={() => setIsTerminalOpen(true)}
+                   className="w-full py-6 bg-white text-black flex items-center justify-center gap-4 group hover:bg-[#F3D7A7] transition-all font-bold uppercase tracking-[0.3em] text-[10px]"
+                 >
+                   <span>Request Waitlist Key</span>
+                   <Terminal size={16} className="group-hover:scale-105 transition-transform" />
+                 </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
         {status === "applied" && (
           <motion.div 
             key="applied"
@@ -99,7 +147,6 @@ export default function ApplyGatekeeper() {
             animate={{ opacity: 1, scale: 1 }}
             className="max-w-2xl w-full bg-[#0a0a0a] border border-white/5 p-12 md:p-20 shadow-2xl relative overflow-hidden"
           >
-            {/* Glow Decor */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#F3D7A7]/5 blur-[100px] rounded-full -mr-32 -mt-32" />
             
             <div className="relative z-10 space-y-12 text-left">
@@ -113,17 +160,17 @@ export default function ApplyGatekeeper() {
               </div>
 
               <div className="space-y-6">
-                 <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-[0.85]">
+                 <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-[0.85] text-white">
                    Already <br /> Enrolled.
                  </h2>
                  <p className="text-sm text-white/40 leading-relaxed max-w-md font-light">
                     Our system has detected an existing admission portfolio under your credentials. Access to the registration matrix is restricted to one submission per cycle.
-                 </p>
+                  </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/5">
-                 <StatusCard icon={<Clock size={16}/>} label="Current Status" value="Under Review" highlight />
-                 <StatusCard icon={<ShieldCheck size={16}/>} label="Clearance Level" value="Candidate" />
+                 <StatusCard icon={<Clock size={16}/>} label="Current Status" value="Under Review" highlight={true} />
+                 <StatusCard icon={<ShieldCheck size={16}/>} label="Clearance Level" value="Candidate" highlight={false} />
               </div>
 
               <div className="pt-8">
@@ -139,6 +186,12 @@ export default function ApplyGatekeeper() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Terminal Waitlist Modal */}
+      <WaitlistTerminal 
+        isOpen={isTerminalOpen} 
+        onClose={() => setIsTerminalOpen(false)} 
+      />
 
       {/* Footer Branding */}
       <div className="fixed bottom-10 flex flex-col items-center gap-4 opacity-10">

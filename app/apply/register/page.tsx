@@ -53,6 +53,9 @@ export default function ApplicationPortal() {
         const snapshot = await getDocs(q);
         if (!snapshot.empty) {
           setShowExistingModal(true);
+        } else {
+          // May intake is closed. Redirect to the waitlist page.
+          router.push("/apply");
         }
       }
     };
