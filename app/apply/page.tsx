@@ -6,13 +6,11 @@ import { db } from "@/lib/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShieldCheck, ArrowRight, X, Clock, Lock, Terminal } from "lucide-react";
-import WaitlistTerminal from "@/components/sections/WaitlistTerminal";
 
 export default function ApplyGatekeeper() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const [status, setStatus] = useState<"verifying" | "unauthorized" | "closed" | "applied">("verifying");
-  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
 
   useEffect(() => {
     async function checkClearance() {
@@ -129,7 +127,7 @@ export default function ApplyGatekeeper() {
 
               <div className="pt-8">
                  <button 
-                   onClick={() => setIsTerminalOpen(true)}
+                   onClick={() => router.push("/waitlist")}
                    className="w-full py-6 bg-white text-black flex items-center justify-center gap-4 group hover:bg-[#F3D7A7] transition-all font-bold uppercase tracking-[0.3em] text-[10px]"
                  >
                    <span>Request Waitlist Key</span>
@@ -186,12 +184,6 @@ export default function ApplyGatekeeper() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Terminal Waitlist Modal */}
-      <WaitlistTerminal 
-        isOpen={isTerminalOpen} 
-        onClose={() => setIsTerminalOpen(false)} 
-      />
 
       {/* Footer Branding */}
       <div className="fixed bottom-10 flex flex-col items-center gap-4 opacity-10">

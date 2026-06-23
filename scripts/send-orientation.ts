@@ -1,7 +1,9 @@
 import { Resend } from 'resend';
 import * as dotenv from 'dotenv';
+import admin from 'firebase-admin';
+import { getFirestore } from 'firebase-admin/firestore';
+import { readFileSync } from 'fs';
 import { join } from 'path';
-import * as admin from 'firebase-admin';
 
 // Load environment variables from .env.local
 dotenv.config({ path: join(process.cwd(), '.env.local') });
@@ -9,48 +11,59 @@ dotenv.config({ path: join(process.cwd(), '.env.local') });
 // Initialize Firebase Admin with the downloaded service account
 const serviceAccountPath = join(process.cwd(), 'service-account.json');
 try {
+  const serviceAccount = JSON.parse(readFileSync(serviceAccountPath, 'utf8'));
   admin.initializeApp({
-    credential: admin.credential.cert(require(serviceAccountPath))
+    credential: admin.credential.cert(serviceAccount)
   });
 } catch (error) {
   console.error("❌ Failed to initialize Firebase Admin. Make sure service-account.json is in the project root.");
 }
 
-import { getFirestore } from 'firebase-admin/firestore';
 const db = getFirestore(admin.app(), "bladeinnercircle");
 
 const resend = new Resend(process.env.BLADE_RESEND_KEY);
 
-// Define your accepted students here
-const acceptedStudents = [
-  { name: "Prashant Sharma", email: "sharma125prashant@gmail.com" },
-  { name: "Raisa Kakkar", email: "itsraisakakkar@gmail.com" },
-  { name: "Yashika", email: "yashika.work27@gmail.com" },
-  { name: "Tanishk", email: "tanishkkhandelwal6535@gmail.com" },
-  { name: "Parag Goyal", email: "paraggoyal.kailash@gmail.com" },
-  { name: "Pragati", email: "p7167989@gmail.com" },
-  { name: "Srasti Soni", email: "srastisoni138@gmail.com" },
-  { name: "Rishi Kumar jha", email: "rishikumarjha048@gmail.com" }
-];
+// Set this to false ONLY when you are ready to blast to all enrolled students
+const TEST_MODE = false;
+const TEST_EMAIL = "piyushkumar2418@gmail.com";
 
-const BATCH_COHORT_NAME = "Cohort 01 (May 2026)";
+const MEETING_DETAILS = {
+  date: "Tuesday, 12 May · 8:30 – 9:30pm",
+  link: "https://meet.google.com/dgf-pyqu-ptt"
+};
 
-async function sendAcceptanceEmails() {
+async function sendOrientationEmails() {
   if (!process.env.BLADE_RESEND_KEY) {
     console.error("❌ BLADE_RESEND_KEY is missing in .env.local");
     return;
   }
 
-  if (acceptedStudents.length === 0) {
-    console.log("⚠️ No students found in the array. Please add them before running.");
-    return;
+  let targetStudents: { name: string, email: string }[] = [];
+
+  if (TEST_MODE) {
+    console.log(`🧪 TEST MODE: Sending only to ${TEST_EMAIL}`);
+    targetStudents.push({ name: "Piyush", email: TEST_EMAIL });
+  } else {
+    console.log(`🔍 Querying Firestore for all ENROLLED candidates...`);
+    const snapshot = await db.collection("applications").where("status", "==", "enrolled").get();
+    
+    if (snapshot.empty) {
+      console.log("⚠️ No enrolled candidates found.");
+      return;
+    }
+
+    snapshot.docs.forEach(doc => {
+      const data = doc.data();
+      if (data.email && data.name) {
+        targetStudents.push({ name: data.name, email: data.email });
+      }
+    });
   }
 
-  console.log(`Starting email broadcast to ${acceptedStudents.length} candidates...`);
+  console.log(`Starting email broadcast to ${targetStudents.length} candidates...`);
 
-  for (const student of acceptedStudents) {
+  for (const student of targetStudents) {
     try {
-      // 1. Send Email
       const htmlContent = `
 <!DOCTYPE html>
 <html>
@@ -72,7 +85,7 @@ async function sendAcceptanceEmails() {
                 Cohort 01 — May 2026
               </p>
               <h1 style="margin: 16px 0 0 0; font-size: 32px; font-weight: 800; letter-spacing: -0.04em; text-transform: uppercase; color: #000000; line-height: 1.1;">
-                Admission<br/>Confirmed.
+                Orientation<br/>Briefing.
               </h1>
             </td>
           </tr>
@@ -81,43 +94,36 @@ async function sendAcceptanceEmails() {
           <tr>
             <td style="padding: 40px; text-align: left;">
               <p style="margin: 0 0 24px 0; font-size: 16px; line-height: 1.6; color: #4a4a4a;">
-                Dear ${student.name},
+                Hey ${student.name.split(' ')[0]},
               </p>
               
               <p style="margin: 0 0 24px 0; font-size: 16px; line-height: 1.6; color: #4a4a4a;">
-                After reviewing your application, we are pleased to offer you a seat in <strong>${BATCH_COHORT_NAME}</strong> of the Blade Inner Circle.
+                Tonight marks the official start of your journey in the Blade Inner Circle.
               </p>
               
               <p style="margin: 0 0 32px 0; font-size: 16px; line-height: 1.6; color: #4a4a4a;">
-                This cohort is restricted to practitioners committed to execution over theory. We have attached the official curriculum for your review.
+                This orientation is the first time the entire cohort will be in the same room. We will be setting the operational cadence for the next two months, breaking down the sprint protocol, and formally introducing you to the team and each other. This is where the real work begins.
               </p>
               
               <div style="background-color: #faf8f2; border: 1px solid rgba(217,180,101,0.3); border-radius: 8px; padding: 24px; margin: 32px 0;">
-                <h3 style="margin: 0 0 16px 0; font-size: 11px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #000000;">Important Details</h3>
+                <h3 style="margin: 0 0 16px 0; font-size: 11px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #000000;">Meeting Details</h3>
                 
                 <p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5; color: #4a4a4a;">
-                  <strong style="color: #000000;">Orientation Date:</strong> May 12th, 2026<br/>
-                  <span style="font-size: 13px; color: #777;">(The meeting link will be shared a few days prior)</span>
+                  <strong style="color: #000000;">Date & Time:</strong><br/>
+                  ${MEETING_DETAILS.date}
                 </p>
                 <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4a4a4a;">
-                  <strong style="color: #000000;">Official Community:</strong><br/>
-                  <span style="font-size: 13px; color: #777;">You will receive the link to the official WhatsApp community upon seat confirmation.</span>
+                  <strong style="color: #000000;">Video Call Link:</strong><br/>
+                  <a href="${MEETING_DETAILS.link}" style="color: #0052cc; text-decoration: none;">${MEETING_DETAILS.link}</a>
                 </p>
               </div>
 
               <!-- Action Buttons -->
               <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 40px;">
                 <tr>
-                  <td align="left" style="padding-bottom: 16px;">
-                    <a href="https://blademedia.in/apply/payment" style="display: inline-block; width: 100%; max-width: 280px; padding: 18px 0; background-color: #000000; color: #ffffff; text-decoration: none; font-weight: 800; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; border-radius: 4px; text-align: center;">
-                      Confirm Your Seat
-                    </a>
-                  </td>
-                </tr>
-                <tr>
                   <td align="left">
-                    <a href="https://blademedia.in/curriculum.pdf" download="Blade_Inner_Circle_Curriculum.pdf" style="display: inline-block; width: 100%; max-width: 280px; padding: 18px 0; background-color: transparent; color: #000000; text-decoration: none; font-weight: 800; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1); text-align: center;">
-                      Download Curriculum PDF
+                    <a href="${MEETING_DETAILS.link}" style="display: inline-block; width: 100%; max-width: 280px; padding: 18px 0; background-color: #000000; color: #ffffff; text-decoration: none; font-weight: 800; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; border-radius: 4px; text-align: center;">
+                      Join Google Meet
                     </a>
                   </td>
                 </tr>
@@ -130,7 +136,7 @@ async function sendAcceptanceEmails() {
           <tr>
             <td style="padding: 30px 40px; background-color: #faf8f2; text-align: left; border-top: 1px solid rgba(0,0,0,0.05);">
               <p style="margin: 0 0 10px 0; font-size: 12px; color: #777777; line-height: 1.6;">
-                Seats are strictly limited. Your placement is not secured until the institutional fee is processed. If you require assistance, simply reply to this email.
+                Attendance is strictly mandatory. Please join the meeting 5 minutes early to ensure we start on time.
               </p>
               <p style="margin: 20px 0 0 0; font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #000000;">
                 Blade Media.
@@ -149,27 +155,12 @@ async function sendAcceptanceEmails() {
       const data = await resend.emails.send({
         from: 'Blade Inner Circle <admissions@blademedia.in>',
         to: [student.email],
-        subject: "You're In! Welcome to Blade Inner Circle Cohort 01",
+        subject: "Blade Inner Circle Cohort 01 — Orientation Day",
         html: htmlContent,
       });
 
       console.log(`✅ Sent to ${student.name} (${student.email}) - ID: ${data.data?.id}`);
       
-      // 2. Update Firestore Status using Admin SDK (bypasses security rules)
-      try {
-        const snapshot = await db.collection("applications").where("email", "==", student.email).get();
-        
-        if (!snapshot.empty) {
-          const docRef = snapshot.docs[0].ref;
-          await docRef.update({ status: "confirmed" });
-          console.log(`✅ Updated Firestore status to 'confirmed' for ${student.email}`);
-        } else {
-          console.warn(`⚠️ No Firestore application found for ${student.email} to update.`);
-        }
-      } catch (dbError) {
-        console.error(`❌ Failed to update Firestore for ${student.email}:`, dbError);
-      }
-
       // Delay to avoid hitting rate limits
       await new Promise(resolve => setTimeout(resolve, 500)); 
     } catch (error) {
@@ -180,4 +171,4 @@ async function sendAcceptanceEmails() {
   console.log('🎉 Broadcast complete!');
 }
 
-sendAcceptanceEmails();
+sendOrientationEmails();

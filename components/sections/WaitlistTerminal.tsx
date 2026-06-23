@@ -5,13 +5,14 @@ import { X, Terminal, ChevronRight, CheckCircle2, AlertCircle } from "lucide-rea
 import { toast } from "sonner";
 
 interface WaitlistTerminalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
+  inline?: boolean;
 }
 
 type TerminalStep = "name" | "email" | "instagram" | "phone" | "goal" | "submitting" | "success" | "error";
 
-export default function WaitlistTerminal({ isOpen, onClose }: WaitlistTerminalProps) {
+export default function WaitlistTerminal({ isOpen = false, onClose, inline = false }: WaitlistTerminalProps) {
   const [step, setStep] = useState<TerminalStep>("name");
   const [formData, setFormData] = useState({
     name: "",
@@ -29,10 +30,10 @@ export default function WaitlistTerminal({ isOpen, onClose }: WaitlistTerminalPr
 
   // Focus input automatically
   useEffect(() => {
-    if (isOpen && inputRef.current) {
+    if ((isOpen || inline) && inputRef.current) {
       inputRef.current.focus();
     }
-    if (!isOpen) {
+    if (!isOpen && !inline) {
       // Reset state on close
       setStep("name");
       setFormData({ name: "", email: "", instagram: "", phone: "", goal: "" });
@@ -41,7 +42,7 @@ export default function WaitlistTerminal({ isOpen, onClose }: WaitlistTerminalPr
       setGeneratedKey("");
       setErrorMessage("");
     }
-  }, [isOpen, step]);
+  }, [isOpen, inline, step]);
 
   // Keep terminal scrolled to bottom
   useEffect(() => {
@@ -50,7 +51,7 @@ export default function WaitlistTerminal({ isOpen, onClose }: WaitlistTerminalPr
     }
   }, [logs, step]);
 
-  if (!isOpen) return null;
+  if (!inline && !isOpen) return null;
 
   const currentStepTitle = {
     name: "01 // IDENTITY REGISTER",
@@ -156,190 +157,208 @@ export default function WaitlistTerminal({ isOpen, onClose }: WaitlistTerminalPr
     }
   };
 
+  const terminalContent = (
+    <motion.div
+      initial={inline ? { opacity: 0, y: 20 } : { opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={inline ? { opacity: 0, y: 20 } : { opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.4 }}
+      className="w-full max-w-3xl h-[550px] bg-[#030303] border border-[#F3D7A7]/20 rounded-lg flex flex-col overflow-hidden shadow-[0_0_50px_rgba(243,215,167,0.05)] text-left"
+    >
+      {/* Terminal Title Bar */}
+      <div className="flex justify-between items-center bg-[#0a0a0a] border-b border-[#F3D7A7]/10 px-6 py-4">
+        <div className="flex items-center gap-3">
+          <Terminal size={14} className="text-[#F3D7A7]" />
+          <span className="text-[10px] uppercase tracking-[0.25em] font-bold text-white/50">
+            BLADE // waitlist_sequence.exe
+          </span>
+        </div>
+        {!inline && onClose && (
+          <button
+            onClick={onClose}
+            className="text-white/40 hover:text-[#F3D7A7] transition-all hover:scale-105"
+          >
+            <X size={18} />
+          </button>
+        )}
+      </div>
+
+      {/* Terminal Output Logs */}
+      <div className="flex-1 overflow-y-auto p-8 space-y-4 text-xs md:text-sm text-white/80 select-text leading-relaxed">
+        <div className="text-white/30 space-y-1">
+          <p>BLADE CORE OPERATING SYSTEM v3.1</p>
+          <p>INITIALIZING WAITLIST PROTOCOL FOR COHORT 02 (AUGUST 2026)...</p>
+          <p>WARNING: UNIQUE IDENTITY footprint REQUIRED.</p>
+          <p>--------------------------------------------------</p>
+        </div>
+
+        {/* Render previous logs */}
+        {logs.map((log, idx) => (
+          <p
+            key={idx}
+            className={
+              log.startsWith("[SUCCESS]") 
+                ? "text-green-400" 
+                : log.startsWith("[ERROR]") 
+                ? "text-red-500 font-bold" 
+                : log.startsWith(">") 
+                ? "text-[#F3D7A7]/70 font-semibold" 
+                : "text-white/40"
+            }
+          >
+            {log}
+          </p>
+        ))}
+
+        {/* Prompt steps */}
+        {step === "name" && (
+          <TerminalPrompt
+            prompt="[ACCESS PROTOCOL] Enter your full name:"
+            placeholder="e.g. John Doe"
+            value={inputValue}
+            onChange={setInputValue}
+            onKeyDown={handleKeyDown}
+            inputRef={inputRef}
+          />
+        )}
+
+        {step === "email" && (
+          <TerminalPrompt
+            prompt="[COMMUNICATION NODE] Enter email address:"
+            placeholder="e.g. john@example.com"
+            value={inputValue}
+            onChange={setInputValue}
+            onKeyDown={handleKeyDown}
+            inputRef={inputRef}
+          />
+        )}
+
+        {step === "instagram" && (
+          <TerminalPrompt
+            prompt="[SOCIAL SPECTRUM] Enter Instagram handle:"
+            placeholder="e.g. @john_operator"
+            value={inputValue}
+            onChange={setInputValue}
+            onKeyDown={handleKeyDown}
+            inputRef={inputRef}
+          />
+        )}
+
+        {step === "phone" && (
+          <TerminalPrompt
+            prompt="[TELEMETRY CHANNEL] Enter contact number (with country code):"
+            placeholder="e.g. +91 98765 43210"
+            value={inputValue}
+            onChange={setInputValue}
+            onKeyDown={handleKeyDown}
+            inputRef={inputRef}
+          />
+        )}
+
+        {step === "goal" && (
+          <TerminalPrompt
+            prompt="[CORE INTENT] Briefly state your August cohort objective:"
+            placeholder="e.g. Scaling video agency to 5 clients..."
+            value={inputValue}
+            onChange={setInputValue}
+            onKeyDown={handleKeyDown}
+            inputRef={inputRef}
+          />
+        )}
+
+        {step === "submitting" && (
+          <div className="flex items-center gap-3 text-[#F3D7A7] animate-pulse">
+            <span className="w-1.5 h-3 bg-[#F3D7A7] inline-block animate-ping" />
+            <span>Transmitting vectors...</span>
+          </div>
+        )}
+
+        {/* Success message */}
+        {step === "success" && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-6 pt-4 text-left"
+          >
+            <div className="flex items-center gap-4 text-green-400">
+              <CheckCircle2 size={24} />
+              <span className="font-bold uppercase tracking-widest text-sm">WAITLIST ENROLLMENT COMPLETED</span>
+            </div>
+            <div className="space-y-2 border-l-2 border-[#F3D7A7] pl-4 text-white/60">
+              <p>Congratulations. Your access profile is verified.</p>
+              <p>A confirmation briefing has been dispatched to <strong className="text-white">{formData.email}</strong>.</p>
+              <p>Your Priority Access Code is: <strong className="text-[#F3D7A7]">{generatedKey}</strong></p>
+            </div>
+            {!inline && onClose && (
+              <button
+                onClick={onClose}
+                className="px-6 py-3 border border-[#F3D7A7]/20 hover:border-[#F3D7A7] hover:bg-[#F3D7A7]/5 text-[#F3D7A7] uppercase tracking-[0.2em] font-bold text-[10px] transition-all"
+              >
+                Exit Terminal
+              </button>
+            )}
+          </motion.div>
+        )}
+
+        {/* Error message */}
+        {step === "error" && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-6 pt-4 text-left"
+          >
+            <div className="flex items-center gap-4 text-red-500">
+              <AlertCircle size={24} />
+              <span className="font-bold uppercase tracking-widest text-sm">TRANSMISSION ENCOUNTERED EXCEPTION</span>
+            </div>
+            <p className="text-white/60">
+              System responded with failure: {errorMessage}
+            </p>
+            <div className="flex gap-4">
+              <button
+                onClick={() => {
+                  setStep("name");
+                  setLogs([]);
+                }}
+                className="px-6 py-3 bg-red-950/20 border border-red-500/30 hover:border-red-500 text-red-400 uppercase tracking-[0.2em] font-bold text-[10px] transition-all"
+              >
+                Reset Connection
+              </button>
+              {!inline && onClose && (
+                <button
+                  onClick={onClose}
+                  className="px-6 py-3 border border-white/10 hover:border-white/30 text-white/50 uppercase tracking-[0.2em] font-bold text-[10px] transition-all"
+                >
+                  Close
+                </button>
+              )}
+            </div>
+          </motion.div>
+        )}
+
+        <div ref={terminalEndRef} />
+      </div>
+
+      {/* Terminal Footer Indicator */}
+      <div className="bg-[#050505] border-t border-[#F3D7A7]/10 px-6 py-3 flex justify-between items-center text-[10px] tracking-wider text-white/30 font-bold uppercase">
+        <span>MODE: {step === "success" || step === "error" || step === "submitting" ? "system_processed" : "waiting_input"}</span>
+        <span>SECTION: {currentStepTitle}</span>
+      </div>
+    </motion.div>
+  );
+
+  if (inline) {
+    return (
+      <div className="w-full flex justify-center font-mono">
+        {terminalContent}
+      </div>
+    );
+  }
+
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-10 font-mono bg-black/90 backdrop-blur-md">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.4 }}
-          className="w-full max-w-3xl h-[600px] bg-[#030303] border border-[#F3D7A7]/20 rounded-lg flex flex-col overflow-hidden shadow-[0_0_50px_rgba(243,215,167,0.05)] text-left"
-        >
-          {/* Terminal Title Bar */}
-          <div className="flex justify-between items-center bg-[#0a0a0a] border-b border-[#F3D7A7]/10 px-6 py-4">
-            <div className="flex items-center gap-3">
-              <Terminal size={14} className="text-[#F3D7A7]" />
-              <span className="text-[10px] uppercase tracking-[0.25em] font-bold text-white/50">
-                BLADE // waitlist_sequence.exe
-              </span>
-            </div>
-            <button
-              onClick={onClose}
-              className="text-white/40 hover:text-[#F3D7A7] transition-all hover:scale-105"
-            >
-              <X size={18} />
-            </button>
-          </div>
-
-          {/* Terminal Output Logs */}
-          <div className="flex-1 overflow-y-auto p-8 space-y-4 text-xs md:text-sm text-white/80 select-text leading-relaxed">
-            <div className="text-white/30 space-y-1">
-              <p>BLADE CORE OPERATING SYSTEM v3.1</p>
-              <p>INITIALIZING WAITLIST PROTOCOL FOR COHORT 02 (AUGUST 2026)...</p>
-              <p>WARNING: UNIQUE IDENTITY footprint REQUIRED.</p>
-              <p>--------------------------------------------------</p>
-            </div>
-
-            {/* Render previous logs */}
-            {logs.map((log, idx) => (
-              <p
-                key={idx}
-                className={
-                  log.startsWith("[SUCCESS]") 
-                    ? "text-green-400" 
-                    : log.startsWith("[ERROR]") 
-                    ? "text-red-500 font-bold" 
-                    : log.startsWith(">") 
-                    ? "text-[#F3D7A7]/70 font-semibold" 
-                    : "text-white/40"
-                }
-              >
-                {log}
-              </p>
-            ))}
-
-            {/* Prompt steps */}
-            {step === "name" && (
-              <TerminalPrompt
-                prompt="[ACCESS PROTOCOL] Enter your full name:"
-                placeholder="e.g. John Doe"
-                value={inputValue}
-                onChange={setInputValue}
-                onKeyDown={handleKeyDown}
-                inputRef={inputRef}
-              />
-            )}
-
-            {step === "email" && (
-              <TerminalPrompt
-                prompt="[COMMUNICATION NODE] Enter email address:"
-                placeholder="e.g. john@example.com"
-                value={inputValue}
-                onChange={setInputValue}
-                onKeyDown={handleKeyDown}
-                inputRef={inputRef}
-              />
-            )}
-
-            {step === "instagram" && (
-              <TerminalPrompt
-                prompt="[SOCIAL SPECTRUM] Enter Instagram handle:"
-                placeholder="e.g. @john_operator"
-                value={inputValue}
-                onChange={setInputValue}
-                onKeyDown={handleKeyDown}
-                inputRef={inputRef}
-              />
-            )}
-
-            {step === "phone" && (
-              <TerminalPrompt
-                prompt="[TELEMETRY CHANNEL] Enter contact number (with country code):"
-                placeholder="e.g. +91 98765 43210"
-                value={inputValue}
-                onChange={setInputValue}
-                onKeyDown={handleKeyDown}
-                inputRef={inputRef}
-              />
-            )}
-
-            {step === "goal" && (
-              <TerminalPrompt
-                prompt="[CORE INTENT] Briefly state your August cohort objective:"
-                placeholder="e.g. Scaling video agency to 5 clients..."
-                value={inputValue}
-                onChange={setInputValue}
-                onKeyDown={handleKeyDown}
-                inputRef={inputRef}
-              />
-            )}
-
-            {step === "submitting" && (
-              <div className="flex items-center gap-3 text-[#F3D7A7] animate-pulse">
-                <span className="w-1.5 h-3 bg-[#F3D7A7] inline-block animate-ping" />
-                <span>Transmitting vectors...</span>
-              </div>
-            )}
-
-            {/* Success message */}
-            {step === "success" && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="space-y-6 pt-4 text-left"
-              >
-                <div className="flex items-center gap-4 text-green-400">
-                  <CheckCircle2 size={24} />
-                  <span className="font-bold uppercase tracking-widest text-sm">WAITLIST ENROLLMENT COMPLETED</span>
-                </div>
-                <div className="space-y-2 border-l-2 border-[#F3D7A7] pl-4 text-white/60">
-                  <p>Congratulations. Your access profile is verified.</p>
-                  <p>A confirmation briefing has been dispatched to <strong className="text-white">{formData.email}</strong>.</p>
-                  <p>Your Priority Access Code is: <strong className="text-[#F3D7A7]">{generatedKey}</strong></p>
-                </div>
-                <button
-                  onClick={onClose}
-                  className="px-6 py-3 border border-[#F3D7A7]/20 hover:border-[#F3D7A7] hover:bg-[#F3D7A7]/5 text-[#F3D7A7] uppercase tracking-[0.2em] font-bold text-[10px] transition-all"
-                >
-                  Exit Terminal
-                </button>
-              </motion.div>
-            )}
-
-            {/* Error message */}
-            {step === "error" && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="space-y-6 pt-4 text-left"
-              >
-                <div className="flex items-center gap-4 text-red-500">
-                  <AlertCircle size={24} />
-                  <span className="font-bold uppercase tracking-widest text-sm">TRANSMISSION ENCOUNTERED EXCEPTION</span>
-                </div>
-                <p className="text-white/60">
-                  System responded with failure: {errorMessage}
-                </p>
-                <div className="flex gap-4">
-                  <button
-                    onClick={() => {
-                      setStep("name");
-                      setLogs([]);
-                    }}
-                    className="px-6 py-3 bg-red-950/20 border border-red-500/30 hover:border-red-500 text-red-400 uppercase tracking-[0.2em] font-bold text-[10px] transition-all"
-                  >
-                    Reset Connection
-                  </button>
-                  <button
-                    onClick={onClose}
-                    className="px-6 py-3 border border-white/10 hover:border-white/30 text-white/50 uppercase tracking-[0.2em] font-bold text-[10px] transition-all"
-                  >
-                    Close
-                  </button>
-                </div>
-              </motion.div>
-            )}
-
-            <div ref={terminalEndRef} />
-          </div>
-
-          {/* Terminal Footer Indicator */}
-          <div className="bg-[#050505] border-t border-[#F3D7A7]/10 px-6 py-3 flex justify-between items-center text-[10px] tracking-wider text-white/30 font-bold uppercase">
-            <span>MODE: waiting_input</span>
-            <span>SECTION: {currentStepTitle}</span>
-          </div>
-        </motion.div>
+        {terminalContent}
       </div>
     </AnimatePresence>
   );

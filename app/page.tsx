@@ -25,7 +25,6 @@ const Manifesto = dynamic(() => import("@/components/sections/Manifesto"));
 const SprintProtocol = dynamic(() => import("@/components/sections/SprintProtocol"));
 const FounderAuthority = dynamic(() => import("@/components/sections/FounderAuthority"));
 const InnerCircleCTA = dynamic(() => import("@/components/sections/InnerCircleCTA"));
-const WaitlistTerminal = dynamic(() => import("@/components/sections/WaitlistTerminal"));
 
 export default function Home() {
   const { user } = useAuth();
@@ -33,7 +32,6 @@ export default function Home() {
   const { mode, toggleMode } = useSite();
   const isAgency = mode === "agency";
   const containerRef = useRef(null);
-  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   
   const { scrollYProgress } = useScroll({ target: containerRef });
   const navButtonOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
@@ -172,7 +170,7 @@ export default function Home() {
               <motion.button 
                 whileHover={{ scale: 1.02, boxShadow: "0 0 25px rgba(243, 215, 167, 0.25)" }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setIsTerminalOpen(true)}
+                onClick={() => router.push("/waitlist")}
                 className="bg-[#F3D7A7] text-black px-6 md:px-8 py-3 md:py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.1em] shadow-xl whitespace-nowrap cursor-none hover:bg-white hover:text-black transition-all duration-300"
               >
                 Join Waitlist
@@ -195,21 +193,15 @@ export default function Home() {
           </motion.div>
         ) : (
           <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-white bg-[#050505] min-h-screen">
-            <InnerCircleHero user={user} onJoinWaitlist={() => setIsTerminalOpen(true)} />
+            <InnerCircleHero user={user} onJoinWaitlist={() => router.push("/waitlist")} />
             <Crisis />
             <Manifesto />
             <SprintProtocol />
             <FounderAuthority />
-            <InnerCircleCTA onJoinWaitlist={() => setIsTerminalOpen(true)} />
+            <InnerCircleCTA onJoinWaitlist={() => router.push("/waitlist")} />
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Terminal Waitlist Modal */}
-      <WaitlistTerminal 
-        isOpen={isTerminalOpen} 
-        onClose={() => setIsTerminalOpen(false)} 
-      />
     </motion.main>
   );
 }
