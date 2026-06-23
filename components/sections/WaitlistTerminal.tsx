@@ -163,7 +163,7 @@ export default function WaitlistTerminal({ isOpen = false, onClose, inline = fal
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={inline ? { opacity: 0, y: 20 } : { opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-3xl h-[550px] bg-[#030303] border border-[#F3D7A7]/20 rounded-lg flex flex-col overflow-hidden shadow-[0_0_50px_rgba(243,215,167,0.05)] text-left"
+      className="w-full max-w-3xl h-[500px] bg-[#030303] border border-[#F3D7A7]/20 rounded-lg flex flex-col overflow-hidden shadow-[0_0_50px_rgba(243,215,167,0.05)] text-left"
     >
       {/* Terminal Title Bar */}
       <div className="flex justify-between items-center bg-[#0a0a0a] border-b border-[#F3D7A7]/10 px-6 py-4">

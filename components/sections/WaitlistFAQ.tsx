@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, HelpCircle } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 
 interface FAQItem {
   question: string;
@@ -35,55 +35,46 @@ export default function WaitlistFAQ() {
   ];
 
   return (
-    <section className="py-32 px-6 md:px-24 bg-[#030303] text-white border-t border-white/5 relative overflow-hidden">
+    <section className="py-32 px-6 md:px-24 bg-[#020202] text-white border-t border-white/5 relative overflow-hidden">
       {/* Light glow overlay */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#F3D7A7]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#F3D7A7]/[0.02] rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto relative z-10">
         
         {/* Header */}
         <div className="text-center mb-20 space-y-4">
-          <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] font-bold">
+          <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] font-mono font-bold">
             COMMON PROTOCOLS
           </span>
           <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight text-white">
-            Frequently Asked <span className="text-white/30">Queries.</span>
+            Frequently Asked <br />
+            <span className="font-serif italic font-normal text-[#F3D7A7] lowercase tracking-normal">queries.</span>
           </h2>
         </div>
 
-        {/* FAQ Accordion List */}
-        <div className="space-y-4 text-left">
+        {/* Minimal Divider-line Accordion */}
+        <div className="border-t border-white/10 divide-y divide-white/10 text-left">
           {faqs.map((faq, idx) => {
             const isOpen = openIdx === idx;
             return (
               <div 
                 key={idx}
-                className={`border rounded-2xl transition-all duration-300 ${
-                  isOpen 
-                    ? "bg-white/[0.03] border-[#F3D7A7]/40 shadow-[0_0_30px_rgba(243,215,167,0.03)]" 
-                    : "bg-transparent border-white/5 hover:border-white/10"
-                }`}
+                className="py-8 transition-all duration-300"
               >
                 <button
                   onClick={() => setOpenIdx(isOpen ? null : idx)}
-                  className="w-full px-8 py-6 flex items-center justify-between gap-6 text-left cursor-pointer group"
+                  className="w-full flex items-center justify-between gap-6 text-left cursor-pointer group"
                 >
-                  <div className="flex items-center gap-4">
-                    <HelpCircle size={18} className={`shrink-0 transition-colors duration-300 ${
-                      isOpen ? "text-[#F3D7A7]" : "text-white/20 group-hover:text-white/40"
-                    }`} />
-                    <span className="text-sm md:text-base font-bold uppercase tracking-wide text-white/90">
-                      {faq.question}
-                    </span>
-                  </div>
-                  <div className={`p-1.5 border rounded-full transition-all duration-300 ${
-                    isOpen 
-                      ? "border-[#F3D7A7]/40 text-[#F3D7A7] bg-[#F3D7A7]/5" 
-                      : "border-white/5 text-white/30 group-hover:text-white/60"
+                  <span className={`text-base md:text-lg font-bold uppercase tracking-tight transition-colors duration-300 ${
+                    isOpen ? "text-[#F3D7A7]" : "text-white/80 group-hover:text-white"
                   }`}>
-                    <ChevronDown size={14} className={`transition-transform duration-300 ${
-                      isOpen ? "rotate-180" : ""
-                    }`} />
+                    {faq.question}
+                  </span>
+                  
+                  <div className={`p-1.5 transition-all duration-300 ${
+                    isOpen ? "text-[#F3D7A7]" : "text-white/30 group-hover:text-white/60"
+                  }`}>
+                    {isOpen ? <Minus size={18} /> : <Plus size={18} />}
                   </div>
                 </button>
 
@@ -96,7 +87,7 @@ export default function WaitlistFAQ() {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <div className="px-8 pb-8 pt-2 text-xs md:text-sm font-mono leading-relaxed text-white/50 border-t border-white/5">
+                      <div className="pt-6 pr-12 text-xs md:text-sm font-mono leading-relaxed text-white/40">
                         {faq.answer}
                       </div>
                     </motion.div>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -33,7 +33,7 @@ export default function WaitlistPage() {
   };
 
   return (
-    <main className="relative min-h-screen bg-[#050505] text-white selection:bg-[#F3D7A7] selection:text-black overflow-x-hidden">
+    <main className="relative min-h-screen bg-[#020202] text-white selection:bg-[#F3D7A7] selection:text-black overflow-x-hidden">
       {/* Custom Cursor */}
       <CustomCursor />
 
@@ -42,7 +42,7 @@ export default function WaitlistPage() {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="fixed top-0 left-0 right-0 w-full z-[100] bg-[#030303]/80 backdrop-blur-xl border-b border-white/5 px-6 md:px-24 h-20 md:h-24 flex items-center justify-between font-sans"
+        className="fixed top-0 left-0 right-0 w-full z-[100] bg-[#020202]/85 backdrop-blur-xl border-b border-white/5 px-6 md:px-24 h-20 md:h-24 flex items-center justify-between font-sans"
       >
         {/* Logo on the left */}
         <motion.button 
@@ -103,31 +103,82 @@ export default function WaitlistPage() {
       {/* Hero Section */}
       <WaitlistHero onJoinWaitlist={scrollToTerminal} />
 
-      {/* Embedded Terminal Section */}
+      {/* Embedded Terminal Section (Bento Split Layout) */}
       <section 
         id="waitlist-terminal-section" 
-        className="py-24 px-6 md:px-24 border-t border-white/5 relative bg-[#030303]"
+        className="py-24 px-6 md:px-24 border-t border-white/5 relative bg-[#020202]"
       >
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-full pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#F3D7A7]/5 rounded-full blur-[150px]" />
-        </div>
+        {/* Glowing backdrop spotlight */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#F3D7A7]/[0.02] rounded-full blur-[150px] pointer-events-none" />
         
-        <div className="max-w-[1400px] mx-auto flex flex-col items-center relative z-10">
-          <div className="max-w-xl text-center mb-16 space-y-4">
-            <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] font-bold">
+        <div className="max-w-6xl mx-auto relative z-10">
+          
+          <div className="text-center mb-16 space-y-4">
+            <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] font-mono font-bold">
               SECURE CONSOLE INTERFACE
             </span>
-            <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight text-white">
-              Initialize Waitlist <span className="text-white/30">Entry.</span>
+            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight text-white leading-none">
+              Initialize Waitlist <span className="font-serif italic font-normal text-[#F3D7A7] lowercase tracking-normal">entry.</span>
             </h2>
-            <p className="text-white/40 text-xs md:text-sm font-mono max-w-md mx-auto">
-              Authenticate your identity vectors to secure your placement ticket. Ensure all entries are validated.
-            </p>
           </div>
 
-          <div className="w-full max-w-3xl">
-            <WaitlistTerminal inline={true} />
+          {/* Connected Bento Container */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-px bg-white/10 border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+            
+            {/* Left Column: System metrics */}
+            <div className="lg:col-span-4 p-8 md:p-10 bg-black/60 backdrop-blur-md flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/10 text-left font-mono">
+              <div className="space-y-8">
+                <div>
+                  <span className="text-[10px] font-bold text-[#F3D7A7] uppercase tracking-widest block mb-2">// SECURITY PROTOCOL</span>
+                  <h3 className="text-lg font-bold text-white uppercase tracking-tight">Access Clearance</h3>
+                  <p className="text-white/40 text-[11px] leading-relaxed mt-2 uppercase tracking-wide">
+                    Applications are manually audited. Lock in your identity vectors below to begin verification.
+                  </p>
+                </div>
+
+                <div className="border-t border-white/5 pt-6 space-y-4">
+                  <span className="text-[9px] font-bold text-white/30 uppercase tracking-widest block">SYSTEM INTEL</span>
+                  
+                  <div className="space-y-2 text-[10px] uppercase tracking-wider text-white/50">
+                    <div className="flex justify-between border-b border-white/5 pb-2">
+                      <span>GATEWAY_ROUTE</span>
+                      <span className="text-[#F3D7A7]">/api/waitlist</span>
+                    </div>
+                    <div className="flex justify-between border-b border-white/5 pb-2">
+                      <span>SECURE_CIPHER</span>
+                      <span className="text-white/80">ECDHE-RSA-AES128</span>
+                    </div>
+                    <div className="flex justify-between border-b border-white/5 pb-2">
+                      <span>HOST_DATABASE</span>
+                      <span className="text-white/80">firestore.core</span>
+                    </div>
+                    <div className="flex justify-between border-b border-white/5 pb-2">
+                      <span>SYSTEM_LATENCY</span>
+                      <span className="text-emerald-500 animate-pulse">12ms (ACTIVE)</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>QUEUE_CAPACITY</span>
+                      <span className="text-amber-500">selective_bandwidth</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 border-t border-white/5 pt-6 text-[9px] text-[#F3D7A7]/70 uppercase tracking-widest leading-relaxed">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-500 mr-2 animate-ping" />
+                WARNING: Unauthorized entries and bot submission attempts are automatically blacklisted.
+              </div>
+            </div>
+
+            {/* Right Column: Waitlist terminal */}
+            <div className="lg:col-span-8 p-6 md:p-8 bg-black/40 backdrop-blur-md flex flex-col justify-center items-center">
+              <div className="w-full">
+                <WaitlistTerminal inline={true} />
+              </div>
+            </div>
+
           </div>
+
         </div>
       </section>
 
@@ -138,7 +189,7 @@ export default function WaitlistPage() {
       <WaitlistFAQ />
 
       {/* Dark Footer */}
-      <footer className="py-20 px-6 text-center border-t border-white/5 bg-[#030303] relative z-20">
+      <footer className="py-20 px-6 text-center border-t border-white/5 bg-[#020202] relative z-20">
         <p className="text-[10px] font-bold uppercase tracking-[0.8em] text-white/30">
           © 2026 Blade Inner Circle — Stop Consuming. Start Operating.
         </p>
