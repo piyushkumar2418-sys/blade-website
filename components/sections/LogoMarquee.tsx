@@ -28,7 +28,6 @@ const LogoMarquee = () => {
             <div className="h-[1px] w-8 bg-[#F3D7A7]" />
             <h3 className="text-white text-xl md:text-3xl font-bold uppercase tracking-tighter">Trusted by <span className="text-[#F3D7A7]">Industry Leaders</span></h3>
          </div>
-         <div className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-bold hidden md:block">Institutional Network</div>
       </div>
       
       <div className="flex whitespace-nowrap overflow-hidden relative">
