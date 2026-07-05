@@ -7,6 +7,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 interface FAQItem {
   question: string;
@@ -26,7 +27,7 @@ export default function CohortRegisterPage() {
   const [formData, setFormData] = useState({
     name: "",
     portfolioLink: "",
-    primaryFocus: "Video Editing",
+    primaryFocus: "Learn a High-Income Skill",
     whyReady: "",
     commitment: false,
   });
@@ -205,7 +206,12 @@ export default function CohortRegisterPage() {
       <div className="min-h-screen flex flex-col md:flex-row relative">
         
         {/* Left Column: Form (60% width) */}
-        <div className="w-full md:w-[60%] bg-white px-6 md:px-20 py-20 overflow-y-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="w-full md:w-[60%] bg-white px-6 md:px-20 py-20 overflow-y-auto"
+        >
           <div className="max-w-xl mx-auto text-left">
             
             {/* Header */}
@@ -285,10 +291,9 @@ export default function CohortRegisterPage() {
                         onChange={(e) => handleInputChange("primaryFocus", e.target.value)}
                         className="w-full bg-[#F5F5F7] border border-black/[0.03] rounded-xl px-6 py-4 text-base font-bold tracking-tight focus:bg-white focus:border-[#F3D7A7]/50 focus:shadow-[0_10px_30px_rgba(0,0,0,0.03)] outline-none transition-all duration-500 cursor-pointer appearance-none text-black"
                       >
-                        <option value="Video Editing">Video Editing</option>
-                        <option value="Meta Ads">Meta Ads</option>
-                        <option value="Performance Marketing">Performance Marketing</option>
-                        <option value="Copywriting">Copywriting</option>
+                        <option value="Learn a High-Income Skill">Learn a High-Income Skill</option>
+                        <option value="Start a Creative / Marketing Agency">Start a Creative / Marketing Agency</option>
+                        <option value="Land a Job in a Marketing Role">Land a Job in a Marketing Role</option>
                         <option value="Other">Other</option>
                       </select>
                       <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-black/40 text-xs">▼</div>
@@ -358,21 +363,28 @@ export default function CohortRegisterPage() {
               )}
 
               {/* CTA button */}
-              <button 
+              <motion.button 
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
                 type="submit"
                 disabled={isSubmitting}
                 className="w-full py-5 bg-black text-white font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all duration-300 rounded-none border-none cursor-pointer flex items-center justify-center shadow-lg"
               >
                 {isSubmitting ? "TRANSMITTING DATA..." : "SUBMIT ADMISSION PORTFOLIO"}
-              </button>
+              </motion.button>
 
             </form>
 
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Column: Commitment Info (40% width) */}
-        <div className="w-full md:w-[40%] bg-[#F9F9F9] border-l border-black/5 px-8 md:px-16 py-20 text-left flex flex-col justify-between">
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
+          className="w-full md:w-[40%] bg-[#F9F9F9] border-l border-black/5 px-8 md:px-16 py-20 text-left flex flex-col justify-between"
+        >
           <div className="space-y-16">
             
             {/* Header info */}
@@ -433,9 +445,57 @@ export default function CohortRegisterPage() {
             </p>
           </div>
 
-        </div>
+        </motion.div>
 
       </div>
+
+      {/* Curriculum and Life Transformation Section */}
+      <section className="py-24 px-6 md:px-24 bg-[#F9F9F9] border-t border-black/5 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center text-left relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="space-y-6"
+          >
+            <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] font-mono font-bold block">
+              REAL TRANSFORMATION
+            </span>
+            <h2 className="text-3xl md:text-4xl font-extrabold uppercase tracking-tight text-black leading-none">
+              How lives have <span className="font-serif italic font-normal text-[#F3D7A7] lowercase tracking-normal normal-case">changed.</span>
+            </h2>
+            <p className="text-sm text-black/50 leading-relaxed font-normal">
+              This program is not a get-rich-quick blueprint. It takes real focus and work. But for people who commit, the results speak for themselves.
+              Many of our students have quit jobs that drained their energy, built a reliable side-income to support their families, and gained the freedom to work from anywhere.
+            </p>
+          </motion.div>
+          
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="bg-white border border-black/5 p-8 rounded-2xl shadow-sm space-y-6 flex flex-col justify-between h-fit"
+          >
+            <div className="space-y-2">
+              <span className="text-[9px] text-[#F3D7A7] font-bold uppercase tracking-widest block font-mono">// TIMELINE & MILESTONES</span>
+              <h4 className="text-lg font-bold uppercase tracking-tight text-black">WEEK-BY-WEEK PLAN</h4>
+              <p className="text-xs text-black/40 leading-relaxed uppercase tracking-wider font-semibold">
+                Explore the modules, resources, coaching calls, and client workflows inside the complete syllabus.
+              </p>
+            </div>
+            
+            <button
+              onClick={() => router.push("/curriculum")}
+              className="w-full py-4 bg-black text-white hover:bg-[#F3D7A7] hover:text-black transition-all font-bold uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 cursor-pointer border-none rounded-xl"
+            >
+              <span>View Full Curriculum</span>
+              <ArrowRight size={14} />
+            </button>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Expandable Q&A Section at the Bottom */}
       <section className="py-24 px-6 md:px-24 bg-white border-t border-black/5 relative">
