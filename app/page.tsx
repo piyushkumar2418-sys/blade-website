@@ -173,7 +173,7 @@ export default function Home() {
                 onClick={() => router.push("/apply/register")}
                 className="bg-[#F3D7A7] text-black px-6 md:px-8 py-3 md:py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.1em] shadow-xl whitespace-nowrap cursor-none hover:bg-white hover:text-black transition-all duration-300"
               >
-                Join Waitlist
+                Apply Now
               </motion.button>
             </div>
           </div>

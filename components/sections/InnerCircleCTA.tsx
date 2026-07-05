@@ -159,7 +159,7 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
           
           <div className="flex flex-col items-center gap-20 text-center">
             <p className="text-white/40 text-sm md:text-base max-w-md uppercase tracking-[0.4em] leading-relaxed font-medium text-center">
-              Request waiting list entry for the August 2026 intake.
+              Submit your admission portfolio for the August 2026 intake.
             </p>
             <motion.button 
               whileHover={{ scale: 1.05 }}
@@ -167,7 +167,7 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
               onClick={onJoinWaitlist} 
               className="bg-[#F3D7A7] text-black px-20 py-8 rounded-full font-bold uppercase tracking-[0.4em] text-[11px] hover:shadow-[0_0_40px_rgba(243,215,167,0.25)] transition-all duration-300 flex items-center gap-4 group cursor-none"
             >
-              Request Access Key
+              Apply for Cohort 02
               <Terminal size={14} className="group-hover:scale-110 transition-transform" />
             </motion.button>
           </div>

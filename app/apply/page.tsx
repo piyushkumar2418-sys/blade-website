@@ -110,28 +110,28 @@ export default function ApplyGatekeeper() {
               </div>
 
               <div className="space-y-6">
-                 <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-[0.85] text-white">
-                   May Intake <br /> Closed.
-                 </h2>
-                 <p className="text-sm text-white/40 leading-relaxed max-w-md font-light">
-                   Admissions for Cohort 01 (May 2026) are officially closed and the sprint is currently in progress. 
-                   We are now accepting requests for the exclusive August 2026 Cohort 02 Waitlist.
-                 </p>
-              </div>
+                  <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-[0.85] text-white">
+                    May Intake <br /> Closed.
+                  </h2>
+                  <p className="text-sm text-white/40 leading-relaxed max-w-md font-light">
+                    Admissions for Cohort 01 (May 2026) are officially closed and the sprint is currently in progress. 
+                    We are now accepting applications for the exclusive August 2026 Cohort 02.
+                  </p>
+               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/5">
-                 <StatusCard icon={<Clock size={16}/>} label="Cohort 01 Status" value="In Operations" highlight={false} />
-                 <StatusCard icon={<ShieldCheck size={16}/>} label="Cohort 02 Waitlist" value="Open & Active" highlight={true} />
-              </div>
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/5">
+                  <StatusCard icon={<Clock size={16}/>} label="Cohort 01 Status" value="In Operations" highlight={false} />
+                  <StatusCard icon={<ShieldCheck size={16}/>} label="Cohort 02 Admissions" value="Open & Active" highlight={true} />
+               </div>
 
-              <div className="pt-8">
-                 <button 
-                   onClick={() => router.push("/waitlist")}
-                   className="w-full py-6 bg-white text-black flex items-center justify-center gap-4 group hover:bg-[#F3D7A7] transition-all font-bold uppercase tracking-[0.3em] text-[10px]"
-                 >
-                   <span>Request Waitlist Key</span>
-                   <Terminal size={16} className="group-hover:scale-105 transition-transform" />
-                 </button>
+               <div className="pt-8">
+                  <button 
+                    onClick={() => router.push("/apply/register")}
+                    className="w-full py-6 bg-white text-black flex items-center justify-center gap-4 group hover:bg-[#F3D7A7] transition-all font-bold uppercase tracking-[0.3em] text-[10px]"
+                  >
+                    <span>Apply for Cohort 02</span>
+                    <Terminal size={16} className="group-hover:scale-105 transition-transform" />
+                  </button>
               </div>
             </div>
           </motion.div>
