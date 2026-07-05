@@ -529,7 +529,7 @@ export default function CohortRegisterPage() {
                     </div>
                   </button>
                   {isOpen && (
-                    <div className="pt-4 pr-12 text-xs md:text-sm font-mono leading-relaxed text-black/50 uppercase tracking-wide">
+                    <div className="pt-4 pr-12 text-xs md:text-sm font-sans leading-relaxed text-black/60">
                       {faq.answer}
                     </div>
                   )}
