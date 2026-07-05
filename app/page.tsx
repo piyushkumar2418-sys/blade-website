@@ -170,7 +170,7 @@ export default function Home() {
               <motion.button 
                 whileHover={{ scale: 1.02, boxShadow: "0 0 25px rgba(243, 215, 167, 0.25)" }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => router.push("/waitlist")}
+                onClick={() => router.push("/apply/register")}
                 className="bg-[#F3D7A7] text-black px-6 md:px-8 py-3 md:py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.1em] shadow-xl whitespace-nowrap cursor-none hover:bg-white hover:text-black transition-all duration-300"
               >
                 Join Waitlist
@@ -193,12 +193,12 @@ export default function Home() {
           </motion.div>
         ) : (
           <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-white bg-[#050505] min-h-screen">
-            <InnerCircleHero user={user} onJoinWaitlist={() => router.push("/waitlist")} />
+            <InnerCircleHero user={user} onJoinWaitlist={() => router.push("/apply/register")} />
             <Crisis />
             <Manifesto />
             <SprintProtocol />
             <FounderAuthority />
-            <InnerCircleCTA onJoinWaitlist={() => router.push("/waitlist")} />
+            <InnerCircleCTA onJoinWaitlist={() => router.push("/apply/register")} />
           </motion.div>
         )}
       </AnimatePresence>

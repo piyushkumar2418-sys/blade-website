@@ -29,8 +29,7 @@ export default function ApplyGatekeeper() {
             const querySnapshot = await getDocs(q);
             
             if (querySnapshot.empty) {
-              // No application found: registration is closed, show waitlist option
-              setStatus("closed");
+              router.push("/apply/register");
             } else {
               // Existing application found: show application status
               setStatus("applied");
