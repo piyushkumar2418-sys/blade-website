@@ -1,27 +1,35 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { ArrowRight, AlertCircle, CheckCircle2, ShieldCheck } from "lucide-react";
+import { ShieldCheck, Zap, ArrowRight, AlertCircle, CheckCircle2 } from "lucide-react";
 import { db } from "@/lib/firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, query, where, getDocs } from "firebase/firestore";
 import { useAuth } from "@/context/AuthContext";
-import { toast } from "sonner";
-import Image from "next/image";
 
-export default function CohortRegisterPage() {
+import { toast } from "sonner";
+
+export default function ApplicationPortal() {
   const router = useRouter();
   const { user, profile, loading } = useAuth();
-
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [hasExistingApp, setHasExistingApp] = useState(false);
-
+  const [showExistingModal, setShowExistingModal] = useState(false);
+  
   const [formData, setFormData] = useState({
-    name: "",
-    portfolioLink: "",
-    primaryFocus: "Video Editing",
-    whyReady: "",
+    name: "", 
+    email: "", 
+    phone: "", 
+    instagram: "",
+    dob: "",
+    location: "",
+    currentActivity: "",
+    links: "",
+    whyJoin: "",
+    friction: "",
+    commitment: false,
   });
 
   useEffect(() => {
@@ -33,19 +41,21 @@ export default function CohortRegisterPage() {
     if (profile) {
       setFormData(prev => ({
         ...prev,
-        name: profile.name || "",
+        name: profile.name,
+        email: profile.email,
+        phone: profile.phone
       }));
     }
 
     const checkExisting = async () => {
       if (user) {
-        const q = query(
-          collection(db, "applications"),
-          where("uid", "==", user.uid)
-        );
+        const q = query(collection(db, "applications"), where("uid", "==", user.uid));
         const snapshot = await getDocs(q);
         if (!snapshot.empty) {
-          setHasExistingApp(true);
+          setShowExistingModal(true);
+        } else {
+          // May intake is closed. Redirect to the waitlist page.
+          router.push("/apply");
         }
       }
     };
@@ -56,12 +66,23 @@ export default function CohortRegisterPage() {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.portfolioLink || !formData.whyReady) {
-      toast.warning("INCOMPLETE FORM", {
-        description: "Please complete all admission questions.",
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    
+    if (
+      !formData.phone ||
+      !formData.links || 
+      !formData.whyJoin || 
+      !formData.friction ||
+      !formData.dob ||
+      !formData.location ||
+      !formData.currentActivity ||
+      !formData.commitment
+    ) {
+      toast.warning("INCOMPLETE PORTFOLIO", {
+        description: "Please complete all admission questions before transmitting.",
       });
+      setErrorMessage("PLEASE COMPLETE ALL ADMISSION QUESTIONS, INCLUDING YOUR CONTACT NUMBER.");
       return;
     }
 
@@ -73,304 +94,338 @@ export default function CohortRegisterPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: formData.name,
-          email: user?.email,
-          phone: profile?.phone || 'not provided',
-          instagram: (profile as any)?.instagram || 'not provided',
-          portfolioLink: formData.portfolioLink,
-          primaryFocus: formData.primaryFocus,
-          whyReady: formData.whyReady,
+          ...formData,
           uid: user?.uid,
-          cohort: "Cohort 02",
         }),
       });
 
       const data = await response.json();
+      
       if (!response.ok) {
-        throw new Error(data.error || "Failed to submit application.");
+        throw new Error(data.error || 'Failed to transmit application portfolio.');
       }
 
       setShowSuccess(true);
-      toast.success("Application Transmitted", {
-        description: "Your admission materials have been logged.",
+      toast.success("WE'VE RECEIVED YOUR PORTFOLIO", {
+        description: "Your admission materials are now with our team.",
       });
-    } catch (err: any) {
-      console.error(err);
-      toast.error("Transmission Error", {
-        description: "Failed to deliver. Please try again.",
+    } catch (error: any) {
+      console.error("Error submitting application:", error);
+      toast.error("SYSTEM FAILURE", {
+        description: "Application failed to transmit. Please retry.",
       });
-      setErrorMessage(err.message || "An unknown transmission error occurred.");
+      setErrorMessage(`FAILED TO SUBMIT: ${error.message || "PLEASE TRY AGAIN LATER"}`);
       setIsSubmitting(false);
     }
   };
 
   if (loading || !user) {
     return (
-      <div className="min-h-screen bg-[#020202] text-white flex items-center justify-center font-mono rounded-none">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-6 h-6 border-2 border-[#F3D7A7]/20 border-t-[#F3D7A7] animate-spin" />
-          <span className="text-[10px] uppercase tracking-[0.3em] text-[#F3D7A7]/60">GATING ACCESS GATEWAY...</span>
-        </div>
-      </div>
-    );
-  }
-
-  if (hasExistingApp && !showSuccess) {
-    return (
-      <div className="min-h-screen bg-[#020202] text-white flex items-center justify-center p-6 font-mono rounded-none">
-        <div className="max-w-md w-full border border-white/10 bg-black p-10 text-left space-y-8 rounded-none">
-          <div className="flex items-center gap-4 text-[#F3D7A7]">
-            <AlertCircle size={24} />
-            <span className="text-xs font-bold uppercase tracking-[0.2em]">// TELEMETRY CONFLICT</span>
-          </div>
-          <div className="space-y-4">
-            <h2 className="text-3xl font-bold uppercase tracking-tight text-white leading-none">Already Submitted.</h2>
-            <p className="text-white/40 text-xs leading-relaxed uppercase tracking-wider">
-              Our servers have detected a previously logged application portfolio for this account. Access is limited to one transmission per cycle.
-            </p>
-          </div>
-          <div className="border-t border-white/10 pt-6 space-y-4">
-            <button
-              onClick={() => router.push("/dashboard")}
-              className="w-full py-4 bg-white text-black font-bold uppercase tracking-widest text-[10px] hover:bg-[#F3D7A7] transition-all flex items-center justify-center gap-2 cursor-pointer rounded-none"
-            >
-              <span>Go to Student Profile</span>
-              <ArrowRight size={14} />
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (showSuccess) {
-    return (
-      <div className="min-h-screen bg-[#020202] text-white flex items-center justify-center p-6 font-mono rounded-none">
-        <div className="max-w-md w-full border border-white/10 bg-black p-10 text-left space-y-8 rounded-none">
-          <div className="flex items-center gap-4 text-emerald-500">
-            <CheckCircle2 size={24} />
-            <span className="text-xs font-bold uppercase tracking-[0.2em]">// TRANSMISSION SUCCESSFUL</span>
-          </div>
-          <div className="space-y-4">
-            <h2 className="text-3xl font-bold uppercase tracking-tight text-white leading-none">Admission Queued.</h2>
-            <p className="text-white/40 text-xs leading-relaxed uppercase tracking-wider">
-              Your admission portfolio for Cohort 02 has been received and logged in the database. Our core review team will evaluate your focus and commitment index. Expect a decision update in your profile.
-            </p>
-          </div>
-          <div className="border-t border-white/10 pt-6 space-y-4">
-            <button
-              onClick={() => router.push("/dashboard")}
-              className="w-full py-4 bg-white text-black font-bold uppercase tracking-widest text-[10px] hover:bg-[#F3D7A7] transition-all flex items-center justify-center gap-2 cursor-pointer rounded-none"
-            >
-              <span>Go to Student Profile</span>
-              <ArrowRight size={14} />
-            </button>
-          </div>
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4 text-left">
+          <div className="w-8 h-8 border-2 border-black/5 border-t-black rounded-full animate-spin" />
+          <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/20">Accessing Gateway...</span>
         </div>
       </div>
     );
   }
 
   return (
-    <main className="relative min-h-screen bg-[#020202] text-white selection:bg-[#F3D7A7] selection:text-black overflow-x-hidden font-sans rounded-none">
+    <div className="min-h-screen bg-[#F9F9F9] text-black flex flex-col md:flex-row relative font-sans selection:bg-[#F3D7A7] selection:text-black">
       
-      {/* Top logo header */}
-      <header className="w-full h-20 border-b border-white/5 px-6 md:px-24 flex items-center justify-between">
-        <button 
-          onClick={() => router.push("/")}
-          className="w-8 h-8 flex items-center justify-center cursor-pointer"
+      {/* SUCCESS MODAL */}
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="fixed inset-0 z-[100] bg-white flex items-center justify-center p-6"
+          >
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="max-w-lg w-full text-left space-y-10"
+            >
+              <div className="space-y-4 text-left">
+                <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.5em]">Phase 01 Complete</span>
+                <h3 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-[0.9] text-black">
+                  Admission <br/> Received.
+                </h3>
+                <p className="text-black/40 text-sm leading-relaxed max-w-sm">
+                  Your portfolio has been queued for architect review. We will evaluate your intent and commitment density. Expect a response in 48h.
+                </p>
+              </div>
+
+              <div className="pt-6">
+                <button 
+                  onClick={() => router.push("/dashboard")}
+                  className="group flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.4em] text-black hover:text-[#F3D7A7] transition-all"
+                >
+                  Go to Student Dashboard 
+                  <div className="h-10 w-10 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all">
+                    <ArrowRight size={16} />
+                  </div>
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {/* DUPLICATE SUBMISSION MODAL */}
+      <AnimatePresence>
+        {showExistingModal && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-md flex items-center justify-center p-6"
+          >
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="max-w-md w-full bg-white p-10 md:p-12 shadow-2xl space-y-8 rounded-2xl text-left"
+            >
+              <div className="space-y-4 text-left">
+                <div className="w-12 h-12 bg-black flex items-center justify-center rounded-full text-[#F3D7A7]">
+                   <AlertCircle size={24} />
+                </div>
+                <h3 className="text-3xl font-bold uppercase tracking-tight text-black text-left">
+                  Application <br/> Already Found.
+                </h3>
+                <p className="text-black/40 text-sm leading-relaxed text-left font-medium">
+                  You have already submitted a portfolio for the May 2026 Batch. Would you like to check your status or submit a revised version?
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-4 pt-4 text-left">
+                <motion.button 
+                  whileTap={{ scale: 0.95 }}
+                  onMouseEnter={() => router.prefetch("/dashboard")}
+                  onClick={() => router.push("/dashboard")}
+                  className="w-full py-4 bg-black text-white font-bold uppercase tracking-widest text-[10px] hover:bg-[#F3D7A7] hover:text-black transition-all duration-300 shadow-lg"
+                >
+                  Visit Student Profile
+                </motion.button>
+                <motion.button 
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowExistingModal(false)}
+                  className="w-full py-4 bg-transparent border border-black/10 text-black/40 font-bold uppercase tracking-widest text-[9px] hover:text-black hover:border-black transition-all duration-300"
+                >
+                  Submit Another Response
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="w-full md:w-[60%] bg-white px-6 md:px-20 py-20 overflow-y-auto">
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="max-w-xl mx-auto text-left"
         >
-          <Image 
-            src="/blade-logo.png" 
-            alt="Blade Logo" 
-            width={32} 
-            height={32} 
-            priority 
-            className="w-full h-full object-contain brightness-0 invert" 
-          />
-        </button>
-        <div className="flex items-center gap-4 font-mono text-[9px] md:text-[10px] text-white/40 uppercase tracking-widest">
-          <span>USER: {user.email}</span>
-          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-        </div>
-      </header>
+          <header className="mb-16 text-left">
+            <h2 className="text-4xl font-bold uppercase tracking-tighter mb-2 text-left">Admission Portfolio</h2>
+            <p className="text-black/30 text-[10px] font-bold uppercase tracking-[0.2em] text-left">May 2026 Batch // Institutional Entry</p>
+          </header>
 
-      {/* Main split grid */}
-      <div className="max-w-6xl mx-auto w-full px-6 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
-          {/* Left Column: Hero and Timeline Grid */}
-          <div className="lg:col-span-6 space-y-12 text-left">
-            
-            {/* Hero details */}
-            <div className="space-y-6">
-              <div className="w-fit border border-[#F3D7A7]/30 bg-[#F3D7A7]/5 px-4 py-1.5 font-mono text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-[#F3D7A7] rounded-none">
-                STARTING 29TH AUGUST 2026
-              </div>
-              
-              <h1 className="text-4xl md:text-5xl font-extrabold uppercase tracking-tight text-white font-mono leading-none">
-                BLADE INNER CIRCLE <br />
-                <span className="text-[#F3D7A7]">// COHORT 02</span>
-              </h1>
-              
-              <p className="text-white/40 text-xs md:text-sm font-mono uppercase tracking-widest leading-relaxed max-w-md">
-                Engineered by Blade Media. 2.5 Billion+ views driven.
-              </p>
-            </div>
-
-            {/* 8-Week Roadmap Connected Grid Table */}
-            <div className="space-y-6">
-              <span className="text-[10px] font-bold text-white/30 uppercase tracking-[0.4em] block font-mono">
-                THE 8-WEEK OPERATIONAL ROADMAP
-              </span>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-white/10 border border-white/10 overflow-hidden text-left font-mono rounded-none">
-                
-                <div className="p-6 bg-black flex flex-col justify-between h-36 rounded-none">
-                  <span className="text-[10px] text-[#F3D7A7] font-bold tracking-widest uppercase">// WEEKS 01 - 02</span>
-                  <div className="space-y-1">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-white">Fundamentals</h4>
-                    <p className="text-[10px] text-white/40 uppercase tracking-wide">Pacing, retention dynamics & video Moats</p>
-                  </div>
+          <form onSubmit={handleSubmit} className="space-y-12 text-left">
+            <div className="space-y-8 text-left">
+              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7] text-left">01. Identity Verification</h3>
+              <div className="grid grid-cols-1 gap-10 text-left">
+                <InputField 
+                  label="Full Name" 
+                  value={formData.name} 
+                  disabled={true}
+                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <InputField 
+                    label="Verified Email" 
+                    value={formData.email} 
+                    disabled={true}
+                  />
+                  <InputField 
+                    label="Contact Number" 
+                    placeholder="+91 98765 43210"
+                    value={formData.phone} 
+                    onChange={(val: string) => handleInputChange("phone", val)} 
+                    disabled={!!profile?.phone}
+                  />
                 </div>
-
-                <div className="p-6 bg-black flex flex-col justify-between h-36 rounded-none">
-                  <span className="text-[10px] text-[#F3D7A7] font-bold tracking-widest uppercase">// WEEKS 03 - 04</span>
-                  <div className="space-y-1">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-white">Offer & Brand</h4>
-                    <p className="text-[10px] text-white/40 uppercase tracking-wide">Authority positioning & high-ticket design</p>
-                  </div>
+                <InputField 
+                  label="Instagram Handle" 
+                  placeholder="@yourusername"
+                  value={formData.instagram} 
+                  onChange={(val: string) => handleInputChange("instagram", val)} 
+                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <InputField 
+                    label="Date of Birth" 
+                    type="date"
+                    value={formData.dob} 
+                    onChange={(val: string) => handleInputChange("dob", val)} 
+                    max={new Date().toISOString().split('T')[0]}
+                  />
+                  <InputField 
+                    label="Current Location" 
+                    placeholder="City, Country"
+                    value={formData.location} 
+                    onChange={(val: string) => handleInputChange("location", val)} 
+                  />
                 </div>
-
-                <div className="p-6 bg-black flex flex-col justify-between h-36 rounded-none">
-                  <span className="text-[10px] text-[#F3D7A7] font-bold tracking-widest uppercase">// WEEKS 05 - 06</span>
-                  <div className="space-y-1">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-white">Capital Extraction</h4>
-                    <p className="text-[10px] text-white/40 uppercase tracking-wide">Outbound outreach, scripts & closing retainers</p>
-                  </div>
-                </div>
-
-                <div className="p-6 bg-black flex flex-col justify-between h-36 rounded-none">
-                  <span className="text-[10px] text-[#F3D7A7] font-bold tracking-widest uppercase">// WEEKS 07 - 08</span>
-                  <div className="space-y-1">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-white">Velocity Scale</h4>
-                    <p className="text-[10px] text-white/40 uppercase tracking-wide">Editor systems, QA SOPs & operations delegation</p>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Goal Metric Highlight Box */}
-              <div className="border border-[#F3D7A7]/20 bg-[#F3D7A7]/5 p-6 font-mono flex items-center justify-between rounded-none">
-                <span className="text-[9px] text-[#F3D7A7]/70 font-bold uppercase tracking-widest">// TARGET PERFORMANCE METRIC</span>
-                <div className="text-right">
-                  <span className="text-white/40 text-[8px] uppercase tracking-widest block mb-0.5">REVENUE RANGE</span>
-                  <span className="text-white text-sm md:text-base font-bold uppercase tracking-wide">₹50k - ₹1L/Month</span>
-                </div>
+                <InputField 
+                  label="What do you currently do?" 
+                  placeholder="e.g. Student, Freelancer, Full-time job"
+                  value={formData.currentActivity} 
+                  onChange={(val: string) => handleInputChange("currentActivity", val)} 
+                />
               </div>
             </div>
 
-          </div>
-
-          {/* Right Column: Clean Form Container */}
-          <div className="lg:col-span-6 w-full">
-            <form onSubmit={handleSubmit} className="border border-white/10 bg-black p-8 md:p-10 text-left space-y-8 font-mono rounded-none">
-              <div className="border-b border-white/10 pb-4">
-                <span className="text-[9px] text-[#F3D7A7] font-bold uppercase tracking-widest block mb-1">// REGISTRATION PROTOCOL</span>
-                <h2 className="text-xl font-bold uppercase text-white tracking-tight">ADMISSION FILE</h2>
-              </div>
-
-              {/* Full Name Input */}
-              <div className="space-y-2">
-                <label className="text-[9px] text-white/30 uppercase tracking-widest block">Full Name *</label>
-                <input 
-                  type="text" 
-                  required 
-                  placeholder="e.g. John Doe"
-                  value={formData.name}
-                  onChange={(e) => handleInputChange("name", e.target.value)}
-                  className="w-full bg-white/[0.02] border border-white/10 p-4 text-xs font-mono uppercase tracking-wider text-white focus:outline-none focus:border-[#F3D7A7]/40 placeholder:text-white/10 rounded-none"
+            <div className="space-y-12 text-left">
+              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7] text-left">02. Evidence & Intent</h3>
+              <div className="space-y-12 text-left">
+                <TextAreaField 
+                  label="Portfolio Links"
+                  question="Share links to your best work (YouTube, Instagram, Portfolio, etc.)"
+                  placeholder="Paste URLs here, one per line..." 
+                  value={formData.links}
+                  onChange={(val: string) => handleInputChange("links", val)}
+                />
+                <TextAreaField 
+                  label="Statement of Intent"
+                  question="Why do you want to join the Inner Circle?"
+                  placeholder="Tell us about your goals and why you're a good fit..." 
+                  value={formData.whyJoin}
+                  onChange={(val: string) => handleInputChange("whyJoin", val)}
+                />
+                <TextAreaField 
+                  label="The Friction"
+                  question="What is currently stopping you from reaching your next level?"
+                  placeholder="Describe your current bottlenecks..." 
+                  value={formData.friction}
+                  onChange={(val: string) => handleInputChange("friction", val)} 
                 />
               </div>
+            </div>
 
-              {/* Email (Read Only) */}
-              <div className="space-y-2">
-                <label className="text-[9px] text-white/30 uppercase tracking-widest block">Email (Authenticated) *</label>
-                <input 
-                  type="email" 
-                  readOnly
-                  value={user.email || ""}
-                  className="w-full bg-white/[0.01] border border-white/5 p-4 text-xs font-mono uppercase tracking-wider text-white/40 cursor-not-allowed outline-none rounded-none"
-                />
-              </div>
-
-              {/* Portfolio Link / Social Handle */}
-              <div className="space-y-2">
-                <label className="text-[9px] text-white/30 uppercase tracking-widest block">Portfolio Link / Social Handle *</label>
-                <input 
-                  type="text" 
-                  required 
-                  placeholder="e.g. Behance, Instagram, or Drive link"
-                  value={formData.portfolioLink}
-                  onChange={(e) => handleInputChange("portfolioLink", e.target.value)}
-                  className="w-full bg-white/[0.02] border border-white/10 p-4 text-xs font-mono uppercase tracking-wider text-white focus:outline-none focus:border-[#F3D7A7]/40 placeholder:text-white/10 rounded-none"
-                />
-              </div>
-
-              {/* Primary Focus dropdown */}
-              <div className="space-y-2">
-                <label className="text-[9px] text-white/30 uppercase tracking-widest block">Primary Focus *</label>
-                <div className="relative">
-                  <select 
-                    value={formData.primaryFocus}
-                    onChange={(e) => handleInputChange("primaryFocus", e.target.value)}
-                    className="w-full bg-white/[0.02] border border-white/10 p-4 text-xs font-mono uppercase tracking-wider text-white focus:outline-none focus:border-[#F3D7A7]/40 select-dark cursor-pointer appearance-none rounded-none"
-                  >
-                    <option value="Video Editing" className="bg-[#020202] text-white">Video Editing</option>
-                    <option value="Meta Ads" className="bg-[#020202] text-white">Meta Ads</option>
-                    <option value="Performance Marketing" className="bg-[#020202] text-white">Performance Marketing</option>
-                    <option value="Copywriting" className="bg-[#020202] text-white">Copywriting</option>
-                    <option value="Other" className="bg-[#020202] text-white">Other</option>
-                  </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white/40 text-[9px]">▼</div>
-                </div>
-              </div>
-
-              {/* Statement of Readiness */}
-              <div className="space-y-2">
-                <label className="text-[9px] text-white/30 uppercase tracking-widest block leading-relaxed">
-                  Why are you ready to switch from a consumer to a serious business operator? *
-                </label>
-                <textarea 
-                  required 
-                  placeholder="Describe your commitment density and operational readiness..."
-                  value={formData.whyReady}
-                  onChange={(e) => handleInputChange("whyReady", e.target.value)}
-                  className="w-full bg-white/[0.02] border border-white/10 p-6 text-xs font-mono uppercase tracking-wider text-white focus:outline-none focus:border-[#F3D7A7]/40 min-h-[140px] placeholder:text-white/10 rounded-none"
-                />
-              </div>
-
-              {errorMessage && (
-                <p className="text-red-500 text-[10px] font-mono uppercase tracking-widest leading-normal text-left">{errorMessage}</p>
-              )}
-
-              <button 
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-[#F3D7A7] text-black py-5 font-bold uppercase tracking-[0.2em] text-[10px] hover:bg-white transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed rounded-none"
+            <div className="space-y-8 text-left pt-12">
+              <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7] text-left">03. Institutional Commitment</h3>
+              <motion.div 
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                className={`relative overflow-hidden cursor-pointer p-8 rounded-3xl transition-all duration-500 border ${formData.commitment ? "bg-black border-black text-white" : "bg-white border-black/5 text-black hover:border-[#F3D7A7]/30"}`}
+                onClick={() => setFormData(prev => ({ ...prev, commitment: !prev.commitment }))}
               >
-                {isSubmitting ? "TRANSMITTING DATA..." : "SUBMIT APPLICATION FOR COHORT 02"}
-              </button>
-            </form>
-          </div>
+                <div className="flex items-start gap-6 relative z-10">
+                  <div className={`mt-1 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-500 ${formData.commitment ? "bg-[#F3D7A7] border-[#F3D7A7]" : "border-black/10"}`}>
+                    {formData.commitment && <CheckCircle2 size={14} className="text-black" />}
+                  </div>
+                  <div className="space-y-3">
+                    <p className={`text-sm md:text-base font-bold uppercase tracking-tight leading-tight ${formData.commitment ? "text-[#F3D7A7]" : "text-black"}`}>
+                      I Commit to the 2-Month Sprint.
+                    </p>
+                    <p className={`text-[11px] md:text-xs leading-relaxed uppercase tracking-wider font-medium ${formData.commitment ? "text-white/60" : "text-black/40"}`}>
+                      I will follow the curriculum entirely and understand that evaluation is based on execution results. I am ready to operate.
+                    </p>
+                  </div>
+                </div>
+                {/* Decorative background glow for active state */}
+                {formData.commitment && (
+                  <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-[#F3D7A7]/10 rounded-full blur-[80px]" />
+                )}
+              </motion.div>
+            </div>
 
-        </div>
+            {errorMessage && (
+              <div className="text-red-500 text-[10px] font-bold uppercase tracking-widest text-left">{errorMessage}</div>
+            )}
+
+            <motion.button 
+              type="submit" 
+              whileTap={{ scale: 0.98 }}
+              disabled={isSubmitting || showSuccess}
+              className="w-full py-6 bg-black text-white font-bold uppercase tracking-widest text-[10px] hover:bg-[#F3D7A7] hover:text-black transition-all duration-500 shadow-2xl disabled:opacity-50"
+            >
+              {isSubmitting ? "TRANSMITTING..." : "Submit Admission Portfolio"}
+            </motion.button>
+          </form>
+        </motion.div>
       </div>
 
-      {/* Footer */}
-      <footer className="w-full h-20 border-t border-white/5 flex items-center justify-center font-mono text-[9px] text-white/20 uppercase tracking-[0.6em]">
-        © 2026 Blade // Institutional Access
-      </footer>
-    </main>
+      <div className="w-full md:w-[40%] bg-[#F9F9F9] border-l border-black/5 px-8 md:px-16 py-20 text-left">
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.4 }}
+          className="sticky top-20 space-y-16 text-left"
+        >
+          <div className="space-y-8 text-left">
+            <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-[#F3D7A7] block text-left">The Commitment</span>
+            <h3 className="text-4xl font-bold uppercase tracking-tighter leading-none text-left">Operational <br/> Excellence.</h3>
+            <p className="text-sm text-black/40 leading-relaxed font-light text-left">
+              Admission into the Inner Circle is based on more than just skill. We look for commitment density and a bias toward execution.
+            </p>
+          </div>
+
+          <div className="space-y-8 text-left">
+            <SidebarItem icon={<Zap size={18}/>} title="High Density" desc="2-month intensive focused purely on system deployment." />
+            <SidebarItem icon={<ShieldCheck size={18}/>} title="Vetted Cohort" desc="Limited to a maximum of 10 architects per batch." />
+          </div>
+
+          <div className="p-8 bg-white border border-black/5 text-left">
+            <p className="text-[10px] uppercase tracking-[0.4em] font-bold mb-4 text-left">Notice</p>
+            <p className="text-[11px] text-black/50 leading-relaxed text-left">
+              Duplicate submissions or false information will result in permanent disqualification from the Blade ecosystem.
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    </div>
   );
 }
+
+const InputField = ({ label, placeholder, value, onChange, disabled = false, type = "text", ...props }: any) => (
+  <div className="space-y-3 text-left group">
+    <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30 group-focus-within:text-[#F3D7A7] transition-colors duration-300 block text-left">
+      {label}
+    </label>
+    <div className="relative text-left">
+      <input 
+        type={type} 
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => onChange && onChange(e.target.value)}
+        disabled={disabled}
+        className={`w-full bg-[#F5F5F7] border border-black/[0.03] rounded-xl px-6 py-4.5 text-lg font-bold tracking-tight focus:bg-white focus:border-[#F3D7A7]/50 focus:shadow-[0_10px_30px_rgba(0,0,0,0.03)] outline-none transition-all duration-500 placeholder:text-black/5 text-left ${disabled ? "opacity-40 cursor-not-allowed bg-black/[0.02]" : ""}`}
+        {...props}
+      />
+    </div>
+  </div>
+);
+
+const TextAreaField = ({ label, question, placeholder, value, onChange }: any) => (
+  <div className="space-y-5 text-left group">
+    <div className="space-y-1.5 text-left">
+       <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#F3D7A7] block text-left">{label}</label>
+       <p className="text-xl font-bold tracking-tight text-black leading-tight text-left">{question}</p>
+    </div>
+    <textarea 
+      placeholder={placeholder}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="w-full bg-[#F5F5F7] border border-black/[0.03] rounded-2xl p-8 text-base font-medium leading-relaxed outline-none focus:bg-white focus:border-[#F3D7A7]/50 focus:shadow-[0_20px_40px_rgba(0,0,0,0.03)] min-h-[180px] transition-all duration-500 placeholder:text-black/10 text-left"
+    />
+  </div>
+);
+
+const SidebarItem = ({ icon, title, desc }: any) => (
+  <div className="flex gap-6 text-left">
+    <div className="text-[#F3D7A7] mt-1 text-left">{icon}</div>
+    <div className="space-y-1 text-left">
+      <h4 className="text-xs font-bold uppercase tracking-widest text-left">{title}</h4>
+      <p className="text-[10px] text-black/30 uppercase tracking-[0.2em] leading-relaxed text-left">{desc}</p>
+    </div>
+  </div>
+);
