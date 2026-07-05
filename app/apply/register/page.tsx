@@ -378,13 +378,13 @@ export default function CohortRegisterPage() {
             {/* Header info */}
             <div className="space-y-6">
               <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-[#F3D7A7] block">
-                THE COMMITMENT
+                OUR TRACK RECORD
               </span>
               <h3 className="text-4xl font-extrabold uppercase tracking-tighter leading-none text-black">
-                Operational <span className="font-serif italic font-normal text-[#F3D7A7] lowercase tracking-normal normal-case">excellence.</span>
+                Built on <span className="font-serif italic font-normal text-[#F3D7A7] lowercase tracking-normal normal-case">results.</span>
               </h3>
               <p className="text-sm text-black/40 leading-relaxed font-light">
-                Admission into the Inner Circle is based on more than just skill. We look for commitment density and a bias toward execution.
+                Blade Inner Circle is powered by Blade Media, the digital agency behind some of the largest creators on the internet.
               </p>
             </div>
 
@@ -394,9 +394,9 @@ export default function CohortRegisterPage() {
               <div className="flex gap-6 text-left">
                 <div className="text-[#F3D7A7] mt-1"><Zap size={18} className="text-black" /></div>
                 <div className="space-y-1">
-                  <h4 className="text-xs font-bold uppercase tracking-widest text-black">High Density</h4>
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-black">2.5 Billion+ Views</h4>
                   <p className="text-[10px] text-black/40 uppercase tracking-[0.2em] leading-relaxed">
-                    2-month intensive focused purely on system deployment.
+                    Our video systems have driven over 2.5 Billion views for top global brands and creators.
                   </p>
                 </div>
               </div>
@@ -404,9 +404,19 @@ export default function CohortRegisterPage() {
               <div className="flex gap-6 text-left">
                 <div className="text-[#F3D7A7] mt-1"><ShieldCheck size={18} className="text-black" /></div>
                 <div className="space-y-1">
-                  <h4 className="text-xs font-bold uppercase tracking-widest text-black">Vetted Cohort</h4>
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-black">80+ Active Operators</h4>
                   <p className="text-[10px] text-black/40 uppercase tracking-[0.2em] leading-relaxed">
-                    Limited capacity to maintain high-quality interaction.
+                    Over 80 freelancers and creators joined Cohort 01, learning video editing and client acquisition.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-6 text-left">
+                <div className="text-[#F3D7A7] mt-1"><CheckCircle2 size={18} className="text-black" /></div>
+                <div className="space-y-1">
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-black">₹50k - ₹1L Retainers</h4>
+                  <p className="text-[10px] text-black/40 uppercase tracking-[0.2em] leading-relaxed">
+                    Our graduates deploy outreach systems targeting premium monthly client contracts.
                   </p>
                 </div>
               </div>
