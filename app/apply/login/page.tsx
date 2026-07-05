@@ -200,7 +200,7 @@ function LoginContent() {
               {step === 3 ? "Set Password" : (authMode === "register" ? "Join the Circle" : "Member Login")}
             </h1>
             <p className="text-black/40 text-[10px] font-bold uppercase tracking-widest">
-              Cohort 01 — May 2026 Registration
+              Cohort 02 — August 2026 Registration
             </p>
           </div>
 
