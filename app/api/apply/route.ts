@@ -40,10 +40,31 @@ export async function POST(req: NextRequest) {
 
     if (!emailResult.success) {
       console.error('Email Dispatch Failure:', emailResult.error);
-      return NextResponse.json({ 
-        success: false, 
-        error: `Email failed: ${(emailResult.error as any)?.message || 'Unknown Resend Error'}` 
-      }, { status: 500 });
+    }
+
+    // 3. Optional Google Sheet Webhook Integration
+    const sheetWebhookUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;
+    if (sheetWebhookUrl) {
+      try {
+        await fetch(sheetWebhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            timestamp: new Date().toISOString(),
+            applicationId: docId,
+            name,
+            email,
+            phone: phone || 'not provided',
+            instagram: instagram || 'not provided',
+            portfolioLink: otherData.portfolioLink || '',
+            primaryFocus: otherData.primaryFocus || '',
+            whyReady: otherData.whyReady || '',
+            cohort: otherData.cohort || 'Cohort 02',
+          }),
+        });
+      } catch (webhookError) {
+        console.error('Google Sheet Webhook logging failed:', webhookError);
+      }
     }
 
     return NextResponse.json({ 
