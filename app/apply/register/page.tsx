@@ -26,6 +26,7 @@ export default function CohortRegisterPage() {
 
   const [formData, setFormData] = useState({
     name: "",
+    phone: "",
     portfolioLink: "",
     primaryFocus: "Learn a High-Income Skill",
     whyReady: "",
@@ -61,6 +62,7 @@ export default function CohortRegisterPage() {
       setFormData(prev => ({
         ...prev,
         name: profile.name || "",
+        phone: profile.phone || "",
       }));
     }
 
@@ -85,7 +87,7 @@ export default function CohortRegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.portfolioLink || !formData.whyReady || !formData.commitment) {
+    if (!formData.name || !formData.phone || !formData.portfolioLink || !formData.whyReady || !formData.commitment) {
       toast.warning("Incomplete Form", {
         description: "Please fill out all fields and agree to the sprint commitment.",
       });
@@ -103,7 +105,7 @@ export default function CohortRegisterPage() {
         body: JSON.stringify({
           name: formData.name,
           email: user?.email,
-          phone: profile?.phone || 'not provided',
+          phone: formData.phone,
           instagram: (profile as any)?.instagram || 'not provided',
           portfolioLink: formData.portfolioLink,
           primaryFocus: formData.primaryFocus,
@@ -254,6 +256,21 @@ export default function CohortRegisterPage() {
                       readOnly
                       value={user.email || ""}
                       className="w-full bg-[#F5F5F7] border border-black/[0.03] rounded-xl px-6 py-4 text-base font-bold tracking-tight text-black/40 cursor-not-allowed outline-none"
+                    />
+                  </div>
+
+                  {/* Phone field */}
+                  <div className="space-y-2 text-left">
+                    <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30 block">
+                      Contact Number *
+                    </label>
+                    <input 
+                      type="tel"
+                      required
+                      placeholder="e.g. +91 98765 43210"
+                      value={formData.phone}
+                      onChange={(e) => handleInputChange("phone", e.target.value)}
+                      className="w-full bg-[#F5F5F7] border border-black/[0.03] rounded-xl px-6 py-4 text-base font-bold tracking-tight focus:bg-white focus:border-[#F3D7A7]/50 focus:shadow-[0_10px_30px_rgba(0,0,0,0.03)] outline-none transition-all duration-500 placeholder:text-black/10"
                     />
                   </div>
 
