@@ -644,11 +644,11 @@ END:VCALENDAR`;
                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-white mb-4">Template Engine</h4>
                  <p className="mb-4">The text you enter in the body will be automatically injected into the official Blade Media HTML template.</p>
                  <p className="mb-4">You can use basic HTML tags for formatting if needed, such as:</p>
-                 <code className="block bg-black p-4 text-[11px] text-[#D4AF37] mb-4">
-                   &lt;a href="..."&gt;Link&lt;/a&gt;<br/>
-                   &lt;strong&gt;Bold&lt;/strong&gt;<br/>
-                   &lt;br/&gt; (Line break)
-                 </code>
+                  <code className="block bg-[#050505] p-4 text-[11px] text-[#D4AF37] mb-4">
+                    &lt;a href=&quot;...&quot;&gt;Link&lt;/a&gt;<br/>
+                    &lt;strong&gt;Bold&lt;/strong&gt;<br/>
+                    &lt;br/&gt; (Line break)
+                  </code>
                </div>
             </div>
           </div>

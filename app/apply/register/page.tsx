@@ -151,7 +151,7 @@ export default function CohortRegisterPage() {
         <div className="max-w-md w-full border border-black/5 bg-white p-10 text-left space-y-8 shadow-sm rounded-2xl">
           <div className="flex items-center gap-4 text-[#F3D7A7]">
             <AlertCircle size={24} className="text-black" />
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-black/40">// SUBMISSION FOUND</span>
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-black/40">{"// SUBMISSION FOUND"}</span>
           </div>
           <div className="space-y-4">
             <h2 className="text-3xl font-bold uppercase tracking-tight leading-none">Already Sent.</h2>
@@ -179,7 +179,7 @@ export default function CohortRegisterPage() {
         <div className="max-w-md w-full border border-black/5 bg-white p-10 text-left space-y-8 shadow-sm rounded-2xl">
           <div className="flex items-center gap-4 text-emerald-500">
             <CheckCircle2 size={24} />
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-black/40">// SUBMISSION SUCCESSFUL</span>
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-black/40">{"// SUBMISSION SUCCESSFUL"}</span>
           </div>
           <div className="space-y-4">
             <h2 className="text-3xl font-bold uppercase tracking-tight leading-none">Form Submitted.</h2>
@@ -496,7 +496,7 @@ export default function CohortRegisterPage() {
             className="bg-white border border-black/5 p-8 rounded-2xl shadow-sm space-y-6 flex flex-col justify-between h-fit"
           >
             <div className="space-y-2">
-              <span className="text-[9px] text-[#F3D7A7] font-bold uppercase tracking-widest block font-mono">// TIMELINE & MILESTONES</span>
+              <span className="text-[9px] text-[#F3D7A7] font-bold uppercase tracking-widest block font-mono">{"// TIMELINE & MILESTONES"}</span>
               <h4 className="text-lg font-bold uppercase tracking-tight text-black">WEEK-BY-WEEK PLAN</h4>
               <p className="text-xs text-black/40 leading-relaxed uppercase tracking-wider font-semibold">
                 Explore the modules, resources, coaching calls, and client workflows inside the complete syllabus.

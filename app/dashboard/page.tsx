@@ -17,7 +17,7 @@ interface Application {
   id: string;
   uid: string;
   createdAt?: Timestamp;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 // --- ADMISSION STEPS ---
