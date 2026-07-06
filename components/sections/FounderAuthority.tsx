@@ -48,7 +48,7 @@ const FounderAuthority = () => {
               </h2>
             </div>
             <p className="text-white/60 text-xl leading-relaxed max-w-lg font-light text-left">
-              The Blade Inner Circle is created from 5 years of real-world work. We don&apos;t teach guesswork — we teach what we have actually done ourselves.
+              The Blade Inner Circle is built from 7 years of scaling brands and creators. We don&apos;t teach guesswork — we teach what we have actually done ourselves.
             </p>
             
             <div className="grid grid-cols-2 gap-6 mt-12 text-left">

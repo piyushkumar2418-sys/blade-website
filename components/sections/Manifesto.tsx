@@ -4,7 +4,7 @@ import React from "react";
 const Manifesto = () => {
   return (
     <section 
-      className="py-64 px-6 md:px-24 bg-[#030303] relative overflow-hidden border-b border-white/5"
+      className="pt-16 pb-32 px-6 md:px-24 bg-[#030303] relative overflow-hidden border-b border-white/5"
       style={{
         backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px)',
         backgroundSize: '24px 24px',

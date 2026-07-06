@@ -4,7 +4,7 @@ import SectionLabel from "../SectionLabel";
 
 const Crisis = () => {
   return (
-    <section className="py-32 px-6 md:px-24 bg-black text-white text-left">
+    <section className="pt-32 pb-8 px-6 md:px-24 bg-black text-white text-left">
       <div className="max-w-7xl mx-auto text-left">
         <SectionLabel light>The Industry Crisis</SectionLabel>
         <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-tight leading-[0.85] mb-20 text-left">Most online content creators <br /> <span className="text-white/20">fail easily.</span></h2>

@@ -507,7 +507,7 @@ export default function CohortRegisterPage() {
               onClick={() => router.push("/curriculum")}
               className="w-full py-4 bg-black text-white hover:bg-[#F3D7A7] hover:text-black transition-all font-bold uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 cursor-pointer border-none rounded-xl"
             >
-              <span>View Full Curriculum</span>
+              <span>View Full Prospectus</span>
               <ArrowRight size={14} />
             </button>
           </motion.div>

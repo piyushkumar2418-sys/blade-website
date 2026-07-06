@@ -141,7 +141,7 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
                 onClick={() => router.push("/curriculum")}
                 className="bg-white text-black px-12 py-5 rounded-full font-bold uppercase tracking-widest text-[11px] hover:bg-[#F3D7A7] transition-all duration-300 flex items-center gap-4 shadow-xl text-left"
               >
-                View Full Curriculum <ArrowRight size={20}/>
+                View Full Prospectus <ArrowRight size={20}/>
               </motion.button>
             </div>
 
