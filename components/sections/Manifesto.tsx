@@ -1,7 +1,5 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
 
 const Manifesto = () => {
   return (
@@ -35,56 +33,26 @@ const Manifesto = () => {
             </p>
           </div>
 
-          {/* RIGHT COLUMN: DYNAMIC ORB AND FLOATING SPECS (matching Reference 2 layout) */}
-          <div className="lg:col-span-5 relative min-h-[500px] flex items-center justify-center">
-            
-            {/* The Floating Spec Orb */}
-            <motion.div 
-              animate={{ 
-                y: [0, -15, 0],
-                rotate: [0, 5, 0]
-              }}
-              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              className="w-[280px] h-[280px] md:w-[350px] md:h-[350px] relative z-10 mix-blend-screen opacity-90 filter saturate-150"
-            >
-              <Image 
-                src="/bic-orb.png" 
-                alt="BIC Spec Orb" 
-                fill 
-                className="object-contain"
-              />
-            </motion.div>
-
-            {/* Spec 01: Setup */}
-            <div className="absolute top-10 left-[-20px] md:left-[-40px] max-w-[160px] z-20 text-left">
-              <span className="text-[10px] font-bold text-[#F3D7A7] block tracking-[0.2em] mb-2 font-mono">01 / SETUP</span>
-              <p className="text-[10px] text-white/50 leading-relaxed uppercase tracking-wider font-semibold">
-                We set up working business systems directly into your daily routine.
+          {/* RIGHT COLUMN: TECHNICAL SPECS */}
+          <div className="lg:col-span-5 pt-20 lg:pt-48 space-y-8 relative z-10">
+            <div className="space-y-4 p-8 border border-white/5 bg-white/[0.01] backdrop-blur-2xl rounded-2xl hover:border-white/10 transition-all duration-300">
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F3D7A7]">01 / Setup</h4>
+              <p className="text-xs text-white/50 leading-relaxed">
+                We set up working business systems directly into your daily routine. We don&apos;t just share ideas; we give you the exact steps and scripts.
               </p>
-              {/* Diagonal Connector Line */}
-              <div className="w-12 h-[1px] bg-[#F3D7A7]/20 mt-3 origin-left rotate-[25deg] hidden md:block" />
             </div>
-
-            {/* Spec 02: Speed */}
-            <div className="absolute bottom-10 left-[-10px] md:left-[-30px] max-w-[160px] z-20 text-left">
-              <span className="text-[10px] font-bold text-[#F3D7A7] block tracking-[0.2em] mb-2 font-mono">02 / SPEED</span>
-              <p className="text-[10px] text-white/50 leading-relaxed uppercase tracking-wider font-semibold">
-                We help you build a solid business that can grow fast without breaking down.
+            <div className="space-y-4 p-8 border border-white/5 bg-white/[0.01] backdrop-blur-2xl rounded-2xl hover:border-white/10 transition-all duration-300">
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F3D7A7]">02 / Speed</h4>
+              <p className="text-xs text-white/50 leading-relaxed">
+                We help you build a solid business that can grow fast without breaking down. Fast systems for big results.
               </p>
-              {/* Diagonal Connector Line */}
-              <div className="w-12 h-[1px] bg-[#F3D7A7]/20 mt-3 origin-left rotate-[-25deg] hidden md:block" />
             </div>
-
-            {/* Spec 03: High Quality */}
-            <div className="absolute right-[-10px] md:right-[-20px] top-[40%] max-w-[160px] z-20 text-left">
-              <span className="text-[10px] font-bold text-[#F3D7A7] block tracking-[0.2em] mb-2 font-mono">03 / QUALITY</span>
-              <p className="text-[10px] text-white/50 leading-relaxed uppercase tracking-wider font-semibold">
-                You get the exact same methods that the top 0.1% of creators use.
+            <div className="space-y-4 p-8 border border-white/5 bg-white/[0.01] backdrop-blur-2xl rounded-2xl hover:border-white/10 transition-all duration-300">
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F3D7A7]">03 / High Quality</h4>
+              <p className="text-xs text-white/50 leading-relaxed">
+                You get the exact same high-quality methods that the top 0.1% of creators use to stay on top.
               </p>
-              {/* Connector Line */}
-              <div className="w-12 h-[1px] bg-[#F3D7A7]/20 mt-3 origin-right rotate-[180deg] hidden md:block" />
             </div>
-
           </div>
 
         </div>

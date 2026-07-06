@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { User } from "firebase/auth";
-import Image from "next/image";
 
 interface InnerCircleHeroProps {
   user: User | null;
@@ -65,24 +64,6 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
         }}
       />
 
-      {/* Floating 3D Orb Graphic in center background */}
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 0.35, scale: 1, y: [0, -20, 0] }}
-        transition={{ 
-          opacity: { duration: 1.5 },
-          scale: { duration: 1.5 },
-          y: { duration: 8, repeat: Infinity, ease: "easeInOut" }
-        }}
-        className="absolute w-[350px] h-[350px] md:w-[600px] md:h-[600px] z-0 pointer-events-none mix-blend-screen"
-      >
-        <Image 
-          src="/bic-orb.png" 
-          alt="BIC Orb" 
-          fill 
-          className="object-contain filter saturate-150"
-        />
-      </motion.div>
 
       {/* Main bold title */}
       <motion.h1 
