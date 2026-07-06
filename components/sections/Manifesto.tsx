@@ -10,7 +10,7 @@ const Manifesto = () => {
           {/* LEFT COLUMN: MANIFESTO */}
           <div className="lg:col-span-7 space-y-16">
             <div className="inline-flex items-center gap-4">
-              <span className="text-[10px] font-bold tracking-[0.4em] text-white/30 uppercase">Institutional Thesis // 2026</span>
+              <span className="text-[10px] font-bold tracking-[0.4em] text-white/30 uppercase">Our Core Belief // 2026</span>
               <div className="h-[1px] w-12 bg-white/10" />
             </div>
             
@@ -19,28 +19,28 @@ const Manifesto = () => {
             </h2>
             
             <p className="text-2xl md:text-3xl text-white/40 leading-relaxed font-light max-w-xl">
-              Theoretical knowledge is a liability in high-velocity markets. We deploy infrastructure that produces tangible extraction.
+              Learning just theories doesn&apos;t help you in the real world. We give you real tools that help you make real money.
             </p>
           </div>
 
           {/* RIGHT COLUMN: TECHNICAL SPECS */}
           <div className="lg:col-span-5 pt-20 lg:pt-48 space-y-20">
             <div className="space-y-6">
-              <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F3D7A7]">01 / Deployment</h4>
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F3D7A7]">01 / Setup</h4>
               <p className="text-sm text-white/55 leading-relaxed max-w-sm">
-                Direct integration of operational systems into your existing workflow. We don&apos;t share ideas; we deploy code and protocol.
+                We set up working business systems directly into your daily routine. We don&apos;t just share ideas; we give you the exact steps and scripts.
               </p>
             </div>
             <div className="space-y-6 border-t border-white/5 pt-12">
-              <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F3D7A7]">02 / Velocity</h4>
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F3D7A7]">02 / Speed</h4>
               <p className="text-sm text-white/55 leading-relaxed max-w-sm">
-                Infrastructure built to sustain exponential growth without operational collapse. High-velocity systems for high-ticket results.
+                We help you build a solid business that can grow fast without breaking down. Fast systems for big results.
               </p>
             </div>
             <div className="space-y-6 border-t border-white/5 pt-12">
-              <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F3D7A7]">03 / Elite Output</h4>
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F3D7A7]">03 / High Quality</h4>
               <p className="text-sm text-white/55 leading-relaxed max-w-sm">
-                Access to the same institutional-grade standards used by the top 0.1% to dominate the creator economy.
+                You get the exact same high-quality methods that the top 0.1% of creators use to stay on top.
               </p>
             </div>
           </div>

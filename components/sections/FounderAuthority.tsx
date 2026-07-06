@@ -42,25 +42,25 @@ const FounderAuthority = () => {
             className="space-y-10 text-left"
           >
             <div className="text-left">
-              <SectionLabel>Founding Methodology</SectionLabel>
+              <SectionLabel>Our Experience</SectionLabel>
               <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-[-0.06em] leading-[0.85] text-left text-white">
-                The Practitioner’s <br /> Ledger.
+                Made by <br /> Real Experts.
               </h2>
             </div>
             <p className="text-white/60 text-xl leading-relaxed max-w-lg font-light text-left">
-              Blade Inner Circle is the distilled output of 5 years of market execution. We don&apos;t teach what we think — we teach what we have proven at scale.
+              The Blade Inner Circle is created from 5 years of real-world work. We don&apos;t teach guesswork — we teach what we have actually done ourselves.
             </p>
             
             <div className="grid grid-cols-2 gap-6 mt-12 text-left">
                <div className="p-6 border border-white/5 bg-[#0a0a0a] space-y-2 text-left rounded-lg">
                   <BarChart3 size={20} className="text-[#F3D7A7] text-left" />
-                  <h5 className="text-[10px] font-bold uppercase tracking-widest text-white/30 text-left">Market Reach</h5>
+                  <h5 className="text-[10px] font-bold uppercase tracking-widest text-white/30 text-left">Total Views</h5>
                   <p className="text-xl font-bold text-left text-white">2.5B+ Views</p>
                </div>
                <div className="p-6 border border-white/5 bg-[#0a0a0a] space-y-2 text-left rounded-lg">
                   <Binary size={20} className="text-[#F3D7A7] text-left" />
-                  <h5 className="text-[10px] font-bold uppercase tracking-widest text-white/30 text-left">Capital Extraction</h5>
-                  <p className="text-xl font-bold text-left text-white">₹3Cr+ Built</p>
+                  <h5 className="text-[10px] font-bold uppercase tracking-widest text-white/30 text-left">Total Revenue</h5>
+                  <p className="text-xl font-bold text-left text-white">₹3Cr+ Made</p>
                </div>
             </div>
           </motion.div>

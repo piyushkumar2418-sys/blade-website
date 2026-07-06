@@ -360,12 +360,12 @@ export default function CohortRegisterPage() {
                       <p className={`text-sm font-bold uppercase tracking-tight leading-tight ${
                         formData.commitment ? "text-[#F3D7A7]" : "text-black"
                       }`}>
-                        I Commit to the 2-Month Sprint.
+                        I commit to the 2-month training program.
                       </p>
                       <p className={`text-[11px] leading-relaxed uppercase tracking-wider font-semibold ${
                         formData.commitment ? "text-white/60" : "text-black/40"
                       }`}>
-                        I will follow the curriculum entirely and understand that evaluation is based on execution results. I am ready to operate.
+                        I will follow the curriculum completely and do my best to complete all the tasks. I am ready to start.
                       </p>
                     </div>
                   </div>
@@ -375,7 +375,7 @@ export default function CohortRegisterPage() {
               {/* Error messages */}
               {errorMessage && (
                 <div className="text-red-500 text-[10px] font-bold uppercase tracking-widest text-left font-mono">
-                  FAILED TO SUBMIT: {errorMessage}
+                  COULD NOT SUBMIT: {errorMessage}
                 </div>
               )}
 
@@ -387,7 +387,7 @@ export default function CohortRegisterPage() {
                 disabled={isSubmitting}
                 className="w-full py-5 bg-black text-white font-bold uppercase tracking-widest text-xs hover:bg-[#F3D7A7] hover:text-black transition-all duration-300 rounded-none border-none cursor-pointer flex items-center justify-center shadow-lg"
               >
-                {isSubmitting ? "TRANSMITTING DATA..." : "SUBMIT ADMISSION PORTFOLIO"}
+                {isSubmitting ? "SENDING APPLICATION..." : "SUBMIT APPLICATION"}
               </motion.button>
 
             </form>
@@ -435,7 +435,7 @@ export default function CohortRegisterPage() {
                 <div className="space-y-1">
                   <h4 className="text-xs font-bold uppercase tracking-widest text-black">80+ Active Operators</h4>
                   <p className="text-[10px] text-black/40 uppercase tracking-[0.2em] leading-relaxed">
-                    Over 80 freelancers and creators joined Cohort 01, learning video editing and client acquisition.
+                    Over 80 students joined Cohort 01, learning video editing and how to get high-paying clients.
                   </p>
                 </div>
               </div>
@@ -445,7 +445,7 @@ export default function CohortRegisterPage() {
                 <div className="space-y-1">
                   <h4 className="text-xs font-bold uppercase tracking-widest text-black">₹50k - ₹1L Retainers</h4>
                   <p className="text-[10px] text-black/40 uppercase tracking-[0.2em] leading-relaxed">
-                    Our graduates deploy outreach systems targeting premium monthly client contracts.
+                    Our graduates use our message templates to find and sign clients who pay them monthly.
                   </p>
                 </div>
               </div>

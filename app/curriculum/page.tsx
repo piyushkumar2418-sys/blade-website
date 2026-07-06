@@ -188,8 +188,8 @@ export default function CurriculumPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24">
           <div>
             <SectionLabel>The Network</SectionLabel>
-            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-[-0.06em] mb-8 leading-[0.9]">A Room of <br/> Practitioners.</h2>
-            <p className="text-black/60 text-xl leading-relaxed font-medium mb-12">Membership is restricted. The value of the Inner Circle is the high-intent environment created by founders and builders.</p>
+            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-[-0.06em] mb-8 leading-[0.9]">A Room of <br/> Hard Workers.</h2>
+            <p className="text-black/60 text-xl leading-relaxed font-medium mb-12">We only accept a few members. The value of the Inner Circle is working alongside other serious students.</p>
             <div className="space-y-6">
               <div className="flex items-start gap-4 border-l-2 border-[#D4AF37] pl-6">
                 <h4 className="text-sm font-bold uppercase tracking-widest">Extreme Accountability</h4>
@@ -201,16 +201,16 @@ export default function CurriculumPage() {
           </div>
           <div>
             <SectionLabel>The Opportunity</SectionLabel>
-            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-[-0.06em] mb-8 leading-[0.9]">Institutional <br/> Pipeline.</h2>
-            <p className="text-black/60 text-xl leading-relaxed font-medium mb-12">We don&apos;t promise jobs; we provide a high-level venue for access. Top performers are positioned for direct roles.</p>
+            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-[-0.06em] mb-8 leading-[0.9]">Real Job <br/> Pathways.</h2>
+            <p className="text-black/60 text-xl leading-relaxed font-medium mb-12">We don&apos;t just hand out jobs. We give you the skills and connections, and our top students get hired directly by us.</p>
             <div className="grid grid-cols-1 gap-4">
               <div className="p-8 bg-[#F9F9F9] rounded-sm">
                 <h4 className="text-black font-bold uppercase tracking-[-0.06em] text-lg mb-2">Agency Roles</h4>
-                <p className="text-xs text-black/55 uppercase tracking-widest font-bold">Direct pathways to Blade Media ecosystem.</p>
+                <p className="text-xs text-black/55 uppercase tracking-widest font-bold">Direct paths to join the Blade Media team.</p>
               </div>
               <div className="p-8 bg-[#F9F9F9] rounded-sm">
                 <h4 className="text-black font-bold uppercase tracking-[-0.06em] text-lg mb-2">Partner Network</h4>
-                <p className="text-xs text-black/55 uppercase tracking-widest font-bold">Referrals to high-growth consumer brands.</p>
+                <p className="text-xs text-black/55 uppercase tracking-widest font-bold">Introductions to fast-growing businesses.</p>
               </div>
             </div>
           </div>
@@ -225,14 +225,14 @@ export default function CurriculumPage() {
             onClick={() => router.push("/apply/login")}
             className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#D4AF37] transition-all flex items-center gap-4 mx-auto shadow-2xl"
           >
-            Submit Admission File <ArrowUpRight size={18}/>
+            Apply Now <ArrowUpRight size={18}/>
           </button>
-          <p className="mt-8 text-black/45 text-[10px] uppercase tracking-[0.4em] font-bold">Next Batch: Commencing May 2026</p>
+          <p className="mt-8 text-black/45 text-[10px] uppercase tracking-[0.4em] font-bold">Next Batch: Commencing August 29th, 2026</p>
         </div>
       </section>
 
       <footer className="py-20 px-6 text-center border-t border-black/5 bg-[#F9F9F9]">
-        <p className="text-[10px] font-bold uppercase tracking-[0.8em] text-black/35">Blade Inner Circle — Stop Consuming. Start Operating.</p>
+        <p className="text-[10px] font-bold uppercase tracking-[0.8em] text-black/35">Blade Inner Circle — Stop just watching. Start building.</p>
       </footer>
     </main>
   );

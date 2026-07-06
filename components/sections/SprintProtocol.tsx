@@ -19,27 +19,27 @@ const SprintProtocol = () => {
             <div className="w-1.5 h-1.5 bg-[#F3D7A7]/40 rounded-full" />
             <div className="w-1.5 h-1.5 bg-[#F3D7A7]/20 rounded-full" />
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-[0.8em] text-[#F3D7A7]">Institutional Protocol v2.6</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.8em] text-[#F3D7A7]">Our Program Guidelines</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mb-32">
           <div className="space-y-10">
             <h2 className="text-6xl md:text-8xl font-bold uppercase tracking-tighter leading-[0.8] mb-8">
-              Master the <br/> <span className="text-white/20">Market DNA.</span>
+              Learn How to <br/> <span className="text-white/20">Succeed Online.</span>
             </h2>
             <p className="text-white/50 text-lg leading-relaxed max-w-lg font-light">
-              The Inner Circle is a 60-day operational sprint designed to transition you from a spectator to a high-value operator.
+              The Inner Circle is a 60-day practical training program. We help you go from just watching content to running a real business.
             </p>
             
             <div className="flex flex-wrap gap-8 pt-8">
               <div className="space-y-2">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[#F3D7A7]">Mode of Delivery</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#F3D7A7]">Class Format</p>
                 <p className="text-sm font-bold uppercase">Google Meet / Zoom (Live)</p>
               </div>
               <div className="w-[1px] h-10 bg-white/10 hidden md:block" />
               <div className="space-y-2">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[#F3D7A7]">Outcome Standard</p>
-                <p className="text-sm font-bold uppercase">Guaranteed Placement</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#F3D7A7]">What You Get</p>
+                <p className="text-sm font-bold uppercase">Job & Client Offers</p>
               </div>
             </div>
           </div>
@@ -54,12 +54,12 @@ const SprintProtocol = () => {
             <div className="relative bg-black/40 border border-white/10 p-12 md:p-16 backdrop-blur-3xl rounded-[2rem] space-y-12 shadow-2xl">
               <div className="flex justify-between items-start">
                 <div className="space-y-1">
-                  <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest">Active System</p>
-                  <h4 className="text-xl font-bold uppercase tracking-tight">The 60-Day Sprint</h4>
+                  <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest">How It Works</p>
+                  <h4 className="text-xl font-bold uppercase tracking-tight">The 60-Day Program</h4>
                 </div>
-                <div className="bg-[#F3D7A7] text-black text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Live Operations</div>
+                <div className="bg-[#F3D7A7] text-black text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Live Classes</div>
               </div>
-
+ 
               <div className="space-y-8">
                 <div className="h-[1px] w-full bg-white/5 relative">
                   <motion.div 
@@ -71,19 +71,19 @@ const SprintProtocol = () => {
                 <div className="grid grid-cols-2 gap-8">
                   <div>
                     <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest mb-2">Phase 01</p>
-                    <p className="text-xs font-bold uppercase text-white/80">Skill Moat Built</p>
+                    <p className="text-xs font-bold uppercase text-white/80">Learn Skills</p>
                   </div>
                   <div>
                     <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest mb-2">Phase 02</p>
-                    <p className="text-xs font-bold uppercase text-white/80">Infra Deployed</p>
+                    <p className="text-xs font-bold uppercase text-white/80">Setup Business</p>
                   </div>
                   <div>
                     <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest mb-2">Phase 03</p>
-                    <p className="text-xs font-bold uppercase text-white/80">Revenue Extraction</p>
+                    <p className="text-xs font-bold uppercase text-white/80">Start Earning</p>
                   </div>
                   <div>
                     <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest mb-2">Phase 04</p>
-                    <p className="text-xs font-bold uppercase text-white/80">System Scaling</p>
+                    <p className="text-xs font-bold uppercase text-white/80">Grow Business</p>
                   </div>
                 </div>
               </div>
@@ -94,7 +94,7 @@ const SprintProtocol = () => {
                 onClick={() => router.push("/curriculum")} 
                 className="w-full py-5 bg-white text-black font-bold uppercase text-[10px] tracking-[0.3em] hover:bg-[#F3D7A7] transition-all"
               >
-                Analyze Full Prospectus
+                See What You Will Learn
               </motion.button>
             </div>
           </motion.div>
@@ -104,18 +104,18 @@ const SprintProtocol = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5 border border-white/5">
           <div className="p-12 space-y-6 hover:bg-white/[0.02] transition-colors group">
             <Zap className="text-[#F3D7A7] group-hover:scale-110 transition-transform" size={24} />
-            <h5 className="text-sm font-bold uppercase tracking-widest">Direct Access</h5>
-            <p className="text-xs leading-relaxed text-white/40 uppercase tracking-wider">All sessions are live via Google Meet. Direct line to instructors for 1:1 strategy correction.</p>
+            <h5 className="text-sm font-bold uppercase tracking-widest">Talk Directly to Us</h5>
+            <p className="text-xs leading-relaxed text-white/40 uppercase tracking-wider">All classes are live on Google Meet. You get direct support to ask questions and get feedback on your work.</p>
           </div>
           <div className="p-12 space-y-6 hover:bg-white/[0.02] transition-colors group border-x border-white/5">
             <Award className="text-[#F3D7A7] group-hover:scale-110 transition-transform" size={24} />
-            <h5 className="text-sm font-bold uppercase tracking-widest">Verified Pipeline</h5>
-            <p className="text-xs leading-relaxed text-white/40 uppercase tracking-wider">Guaranteed placement for high-performing operators within the Blade Media network.</p>
+            <h5 className="text-sm font-bold uppercase tracking-widest">Job Placements</h5>
+            <p className="text-xs leading-relaxed text-white/40 uppercase tracking-wider">We offer job and internship opportunities for our top students within the Blade Media network.</p>
           </div>
           <div className="p-12 space-y-6 hover:bg-white/[0.02] transition-colors group">
             <Lock className="text-[#F3D7A7] group-hover:scale-110 transition-transform" size={24} />
-            <h5 className="text-sm font-bold uppercase tracking-widest">Proprietary SOPs</h5>
-            <p className="text-xs leading-relaxed text-white/40 uppercase tracking-wider">Unlock the exact systems used to generate 2.5B+ views and ₹3Cr+ in market capital.</p>
+            <h5 className="text-sm font-bold uppercase tracking-widest">Proven Checklists</h5>
+            <p className="text-xs leading-relaxed text-white/40 uppercase tracking-wider">Get the exact templates and guides we used to get 2.5 Billion+ views and make ₹3Cr+ in revenue.</p>
           </div>
         </div>
       </div>

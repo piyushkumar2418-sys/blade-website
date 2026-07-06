@@ -72,8 +72,8 @@ export default function ApplyGatekeeper() {
                </div>
             </div>
             <div className="space-y-2">
-               <h2 className="text-[10px] font-bold uppercase tracking-[1em] text-[#F3D7A7]">Verifying Clearance</h2>
-               <p className="text-[8px] text-white/20 uppercase tracking-[0.5em]">Institutional Access Point // Gatekeeper</p>
+               <h2 className="text-[10px] font-bold uppercase tracking-[1em] text-[#F3D7A7]">Checking Access</h2>
+               <p className="text-[8px] text-white/20 uppercase tracking-[0.5em]">Admissions Access // Gatekeeper</p>
             </div>
           </motion.div>
         )}
@@ -86,7 +86,7 @@ export default function ApplyGatekeeper() {
             className="text-center space-y-6"
           >
             <h2 className="text-4xl font-bold uppercase tracking-tighter">Access <br /> Denied.</h2>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-white/20">Establishing Secure Vector...</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-white/20">Redirecting...</p>
           </motion.div>
         )}
 
@@ -149,7 +149,7 @@ export default function ApplyGatekeeper() {
             <div className="relative z-10 space-y-12 text-left">
               <div className="flex justify-between items-start">
                  <div className="px-4 py-2 border border-[#F3D7A7]/20 text-[#F3D7A7] text-[8px] font-bold uppercase tracking-[0.4em]">
-                    Institutional Verdict
+                    Application Status
                  </div>
                  <button onClick={() => router.push("/dashboard")} className="text-white/10 hover:text-white transition-colors">
                     <X size={24} />
@@ -161,13 +161,13 @@ export default function ApplyGatekeeper() {
                    Already <br /> Enrolled.
                  </h2>
                  <p className="text-sm text-white/40 leading-relaxed max-w-md font-light">
-                    Our system has detected an existing admission portfolio under your credentials. Access to the registration matrix is restricted to one submission per cycle.
+                    Our system shows you have already submitted an application. You can only apply once per batch.
                   </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/5">
                  <StatusCard icon={<Clock size={16}/>} label="Current Status" value="Under Review" highlight={true} />
-                 <StatusCard icon={<ShieldCheck size={16}/>} label="Clearance Level" value="Candidate" highlight={false} />
+                 <StatusCard icon={<ShieldCheck size={16}/>} label="Your Level" value="Candidate" highlight={false} />
               </div>
 
               <div className="pt-8">
@@ -187,7 +187,7 @@ export default function ApplyGatekeeper() {
       {/* Footer Branding */}
       <div className="fixed bottom-10 flex flex-col items-center gap-4 opacity-10">
          <img src="/blade-logo.png" alt="Blade" className="h-4 object-contain grayscale" />
-         <p className="text-[8px] font-bold uppercase tracking-[1em]">Secure System Interface</p>
+         <p className="text-[8px] font-bold uppercase tracking-[1em]">Admissions Gate</p>
       </div>
     </div>
   );

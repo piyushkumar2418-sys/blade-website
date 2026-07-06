@@ -87,10 +87,10 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
   const router = useRouter();
 
   const founderStats = [
-    { icon: <ShieldCheck size={24} />, label: "Verified Record", desc: "No theories. Only market-proven deployment." },
-    { icon: <Zap size={24} />, label: "High Velocity", desc: "60 days from spectator to high-value operator." },
-    { icon: <Award size={24} />, label: "Elite Network", desc: "Direct placement pipeline for top performers." },
-    { icon: <Lock size={24} />, label: "SOP Access", desc: "Internal systems used for 2.5B+ views." },
+    { icon: <ShieldCheck size={24} />, label: "Proven Results", desc: "No guesswork. We only use steps that already work." },
+    { icon: <Zap size={24} />, label: "Fast Progress", desc: "Go from learning to running a real business in 60 days." },
+    { icon: <Award size={24} />, label: "Job Opportunities", desc: "Direct hiring for our best students." },
+    { icon: <Lock size={24} />, label: "Real Checklists", desc: "Get the same templates we used for 2.5 Billion+ views." },
   ];
 
   return (
@@ -118,7 +118,7 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
                 </h2>
               </div>
               <p className="text-white/40 text-lg md:text-xl font-medium max-w-xl leading-relaxed mb-10 text-left">
-                We&apos;ve deconstructed the entire agency journey into five easy-to-follow phases. No fluff, just execution.
+                We have broken down how to start your agency into five simple steps. No wasting time, just doing the work.
               </p>
               <motion.button 
                 whileTap={{ scale: 0.98 }}
@@ -126,7 +126,7 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
                 onClick={() => router.push("/curriculum")}
                 className="bg-white text-black px-12 py-5 rounded-full font-bold uppercase tracking-widest text-[11px] hover:bg-[#F3D7A7] transition-all duration-300 flex items-center gap-4 shadow-xl text-left"
               >
-                Explore Full Prospectus <ArrowRight size={20}/>
+                View Full Curriculum <ArrowRight size={20}/>
               </motion.button>
             </div>
 
@@ -153,7 +153,7 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
           <div className="space-y-12 text-center">
             <span className="text-white/20 text-[10px] font-bold uppercase tracking-[1em] block">Final Briefing</span>
             <h2 className="text-6xl md:text-[100px] font-bold uppercase tracking-tighter leading-[0.8] text-white text-center">
-              The next step <br/> is execution.
+              The next step <br/> is to take action.
             </h2>
           </div>
           
