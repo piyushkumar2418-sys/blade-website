@@ -16,8 +16,8 @@ import { signOut } from "firebase/auth";
 interface Application {
   id: string;
   uid: string;
+  status: string;
   createdAt?: Timestamp;
-  [key: string]: unknown;
 }
 
 // --- ADMISSION STEPS ---
