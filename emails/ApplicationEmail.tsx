@@ -33,7 +33,7 @@ export const ApplicationEmail: React.FC<ApplicationEmailProps> = ({ name }) => (
           fontWeight: 'bold', 
           textTransform: 'uppercase'
         }}>
-          Cohort 01 — May 2026
+          Cohort 02 — August 2026
         </span>
       </div>
     </div>
@@ -66,7 +66,7 @@ export const ApplicationEmail: React.FC<ApplicationEmailProps> = ({ name }) => (
         fontWeight: '400',
         margin: '0 0 20px 0'
       }}>
-        Thank you for sharing your work with us. Every application for Cohort 01 is reviewed personally by our team to ensure we&rsquo;re building the right environment for everyone involved.
+        Thank you for sharing your work with us. Every application for Cohort 02 is reviewed personally by our team to ensure we&rsquo;re building the right environment for everyone involved.
       </p>
       <p style={{ 
         fontSize: '16px', 
