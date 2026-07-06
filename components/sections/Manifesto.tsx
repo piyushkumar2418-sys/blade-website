@@ -3,8 +3,17 @@ import React from "react";
 
 const Manifesto = () => {
   return (
-    <section className="py-64 px-6 md:px-24 bg-[#030303] relative overflow-hidden border-b border-white/5">
-      <div className="max-w-7xl mx-auto">
+    <section 
+      className="py-64 px-6 md:px-24 bg-[#030303] relative overflow-hidden border-b border-white/5"
+      style={{
+        backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px)',
+        backgroundSize: '24px 24px',
+      }}
+    >
+      {/* Ambient background glow */}
+      <div className="absolute top-[10%] left-[20%] w-[400px] h-[400px] bg-[#F3D7A7]/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-start">
           
           {/* LEFT COLUMN: MANIFESTO */}
@@ -24,22 +33,22 @@ const Manifesto = () => {
           </div>
 
           {/* RIGHT COLUMN: TECHNICAL SPECS */}
-          <div className="lg:col-span-5 pt-20 lg:pt-48 space-y-20">
-            <div className="space-y-6">
+          <div className="lg:col-span-5 pt-20 lg:pt-48 space-y-8 relative z-10">
+            <div className="space-y-4 p-8 border border-white/5 bg-white/[0.01] backdrop-blur-2xl rounded-2xl hover:border-white/10 transition-all duration-300">
               <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F3D7A7]">01 / Setup</h4>
-              <p className="text-sm text-white/55 leading-relaxed max-w-sm">
+              <p className="text-xs text-white/50 leading-relaxed">
                 We set up working business systems directly into your daily routine. We don&apos;t just share ideas; we give you the exact steps and scripts.
               </p>
             </div>
-            <div className="space-y-6 border-t border-white/5 pt-12">
+            <div className="space-y-4 p-8 border border-white/5 bg-white/[0.01] backdrop-blur-2xl rounded-2xl hover:border-white/10 transition-all duration-300">
               <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F3D7A7]">02 / Speed</h4>
-              <p className="text-sm text-white/55 leading-relaxed max-w-sm">
+              <p className="text-xs text-white/50 leading-relaxed">
                 We help you build a solid business that can grow fast without breaking down. Fast systems for big results.
               </p>
             </div>
-            <div className="space-y-6 border-t border-white/5 pt-12">
+            <div className="space-y-4 p-8 border border-white/5 bg-white/[0.01] backdrop-blur-2xl rounded-2xl hover:border-white/10 transition-all duration-300">
               <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F3D7A7]">03 / High Quality</h4>
-              <p className="text-sm text-white/55 leading-relaxed max-w-sm">
+              <p className="text-xs text-white/50 leading-relaxed">
                 You get the exact same high-quality methods that the top 0.1% of creators use to stay on top.
               </p>
             </div>

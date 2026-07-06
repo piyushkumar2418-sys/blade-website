@@ -95,7 +95,13 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
 
   return (
     <>
-      <section className="bg-[#050505] text-left relative z-20">
+      <section 
+        className="bg-[#050505] text-left relative z-20"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+        }}
+      >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5 border border-white/5 text-left">
           {founderStats.map((stat, idx) => (
             <InteractiveStatCard key={idx} stat={stat} />
@@ -104,9 +110,18 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
       </section>
 
       {/* CURRICULUM SECTION */}
-      <section className="py-24 px-6 md:px-24 bg-[#050505] text-left relative z-20">
-        <div className="max-w-[1280px] mx-auto text-left">
-          <div className="bg-[#0a0a0a] border border-white/5 rounded-[60px] p-10 md:p-16 relative overflow-hidden text-left flex flex-col md:flex-row items-center gap-12 min-h-[500px] shadow-2xl">
+      <section 
+        className="py-24 px-6 md:px-24 bg-[#050505] text-left relative z-20"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+        }}
+      >
+        {/* Glow backdrop */}
+        <div className="absolute top-[20%] right-[10%] w-[400px] h-[400px] bg-[#F3D7A7]/5 rounded-full blur-[130px] pointer-events-none" />
+
+        <div className="max-w-[1280px] mx-auto text-left relative z-10">
+          <div className="bg-white/[0.01] border border-white/10 hover:border-[#F3D7A7]/25 rounded-[3.5rem] p-10 md:p-16 relative overflow-hidden text-left flex flex-col md:flex-row items-center gap-12 min-h-[500px] shadow-2xl backdrop-blur-3xl transition-all duration-500">
             {/* Background details */}
             <div className="absolute top-16 right-[35%] w-12 h-12 border border-[#F3D7A7]/10 rounded-full hidden md:block text-left" />
             
@@ -131,11 +146,11 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
             </div>
 
             <div className="flex flex-row md:flex-col gap-6 relative z-10 text-left">
-              <div className="bg-[#030303] border border-white/5 rounded-[30px] p-8 w-40 md:w-52 text-center flex flex-col justify-center items-center shadow-xl text-left">
+              <div className="bg-black/50 border border-white/5 rounded-[30px] p-8 w-40 md:w-52 text-center flex flex-col justify-center items-center shadow-xl text-left backdrop-blur-md">
                  <span className="text-white text-5xl font-bold block tracking-tighter mb-1 text-left">60</span>
                  <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.3em] block text-left">Days</span>
               </div>
-              <div className="bg-[#030303] border border-white/5 rounded-[30px] p-8 w-40 md:w-52 text-center flex flex-col justify-center items-center shadow-xl text-left">
+              <div className="bg-black/50 border border-white/5 rounded-[30px] p-8 w-40 md:w-52 text-center flex flex-col justify-center items-center shadow-xl text-left backdrop-blur-md">
                  <span className="text-white text-5xl font-bold block tracking-tighter mb-1 text-left">5</span>
                  <span className="text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.3em] block text-left">Phases</span>
               </div>
@@ -145,7 +160,13 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-60 px-6 md:px-24 text-center bg-[#050505] relative overflow-hidden z-20">
+      <section 
+        className="py-60 px-6 md:px-24 text-center bg-[#050505] relative overflow-hidden z-20"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+        }}
+      >
         {/* Subtle decorative glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#F3D7A7]/5 rounded-full blur-[120px] pointer-events-none" />
 
