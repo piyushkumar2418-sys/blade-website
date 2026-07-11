@@ -12,7 +12,6 @@ import { useAuth } from "@/context/AuthContext";
 import Hero from "@/components/sections/Hero";
 import Philosophy from "@/components/sections/Philosophy";
 import LogoMarquee from "@/components/sections/LogoMarquee";
-import Testimonial from "@/components/sections/Testimonial";
 import Process from "@/components/sections/Process";
 import Solutions from "@/components/sections/Solutions";
 import Galleries from "@/components/sections/Galleries";
@@ -185,7 +184,6 @@ export default function Home() {
             <Hero />
             <Philosophy />
             <LogoMarquee />
-            <Testimonial />
             <Process />
             <Solutions />
             <Galleries />
