@@ -22,32 +22,30 @@ export default function TermsPage() {
         
         <div className="space-y-12 text-sm md:text-base leading-relaxed text-white/60">
           <section>
-            <h2 className="text-white font-bold mb-4 uppercase tracking-widest text-xs">01. ELIGIBILITY</h2>
+            <h2 className="text-white font-bold mb-4 uppercase tracking-widest text-xs">01. SERVICES</h2>
             <p>
-              By applying to the Inner Circle, you affirm that you are an elite builder committed to professional growth. We reserve the right to deny admission based on internal vetting protocols.
+              Blade Media provides high-ticket content production, video post-production, and strategic growth campaigns. Services are defined by individual client agreements and Statement of Work (SOW) documents.
             </p>
           </section>
 
           <section>
             <h2 className="text-white font-bold mb-4 uppercase tracking-widest text-xs">02. INTELLECTUAL PROPERTY</h2>
             <p>
-              The Blade Media logo, the &quot;Inner Circle&quot; curriculum, and all architectural designs on this platform are the sole property of Blade Media. Unauthorized reproduction is strictly prohibited.
+              The Blade Media logo, brand assets, site architecture, design elements, and all marketing methodologies on this platform are the sole property of Blade Media. Unauthorized reproduction is strictly prohibited.
             </p>
           </section>
 
           <section>
-            <section>
-              <h2 className="text-white font-bold mb-4 uppercase tracking-widest text-xs">03. ADMISSION PROTOCOL</h2>
-              <p>
-                Submission of an application does not guarantee entry. The selection process is subjective and governed by our internal architects to ensure cohort quality.
-              </p>
-            </section>
+            <h2 className="text-white font-bold mb-4 uppercase tracking-widest text-xs">03. CLIENT ENGAGEMENT</h2>
+            <p>
+              Pricing and payment schedules are specified in individual client service contracts. Since creative and editing resources are reserved immediately upon contract signing, all fees are non-refundable unless agreed otherwise.
+            </p>
           </section>
 
           <section>
             <h2 className="text-white font-bold mb-4 uppercase tracking-widest text-xs">04. LIMITATION OF LIABILITY</h2>
             <p>
-              Blade Media is not liable for any direct or indirect consequences arising from the use of this platform or the application process.
+              Blade Media is not liable for any direct, indirect, or consequential damages resulting from the use of this website, information, or client engagement systems.
             </p>
           </section>
         </div>

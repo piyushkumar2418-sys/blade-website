@@ -50,8 +50,8 @@ const AgencyFooter = () => {
             <a href="#section_process" className="hover:text-white transition-colors">Process</a>
             <a href="#section_solutions" className="hover:text-white transition-colors">Solutions</a>
             <a href="#section_edits" className="hover:text-white transition-colors">Portfolio</a>
-            <a href="/curriculum" className="hover:text-white transition-colors">Curriculum</a>
-            <a href="/apply" className="hover:text-white transition-colors">Admissions</a>
+            <a href="/apply" className="hover:text-white transition-colors">Content School</a>
+            <a href="https://calendly.com/piyushkumar2418/30min" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Contact Us</a>
           </div>
 
           {/* Sub-column 2: Socials */}
