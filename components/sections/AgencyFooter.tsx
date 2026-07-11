@@ -21,11 +21,9 @@ const AgencyFooter = () => {
       </div>
       <div className="flex flex-col items-center gap-4 text-center mt-20">
         <div className="flex flex-wrap justify-center gap-6 text-[9px] uppercase tracking-widest font-mono text-black/40">
-          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">YouTube</a>
-          <a href="https://x.com/blademedia" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">X</a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">LinkedIn</a>
-          <a href="https://instagram.com/bladeinnercircle" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">Instagram</a>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">Facebook</a>
+          <a href="mailto:info@blademedia.in" className="hover:text-black transition-colors font-bold">Email</a>
+          <a href="https://www.linkedin.com/in/piyush-kumar-96b064250/" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">LinkedIn</a>
+          <a href="https://www.instagram.com/blade.media_/" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">Instagram</a>
         </div>
         <div className="text-[9px] uppercase tracking-[0.8em] font-bold text-black/20">© 2026 Blade</div>
       </div>

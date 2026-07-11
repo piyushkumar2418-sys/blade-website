@@ -198,7 +198,7 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
               <a href="https://wa.me/917082176274" target="_blank" rel="noopener noreferrer" className="text-white/20 hover:text-white transition-all group">
                 <MessageCircle size={24} className="group-hover:scale-110 transition-transform" />
               </a>
-              <a href="https://www.instagram.com/bladeinnercircle/" target="_blank" rel="noopener noreferrer" className="text-white/20 hover:text-white transition-all group">
+              <a href="https://www.instagram.com/blade.media_/" target="_blank" rel="noopener noreferrer" className="text-white/20 hover:text-white transition-all group">
                 <InstagramIcon size={24} className="group-hover:scale-110 transition-transform" />
               </a>
             </div>

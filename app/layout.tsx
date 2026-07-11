@@ -106,8 +106,8 @@ export default function RootLayout({
         "name": "Piyush"
       },
       "sameAs": [
-        "https://www.instagram.com/blademedia",
-        "https://twitter.com/blademedia"
+        "https://www.instagram.com/blade.media_/",
+        "https://www.linkedin.com/in/piyush-kumar-96b064250/"
       ]
     },
     {
