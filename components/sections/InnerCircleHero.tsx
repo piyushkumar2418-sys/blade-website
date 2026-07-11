@@ -62,6 +62,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
         onLoadedData={() => setVideoLoaded(true)}
         className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1500 ${videoLoaded ? 'opacity-[0.18]' : 'opacity-0'}`}
       >
+        <source src="/bic-bg.mp4" type="video/mp4" />
         <source src="/hero-bg.mp4" type="video/mp4" />
       </video>
 
