@@ -58,7 +58,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
         muted 
         loop 
         playsInline 
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-[0.18]"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-[0.4]"
       >
         <source src="/bic-bg.mp4" type="video/mp4" />
         <source src="/hero-bg.mp4" type="video/mp4" />
