@@ -4,19 +4,22 @@ import { motion } from "framer-motion";
 
 const AgencyFooter = () => {
   return (
-    <footer className="h-[50vh] flex flex-col justify-center items-center text-center px-6 relative z-20 bg-white">
-      <h2 className="text-6xl md:text-[9vw] font-bold tracking-[-0.06em] uppercase mb-16 text-black text-center">Ready to scale?</h2>
-      <motion.a 
-        whileHover={{ scale: 1.05 }} 
-        whileTap={{ scale: 0.95 }}
-        href="https://calendly.com/piyushkumar2418/30min" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="px-16 py-8 border border-black text-black rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-black hover:text-white shadow-2xl"
-      >
-        book a discovery call
-      </motion.a>
-      <div className="absolute bottom-8 flex flex-col items-center gap-4 text-center">
+    <footer className="min-h-[60vh] flex flex-col justify-between items-center text-center px-6 py-20 relative z-20 bg-white">
+      <div />
+      <div className="flex flex-col items-center justify-center">
+        <h2 className="text-6xl md:text-[9vw] font-bold tracking-[-0.06em] uppercase mb-12 text-black text-center leading-none">Ready to scale?</h2>
+        <motion.a 
+          whileHover={{ scale: 1.05 }} 
+          whileTap={{ scale: 0.95 }}
+          href="https://calendly.com/piyushkumar2418/30min" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="px-16 py-8 border border-black text-black rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-black hover:text-white shadow-2xl"
+        >
+          book a discovery call
+        </motion.a>
+      </div>
+      <div className="flex flex-col items-center gap-4 text-center mt-20">
         <div className="flex flex-wrap justify-center gap-6 text-[9px] uppercase tracking-widest font-mono text-black/40">
           <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">YouTube</a>
           <a href="https://x.com/blademedia" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">X</a>
