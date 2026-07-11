@@ -13,6 +13,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
   // Interactive Cursor-Reactive Spotlight Glow
   const heroRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -52,25 +53,36 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
         backgroundSize: '24px 24px',
       }}
     >
+      {/* Background Video */}
+      <video 
+        autoPlay 
+        muted 
+        loop 
+        playsInline 
+        onLoadedData={() => setVideoLoaded(true)}
+        className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1500 ${videoLoaded ? 'opacity-[0.18]' : 'opacity-0'}`}
+      >
+        <source src="/hero-bg.mp4" type="video/mp4" />
+      </video>
+
       {/* Premium Glassmorphic Background Glows */}
-      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#F3D7A7]/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#8B5CF6]/5 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#F3D7A7]/10 rounded-full blur-[140px] pointer-events-none z-10" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#8B5CF6]/5 rounded-full blur-[160px] pointer-events-none z-10" />
 
       {/* Golden spotlight that tracks the mouse */}
       <div 
-        className="absolute inset-0 pointer-events-none transition-opacity duration-500 opacity-60 md:opacity-100"
+        className="absolute inset-0 pointer-events-none transition-opacity duration-500 opacity-60 md:opacity-100 z-10"
         style={{
           background: `radial-gradient(circle 350px at ${mousePos.x}px ${mousePos.y}px, rgba(243, 215, 167, 0.05), transparent 80%)`,
         }}
       />
-
 
       {/* Main bold title */}
       <motion.h1 
         initial={{ y: 30, opacity: 0 }} 
         animate={{ y: 0, opacity: 1 }} 
         transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }} 
-        className="text-[12vw] md:text-[7vw] font-black leading-[0.82] tracking-[-0.07em] uppercase text-center relative z-10 selection:bg-white selection:text-black font-sans"
+        className="text-[12vw] md:text-[7vw] font-black leading-[0.82] tracking-[-0.07em] uppercase text-center relative z-20 selection:bg-white selection:text-black font-sans"
       >
         The School of <br/> Modern Content.
       </motion.h1>
@@ -80,7 +92,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-        className="flex justify-center relative z-10 text-center mt-8 mb-16"
+        className="flex justify-center relative z-20 text-center mt-8 mb-16"
       >
         <span className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#F3D7A7]/10 border border-[#F3D7A7]/30 rounded-full text-[#F3D7A7] text-[11px] font-bold uppercase tracking-[0.25em] shadow-[0_0_35px_rgba(243,215,167,0.12)] backdrop-blur-md transition-all duration-300 hover:border-[#F3D7A7]/50 hover:shadow-[0_0_45px_rgba(243,215,167,0.25)] hover:scale-102">
           <span className="w-1.5 h-1.5 rounded-full bg-[#F3D7A7] animate-pulse" />
@@ -93,7 +105,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
-        className="flex justify-center relative z-10"
+        className="flex justify-center relative z-20"
       >
         <button 
           onClick={onJoinWaitlist} 
