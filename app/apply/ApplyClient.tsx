@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { db } from "@/lib/firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { ShieldCheck, ArrowRight, X, Clock, Lock, Terminal } from "lucide-react";
 
@@ -22,17 +21,19 @@ export default function ApplyClient() {
         } else {
           try {
             // Check if they already have a Cohort 01/02 application
-            const q = query(
-              collection(db, "applications"),
-              where("uid", "==", user.uid)
-            );
-            const querySnapshot = await getDocs(q);
+            const idToken = await user.getIdToken();
+            const res = await fetch("/api/apply", {
+              headers: {
+                "Authorization": `Bearer ${idToken}`
+              }
+            });
+            const data = await res.json();
             
-            if (querySnapshot.empty) {
-              router.push("/apply/register");
-            } else {
+            if (data.success && data.applications && data.applications.length > 0) {
               // Existing application found: show application status
               setStatus("applied");
+            } else {
+              router.push("/apply/register");
             }
           } catch (err) {
             console.error("Clearance error:", err);

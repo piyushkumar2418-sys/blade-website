@@ -1,10 +1,44 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { adminDb } from '@/lib/firebase-admin';
+import * as admin from 'firebase-admin';
 import { sendApplicationEmail } from '@/lib/email';
 
 /**
- * Handles professional application processing.
+ * GET: Fetches applications for the authenticated user.
+ */
+export async function GET(req: NextRequest) {
+  try {
+    const authHeader = req.headers.get('authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    const token = authHeader.split('Bearer ')[1];
+    
+    if (!adminDb) {
+      return NextResponse.json({ error: 'Database not initialized' }, { status: 500 });
+    }
+
+    const decodedToken = await admin.auth().verifyIdToken(token);
+    const uid = decodedToken.uid;
+
+    const snap = await adminDb.collection('applications')
+      .where('uid', '==', uid)
+      .get();
+      
+    const applications = snap.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+
+    return NextResponse.json({ success: true, applications });
+  } catch (error: any) {
+    console.error('Error fetching applications:', error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+/**
+ * POST: Handles professional application processing.
  * Saves to Firestore, triggers confirmation email, and pushes to Notion CRM.
  */
 export async function POST(req: NextRequest) {
@@ -18,8 +52,12 @@ export async function POST(req: NextRequest) {
 
     let docId = '';
     try {
+      if (!adminDb) {
+        throw new Error('Database admin instance not available.');
+      }
+
       // 1. Log the lead to Firestore
-      const docRef = await addDoc(collection(db, 'applications'), {
+      const docRef = await adminDb.collection('applications').add({
         name,
         email,
         phone: phone || 'not provided',
@@ -27,7 +65,7 @@ export async function POST(req: NextRequest) {
         ...otherData,
         status: 'new',
         source: 'web_form',
-        createdAt: serverTimestamp(),
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
       });
       docId = docRef.id;
     } catch (dbError: any) {

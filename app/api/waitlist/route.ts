@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { adminDb } from '@/lib/firebase-admin';
+import * as admin from 'firebase-admin';
 import { sendWaitlistEmail } from '@/lib/email';
 
 /**
@@ -22,8 +22,12 @@ export async function POST(req: NextRequest) {
 
     let docId = '';
     try {
+      if (!adminDb) {
+        throw new Error('Database admin instance not available.');
+      }
+
       // 1. Log the lead to Firestore in the 'waitlist' collection
-      const docRef = await addDoc(collection(db, 'waitlist'), {
+      const docRef = await adminDb.collection('waitlist').add({
         name,
         email,
         phone: phone || 'not provided',
@@ -31,7 +35,7 @@ export async function POST(req: NextRequest) {
         goal: goal || 'not provided',
         waitlistKey,
         status: 'verified',
-        createdAt: serverTimestamp(),
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
       });
       docId = docRef.id;
     } catch (dbError: any) {

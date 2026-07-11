@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { email, phone, name } = body;
+    const { email, phone, name, transactionId } = body;
 
     if (!email) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
@@ -24,12 +24,23 @@ export async function POST(req: NextRequest) {
 
     const doc = snapshot.docs[0];
     
-    // We only want to update if they are in 'confirmed' state, but technically we can just set to 'booked'
+    // 1. Update application status
     await doc.ref.update({
       status: 'booked',
       paymentConfirmedAt: new Date().toISOString(),
-      paymentPhone: phone,
-      paymentName: name
+      paymentPhone: phone || '',
+      paymentName: name || '',
+      transactionId: transactionId || ''
+    });
+
+    // 2. Save payment proof submission entry
+    await adminDb.collection('submissions').add({
+      name: name || '',
+      email: email.toLowerCase().trim(),
+      phone: phone || '',
+      transactionId: transactionId || '',
+      createdAt: new Date().toISOString(),
+      status: 'pending'
     });
 
     return NextResponse.json({ success: true });

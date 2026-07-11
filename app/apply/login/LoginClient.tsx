@@ -10,7 +10,6 @@ import {
   EmailAuthProvider,
   linkWithCredential
 } from "firebase/auth";
-import { doc, setDoc, getDoc, serverTimestamp, collection, query, where, getDocs } from "firebase/firestore";
 import { ArrowRight, ShieldCheck, Mail, User, ArrowLeft, Lock, Globe } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
@@ -67,18 +66,17 @@ function LoginContent() {
     setLoading(true);
 
     try {
-      // 1. Parallelize Firestore checks for maximum speed
-      const emailQuery = query(collection(db, "users"), where("email", "==", email));
-      const phoneQuery = query(collection(db, "users"), where("phone", "==", phoneNumber));
-      
-      const [emailSnap, phoneSnap] = await Promise.all([
-        getDocs(emailQuery),
-        getDocs(phoneQuery)
-      ]);
-
-      if (!emailSnap.empty || !phoneSnap.empty) {
+      // 1. Check user identity via API endpoint
+      const checkRes = await fetch("/api/user/check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, phone: phoneNumber })
+      });
+      const checkData = await checkRes.json();
+      if (checkData.exists) {
         toast.error("Identity already exists. Please log in.");
         setAuthMode("login");
+        setLoading(false);
         return;
       }
 
@@ -110,10 +108,17 @@ function LoginContent() {
     try {
       const userCredential = await confirmationResult.confirm(otp);
       const user = userCredential.user;
-      const profileDoc = await getDoc(doc(db, "users", user.uid));
+      const idToken = await user.getIdToken();
+      const profileRes = await fetch("/api/user", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${idToken}`
+        }
+      });
       
-      if (profileDoc.exists()) {
-        setProfile(profileDoc.data() as any);
+      if (profileRes.ok) {
+        const profileData = await profileRes.json();
+        setProfile(profileData.profile);
         toast.success("Welcome back.");
         router.push("/apply/register");
       } else {
@@ -139,9 +144,27 @@ function LoginContent() {
       if (user) {
         const credential = EmailAuthProvider.credential(email, password);
         await linkWithCredential(user, credential);
-        const profile = { uid: user.uid, name, email, phone: phoneNumber, createdAt: serverTimestamp() };
-        await setDoc(doc(db, "users", user.uid), profile, { merge: true });
-        setProfile(profile as any);
+        const idToken = await user.getIdToken();
+        const saveRes = await fetch("/api/user", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${idToken}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            phone: phoneNumber
+          })
+        });
+
+        if (!saveRes.ok) {
+          const errData = await saveRes.json();
+          throw new Error(errData.error || "Failed to save profile.");
+        }
+
+        const saveData = await saveRes.json();
+        setProfile(saveData.profile);
         toast.success("Account Secured.");
         router.push("/apply/register");
       }
@@ -164,9 +187,17 @@ function LoginContent() {
     setLoading(true);
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const profileDoc = await getDoc(doc(db, "users", userCredential.user.uid));
-      if (profileDoc.exists()) {
-        setProfile(profileDoc.data() as any);
+      const idToken = await userCredential.user.getIdToken();
+      const profileRes = await fetch("/api/user", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${idToken}`
+        }
+      });
+      
+      if (profileRes.ok) {
+        const profileData = await profileRes.json();
+        setProfile(profileData.profile);
         router.push("/apply/register");
       } else {
         toast.error("Profile not found.");

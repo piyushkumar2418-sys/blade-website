@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { User } from "firebase/auth";
+import PixelatedBackground from "@/components/PixelatedBackground";
 
 interface InnerCircleHeroProps {
   user: User | null;
@@ -43,38 +44,31 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
     };
   }, []);
 
+
+
   return (
     <section 
       ref={heroRef}
-      className="h-screen bg-[#030303] text-white flex flex-col justify-center items-center text-center px-6 md:px-24 border-b border-white/5 relative overflow-hidden transition-all duration-300 pt-20"
+      className="h-screen text-white flex flex-col justify-center items-center text-center px-6 md:px-24 border-b border-white/5 relative overflow-hidden transition-all duration-300 pt-20"
       style={{
-        backgroundImage: 'radial-gradient(rgba(243, 215, 167, 0.08) 1px, transparent 1px)',
-        backgroundSize: '24px 24px',
+        backgroundColor: '#0f0f0f',
       }}
     >
-      {/* Background Video */}
-      <video 
-        autoPlay 
-        muted 
-        loop 
-        playsInline 
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-[0.4]"
-      >
-        <source src="/bic-bg.mp4" type="video/mp4" />
-        <source src="/hero-bg.mp4" type="video/mp4" />
-      </video>
 
-      {/* Premium Glassmorphic Background Glows */}
-      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#F3D7A7]/10 rounded-full blur-[140px] pointer-events-none z-10" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#8B5CF6]/5 rounded-full blur-[160px] pointer-events-none z-10" />
-
-      {/* Golden spotlight that tracks the mouse */}
-      <div 
-        className="absolute inset-0 pointer-events-none transition-opacity duration-500 opacity-60 md:opacity-100 z-10"
-        style={{
-          background: `radial-gradient(circle 350px at ${mousePos.x}px ${mousePos.y}px, rgba(243, 215, 167, 0.05), transparent 80%)`,
-        }}
-      />
+      {/* Pixelated Background overlay */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <PixelatedBackground 
+          backgroundColor="transparent"
+          gridSizeDesktop={36}
+          gridSizeTablet={24}
+          gridSizeMobile={10}
+          gridBorderSize={1}
+          gridBorderColor="#3B3D48"
+          hoverColor="#F3D7A7"
+          fadeDuration={2}
+          breakpoint={780}
+        />
+      </div>
 
       {/* Main bold title */}
       <motion.h1 

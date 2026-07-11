@@ -15,8 +15,7 @@ import {
   PlayCircle,
   ShieldCheck,
 } from "lucide-react";
-import { db } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -118,15 +117,26 @@ export default function PaymentPage() {
     setErrorMessage("");
 
     try {
-      await addDoc(collection(db, "submissions"), {
-        ...form,
-        createdAt: serverTimestamp(),
-        status: "pending",
+      const res = await fetch("/api/payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          transactionId: form.transactionId,
+        }),
       });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to submit transaction.");
+      }
+
       setSubmitted(true);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error submitting form:", error);
-      setErrorMessage("FAILED TO SUBMIT. PLEASE TRY AGAIN OR CONTACT SUPPORT.");
+      setErrorMessage(error.message || "FAILED TO SUBMIT. PLEASE TRY AGAIN OR CONTACT SUPPORT.");
     } finally {
       setIsSubmitting(false);
     }

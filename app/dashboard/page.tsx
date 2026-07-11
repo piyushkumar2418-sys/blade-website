@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
-import { db } from "@/lib/firebase";
-import { collection, query, where, getDocs, Timestamp } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 import { 
   LogOut, User, CheckCircle2, 
   Clock, BookOpen, Mail, Phone, Shield
@@ -44,17 +43,21 @@ export default function Profile() {
     async function fetchApplications() {
       if (user) {
         try {
-          const q = query(
-            collection(db, "applications"),
-            where("uid", "==", user.uid)
-          );
-          const querySnapshot = await getDocs(q);
-          const apps = querySnapshot.docs.map(doc => ({ 
-            id: doc.id, 
-            ...doc.data() 
-          } as Application)).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
-          
-          setApplications(apps);
+          const idToken = await user.getIdToken();
+          const res = await fetch("/api/apply", {
+            headers: {
+              "Authorization": `Bearer ${idToken}`
+            }
+          });
+          const data = await res.json();
+          if (data.success && data.applications) {
+            const apps = (data.applications as Application[]).sort((a, b) => {
+              const aTime = a.createdAt?.seconds || 0;
+              const bTime = b.createdAt?.seconds || 0;
+              return bTime - aTime;
+            });
+            setApplications(apps);
+          }
         } catch (err) {
           console.error("Error fetching applications:", err);
         }

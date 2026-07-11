@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight, AlertCircle, CheckCircle2, Zap, ShieldCheck, Plus, Minus } from "lucide-react";
-import { db } from "@/lib/firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
@@ -67,13 +66,19 @@ export default function CohortRegisterPageClient() {
 
     const checkExisting = async () => {
       if (user) {
-        const q = query(
-          collection(db, "applications"),
-          where("uid", "==", user.uid)
-        );
-        const snapshot = await getDocs(q);
-        if (!snapshot.empty) {
-          setHasExistingApp(true);
+        try {
+          const idToken = await user.getIdToken();
+          const res = await fetch("/api/apply", {
+            headers: {
+              "Authorization": `Bearer ${idToken}`
+            }
+          });
+          const data = await res.json();
+          if (data.success && data.applications && data.applications.length > 0) {
+            setHasExistingApp(true);
+          }
+        } catch (err) {
+          console.error("Error checking existing application:", err);
         }
       }
     };
