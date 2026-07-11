@@ -11,11 +11,21 @@ const AgencyFooter = () => {
         whileTap={{ scale: 0.95 }}
         href="https://calendly.com/piyushkumar2418/30min" 
         target="_blank" 
+        rel="noopener noreferrer"
         className="px-16 py-8 border border-black text-black rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-500 hover:bg-black hover:text-white shadow-2xl"
       >
         book a discovery call
       </motion.a>
-      <div className="absolute bottom-10 text-[9px] uppercase tracking-[0.8em] font-bold text-center text-black/20">© 2026 Blade</div>
+      <div className="absolute bottom-8 flex flex-col items-center gap-4 text-center">
+        <div className="flex flex-wrap justify-center gap-6 text-[9px] uppercase tracking-widest font-mono text-black/40">
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">YouTube</a>
+          <a href="https://x.com/blademedia" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">X</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">LinkedIn</a>
+          <a href="https://instagram.com/bladeinnercircle" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">Instagram</a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">Facebook</a>
+        </div>
+        <div className="text-[9px] uppercase tracking-[0.8em] font-bold text-black/20">© 2026 Blade</div>
+      </div>
     </footer>
   );
 };

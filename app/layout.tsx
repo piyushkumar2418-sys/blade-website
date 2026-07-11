@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
@@ -9,6 +9,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { PostHogProvider } from "@/components/providers/PostHogProvider";
 import PostHogPageview from "@/components/providers/PostHogPageview";
 import { Suspense } from "react";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,15 +27,20 @@ const instrumentSerif = Instrument_Serif({
   weight: "400",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#000000",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export const metadata: Metadata = {
   title: {
-    default: "Blade Media | Growth, Engineered.",
+    default: "Blade Media | High-Ticket Video Content & Growth Agency",
     template: "%s | Blade Media"
   },
-  description: "Blade Media - The institutional engine for systematized visual dominance. High-velocity content production and strategic growth systems for elite creators.",
+  description: "Blade Media is the institutional content production and strategic growth engine for elite creators and premium brands.",
   keywords: ["Content Agency", "Video Editing", "Social Media Growth", "Visual Dominance", "Viral Content", "Blade Media", "Content Strategy", "Retention Editing"],
-  themeColor: "#000000",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   appleWebApp: {
     title: "Blade Media",
     statusBarStyle: "black-translucent",
@@ -47,8 +53,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Blade Media | Growth, Engineered.",
-    description: "The institutional engine for systematized visual dominance.",
+    title: "Blade Media | High-Ticket Video Content & Growth Agency",
+    description: "Blade Media is the institutional content production and strategic growth engine for elite creators and premium brands.",
     url: "https://blademedia.in",
     siteName: "Blade Media",
     images: [
@@ -56,7 +62,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Blade Media - Growth, Engineered.",
+        alt: "Blade Media | High-Ticket Video Content & Growth Agency",
       },
     ],
     locale: "en_US",
@@ -64,8 +70,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blade Media | Growth, Engineered.",
-    description: "The institutional engine for systematized visual dominance.",
+    title: "Blade Media | High-Ticket Video Content & Growth Agency",
+    description: "Blade Media is the institutional content production and strategic growth engine for elite creators and premium brands.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -87,22 +93,38 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Blade Media",
-    "url": "https://blademedia.in",
-    "logo": "https://blademedia.in/blade-logo.png",
-    "description": "The institutional engine for systematized visual dominance.",
-    "founder": {
-      "@type": "Person",
-      "name": "Piyush"
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Blade Media",
+      "url": "https://blademedia.in",
+      "logo": "https://blademedia.in/blade-logo.png",
+      "description": "The institutional engine for systematized visual dominance.",
+      "founder": {
+        "@type": "Person",
+        "name": "Piyush"
+      },
+      "sameAs": [
+        "https://www.instagram.com/blademedia",
+        "https://twitter.com/blademedia"
+      ]
     },
-    "sameAs": [
-      "https://www.instagram.com/blademedia",
-      "https://twitter.com/blademedia"
-    ]
-  };
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Blade Media",
+      "url": "https://blademedia.in",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://blademedia.in/?s={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ];
 
   return (
     <html
@@ -112,11 +134,24 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
         />
       </head>
       <body className="min-h-full flex flex-col bg-black">
         <PostHogProvider>
+          {/* Google Analytics */}
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || 'G-5KW01DDXCM'}`}
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || 'G-5KW01DDXCM'}');
+            `}
+          </Script>
           <Suspense fallback={null}>
             <PostHogPageview />
           </Suspense>

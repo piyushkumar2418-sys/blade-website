@@ -109,6 +109,7 @@ const Process = () => {
             <motion.a
               href="https://calendly.com/piyushkumar2418/30min"
               target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ 
                 scale: 1.05,
                 boxShadow: "0 0 40px rgba(243, 215, 167, 0.2)"

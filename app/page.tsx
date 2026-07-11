@@ -1,6 +1,5 @@
 "use client";
 import React, { useRef, useState } from "react";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -10,21 +9,21 @@ import Scene3D from "@/components/Scene3D";
 import { useSite } from "@/context/SiteContext";
 import { useAuth } from "@/context/AuthContext";
 
-// --- DYNAMIC IMPORTS (Lazy Loading) ---
-const Hero = dynamic(() => import("@/components/sections/Hero"));
-const Philosophy = dynamic(() => import("@/components/sections/Philosophy"));
-const LogoMarquee = dynamic(() => import("@/components/sections/LogoMarquee"));
-const Process = dynamic(() => import("@/components/sections/Process"));
-const Solutions = dynamic(() => import("@/components/sections/Solutions"));
-const Galleries = dynamic(() => import("@/components/sections/Galleries"));
-const AgencyFooter = dynamic(() => import("@/components/sections/AgencyFooter"));
+import Hero from "@/components/sections/Hero";
+import Philosophy from "@/components/sections/Philosophy";
+import LogoMarquee from "@/components/sections/LogoMarquee";
+import Testimonial from "@/components/sections/Testimonial";
+import Process from "@/components/sections/Process";
+import Solutions from "@/components/sections/Solutions";
+import Galleries from "@/components/sections/Galleries";
+import AgencyFooter from "@/components/sections/AgencyFooter";
 
-const InnerCircleHero = dynamic(() => import("@/components/sections/InnerCircleHero"));
-const Crisis = dynamic(() => import("@/components/sections/Crisis"));
-const Manifesto = dynamic(() => import("@/components/sections/Manifesto"));
-const SprintProtocol = dynamic(() => import("@/components/sections/SprintProtocol"));
-const FounderAuthority = dynamic(() => import("@/components/sections/FounderAuthority"));
-const InnerCircleCTA = dynamic(() => import("@/components/sections/InnerCircleCTA"));
+import InnerCircleHero from "@/components/sections/InnerCircleHero";
+import Crisis from "@/components/sections/Crisis";
+import Manifesto from "@/components/sections/Manifesto";
+import SprintProtocol from "@/components/sections/SprintProtocol";
+import FounderAuthority from "@/components/sections/FounderAuthority";
+import InnerCircleCTA from "@/components/sections/InnerCircleCTA";
 
 export default function Home() {
   const { user } = useAuth();
@@ -111,8 +110,8 @@ export default function Home() {
               <motion.a 
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                href="https://calendly.com/piyushkumar2418/30min" 
                 target="_blank"
+                rel="noopener noreferrer"
                 className="bg-[#F3D7A7] text-black px-5 md:px-8 py-3 md:py-3.5 rounded-full text-[10px] md:text-[11px] font-bold uppercase tracking-[0.05em] hover:shadow-[0_0_30px_rgba(243,215,167,0.3)] transition-all shadow-xl whitespace-nowrap"
               >
                 contact us
@@ -186,6 +185,7 @@ export default function Home() {
             <Hero />
             <Philosophy />
             <LogoMarquee />
+            <Testimonial />
             <Process />
             <Solutions />
             <Galleries />

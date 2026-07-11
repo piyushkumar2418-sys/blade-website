@@ -23,6 +23,16 @@ function checkRateLimit(ip: string): boolean {
 }
 
 export function proxy(request: NextRequest) {
+  // SEO Check: Redirect www to non-www (301 Permanent Redirect)
+  const host = request.headers.get('host') || '';
+  if (host.startsWith('www.')) {
+    const nonWwwHost = host.substring(4);
+    const newUrl = new URL(request.nextUrl.pathname + request.nextUrl.search, request.url);
+    newUrl.host = nonWwwHost;
+    newUrl.protocol = 'https:'; // Ensure secure protocol
+    return NextResponse.redirect(newUrl.toString(), 301);
+  }
+
   const { pathname } = request.nextUrl;
 
   // Basic info
