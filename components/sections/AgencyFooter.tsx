@@ -1,8 +1,18 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 const AgencyFooter = () => {
+  const handleEmailClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigator.clipboard.writeText("info@blademedia.in");
+    toast.success("Email copied to clipboard!");
+    setTimeout(() => {
+      window.location.href = "mailto:info@blademedia.in";
+    }, 100);
+  };
+
   return (
     <footer className="min-h-[60vh] flex flex-col justify-between items-center text-center px-6 py-20 relative z-20 bg-white">
       <div />
@@ -21,7 +31,7 @@ const AgencyFooter = () => {
       </div>
       <div className="flex flex-col items-center gap-4 text-center mt-20">
         <div className="flex flex-wrap justify-center gap-6 text-[9px] uppercase tracking-widest font-mono text-black/40">
-          <a href="mailto:info@blademedia.in" className="hover:text-black transition-colors font-bold">Email</a>
+          <a href="mailto:info@blademedia.in" onClick={handleEmailClick} className="hover:text-black transition-colors font-bold">Email</a>
           <a href="https://www.linkedin.com/in/piyush-kumar-96b064250/" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">LinkedIn</a>
           <a href="https://www.instagram.com/blade.media_/" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors font-bold">Instagram</a>
         </div>
