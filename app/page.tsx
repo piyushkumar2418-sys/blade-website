@@ -34,6 +34,7 @@ export default function Home() {
   
   const { scrollYProgress } = useScroll({ target: containerRef });
   const navButtonOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
+  const [hideHeader, setHideHeader] = useState(false);
 
   const handleToggle = () => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -125,8 +126,11 @@ export default function Home() {
       {!isAgency && (
         <motion.header 
           initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          animate={{ 
+            y: hideHeader ? -100 : 0, 
+            opacity: hideHeader ? 0 : 1 
+          }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
           className="fixed top-0 left-0 right-0 w-full z-[100] bg-[#030303]/80 backdrop-blur-xl border-b border-white/5 px-6 md:px-24 h-20 md:h-24 flex items-center justify-between font-['Helvetica',_sans-serif]"
         >
           {/* Logo on the left */}
@@ -194,7 +198,7 @@ export default function Home() {
           <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-white bg-[#050505] min-h-screen">
             <InnerCircleHero user={user} onJoinWaitlist={() => router.push("/apply/register")} />
             <Crisis />
-            <CreatorsMap />
+            <CreatorsMap onActiveStateChange={setHideHeader} />
             <Manifesto />
             <SprintProtocol />
             <FounderAuthority />

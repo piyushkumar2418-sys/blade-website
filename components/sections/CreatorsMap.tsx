@@ -1,11 +1,16 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 
-const CreatorsMap = () => {
+interface CreatorsMapProps {
+  onActiveStateChange?: (active: boolean) => void;
+}
+
+const CreatorsMap: React.FC<CreatorsMapProps> = ({ onActiveStateChange }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [scrollLen, setScrollLen] = useState(5000);
+  const wasActiveRef = useRef(false);
 
   const handleScroll = () => {
     if (!containerRef.current || !iframeRef.current || !wrapperRef.current) return;
@@ -20,6 +25,13 @@ const CreatorsMap = () => {
     // Determine motion preference
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const limit = reduceMotion ? 2000 : 5000;
+
+    // Trigger active state callback for parent component
+    const isActive = scrollTop >= offsetTop && scrollTop <= offsetTop + limit;
+    if (isActive !== wasActiveRef.current) {
+      wasActiveRef.current = isActive;
+      onActiveStateChange?.(isActive);
+    }
 
     // 1. Manual pinning logic to bypass ancestor overflow-x: hidden / sticky bugs
     if (scrollTop < offsetTop) {
