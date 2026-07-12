@@ -133,6 +133,11 @@ const CreatorsMap: React.FC<CreatorsMapProps> = ({ onActiveStateChange }) => {
           title="Creator's Map"
           onLoad={handleIframeLoad}
         />
+        {/* Top gradient overlay to blend map into Crisis segment (bg-black) */}
+        <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-black to-transparent pointer-events-none z-[10]" />
+
+        {/* Bottom gradient overlay to blend map into Manifesto segment (bg-[#030303]) */}
+        <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#030303] to-transparent pointer-events-none z-[10]" />
       </div>
     </div>
   );
