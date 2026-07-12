@@ -4,12 +4,12 @@ import React, { useRef, useEffect, useState } from "react";
 const CreatorsMap = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [scrollLen, setScrollLen] = useState(9500);
+  const [scrollLen, setScrollLen] = useState(5000);
 
   useEffect(() => {
     // Determine motion preference
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setScrollLen(reduceMotion ? 4000 : 9500);
+    setScrollLen(reduceMotion ? 2000 : 5000);
 
     const handleScroll = () => {
       if (!containerRef.current || !iframeRef.current) return;
@@ -25,7 +25,7 @@ const CreatorsMap = () => {
       let localScroll = 0;
       if (scrollTop >= offsetTop) {
         localScroll = scrollTop - offsetTop;
-        const limit = reduceMotion ? 4000 : 9500;
+        const limit = reduceMotion ? 2000 : 5000;
         if (localScroll > limit) {
           localScroll = limit;
         }
