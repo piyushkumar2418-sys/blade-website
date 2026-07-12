@@ -46,7 +46,7 @@
   .book-shadow{display:none !important}
 
   .pagebase{position:absolute;inset:0;border-radius:0;background:var(--page-dark);box-shadow:none;overflow:hidden}
-  .spine{position:absolute;top:0;bottom:0;left:50%;width:22px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(0,0,0,.55) 45%,rgba(0,0,0,.7) 50%,rgba(0,0,0,.55) 55%,transparent);z-index:5;pointer-events:none}
+  .spine{display:none !important}
 
   /* cover — minimal editorial */
   .cover{position:absolute;inset:0;border-radius:0;transform-origin:left center;transform-style:preserve-3d;z-index:40}
@@ -111,6 +111,7 @@
       repeating-linear-gradient(0deg,transparent 0 118px,rgba(110,82,24,.05) 118px 119px),
       repeating-linear-gradient(90deg,transparent 0 118px,rgba(110,82,24,.05) 118px 119px),
       var(--parchment)}
+  .map-inner::before{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");opacity:.18;mix-blend-mode:multiply;pointer-events:none;z-index:2}
   .map-inner svg{position:absolute;inset:0;width:100%;height:100%}
   #journey{fill:none;stroke:var(--line);stroke-width:3.4;stroke-linecap:round}
   .station{fill:var(--parchment);stroke:var(--gold-deep);stroke-width:5;opacity:0}
@@ -137,11 +138,11 @@
   #m4{right:6%;top:70%}
   #m2 .m-eyebrow,#m4 .m-eyebrow{transform:rotate(1.4deg)}
 
-  #ship{position:absolute;left:50%;top:2%;width:clamp(80px,9.5vw,132px);transform:translate(-50%,-78%);z-index:6;pointer-events:none}
+  #ship{position:absolute;left:50%;top:2%;width:clamp(80px,9.5vw,132px);transform:translate(-50%,-25%);z-index:6;pointer-events:none}
   #ship img{width:100%;height:auto;filter:drop-shadow(0 14px 18px rgba(0,0,0,.35))}
   .wake{position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:70%;height:8px;border-radius:50%;background:radial-gradient(ellipse,rgba(110,82,24,.35),transparent 70%)}
 
-  .map-title{position:absolute;left:50%;top:1.6%;transform:translateX(-50%);font-family:'Gochi Hand',cursive;color:#6E5F41;letter-spacing:.3em;font-size:14px;white-space:nowrap}
+  .map-title{position:absolute;inset:1.6% 40px auto 40px;display:flex;justify-content:space-between;font-family:'Gochi Hand',cursive;color:#6E5F41;letter-spacing:.3em;font-size:14px}
   .finish{position:absolute;right:5%;top:93%;font-family:'Gochi Hand',cursive;color:var(--gold-deep);font-size:clamp(17px,1.9vw,24px);transform:rotate(-2deg);opacity:0}
 
   /* outro */
@@ -209,7 +210,11 @@
               <circle class="station" id="st4" cx="810" cy="2030" r="13"/><circle class="station-core" id="stc4" cx="810" cy="2030" r="5"/>
             </svg>
 
-            <div class="map-title">// THE CREATOR'S MAP · BLADE INNER CIRCLE · COHORT 02</div>
+            <div class="map-title">
+              <span>// THE CREATOR'S MAP</span>
+              <span>BIC</span>
+              <span>COHORT 02</span>
+            </div>
 
             <div class="mission" id="m1">
               <span class="m-eyebrow">mission 01 — anchor here first</span>
@@ -309,7 +314,7 @@ function placeShip(){
   ship.style.left=(pt.x/VB.w*100)+'%';
   ship.style.top=(pt.y/VB.h*100)+'%';
   const flip=(pt.x-prev.x)<-0.6?-1:1;
-  ship.style.transform=`translate(-50%,-78%) scaleX(${flip})`;
+  ship.style.transform=`translate(-50%,-25%) scaleX(${flip})`;
 }
 placeShip();
 
