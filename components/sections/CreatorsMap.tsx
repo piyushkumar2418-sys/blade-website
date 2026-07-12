@@ -16,19 +16,14 @@ const CreatorsMap = () => {
     const docScrollTop = window.scrollY || document.documentElement.scrollTop;
     const offsetTop = rect.top + docScrollTop;
     
-    // Determine header offset (matching page.tsx fixed header height)
-    const isDesktop = window.innerWidth >= 768;
-    const headerHeight = isDesktop ? 96 : 80;
-
     // Determine motion preference
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const limit = reduceMotion ? 2000 : 5000;
 
-    // Scroll position inside the iframe. Only scroll when the container reaches below the header bar.
+    // Scroll position inside the iframe. Only scroll when the container reaches the top of the viewport.
     let localScroll = 0;
-    const startScroll = offsetTop - headerHeight;
-    if (scrollTop >= startScroll) {
-      localScroll = scrollTop - startScroll;
+    if (scrollTop >= offsetTop) {
+      localScroll = scrollTop - offsetTop;
       if (localScroll > limit) {
         localScroll = limit;
       }
@@ -92,8 +87,8 @@ const CreatorsMap = () => {
       className="relative w-full bg-[#030303]" 
       style={{ height: `calc(${scrollLen}px + 100vh)` }}
     >
-      {/* Sticky container stays below the fixed header bar (top-20 on mobile, top-24 on desktop) */}
-      <div className="sticky top-20 md:top-24 w-full h-[calc(100vh-5rem)] md:h-[calc(100vh-6rem)] overflow-hidden">
+      {/* Sticky container is full screen */}
+      <div className="sticky top-0 w-full h-screen overflow-hidden">
         <iframe
           ref={iframeRef}
           src="/creators-map-bic.html"
