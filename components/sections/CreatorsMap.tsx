@@ -6,41 +6,49 @@ const CreatorsMap = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [scrollLen, setScrollLen] = useState(5000);
 
+  const handleScroll = () => {
+    if (!containerRef.current || !iframeRef.current) return;
+
+    const rect = containerRef.current.getBoundingClientRect();
+    const scrollTop = window.scrollY;
+    
+    // Calculate container offsetTop relative to document
+    const docScrollTop = window.scrollY || document.documentElement.scrollTop;
+    const offsetTop = rect.top + docScrollTop;
+    
+    // Determine header offset (matching page.tsx fixed header height)
+    const isDesktop = window.innerWidth >= 768;
+    const headerHeight = isDesktop ? 96 : 80;
+
+    // Determine motion preference
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const limit = reduceMotion ? 2000 : 5000;
+
+    // Scroll position inside the iframe. Only scroll when the container reaches below the header bar.
+    let localScroll = 0;
+    const startScroll = offsetTop - headerHeight;
+    if (scrollTop >= startScroll) {
+      localScroll = scrollTop - startScroll;
+      if (localScroll > limit) {
+        localScroll = limit;
+      }
+    }
+
+    // Propagate scroll to the iframe window
+    try {
+      const iframeWindow = iframeRef.current.contentWindow;
+      if (iframeWindow) {
+        iframeWindow.scrollTo(0, localScroll);
+      }
+    } catch (e) {
+      console.error("Failed to scroll iframe", e);
+    }
+  };
+
   useEffect(() => {
     // Determine motion preference
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     setScrollLen(reduceMotion ? 2000 : 5000);
-
-    const handleScroll = () => {
-      if (!containerRef.current || !iframeRef.current) return;
-
-      const rect = containerRef.current.getBoundingClientRect();
-      const scrollTop = window.scrollY;
-      
-      // Calculate container offsetTop relative to document
-      const docScrollTop = window.scrollY || document.documentElement.scrollTop;
-      const offsetTop = rect.top + docScrollTop;
-      
-      // Scroll position inside the iframe
-      let localScroll = 0;
-      if (scrollTop >= offsetTop) {
-        localScroll = scrollTop - offsetTop;
-        const limit = reduceMotion ? 2000 : 5000;
-        if (localScroll > limit) {
-          localScroll = limit;
-        }
-      }
-
-      // Propagate scroll to the iframe window
-      try {
-        const iframeWindow = iframeRef.current.contentWindow;
-        if (iframeWindow) {
-          iframeWindow.scrollTo(0, localScroll);
-        }
-      } catch (e) {
-        console.error("Failed to scroll iframe", e);
-      }
-    };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll, { passive: true });
@@ -74,6 +82,8 @@ const CreatorsMap = () => {
         console.error("Failed to inject scrollbar styles into iframe", e);
       }
     }
+    // Forceful sync to prevent browser scroll restoration from overriding initial state
+    handleScroll();
   };
 
   return (
@@ -82,11 +92,12 @@ const CreatorsMap = () => {
       className="relative w-full bg-[#030303]" 
       style={{ height: `calc(${scrollLen}px + 100vh)` }}
     >
-      <div className="sticky top-0 w-full h-screen overflow-hidden">
+      {/* Sticky container stays below the fixed header bar (top-20 on mobile, top-24 on desktop) */}
+      <div className="sticky top-20 md:top-24 w-full h-[calc(100vh-5rem)] md:h-[calc(100vh-6rem)] overflow-hidden">
         <iframe
           ref={iframeRef}
           src="/creators-map-bic.html"
-          className="w-full h-full border-none"
+          className="w-full h-full border-none pointer-events-none"
           title="Creator's Map"
           onLoad={handleIframeLoad}
         />
