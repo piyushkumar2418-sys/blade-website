@@ -19,6 +19,7 @@ import AgencyFooter from "@/components/sections/AgencyFooter";
 
 import InnerCircleHero from "@/components/sections/InnerCircleHero";
 import Crisis from "@/components/sections/Crisis";
+import CreatorsMap from "@/components/sections/CreatorsMap";
 import Manifesto from "@/components/sections/Manifesto";
 import SprintProtocol from "@/components/sections/SprintProtocol";
 import FounderAuthority from "@/components/sections/FounderAuthority";
@@ -193,6 +194,7 @@ export default function Home() {
           <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-white bg-[#050505] min-h-screen">
             <InnerCircleHero user={user} onJoinWaitlist={() => router.push("/apply/register")} />
             <Crisis />
+            <CreatorsMap />
             <Manifesto />
             <SprintProtocol />
             <FounderAuthority />
