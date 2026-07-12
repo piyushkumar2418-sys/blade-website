@@ -3,11 +3,12 @@ import React, { useRef, useEffect, useState } from "react";
 
 const CreatorsMap = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [scrollLen, setScrollLen] = useState(5000);
 
   const handleScroll = () => {
-    if (!containerRef.current || !iframeRef.current) return;
+    if (!containerRef.current || !iframeRef.current || !wrapperRef.current) return;
 
     const rect = containerRef.current.getBoundingClientRect();
     const scrollTop = window.scrollY;
@@ -20,7 +21,28 @@ const CreatorsMap = () => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const limit = reduceMotion ? 2000 : 5000;
 
-    // Scroll position inside the iframe. Only scroll when the container reaches the top of the viewport.
+    // 1. Manual pinning logic to bypass ancestor overflow-x: hidden / sticky bugs
+    if (scrollTop < offsetTop) {
+      // Container top is below viewport top - scroll naturally in flow
+      wrapperRef.current.style.position = "absolute";
+      wrapperRef.current.style.top = "0px";
+      wrapperRef.current.style.bottom = "auto";
+      wrapperRef.current.style.left = "0px";
+    } else if (scrollTop >= offsetTop && scrollTop <= offsetTop + limit) {
+      // Container top is at/above viewport top - pin full-screen to viewport
+      wrapperRef.current.style.position = "fixed";
+      wrapperRef.current.style.top = "0px";
+      wrapperRef.current.style.bottom = "auto";
+      wrapperRef.current.style.left = "0px";
+    } else {
+      // Scrolled past the container - pin to bottom of container to scroll out of view
+      wrapperRef.current.style.position = "absolute";
+      wrapperRef.current.style.top = "auto";
+      wrapperRef.current.style.bottom = "0px";
+      wrapperRef.current.style.left = "0px";
+    }
+
+    // 2. Scroll position inside the iframe. Only scroll when the container is pinned/active.
     let localScroll = 0;
     if (scrollTop >= offsetTop) {
       localScroll = scrollTop - offsetTop;
@@ -87,8 +109,11 @@ const CreatorsMap = () => {
       className="relative w-full bg-[#030303]" 
       style={{ height: `calc(${scrollLen}px + 100vh)` }}
     >
-      {/* Sticky container is full screen */}
-      <div className="sticky top-0 w-full h-screen overflow-hidden">
+      {/* Manual pin wrapper handles full screen locking reliably */}
+      <div 
+        ref={wrapperRef} 
+        className="absolute top-0 left-0 w-full h-screen overflow-hidden"
+      >
         <iframe
           ref={iframeRef}
           src="/creators-map-bic.html"
