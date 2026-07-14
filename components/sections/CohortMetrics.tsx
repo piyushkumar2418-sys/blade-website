@@ -93,11 +93,11 @@ export default function CohortMetrics() {
       bgGlow: "rgba(243, 215, 167, 0.03)",
       visualDetail: (
         <div className="mt-4 grid grid-cols-2 gap-2 text-[10px] text-white/50 uppercase tracking-widest font-semibold">
-          <div className="flex items-center gap-1.5 px-2 py-1.5 bg-white/5 rounded border border-white/5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-[#F3D7A7]" /> Upwork
+          <div className="flex items-center gap-1.5 px-2 py-1.5 bg-white/5 rounded border border-white/5 justify-center">
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#F3D7A7]" /> Network
           </div>
-          <div className="flex items-center gap-1.5 px-2 py-1.5 bg-white/5 rounded border border-white/5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-[#F3D7A7]" /> LinkedIn
+          <div className="flex items-center gap-1.5 px-2 py-1.5 bg-white/5 rounded border border-white/5 justify-center">
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#F3D7A7]" /> Referrals
           </div>
         </div>
       )
@@ -147,12 +147,12 @@ export default function CohortMetrics() {
         <div className="mt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-white/5 pt-4">
           <div className="flex gap-4">
             <div>
-              <div className="text-[10px] text-white/40 uppercase">Incubated</div>
-              <div className="text-white font-bold text-sm">₹2.4L avg/mo</div>
+              <div className="text-[10px] text-white/40 uppercase">Industries</div>
+              <div className="text-white font-bold text-sm">Media & Agency</div>
             </div>
             <div className="border-l border-white/10 pl-4">
-              <div className="text-[10px] text-white/40 uppercase">Domain</div>
-              <div className="text-[#F3D7A7] font-bold text-sm">Media & SaaS</div>
+              <div className="text-[10px] text-white/40 uppercase">Type</div>
+              <div className="text-[#F3D7A7] font-bold text-sm">Self-Sustaining</div>
             </div>
           </div>
           <div className="text-[10px] bg-[#F3D7A7]/10 text-[#F3D7A7] border border-[#F3D7A7]/20 px-3 py-1.5 rounded-full font-bold uppercase tracking-wider self-start sm:self-center">
@@ -201,11 +201,11 @@ export default function CohortMetrics() {
       visualDetail: (
         <div className="mt-4 flex -space-x-1.5">
           {[1, 2, 3].map((v) => (
-            <div key={v} className="w-5 h-5 rounded-full bg-white/10 border border-black flex items-center justify-center text-[7px] font-bold text-white/70">
-              C{v}
+            <div key={v} className="w-6 h-6 rounded-full bg-neutral-900 border border-black flex items-center justify-center text-[7px] font-bold text-white/60">
+              M0{v}
             </div>
           ))}
-          <div className="w-5 h-5 rounded-full bg-[#F3D7A7]/20 border border-black flex items-center justify-center text-[7px] font-bold text-[#F3D7A7]">
+          <div className="w-6 h-6 rounded-full bg-[#F3D7A7]/10 border border-[#F3D7A7]/20 flex items-center justify-center text-[7px] font-bold text-[#F3D7A7]">
             +
           </div>
         </div>
@@ -266,7 +266,7 @@ export default function CohortMetrics() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-none text-white text-center"
           >
-            BIC by the <span className="text-[#F3D7A7] font-extrabold">Numbers</span>
+            Why Blade <span className="text-[#F3D7A7] font-extrabold">Inner Circle?</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
