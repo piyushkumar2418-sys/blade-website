@@ -1,7 +1,6 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import { User } from "firebase/auth";
 
 interface InnerCircleHeroProps {
@@ -9,52 +8,16 @@ interface InnerCircleHeroProps {
   onJoinWaitlist: () => void;
 }
 
+const words = ["CREATE", "MARKET", "SELL", "BUILD"];
+
 export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHeroProps) {
-  // Interactive Cursor-Reactive Spotlight Glow
-  const heroRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (heroRef.current) {
-        const rect = heroRef.current.getBoundingClientRect();
-        setMousePos({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
-        });
-      }
-    };
-    
-    const handleMouseLeave = () => {
-      setMousePos({ x: -1000, y: -1000 });
-    };
-
-    const element = heroRef.current;
-    if (element) {
-      element.addEventListener("mousemove", handleMouseMove);
-      element.addEventListener("mouseleave", handleMouseLeave);
-    }
-    
-    return () => {
-      if (element) {
-        element.removeEventListener("mousemove", handleMouseMove);
-        element.removeEventListener("mouseleave", handleMouseLeave);
-      }
-    };
-  }, []);
-
-
+  const [hoveredWord, setHoveredWord] = useState<string | null>(null);
 
   return (
     <section 
-      ref={heroRef}
-      className="h-screen text-white flex flex-col justify-center items-center text-center px-6 md:px-24 border-b border-white/5 relative overflow-hidden transition-all duration-300 pt-20"
-      style={{
-        backgroundColor: '#0f0f0f',
-      }}
+      className="h-screen w-full text-white relative overflow-hidden transition-all duration-300 bg-[#050505]"
     >
-
-      {/* Background Video */}
+      {/* Background Video (Preserved Exactly) */}
       <video 
         autoPlay 
         muted 
@@ -65,47 +28,175 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
         <source src="/bic_bg_final.mp4" type="video/mp4" />
       </video>
 
-      {/* Bottom fade out to blend with the next section */}
+      {/* Bottom fade out to blend with the next section (Preserved Exactly) */}
       <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none z-10" />
 
-      {/* Main bold title */}
-      <motion.h1 
-        initial={{ y: 30, opacity: 0 }} 
-        animate={{ y: 0, opacity: 1 }} 
-        transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }} 
-        className="text-[12vw] md:text-[7vw] font-black leading-[0.82] tracking-[-0.07em] uppercase text-center relative z-20 selection:bg-white selection:text-black font-sans"
-      >
-        The School of <br/> Modern Content.
-      </motion.h1>
-
-      {/* August Intake tag placed directly below the title, with solid curved background & glow */}
+      {/* Subtle Design Grid Overlay (Spector Style, 5% Opacity) */}
       <motion.div 
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-        className="flex justify-center relative z-20 text-center mt-8 mb-16"
-      >
-        <span className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#F3D7A7]/10 border border-[#F3D7A7]/30 rounded-full text-[#F3D7A7] text-[11px] font-bold uppercase tracking-[0.25em] shadow-[0_0_35px_rgba(243,215,167,0.12)] backdrop-blur-md transition-all duration-300 hover:border-[#F3D7A7]/50 hover:shadow-[0_0_45px_rgba(243,215,167,0.25)] hover:scale-102">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#F3D7A7] animate-pulse" />
-          August 2026 Intake | Applications Open
-        </span>
-      </motion.div>
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.05 }}
+        transition={{ duration: 1.5, delay: 0.5 }}
+        className="absolute inset-0 z-10 pointer-events-none" 
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '55px 55px',
+        }}
+      />
 
-      {/* Centered waitlist CTA button */}
-      <motion.div 
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
-        className="flex justify-center relative z-20"
-      >
-        <button 
-          onClick={onJoinWaitlist} 
-          className="bg-[#F3D7A7] text-black px-12 py-5.5 rounded-full font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-white hover:text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(243,215,167,0.25)] transition-all duration-300 flex items-center gap-4 shadow-2xl group cursor-none"
+      {/* Main Container */}
+      <div className="relative w-full h-full z-20 px-6 md:px-12 flex flex-col justify-between pt-24 pb-8 md:pt-0">
+        
+        {/* CENTER VISUAL ANCHOR: MAIN HEADLINE */}
+        <div className="flex-grow flex flex-col justify-center items-start md:pl-16">
+          <motion.h1 
+            initial={{ y: 50, opacity: 0 }} 
+            animate={{ y: 0, opacity: 1 }} 
+            transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }} 
+            className="text-[12vw] md:text-[6.8vw] font-black leading-[0.82] tracking-[-0.05em] uppercase text-left relative z-20 selection:bg-white selection:text-black font-sans w-full max-w-4xl select-none"
+          >
+            The School of <br/> Modern Content.
+          </motion.h1>
+        </div>
+
+        {/* MOBILE STACKED EDITORIAL FLOW (Visible on screens < 768px) */}
+        <div className="md:hidden flex flex-col w-full gap-8 text-left select-none font-['Helvetica',_sans-serif] mt-4 mb-4">
+          
+          {/* Top Info Grid */}
+          <div className="flex justify-between items-start gap-4">
+            <div className="flex flex-col">
+              <span className="text-[8px] tracking-[0.2em] text-white/40 uppercase">From the House of</span>
+              <span className="text-[10px] font-bold tracking-[0.15em] text-white mt-0.5 uppercase">Blade Media</span>
+              <span className="text-[8px] tracking-[0.15em] text-white/30 mt-1 uppercase">Delhi / Est. 2026</span>
+            </div>
+            <div className="flex flex-col items-end text-right font-black tracking-[0.15em] text-[9px] text-white/80">
+              <span>CREATE // MARKET</span>
+              <span>SELL // BUILD</span>
+            </div>
+          </div>
+
+          {/* Technical Identification Code */}
+          <div className="flex flex-col border-l border-[#F3D7A7]/20 pl-4 py-1">
+            <span className="text-[9px] font-mono tracking-[0.25em] text-[#F3D7A7]">BIC–26–C02</span>
+            <span className="text-[9px] font-bold tracking-[0.2em] text-white mt-1 uppercase">Independent School</span>
+            <span className="text-[9px] tracking-[0.2em] text-white/50 uppercase">For the Internet Economy</span>
+          </div>
+
+          {/* Admissions Catalogue & CTA */}
+          <div className="flex items-end justify-between border-t border-white/5 pt-6">
+            <div className="flex flex-col">
+              <span className="text-[9px] font-bold tracking-[0.2em] text-[#F3D7A7] uppercase">02 / Admissions</span>
+              <span className="text-[9px] tracking-[0.15em] text-white/60 mt-0.5 uppercase">August 2026 Intake</span>
+            </div>
+            <button 
+              onClick={onJoinWaitlist}
+              className="text-[#F3D7A7] border-b border-[#F3D7A7]/30 pb-0.5 text-[11px] font-bold tracking-[0.2em] uppercase flex items-center gap-1 cursor-none"
+            >
+              <span>Apply</span>
+              <span className="inline-block">↗</span>
+            </button>
+          </div>
+
+          {/* Philosophy Statement */}
+          <div className="text-[8px] font-bold tracking-[0.2em] text-white/30 uppercase">
+            For those building on the internet.
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* DESKTOP ASYMMETRIC CANVAS DISTRIBUTION (Visible on screens >= 768px) */}
+      <div className="hidden md:block absolute inset-0 z-20 pointer-events-none">
+        
+        {/* UPPER LEFT: Institutional Metadata */}
+        <motion.div 
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="absolute top-24 left-12 pointer-events-auto flex flex-col text-left font-['Helvetica',_sans-serif] uppercase select-none"
         >
-          <span>Apply for August Intake</span>
-          <ArrowRight size={16} className="group-hover:translate-x-1.5 transition-transform duration-300" />
-        </button>
-      </motion.div>
+          <span className="text-[8px] tracking-[0.25em] text-white/40">From the House of</span>
+          <span className="text-[10px] font-bold tracking-[0.2em] text-white mt-1">Blade Media</span>
+          <div className="h-[1px] w-6 bg-white/10 my-3" />
+          <span className="text-[8px] tracking-[0.2em] text-white/40">Delhi, India</span>
+          <span className="text-[8px] tracking-[0.2em] text-white/40 mt-0.5">Est. 2026</span>
+        </motion.div>
+
+        {/* UPPER RIGHT: Vertical Typography stacked list */}
+        <motion.div 
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="absolute top-24 right-12 pointer-events-auto flex gap-4 select-none font-['Helvetica',_sans-serif]"
+        >
+          <div className="w-[1px] bg-gradient-to-b from-[#F3D7A7]/80 to-transparent self-stretch" />
+          <div className="flex flex-col gap-1.5 text-left font-black tracking-[0.18em] text-[13px]">
+            {words.map((word) => (
+              <span 
+                key={word}
+                onMouseEnter={() => setHoveredWord(word)}
+                onMouseLeave={() => setHoveredWord(null)}
+                className="cursor-pointer transition-all duration-300"
+                style={{
+                  color: hoveredWord === word ? "#F3D7A7" : "#FFFFFF",
+                  opacity: hoveredWord === null ? 1 : hoveredWord === word ? 1 : 0.35
+                }}
+              >
+                {word}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* LOWER LEFT: Technical catalog code */}
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
+          className="absolute bottom-24 left-12 pointer-events-auto flex flex-col text-left font-['Helvetica',_sans-serif] uppercase select-none"
+        >
+          <span className="text-[10px] font-mono tracking-[0.35em] text-[#F3D7A7]">BIC–26–C02</span>
+          <div className="h-[1px] w-6 bg-[#F3D7A7]/20 my-3" />
+          <span className="text-[9px] font-bold tracking-[0.25em] text-white">Independent School</span>
+          <span className="text-[9px] tracking-[0.22em] text-white/50 mt-0.5">For the Internet Economy</span>
+        </motion.div>
+
+        {/* LOWER RIGHT: Admissions Catalog & CTA */}
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.0 }}
+          className="absolute bottom-24 right-12 pointer-events-auto flex flex-col text-left font-['Helvetica',_sans-serif] select-none"
+        >
+          <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#F3D7A7]">02 / Admissions</span>
+          <span className="text-[9px] uppercase tracking-[0.2em] text-white/60 mt-1">August 2026</span>
+          
+          <button
+            onClick={onJoinWaitlist}
+            className="mt-4 flex flex-col items-start group cursor-none w-max pointer-events-auto"
+          >
+            <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-white group-hover:text-[#F3D7A7] transition-colors duration-300 flex items-center gap-1">
+              <span>Apply</span>
+              <span className="inline-block group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">↗</span>
+            </span>
+            <div className="h-[1px] w-8 bg-white group-hover:bg-[#F3D7A7] group-hover:w-16 transition-all duration-300 mt-1" />
+          </button>
+        </motion.div>
+
+        {/* BOTTOM LEFT: Philosophy print statement */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.2 }}
+          className="absolute bottom-8 left-12 pointer-events-auto text-[9px] font-bold uppercase tracking-[0.3em] text-white/40 font-['Helvetica',_sans-serif] select-none"
+        >
+          For those building <br /> on the internet.
+        </motion.div>
+
+      </div>
     </section>
   );
 }

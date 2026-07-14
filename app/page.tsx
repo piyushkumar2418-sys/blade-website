@@ -132,55 +132,40 @@ export default function Home() {
             opacity: hideHeader ? 0 : 1 
           }}
           transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="fixed top-0 left-0 right-0 w-full z-[100] bg-[#030303]/80 backdrop-blur-xl border-b border-white/5 px-6 md:px-24 h-20 md:h-24 flex items-center justify-between font-['Helvetica',_sans-serif]"
+          className="fixed top-0 left-0 right-0 w-full z-[100] bg-[#030303]/80 backdrop-blur-xl border-b border-white/5 px-6 md:px-12 h-14 md:h-16 flex items-center justify-between font-['Helvetica',_sans-serif]"
         >
           {/* Logo on the left */}
           <motion.button 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-            className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-none"
+            className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center cursor-none"
           >
-            <Image src="/blade-logo.png" alt="Blade Logo" width={40} height={40} priority className="w-full h-full object-contain brightness-0 invert" />
+            <Image src="/blade-logo.png" alt="Blade Logo" width={32} height={32} priority className="w-full h-full object-contain brightness-0 invert" />
           </motion.button>
 
-          {/* Navigation Links and CTA on the right */}
-          <div className="flex items-center gap-8 md:gap-12">
-            <nav className="hidden md:flex items-center gap-8">
-              <motion.button 
-                onClick={handleToggle} 
-                className="text-white/60 hover:text-white text-xs font-bold uppercase tracking-[0.2em] transition-colors cursor-none"
-              >
-                Exit to Agency
-              </motion.button>
-              <motion.button 
-                onClick={() => router.push(user ? "/dashboard" : "/apply/login")}
-                className="text-white/60 hover:text-white text-xs font-bold uppercase tracking-[0.2em] transition-colors cursor-none"
-              >
-                {user ? "Profile" : "Sign In"}
-              </motion.button>
-            </nav>
-
-            <div className="flex items-center gap-4">
-              <nav className="flex md:hidden items-center gap-4">
-                <motion.button 
-                  onClick={() => router.push(user ? "/dashboard" : "/apply/login")}
-                  className="text-white/60 hover:text-white text-[10px] font-bold uppercase tracking-[0.15em] transition-colors cursor-none"
-                >
-                  {user ? "Profile" : "Sign In"}
-                </motion.button>
-              </nav>
-
-              <motion.button 
-                whileHover={{ scale: 1.02, boxShadow: "0 0 25px rgba(243, 215, 167, 0.25)" }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => router.push("/apply/register")}
-                className="bg-[#F3D7A7] text-black px-6 md:px-8 py-3 md:py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.1em] shadow-xl whitespace-nowrap cursor-none hover:bg-white hover:text-black transition-all duration-300"
-              >
-                Apply Now
-              </motion.button>
-            </div>
-          </div>
+          {/* Navigation Links on the right */}
+          <nav className="flex items-center gap-5 md:gap-8 font-['Helvetica',_sans-serif]">
+            <motion.button 
+              onClick={handleToggle} 
+              className="text-white/50 hover:text-white text-[10px] md:text-[11px] font-bold uppercase tracking-[0.25em] transition-colors cursor-none"
+            >
+              Exit to Agency
+            </motion.button>
+            <motion.button 
+              onClick={() => router.push(user ? "/dashboard" : "/apply/login")}
+              className="text-white/50 hover:text-white text-[10px] md:text-[11px] font-bold uppercase tracking-[0.25em] transition-colors cursor-none"
+            >
+              {user ? "Profile" : "Sign In"}
+            </motion.button>
+            <motion.button 
+              onClick={() => router.push("/apply/register")}
+              className="text-[#F3D7A7] hover:text-[#FFF0D4] text-[10px] md:text-[11px] font-bold uppercase tracking-[0.25em] transition-colors cursor-none flex items-center gap-1 group"
+            >
+              <span>Apply</span>
+              <span className="inline-block group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">↗</span>
+            </motion.button>
+          </nav>
         </motion.header>
       )}
 
