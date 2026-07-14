@@ -7,62 +7,52 @@ const membersData = [
   {
     name: "Ranveer Allahbadia",
     url: "/logos/ranveer.jpg",
-    type: "creator",
-    role: "BeerBiceps"
+    type: "creator"
   },
   {
     name: "Saurabh Sachdeva",
     url: "/logos/saurabh_sachdeva.jpg",
-    type: "creator",
-    role: "Acting Coach"
+    type: "creator"
   },
   {
     name: "Actors Truth",
     url: "/logos/actorstruth.jpg",
-    type: "creator",
-    role: "Academy"
+    type: "creator"
   },
   {
     name: "Red Bull",
     url: "/logos/redbull.png",
-    type: "brand",
-    role: "Energy Brand"
+    type: "brand"
   },
   {
     name: "Unacademy",
     url: "/logos/unacademy.png",
-    type: "brand",
-    role: "EdTech"
+    type: "brand"
   },
   {
     name: "YAAS Media",
     url: "/logos/yaas.png",
-    type: "brand",
-    role: "Media Network"
+    type: "brand"
   },
   {
     name: "Skillhouse",
     url: "/logos/skillhouse.png",
-    type: "brand",
-    role: "Talent Platform"
+    type: "brand"
   },
   {
     name: "Saurabh Bhardwaj (SB)",
     url: "/logos/sb_logo.png",
-    type: "brand",
-    role: "Creator"
+    type: "brand"
   },
   {
     name: "Viraj Ghelani (VF)",
     url: "/logos/vf_logo.png",
-    type: "brand",
-    role: "Creator"
+    type: "brand"
   },
   {
     name: "McCann",
     url: "/logos/mcann.png",
-    type: "brand",
-    role: "Global Agency"
+    type: "brand"
   }
 ];
 
@@ -96,7 +86,7 @@ const Members = () => {
           className="flex gap-8 items-center px-8"
         >
           {doubledMembers.map((member, i) => (
-            <LogoItem key={i} member={member} />
+            <LogoItem key={i} member={member} index={i} />
           ))}
         </motion.div>
       </div>
@@ -104,22 +94,31 @@ const Members = () => {
   );
 };
 
-const LogoItem = ({ member }: { member: typeof membersData[0] }) => {
+const LogoItem = ({ member, index }: { member: typeof membersData[0], index: number }) => {
   const [error, setError] = useState(false);
+
+  // Staggered floating effect
+  const yFloating = [0, -8 - (index % 3) * 2, 0];
+  const duration = 4.5 + (index % 4) * 0.5;
+  const delay = index * 0.15;
 
   return (
     <motion.div 
-      whileHover={{ 
-        scale: 1.04,
-        y: -4,
-        boxShadow: "0 15px 40px rgba(243, 215, 167, 0.25)"
+      animate={{ y: yFloating }}
+      transition={{
+        duration: duration,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: delay
       }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="flex-shrink-0 relative p-[2px] rounded-full bg-gradient-to-b from-[#FFF0D4] via-[#D1A147] to-[#1e1302] shadow-[0_10px_30px_rgba(0,0,0,0.6),inset_0_1px_2px_rgba(255,255,255,0.4)] transition-all duration-500 group cursor-pointer"
-      style={{ width: '145px', height: '255px' }}
+      whileHover={{ 
+        scale: 1.05,
+      }}
+      className="flex-shrink-0 relative p-[2px] rounded-full bg-gradient-to-b from-[#FFF0D4] via-[#D1A147] to-[#1e1302] shadow-[0_12px_35px_rgba(243,215,167,0.18),inset_0_1px_2px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-pointer"
+      style={{ width: '135px', height: '235px' }}
     >
-      {/* 3D Glass Inner Container */}
-      <div className="w-full h-full rounded-full bg-gradient-to-b from-[#181105] via-[#090602] to-[#000000] flex flex-col items-center justify-between py-8 px-4 relative overflow-hidden">
+      {/* 3D Glass Inner Container - Center contents vertically & horizontally */}
+      <div className="w-full h-full rounded-full bg-gradient-to-b from-[#181105] via-[#090602] to-[#000000] flex items-center justify-center p-6 relative overflow-hidden shadow-[inset_0_0_20px_rgba(243,215,167,0.15)]">
         
         {/* Specular Highlights for 3D liquid metallic look */}
         {/* Top glossy reflection cap */}
@@ -132,33 +131,40 @@ const LogoItem = ({ member }: { member: typeof membersData[0] }) => {
         <div className="absolute inset-y-6 left-[3px] w-[1px] bg-gradient-to-b from-transparent via-[#FFF0D4]/25 to-transparent pointer-events-none" />
         <div className="absolute inset-y-6 right-[3px] w-[1px] bg-gradient-to-b from-transparent via-[#FFF0D4]/10 to-transparent pointer-events-none" />
 
-        {/* Diagonal sheen sweep on hover */}
-        <div className="absolute inset-0 w-[200%] h-full bg-gradient-to-r from-transparent via-[#FFF0D4]/12 to-transparent -skew-x-12 -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-out pointer-events-none" />
+        {/* Permanent Infinite Sheen Sweep animation */}
+        <motion.div 
+          animate={{ x: ["-150%", "150%"] }}
+          transition={{ 
+            duration: 4.5, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            delay: (index % 10) * 0.45
+          }}
+          className="absolute inset-0 w-[200%] h-full bg-gradient-to-r from-transparent via-[#FFF0D4]/15 to-transparent -skew-x-12 pointer-events-none" 
+        />
 
-        {/* Card Content - Stacked Vertically */}
+        {/* Card Content (Logos Only) */}
         {member.type === "creator" ? (
-          <>
-            {/* Creator Photo */}
-            <div className="relative w-16 h-16 rounded-full overflow-hidden border border-[#D1A147]/40 bg-black/50 shadow-md flex-shrink-0 z-10 group-hover:border-[#FFF0D4]/70 transition-colors duration-300">
-              {!error ? (
-                <Image 
-                  src={member.url} 
-                  alt={member.name}
-                  fill
-                  sizes="64px"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  onError={() => setError(true)}
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-black/50 text-[#D1A147] font-bold text-base">
-                  {member.name.charAt(0)}
-                </div>
-              )}
-            </div>
-          </>
+          /* Creator Photo - Circular avatar centered */
+          <div className="relative w-18 h-18 rounded-full overflow-hidden border border-[#D1A147]/50 bg-black/50 shadow-[0_0_15px_rgba(243,215,167,0.3)] z-10">
+            {!error ? (
+              <Image 
+                src={member.url} 
+                alt={member.name}
+                fill
+                sizes="72px"
+                className="object-cover"
+                onError={() => setError(true)}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-black/50 text-[#D1A147] font-bold text-base">
+                {member.name.charAt(0)}
+              </div>
+            )}
+          </div>
         ) : (
-          /* Brand Logo */
-          <div className="relative w-full h-16 flex items-center justify-center px-1 z-10 flex-shrink-0">
+          /* Brand Logo - Centered */
+          <div className="relative w-full h-18 flex items-center justify-center px-1 z-10">
             {!error ? (
               <div className="relative w-[85%] h-full">
                 <Image 
@@ -166,7 +172,7 @@ const LogoItem = ({ member }: { member: typeof membersData[0] }) => {
                   alt={member.name}
                   fill
                   sizes="120px"
-                  className="object-contain transition-transform duration-500 group-hover:scale-105"
+                  className="object-contain"
                   onError={() => setError(true)}
                 />
               </div>
@@ -177,16 +183,6 @@ const LogoItem = ({ member }: { member: typeof membersData[0] }) => {
             )}
           </div>
         )}
-
-        {/* Labels positioned at the bottom */}
-        <div className="flex flex-col items-center text-center w-full z-10 select-none">
-          <h4 className="text-[11px] font-bold uppercase tracking-wider text-white/90 group-hover:text-[#D1A147] transition-colors duration-300 w-full px-1 truncate">
-            {member.name}
-          </h4>
-          <p className="text-[8px] uppercase tracking-[0.18em] text-[#D1A147]/65 mt-1 font-medium w-full px-1 truncate">
-            {member.role}
-          </p>
-        </div>
 
       </div>
     </motion.div>
