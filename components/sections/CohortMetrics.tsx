@@ -189,22 +189,22 @@ export default function CohortMetrics() {
       icon: <Share2 className="w-5 h-5 text-[#F3D7A7]" />,
       bgGlow: "rgba(243, 215, 167, 0.02)",
       visualDetail: (
-        <div className="mt-4 grid grid-cols-3 gap-2 w-full">
+        <div className="mt-6 grid grid-cols-2 gap-2 w-full">
           {[
-            { name: "Flipkart", url: "/logos/flipkart_user.png" },
-            { name: "Dot & Key", url: "/logos/dotkey.png" },
-            { name: "Köche", url: "/logos/koche.png" },
-            { name: "Nykaa", url: "/nykaa.png" },
-            { name: "Amazon", url: "/amazon.jpg" },
-            { name: "Reliance", url: "/reliance.png" },
+            { name: "Flipkart", url: "/logos/flipkart_user.png", filter: "brightness-0 invert" },
+            { name: "Dot & Key", url: "/logos/dotkey.png", filter: "brightness-0 invert" },
+            { name: "Köche", url: "/logos/koche.png", filter: "mix-blend-screen" },
+            { name: "Nykaa", url: "/nykaa.png", filter: "brightness-0 invert" },
+            { name: "Amazon", url: "/amazon.jpg", filter: "brightness-0 invert" },
+            { name: "Reliance", url: "/reliance.png", filter: "brightness-0 invert" },
           ].map((logo, idx) => (
-            <div key={idx} className="h-7 w-full flex items-center justify-center p-1 bg-white/[0.03] border border-white/5 rounded hover:bg-white/10 transition-colors duration-300">
+            <div key={idx} className="h-12 w-full flex items-center justify-center p-3 bg-[#131315] border border-white/[0.02] rounded-xl hover:bg-[#17171a] hover:border-white/10 transition-all duration-300 group/logo">
               <Image 
                 src={logo.url} 
                 alt={logo.name} 
-                width={50} 
-                height={20} 
-                className="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity duration-300" 
+                width={64} 
+                height={24} 
+                className={`h-full w-auto object-contain opacity-40 group-hover/logo:opacity-100 transition-opacity duration-300 ${logo.filter}`}
               />
             </div>
           ))}
