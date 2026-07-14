@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { 
   Users, 
   IndianRupee, 
@@ -188,8 +189,25 @@ export default function CohortMetrics() {
       icon: <Share2 className="w-5 h-5 text-[#F3D7A7]" />,
       bgGlow: "rgba(243, 215, 167, 0.02)",
       visualDetail: (
-        <div className="mt-4 flex items-center gap-1.5 text-[10px] text-white/40 font-semibold uppercase tracking-wider">
-          <span>In-house projects</span>
+        <div className="mt-4 grid grid-cols-3 gap-2 w-full">
+          {[
+            { name: "Flipkart", url: "/logos/flipkart_user.png" },
+            { name: "Dot & Key", url: "/logos/dotkey.png" },
+            { name: "Köche", url: "/logos/koche.png" },
+            { name: "Nykaa", url: "/nykaa.png" },
+            { name: "Amazon", url: "/amazon.jpg" },
+            { name: "Reliance", url: "/reliance.png" },
+          ].map((logo, idx) => (
+            <div key={idx} className="h-7 w-full flex items-center justify-center p-1 bg-white/[0.03] border border-white/5 rounded hover:bg-white/10 transition-colors duration-300">
+              <Image 
+                src={logo.url} 
+                alt={logo.name} 
+                width={50} 
+                height={20} 
+                className="h-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity duration-300" 
+              />
+            </div>
+          ))}
         </div>
       )
     },
