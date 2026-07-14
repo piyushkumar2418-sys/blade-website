@@ -231,19 +231,17 @@ export default function CohortMetrics() {
   return (
     <section className="py-32 px-8 md:px-16 lg:px-24 bg-black text-white relative z-20 overflow-hidden flex flex-col justify-center items-center">
       
-      {/* Gold Grid Spotlight Background (reproduced in CSS from user uploaded image) */}
+      {/* Slats-and-Glow Cover Background Image */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Base Black Background */}
         <div className="absolute inset-0 bg-[#000000]" />
-        
-        {/* Central warm gold/orange glow behind grid */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(243,215,167,0.15)_0%,transparent_60%)]" />
-        
-        {/* Fine gold/orange grid lines */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(243,215,167,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(243,215,167,0.12)_1px,transparent_1px)] bg-[size:44px_44px]" />
-        
-        {/* Radial vignette dimming the grid lines towards the edges to create a spotlight circle */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_40%,#000000_80%)]" />
+        {/* Cover Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-95"
+          style={{ backgroundImage: "url('/outcomes-bg.jpg')" }}
+        />
+        {/* Radial vignette overlay to blend edges and maintain readability */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0.75)_60%,#000000_95%)]" />
       </div>
 
       <div className="max-w-[1100px] w-full mx-auto relative z-10">
