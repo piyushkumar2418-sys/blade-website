@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { User } from "firebase/auth";
-import PixelatedBackground from "@/components/PixelatedBackground";
 
 interface InnerCircleHeroProps {
   user: User | null;
@@ -55,20 +54,16 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
       }}
     >
 
-      {/* Pixelated Background overlay */}
-      <div className="absolute inset-0 w-full h-full z-0">
-        <PixelatedBackground 
-          backgroundColor="transparent"
-          gridSizeDesktop={36}
-          gridSizeTablet={24}
-          gridSizeMobile={10}
-          gridBorderSize={1}
-          gridBorderColor="#3B3D48"
-          hoverColor="#F3D7A7"
-          fadeDuration={2}
-          breakpoint={780}
-        />
-      </div>
+      {/* Background Video */}
+      <video 
+        autoPlay 
+        muted 
+        loop 
+        playsInline 
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-100"
+      >
+        <source src="/bic_bg_final.mp4" type="video/mp4" />
+      </video>
 
       {/* Main bold title */}
       <motion.h1 
