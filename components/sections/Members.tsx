@@ -72,14 +72,18 @@ const Members = () => {
     <section 
       className="py-24 bg-gradient-to-b from-black via-[#030303] to-black border-b border-white/5 relative overflow-hidden"
     >
-      {/* Title Header matching the screenshot styling */}
-      <div className="max-w-[1400px] mx-auto px-6 mb-16 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="h-[1px] w-8 bg-[#F3D7A7]" />
-          <span className="text-xs font-bold uppercase tracking-[0.35em] text-[#F3D7A7]">
-            Our Members are working with
+      {/* Centered Title Header with mixed font styling */}
+      <div className="max-w-3xl mx-auto px-6 mb-16 flex flex-col items-center justify-center text-center">
+        <div className="flex items-center gap-3 justify-center mb-4">
+          <div className="h-[1px] w-6 bg-[#F3D7A7]/40" />
+          <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.35em] text-[#F3D7A7]">
+            Ecosystem
           </span>
+          <div className="h-[1px] w-6 bg-[#F3D7A7]/40" />
         </div>
+        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white text-center leading-tight">
+          Our Members <span className="font-serif italic font-normal text-[#F3D7A7] lowercase tracking-normal normal-case">are working with</span>
+        </h2>
       </div>
 
       {/* Infinite Scrolling Track */}
