@@ -242,6 +242,8 @@ export default function CohortMetrics() {
         />
         {/* Radial vignette overlay to blend edges and maintain readability */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0.75)_60%,#000000_95%)]" />
+        {/* Large organic background glow behind the bento grid */}
+        <div className="absolute top-[65%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[50%] bg-[#F3D7A7]/8 rounded-full blur-[120px] pointer-events-none" />
       </div>
 
       <div className="max-w-[1100px] w-full mx-auto relative z-10">
