@@ -191,20 +191,20 @@ export default function CohortMetrics() {
       visualDetail: (
         <div className="mt-6 grid grid-cols-2 gap-2 w-full">
           {[
-            { name: "Flipkart", url: "/logos/flipkart_user.png", filter: "brightness-0 invert" },
-            { name: "Dot & Key", url: "/logos/dotkey.png", filter: "brightness-0 invert" },
-            { name: "Köche", url: "/logos/koche.png", filter: "mix-blend-screen" },
-            { name: "Nykaa", url: "/nykaa.png", filter: "brightness-0 invert" },
-            { name: "Amazon", url: "/amazon.jpg", filter: "brightness-0 invert" },
-            { name: "Reliance", url: "/reliance.png", filter: "brightness-0 invert" },
+            { name: "Flipkart", url: "/logos/flipkart_user.png" },
+            { name: "Dot & Key", url: "/logos/dotkey.png" },
+            { name: "Köche", url: "/logos/koche.png" },
+            { name: "Nykaa", url: "/nykaa.png" },
+            { name: "Amazon", url: "/amazon.jpg" },
+            { name: "Reliance", url: "/reliance.png" },
           ].map((logo, idx) => (
-            <div key={idx} className="h-12 w-full flex items-center justify-center p-3 bg-[#131315] border border-white/[0.02] rounded-xl hover:bg-[#17171a] hover:border-white/10 transition-all duration-300 group/logo">
+            <div key={idx} className="h-12 w-full flex items-center justify-center p-3 bg-white/[0.08] backdrop-blur-md border border-white/[0.12] rounded-xl hover:bg-white/[0.12] hover:border-white/[0.2] transition-all duration-300 group/logo">
               <Image 
                 src={logo.url} 
                 alt={logo.name} 
                 width={64} 
                 height={24} 
-                className={`h-full w-auto object-contain opacity-40 group-hover/logo:opacity-100 transition-opacity duration-300 ${logo.filter}`}
+                className="h-full w-auto object-contain opacity-80 group-hover/logo:opacity-100 transition-opacity duration-300"
               />
             </div>
           ))}
