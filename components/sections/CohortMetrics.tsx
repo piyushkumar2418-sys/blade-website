@@ -191,18 +191,17 @@ export default function CohortMetrics() {
       visualDetail: (
         <div className="mt-6 grid grid-cols-2 gap-2 w-full">
           {[
-            { name: "Flipkart", url: "/logos/flipkart_user.png" },
-            { name: "Dot & Key", url: "/logos/dotkey.png" },
-            { name: "Köche", url: "/logos/koche.png" },
-            { name: "Nykaa", url: "/nykaa.png" },
-            { name: "Amazon", url: "/amazon.jpg" },
-            { name: "Reliance", url: "/reliance.png" },
+            { name: "Nykaa", url: "/logos/nykaa_white.png" },
+            { name: "Köche", url: "/logos/koche_white.png" },
+            { name: "Mirchi", url: "/logos/mirchi_white.png" },
+            { name: "Amazon", url: "/logos/amazon_white.png" },
+            { name: "Ogilvy", url: "/logos/ogilvy_white.png", span: "col-span-2" },
           ].map((logo, idx) => (
-            <div key={idx} className="h-12 w-full flex items-center justify-center p-3 bg-white/[0.08] backdrop-blur-md border border-white/[0.12] rounded-xl hover:bg-white/[0.12] hover:border-white/[0.2] transition-all duration-300 group/logo">
+            <div key={idx} className={`h-12 w-full flex items-center justify-center p-3 bg-white/[0.08] backdrop-blur-md border border-white/[0.12] rounded-xl hover:bg-white/[0.12] hover:border-white/[0.2] transition-all duration-300 group/logo ${logo.span || ""}`}>
               <Image 
                 src={logo.url} 
                 alt={logo.name} 
-                width={64} 
+                width={logo.span ? 80 : 64} 
                 height={24} 
                 className="h-full w-auto object-contain opacity-80 group-hover/logo:opacity-100 transition-opacity duration-300"
               />
