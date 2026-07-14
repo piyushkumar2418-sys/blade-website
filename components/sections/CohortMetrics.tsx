@@ -39,21 +39,10 @@ export default function CohortMetrics() {
       icon: <Users className="w-5 h-5 text-[#F3D7A7]" />,
       bgGlow: "rgba(243, 215, 167, 0.03)",
       visualDetail: (
-        <div className="mt-6 flex flex-wrap gap-2 items-center">
-          <div className="flex -space-x-3">
-            {[1, 2, 3, 4, 5].map((idx) => (
-              <div 
-                key={idx} 
-                className="w-8 h-8 rounded-full border-2 border-black bg-neutral-900 flex items-center justify-center text-[9px] font-bold text-white/60"
-                style={{
-                  backgroundImage: `linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%)`
-                }}
-              >
-                M0{idx}
-              </div>
-            ))}
-          </div>
-          <span className="text-[10px] text-white/40 uppercase tracking-widest pl-2">Cohort Active</span>
+        <div className="mt-6 flex items-center gap-2">
+          <span className="text-[10px] text-[#F3D7A7] bg-[#F3D7A7]/10 border border-[#F3D7A7]/20 px-3 py-1.5 rounded-full font-bold uppercase tracking-wider">
+            Cohort 01 Active
+          </span>
         </div>
       )
     },
@@ -199,15 +188,8 @@ export default function CohortMetrics() {
       icon: <Share2 className="w-5 h-5 text-[#F3D7A7]" />,
       bgGlow: "rgba(243, 215, 167, 0.02)",
       visualDetail: (
-        <div className="mt-4 flex -space-x-1.5">
-          {[1, 2, 3].map((v) => (
-            <div key={v} className="w-6 h-6 rounded-full bg-neutral-900 border border-black flex items-center justify-center text-[7px] font-bold text-white/60">
-              M0{v}
-            </div>
-          ))}
-          <div className="w-6 h-6 rounded-full bg-[#F3D7A7]/10 border border-[#F3D7A7]/20 flex items-center justify-center text-[7px] font-bold text-[#F3D7A7]">
-            +
-          </div>
+        <div className="mt-4 flex items-center gap-1.5 text-[10px] text-white/40 font-semibold uppercase tracking-wider">
+          <span>In-house projects</span>
         </div>
       )
     },
