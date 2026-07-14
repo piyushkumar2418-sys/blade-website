@@ -27,12 +27,14 @@ const membersData = [
   {
     name: "Unacademy",
     url: "/logos/unacademy.png",
-    type: "brand"
+    type: "brand",
+    customScale: "scale-[1.3]"
   },
   {
     name: "YAAS Media",
     url: "/logos/yaas.png",
-    type: "brand"
+    type: "brand",
+    customScale: "scale-[1.25]"
   },
   {
     name: "Skillhouse",
@@ -40,18 +42,25 @@ const membersData = [
     type: "brand"
   },
   {
-    name: "Saurabh Bhardwaj (SB)",
+    name: "Socialbrew",
     url: "/logos/sb_logo.png",
-    type: "brand"
+    type: "brand",
+    customScale: "scale-[1.35]"
   },
   {
-    name: "Viraj Ghelani (VF)",
+    name: "Viral Fission",
     url: "/logos/vf_logo.png",
-    type: "brand"
+    type: "brand",
+    customScale: "scale-[1.3]"
   },
   {
     name: "McCann",
     url: "/logos/mcann.png",
+    type: "brand"
+  },
+  {
+    name: "VB",
+    url: "/logos/vb_logo.png",
     type: "brand"
   }
 ];
@@ -64,7 +73,7 @@ const Members = () => {
       className="py-24 bg-gradient-to-b from-black via-[#030303] to-black border-b border-white/5 relative overflow-hidden"
     >
       {/* Title Header matching the screenshot styling */}
-      <div className="max-w-[1400px] mx-auto px-6 mb-12 flex items-center justify-between">
+      <div className="max-w-[1400px] mx-auto px-6 mb-16 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="h-[1px] w-8 bg-[#F3D7A7]" />
           <span className="text-xs font-bold uppercase tracking-[0.35em] text-[#F3D7A7]">
@@ -115,7 +124,7 @@ const LogoItem = ({ member, index }: { member: typeof membersData[0], index: num
         scale: 1.05,
       }}
       className="flex-shrink-0 relative p-[1.5px] rounded-full bg-gradient-to-b from-[#FFF0D4] via-[#D1A147] to-[#1e1302] shadow-[0_6px_20px_rgba(0,0,0,0.5),inset_0_1px_1.5px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-pointer"
-      style={{ width: '120px', height: '55px' }}
+      style={{ width: '145px', height: '66px' }}
     >
       {/* 3D Glass Inner Container - Center contents vertically & horizontally */}
       <div className="w-full h-full rounded-full bg-gradient-to-b from-[#181105] via-[#090602] to-[#000000] flex items-center justify-center p-2 relative overflow-hidden shadow-[inset_0_0_10px_rgba(243, 215, 167, 0.15)]">
@@ -146,13 +155,13 @@ const LogoItem = ({ member, index }: { member: typeof membersData[0], index: num
         {/* Card Content (Logos Only) */}
         {member.type === "creator" ? (
           /* Creator Photo - Compact Circular avatar centered */
-          <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#D1A147]/50 bg-black/50 shadow-md z-10 flex-shrink-0">
+          <div className="relative w-10 h-10 rounded-full overflow-hidden border border-[#D1A147]/50 bg-black/50 shadow-md z-10 flex-shrink-0">
             {!error ? (
               <Image 
                 src={member.url} 
                 alt={member.name}
                 fill
-                sizes="32px"
+                sizes="40px"
                 className="object-cover"
                 onError={() => setError(true)}
               />
@@ -164,14 +173,14 @@ const LogoItem = ({ member, index }: { member: typeof membersData[0], index: num
           </div>
         ) : (
           /* Brand Logo - Centered and fit to landscape capsule */
-          <div className="relative w-full h-8 flex items-center justify-center px-1 z-10">
+          <div className="relative w-full h-10 flex items-center justify-center px-1 z-10">
             {!error ? (
-              <div className="relative w-[80%] h-full">
+              <div className={`relative w-[90%] h-full transition-transform duration-300 ${member.customScale || ""}`}>
                 <Image 
                   src={member.url} 
                   alt={member.name}
                   fill
-                  sizes="90px"
+                  sizes="120px"
                   className="object-contain"
                   onError={() => setError(true)}
                 />
