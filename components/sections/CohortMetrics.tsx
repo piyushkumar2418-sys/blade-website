@@ -228,61 +228,52 @@ export default function CohortMetrics() {
   ];
 
   return (
-    <section className="py-32 px-6 md:px-24 bg-black text-white relative z-20 overflow-hidden">
+    <section className="py-32 px-8 md:px-16 lg:px-24 bg-black text-white relative z-20 overflow-hidden flex flex-col justify-center items-center">
       
-      {/* Decorative Fluid Lines & Glowing Background (Masters' Union Inspired) */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-40">
-        {/* Swirling Yellow/Orange Glow Elements */}
-        <div className="absolute top-[20%] left-[-10%] w-[50%] h-[40%] rounded-full bg-gradient-to-tr from-[#F3D7A7]/10 via-[#F3D7A7]/5 to-transparent blur-[120px] transform -rotate-12" />
-        <div className="absolute bottom-[10%] right-[-10%] w-[45%] h-[50%] rounded-full bg-gradient-to-bl from-[#F3D7A7]/8 via-[#F3D7A7]/3 to-transparent blur-[140px] transform rotate-45" />
+      {/* Gold Grid Spotlight Background (reproduced in CSS from user uploaded image) */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Base Black Background */}
+        <div className="absolute inset-0 bg-[#000000]" />
         
-        {/* Soft Fluid Vector Lines (using CSS border/gradient arcs) */}
-        <div className="absolute top-[15%] right-[10%] w-[600px] h-[600px] rounded-full border-t border-r border-[#F3D7A7]/10 opacity-30 blur-[2px] pointer-events-none" />
-        <div className="absolute bottom-[5%] left-[5%] w-[800px] h-[800px] rounded-full border-b border-l border-[#F3D7A7]/5 opacity-20 blur-[3px] pointer-events-none" />
+        {/* Central warm gold/orange glow behind grid */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(243,215,167,0.15)_0%,transparent_60%)]" />
         
-        {/* Decorative gold trail line */}
-        <svg 
-          className="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none hidden md:block" 
-          viewBox="0 0 1440 800" 
-          fill="none" 
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path 
-            d="M-50,650 C200,600 400,200 700,450 C1000,700 1200,150 1500,100" 
-            stroke="url(#goldGradient)" 
-            strokeWidth="2" 
-            strokeLinecap="round"
-          />
-          <defs>
-            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#F3D7A7" stopOpacity="0" />
-              <stop offset="50%" stopColor="#F3D7A7" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#F3D7A7" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-        </svg>
+        {/* Fine gold/orange grid lines */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(243,215,167,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(243,215,167,0.12)_1px,transparent_1px)] bg-[size:44px_44px]" />
+        
+        {/* Radial vignette dimming the grid lines towards the edges to create a spotlight circle */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_40%,#000000_80%)]" />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header */}
-        <div className="max-w-3xl mb-20 text-left">
-          <SectionLabel light>Outcomes & Impact</SectionLabel>
-          <motion.h2 
-            initial={{ opacity: 0, y: 30 }}
+      <div className="max-w-[1100px] w-full mx-auto relative z-10">
+        {/* Section Header - Styled to match premium Masters' Union aesthetic */}
+        <div className="max-w-3xl mx-auto mb-20 text-center flex flex-col items-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-5xl md:text-8xl font-black uppercase tracking-tight leading-[0.85] text-left text-white"
+            transition={{ duration: 0.6 }}
+            className="flex items-center gap-3 justify-center mb-4"
           >
-            BIC by the <br />
-            <span className="text-white/20">Numbers.</span>
+            <div className="h-[1px] w-6 bg-[#F3D7A7]/40" />
+            <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.35em] text-[#F3D7A7]">Outcomes & Impact</span>
+            <div className="h-[1px] w-6 bg-[#F3D7A7]/40" />
+          </motion.div>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-none text-white text-center"
+          >
+            BIC by the <span className="text-[#F3D7A7] font-extrabold">Numbers</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-6 text-white/50 text-lg leading-relaxed max-w-xl text-left"
+            className="mt-4 text-white/50 text-[11px] md:text-[13px] leading-relaxed max-w-lg text-center tracking-wide font-medium"
           >
             The hard proof of what happens when ambitious creators execute built-for-market systems. No fluff, just real outcomes.
           </motion.p>
