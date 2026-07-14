@@ -28,13 +28,13 @@ const membersData = [
     name: "Unacademy",
     url: "/logos/unacademy.png",
     type: "brand",
-    customScale: "scale-[1.3]"
+    customScale: "scale-[1.7]"
   },
   {
     name: "YAAS Media",
     url: "/logos/yaas.png",
     type: "brand",
-    customScale: "scale-[1.25]"
+    customScale: "scale-[1.65]"
   },
   {
     name: "Skillhouse",
@@ -45,13 +45,13 @@ const membersData = [
     name: "Socialbrew",
     url: "/logos/sb_logo.png",
     type: "brand",
-    customScale: "scale-[1.35]"
+    customScale: "scale-[1.7]"
   },
   {
     name: "Viral Fission",
     url: "/logos/vf_logo.png",
     type: "brand",
-    customScale: "scale-[1.3]"
+    customScale: "scale-[1.45]"
   },
   {
     name: "McCann",
@@ -81,8 +81,8 @@ const Members = () => {
           </span>
           <div className="h-[1px] w-6 bg-[#F3D7A7]/40" />
         </div>
-        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white text-center leading-tight">
-          Our Members <span className="font-serif italic font-normal text-[#F3D7A7] lowercase tracking-normal normal-case">are working with</span>
+        <h2 className="text-3xl md:text-5xl uppercase tracking-tight text-white text-center leading-tight">
+          <span className="font-['Helvetica',_sans-serif] font-bold">Our Members</span> <span className="font-serif italic font-normal text-[#F3D7A7] lowercase tracking-normal normal-case">are working with</span>
         </h2>
       </div>
 
@@ -179,7 +179,7 @@ const LogoItem = ({ member, index }: { member: typeof membersData[0], index: num
           /* Brand Logo - Centered and fit to landscape capsule */
           <div className="relative w-full h-10 flex items-center justify-center px-1 z-10">
             {!error ? (
-              <div className={`relative w-[90%] h-full transition-transform duration-300 ${member.customScale || ""}`}>
+              <div className={`relative w-[95%] h-full transition-transform duration-300 ${member.customScale || ""}`}>
                 <Image 
                   src={member.url} 
                   alt={member.name}
