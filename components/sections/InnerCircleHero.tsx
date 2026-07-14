@@ -65,6 +65,9 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
         <source src="/bic_bg_final.mp4" type="video/mp4" />
       </video>
 
+      {/* Bottom fade out to blend with the next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none z-10" />
+
       {/* Main bold title */}
       <motion.h1 
         initial={{ y: 30, opacity: 0 }} 
