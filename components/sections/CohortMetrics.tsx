@@ -198,13 +198,13 @@ export default function CohortMetrics() {
               { name: "Amazon", url: "/logos/amazon_white.png" },
               { name: "Ogilvy", url: "/logos/ogilvy_white.png", span: "col-span-2" },
             ].map((logo, idx) => (
-              <div key={idx} className={`h-10 w-full flex items-center justify-center p-2 bg-white/[0.08] backdrop-blur-md border border-white/[0.12] rounded-xl hover:bg-white/[0.12] hover:border-white/[0.2] transition-all duration-300 group/logo ${logo.span || ""}`}>
+              <div key={idx} className={`h-10 w-full flex items-center justify-center p-1 bg-white/[0.08] backdrop-blur-md border border-white/[0.12] rounded-xl hover:bg-white/[0.12] hover:border-white/[0.2] transition-all duration-300 group/logo ${logo.span || ""}`}>
                 <Image 
                   src={logo.url} 
                   alt={logo.name} 
-                  width={logo.span ? 72 : 56} 
-                  height={24} 
-                  className="h-full max-h-[75%] w-auto object-contain opacity-85 group-hover/logo:opacity-100 transition-opacity duration-300"
+                  width={logo.span ? 85 : 68} 
+                  height={28} 
+                  className="h-full max-h-[90%] w-auto object-contain opacity-85 group-hover/logo:opacity-100 transition-opacity duration-300"
                 />
               </div>
             ))}
