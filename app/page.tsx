@@ -139,9 +139,9 @@ export default function Home() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-            className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center cursor-none"
+            className="w-9 h-9 md:w-11 md:h-11 flex items-center justify-center cursor-none"
           >
-            <Image src="/inner-circle-logo.png" alt="Blade Inner Circle Logo" width={32} height={32} priority className="w-full h-full object-contain brightness-0 invert" />
+            <Image src="/inner-circle-logo.png" alt="Blade Inner Circle Logo" width={44} height={44} priority className="w-full h-full object-contain brightness-0 invert" />
           </motion.button>
 
           {/* Navigation Links on the right */}
