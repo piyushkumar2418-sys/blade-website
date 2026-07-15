@@ -141,7 +141,7 @@ export default function Home() {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
             className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center cursor-none"
           >
-            <Image src="/blade-logo.png" alt="Blade Logo" width={32} height={32} priority className="w-full h-full object-contain brightness-0 invert" />
+            <Image src="/inner-circle-logo.png" alt="Blade Inner Circle Logo" width={32} height={32} priority className="w-full h-full object-contain brightness-0 invert" />
           </motion.button>
 
           {/* Navigation Links on the right */}

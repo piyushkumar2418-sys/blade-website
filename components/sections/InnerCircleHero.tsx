@@ -62,7 +62,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
       {/* Main Container */}
       <div className="relative w-full h-full z-20 px-6 md:px-12 flex flex-col justify-between pt-24 pb-8 md:pt-0">
         
-        {/* CENTER VISUAL ANCHOR: MAIN HEADLINE (Two-line layout with horizontal offset) */}
+        {/* CENTER VISUAL ANCHOR: MAIN HEADLINE (Two-line layout with horizontal offset, Preserved Exactly) */}
         <div className="flex-grow flex flex-col justify-center items-start md:pl-16">
           <motion.h1 
             initial={{ y: 50, opacity: 0 }} 
@@ -118,7 +118,8 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
                   <line x1="2" y1="16" x2="5" y2="16" />
                   <line x1="27" y1="16" x2="30" y2="16" />
                 </motion.svg>
-                <span className="text-[7px] font-mono tracking-[0.25em] text-[#F3D7A7]/60 relative top-[-1px]">REG / 02</span>
+                {/* Registration Mark Text using Helvetica Light */}
+                <span className="text-[7px] font-light tracking-[0.25em] text-[#F3D7A7]/60 relative top-[-1px] font-['Helvetica',_sans-serif]">REG / 02</span>
               </div>
             </span>
           </motion.h1>
@@ -130,29 +131,29 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
           {/* Top Info Grid */}
           <div className="flex justify-between items-start gap-4">
             <div className="flex flex-col">
-              <span className="text-[8px] tracking-[0.2em] text-white/40 uppercase">From the House of</span>
-              <span className="text-[12px] font-black tracking-[0.15em] text-white mt-0.5 uppercase">Blade Media</span>
-              <span className="text-[8px] tracking-[0.15em] text-white/30 mt-1 uppercase">Delhi, India / Est. 2026</span>
+              <span className="text-[8px] font-light tracking-[0.2em] text-white/40 uppercase">From the House of</span>
+              <span className="text-[12px] font-bold tracking-[0.15em] text-white mt-0.5 uppercase">Blade Media</span>
+              <span className="text-[8px] font-light tracking-[0.15em] text-white/30 mt-1 uppercase">Delhi, India / Est. 2026</span>
             </div>
-            <div className="flex flex-col items-end text-right font-black tracking-[0.15em] text-[9px] text-white/80">
-              <span>CREATE // MARKET</span>
-              <span>SELL // BUILD</span>
+            <div className="flex flex-col items-end text-right tracking-[0.15em] text-[9px] text-white/80">
+              <span className="font-light">CREATE // <span className="font-bold">MARKET</span></span>
+              <span className="font-light">SELL // <span className="font-bold">BUILD</span></span>
             </div>
           </div>
 
           {/* Technical Identification Code */}
           <div className="flex flex-col border-l border-[#F3D7A7]/20 pl-4 py-1">
-            <span className="text-[9px] font-mono tracking-[0.25em] text-[#F3D7A7]/70">[ BIC–26–C02 ]</span>
-            <span className="text-[9px] font-bold tracking-[0.2em] text-white mt-1 uppercase">Independent School /</span>
-            <span className="text-[9px] tracking-[0.2em] text-white/50 uppercase">For the Internet</span>
-            <span className="text-[11px] font-black tracking-[0.15em] text-[#F3D7A7] uppercase mt-0.5">Economy.</span>
+            <span className="text-[9px] font-light tracking-[0.25em] text-[#F3D7A7]/70">[ BIC–26–C02 ]</span>
+            <span className="text-[9px] font-light tracking-[0.2em] text-white mt-1 uppercase">Independent School /</span>
+            <span className="text-[9px] font-light tracking-[0.2em] text-white/50 uppercase">For Modern</span>
+            <span className="text-[11px] font-bold tracking-[0.15em] text-[#F3D7A7] uppercase mt-0.5">Builders.</span>
           </div>
 
           {/* Admissions Catalogue & CTA */}
           <div className="flex items-end justify-between border-t border-white/5 pt-6">
             <div className="flex flex-col">
-              <span className="text-[9px] font-bold tracking-[0.2em] text-[#F3D7A7] uppercase">02 / Admissions</span>
-              <span className="text-[9px] tracking-[0.15em] text-white/60 mt-0.5 uppercase">August 2026 Intake</span>
+              <span className="text-[9px] font-bold tracking-[0.2em] text-[#F3D7A7] uppercase">Cohort 02 / Admissions</span>
+              <span className="text-[9px] font-light tracking-[0.15em] text-white/60 mt-0.5 uppercase">August 2026 Intake</span>
             </div>
             <button 
               onClick={onJoinWaitlist}
@@ -164,7 +165,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
           </div>
 
           {/* Philosophy Statement */}
-          <div className="text-[8px] font-bold tracking-[0.2em] text-white/30 uppercase">
+          <div className="text-[8px] font-light tracking-[0.2em] text-white/30 uppercase">
             For those building on the internet.
           </div>
 
@@ -182,9 +183,9 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
           transition={{ duration: 0.8, delay: 0.6 }}
           className="absolute top-[24%] left-[8vw] pointer-events-auto flex flex-col text-left font-['Helvetica',_sans-serif] uppercase select-none"
         >
-          <span className="text-[8px] md:text-[9px] tracking-[0.25em] text-white/40">From the House of</span>
-          <span className="text-[15px] md:text-[18px] font-black tracking-[0.15em] text-white mt-1.5 mb-2.5">Blade Media</span>
-          <span className="text-[8px] md:text-[9px] tracking-[0.2em] text-white/40">Delhi, India / Est. 2026</span>
+          <span className="text-[8px] md:text-[9px] font-light tracking-[0.25em] text-white/40">From the House of</span>
+          <span className="text-[15px] md:text-[18px] font-bold tracking-[0.15em] text-white mt-1.5 mb-2.5">Blade Media</span>
+          <span className="text-[8px] md:text-[9px] font-light tracking-[0.2em] text-white/40">Delhi, India / Est. 2026</span>
         </motion.div>
 
         {/* MIDDLE LEFT: Technical Document Code - Relocated to create balance */}
@@ -194,7 +195,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
           transition={{ duration: 0.8, delay: 0.8 }}
           className="absolute top-[44%] left-[8vw] z-20 pointer-events-auto select-none font-['Helvetica',_sans-serif]"
         >
-          <span className="text-[9px] font-mono tracking-[0.35em] text-[#F3D7A7]/60">
+          <span className="text-[9px] font-light tracking-[0.35em] text-[#F3D7A7]/60">
             [ BIC–26–C02 ]
           </span>
         </motion.div>
@@ -222,7 +223,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
                   }}
                 >
                   <span 
-                    className="text-[8px] font-mono tracking-widest transition-colors duration-300 w-5"
+                    className="text-[8px] font-light tracking-widest transition-colors duration-300 w-5"
                     style={{
                       color: isHovered ? "#F3D7A7" : "rgba(243, 215, 167, 0.5)"
                     }}
@@ -230,7 +231,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
                     {`0${index + 1}`}
                   </span>
                   <span 
-                    className="text-[15px] md:text-[17px] font-black tracking-[0.18em] transition-colors duration-300"
+                    className="text-[15px] md:text-[17px] font-bold tracking-[0.18em] transition-colors duration-300"
                     style={{
                       color: isHovered ? "#F3D7A7" : "#FFFFFF"
                     }}
@@ -250,9 +251,9 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
           transition={{ duration: 0.8, delay: 0.9 }}
           className="absolute bottom-[22%] left-[8vw] pointer-events-auto flex flex-col text-left font-['Helvetica',_sans-serif] uppercase select-none"
         >
-          <span className="text-[8px] md:text-[9px] tracking-[0.25em] text-white/50">Independent School /</span>
-          <span className="text-[9px] md:text-[10px] tracking-[0.25em] text-white/80 mt-0.5 font-bold">For the Internet</span>
-          <span className="text-[13px] md:text-[15px] font-black tracking-[0.2em] text-[#F3D7A7] mt-1.5">Economy.</span>
+          <span className="text-[8px] md:text-[9px] font-light tracking-[0.25em] text-white/50">Independent School /</span>
+          <span className="text-[9px] md:text-[10px] font-light tracking-[0.25em] text-white/80 mt-0.5">For Modern</span>
+          <span className="text-[13px] md:text-[15px] font-bold tracking-[0.2em] text-[#F3D7A7] mt-1.5">Builders.</span>
         </motion.div>
 
         {/* LOWER RIGHT: Admissions Catalog & CTA */}
@@ -262,8 +263,8 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
           transition={{ duration: 0.8, delay: 1.0 }}
           className="absolute bottom-[26%] right-12 pointer-events-auto flex flex-col text-left font-['Helvetica',_sans-serif] select-none"
         >
-          <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#F3D7A7]">02 / Admissions</span>
-          <span className="text-[9px] uppercase tracking-[0.2em] text-white/60 mt-1">August 2026</span>
+          <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#F3D7A7]">Cohort 02 / Admissions</span>
+          <span className="text-[9px] font-light uppercase tracking-[0.2em] text-white/60 mt-1">August 2026</span>
           
           <button
             onClick={onJoinWaitlist}
@@ -285,7 +286,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.4 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="absolute left-6 bottom-[18%] origin-bottom-left -rotate-90 z-20 pointer-events-auto text-[8px] md:text-[9px] font-bold uppercase tracking-[0.3em] text-white select-none whitespace-nowrap"
+          className="absolute left-6 bottom-[18%] origin-bottom-left -rotate-90 z-20 pointer-events-auto text-[8px] md:text-[9px] font-light uppercase tracking-[0.3em] text-white select-none whitespace-nowrap"
         >
           For those building on the internet. <span className="text-[#F3D7A7] ml-1">↗</span>
         </motion.div>
