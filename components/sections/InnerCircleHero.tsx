@@ -8,10 +8,10 @@ interface InnerCircleHeroProps {
   onJoinWaitlist: () => void;
 }
 
-const words = ["CREATE", "MARKET", "SELL", "BUILD"];
+const principles = ["CREATE", "MARKET", "SELL", "BUILD"];
 
 export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHeroProps) {
-  const [hoveredWord, setHoveredWord] = useState<string | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <section 
@@ -70,28 +70,56 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
             transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }} 
             className="text-[11vw] md:text-[6.3vw] font-black leading-[0.82] tracking-[-0.05em] uppercase text-left relative z-20 selection:bg-white selection:text-black font-sans w-full max-w-5xl select-none flex flex-col gap-2 md:gap-3"
           >
-            {/* Horizontal offset: top line shifted right, second line shifted left */}
-            <span className="block md:pl-[12%]">The School of</span>
-            <span className="block text-white md:pl-[4%] md:whitespace-nowrap flex items-center gap-4">
+            {/* Asymmetric layout: top line shifted right, second line shifted left */}
+            <span className="block md:pl-[20%]">The School of</span>
+            <span className="block text-white md:pl-[8%] md:whitespace-nowrap flex items-center gap-4">
               <span>Modern Content.</span>
               
-              {/* Signature BIC Geometric Device (Dashed circle, crosshair cross) */}
-              <motion.svg
-                animate={{ rotate: 360 }}
-                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                whileHover={{ scale: 1.25, stroke: "#FFF0D4" }}
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#F3D7A7"
-                strokeWidth="1.2"
-                className="inline-block relative top-[1px]"
-              >
-                <circle cx="12" cy="12" r="5" strokeDasharray="2 2" />
-                <line x1="12" y1="2" x2="12" y2="22" />
-                <line x1="2" y1="12" x2="22" y2="12" />
-              </motion.svg>
+              {/* Technical Registration Mark Device */}
+              <div className="inline-flex items-center gap-2.5 relative top-[3px]">
+                <motion.svg
+                  whileHover="hover"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  stroke="#F3D7A7"
+                  strokeWidth="0.8"
+                  className="inline-block"
+                >
+                  {/* Center Circle (Scales on hover) */}
+                  <motion.circle 
+                    cx="16" 
+                    cy="16" 
+                    r="6" 
+                    variants={{
+                      hover: { scale: 1.15 }
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  {/* Crosshairs (Extend slightly on hover) */}
+                  <motion.line 
+                    x1="6" y1="16" x2="26" y2="16" 
+                    variants={{
+                      hover: { x1: 4, x2: 28 }
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <motion.line 
+                    x1="16" y1="6" x2="16" y2="26" 
+                    variants={{
+                      hover: { y1: 4, y2: 28 }
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  {/* Outer registration ticks */}
+                  <line x1="16" y1="2" x2="16" y2="5" />
+                  <line x1="16" y1="27" x2="16" y2="30" />
+                  <line x1="2" y1="16" x2="5" y2="16" />
+                  <line x1="27" y1="16" x2="30" y2="16" />
+                </motion.svg>
+                <span className="text-[7px] font-mono tracking-[0.25em] text-[#F3D7A7]/60 relative top-[-1px]">REG / 02</span>
+              </div>
             </span>
           </motion.h1>
         </div>
@@ -114,7 +142,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
 
           {/* Technical Identification Code */}
           <div className="flex flex-col border-l border-[#F3D7A7]/20 pl-4 py-1">
-            <span className="text-[9px] font-mono tracking-[0.25em] text-[#F3D7A7]/70">BIC–26–C02</span>
+            <span className="text-[9px] font-mono tracking-[0.25em] text-[#F3D7A7]/70">[ BIC–26–C02 ]</span>
             <span className="text-[9px] font-bold tracking-[0.2em] text-white mt-1 uppercase">Independent School /</span>
             <span className="text-[9px] tracking-[0.2em] text-white/50 uppercase">For the Internet</span>
             <span className="text-[11px] font-black tracking-[0.15em] text-[#F3D7A7] uppercase mt-0.5">Economy.</span>
@@ -147,7 +175,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
       {/* DESKTOP ASYMMETRIC CANVAS DISTRIBUTION (Visible on screens >= 768px) */}
       <div className="hidden md:block absolute inset-0 z-20 pointer-events-none">
         
-        {/* UPPER LEFT: Institutional Metadata - Pushed down and in slightly */}
+        {/* UPPER LEFT: Institutional Metadata */}
         <motion.div 
           initial={{ opacity: 0, y: -15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -159,44 +187,72 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
           <span className="text-[8px] md:text-[9px] tracking-[0.2em] text-white/40">Delhi, India / Est. 2026</span>
         </motion.div>
 
-        {/* UPPER RIGHT: Vertical stacked list - Moved inwards (74% across viewport) */}
+        {/* MIDDLE LEFT: Technical Document Code - Relocated to create balance */}
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="absolute top-[44%] left-[8vw] z-20 pointer-events-auto select-none font-['Helvetica',_sans-serif]"
+        >
+          <span className="text-[9px] font-mono tracking-[0.35em] text-[#F3D7A7]/60">
+            [ BIC–26–C02 ]
+          </span>
+        </motion.div>
+
+        {/* UPPER RIGHT: Vertical stacked list (Numbered operating principles) - Moved inwards (74% across viewport) */}
         <motion.div 
           initial={{ opacity: 0, y: -15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
           className="absolute top-[18%] left-[74%] pointer-events-auto flex gap-4 select-none font-['Helvetica',_sans-serif]"
         >
-          <div className="w-[1px] bg-gradient-to-b from-[#F3D7A7]/80 to-transparent self-stretch" />
-          <div className="flex flex-col gap-2 text-left font-black tracking-[0.18em] text-[13px] md:text-[14px]">
-            {words.map((word) => (
-              <span 
-                key={word}
-                onMouseEnter={() => setHoveredWord(word)}
-                onMouseLeave={() => setHoveredWord(null)}
-                className="cursor-pointer transition-all duration-300"
-                style={{
-                  color: hoveredWord === word ? "#F3D7A7" : "#FFFFFF",
-                  opacity: hoveredWord === null ? 1 : hoveredWord === word ? 1 : 0.35
-                }}
-              >
-                {word}
-              </span>
-            ))}
+          <div className="w-[1.2px] bg-gradient-to-b from-[#F3D7A7]/80 to-transparent self-stretch my-[-4px]" />
+          <div className="flex flex-col gap-2.5 text-left select-none">
+            {principles.map((word, index) => {
+              const isHovered = hoveredIndex === index;
+              const isAnyHovered = hoveredIndex !== null;
+              return (
+                <div 
+                  key={word}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  className="flex items-center gap-4 cursor-pointer transition-all duration-300"
+                  style={{
+                    opacity: !isAnyHovered ? 1 : isHovered ? 1 : 0.45
+                  }}
+                >
+                  <span 
+                    className="text-[8px] font-mono tracking-widest transition-colors duration-300 w-5"
+                    style={{
+                      color: isHovered ? "#F3D7A7" : "rgba(243, 215, 167, 0.5)"
+                    }}
+                  >
+                    {`0${index + 1}`}
+                  </span>
+                  <span 
+                    className="text-[15px] md:text-[17px] font-black tracking-[0.18em] transition-colors duration-300"
+                    style={{
+                      color: isHovered ? "#F3D7A7" : "#FFFFFF"
+                    }}
+                  >
+                    {word}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </motion.div>
 
-        {/* LOWER LEFT: Technical catalog code - Pushed up and scaled for contrast */}
+        {/* LOWER LEFT: Simplified metadata */}
         <motion.div 
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="absolute bottom-[22%] left-12 pointer-events-auto flex flex-col text-left font-['Helvetica',_sans-serif] uppercase select-none"
+          className="absolute bottom-[22%] left-[8vw] pointer-events-auto flex flex-col text-left font-['Helvetica',_sans-serif] uppercase select-none"
         >
-          <span className="text-[9px] font-mono tracking-[0.35em] text-[#F3D7A7]/70">BIC–26–C02</span>
-          <div className="h-[1px] w-6 bg-[#F3D7A7]/20 my-2.5" />
-          <span className="text-[8px] md:text-[9px] tracking-[0.25em] text-white/60">Independent School /</span>
-          <span className="text-[8px] md:text-[9px] tracking-[0.25em] text-white/60 mt-0.5">For the Internet</span>
-          <span className="text-[12px] md:text-[13px] font-black tracking-[0.2em] text-[#F3D7A7] mt-1.5">Economy.</span>
+          <span className="text-[8px] md:text-[9px] tracking-[0.25em] text-white/50">Independent School /</span>
+          <span className="text-[9px] md:text-[10px] tracking-[0.25em] text-white/80 mt-0.5 font-bold">For the Internet</span>
+          <span className="text-[13px] md:text-[15px] font-black tracking-[0.2em] text-[#F3D7A7] mt-1.5">Economy.</span>
         </motion.div>
 
         {/* LOWER RIGHT: Admissions Catalog & CTA */}
