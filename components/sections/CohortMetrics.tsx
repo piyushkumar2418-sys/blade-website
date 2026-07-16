@@ -189,8 +189,8 @@ export default function CohortMetrics() {
       icon: <Share2 className="w-5 h-5 text-[#F3D7A7]" />,
       bgGlow: "rgba(243, 215, 167, 0.02)",
       visualDetail: (
-        <div className="max-w-[200px] mx-auto mt-6 w-full">
-          <div className="grid grid-cols-2 gap-1.5 w-full">
+        <div className="w-full mt-5">
+          <div className="grid grid-cols-2 gap-2 w-full">
             {[
               { name: "Nykaa", url: "/logos/nykaa_white.png" },
               { name: "Köche", url: "/logos/koche_white.png" },
@@ -198,13 +198,13 @@ export default function CohortMetrics() {
               { name: "Amazon", url: "/logos/amazon_white.png" },
               { name: "Ogilvy", url: "/logos/ogilvy_white.png", span: "col-span-2" },
             ].map((logo, idx) => (
-              <div key={idx} className={`h-10 w-full flex items-center justify-center p-1 bg-white/[0.08] backdrop-blur-md border border-white/[0.12] rounded-xl hover:bg-white/[0.12] hover:border-white/[0.2] transition-all duration-300 group/logo ${logo.span || ""}`}>
+              <div key={idx} className={`h-12 w-full flex items-center justify-center px-2 py-1 bg-white/[0.08] backdrop-blur-md border border-white/[0.12] rounded-xl hover:bg-white/[0.12] hover:border-white/[0.2] transition-all duration-300 group/logo ${logo.span || ""}`}>
                 <Image 
                   src={logo.url} 
                   alt={logo.name} 
-                  width={logo.span ? 85 : 68} 
-                  height={28} 
-                  className="h-full max-h-[90%] w-auto object-contain opacity-85 group-hover/logo:opacity-100 transition-opacity duration-300"
+                  width={logo.span ? 100 : 80} 
+                  height={32} 
+                  className="h-full max-h-[95%] w-auto object-contain opacity-85 group-hover/logo:opacity-100 transition-opacity duration-300"
                 />
               </div>
             ))}
