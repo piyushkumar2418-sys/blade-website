@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/bic',
+        destination: '/?mode=inner-circle',
+        permanent: false,
+      },
+    ];
+  },
   async headers() {
     return [
       {
