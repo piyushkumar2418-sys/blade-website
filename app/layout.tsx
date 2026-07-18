@@ -10,6 +10,7 @@ import { PostHogProvider } from "@/components/providers/PostHogProvider";
 import PostHogPageview from "@/components/providers/PostHogPageview";
 import { Suspense } from "react";
 import Script from "next/script";
+import { headers } from "next/headers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,59 +35,128 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-export const metadata: Metadata = {
-  title: {
-    default: "Blade Media | High-Ticket Video Content & Growth Agency",
-    template: "%s | Blade Media"
-  },
-  description: "Blade Media is the institutional content production and strategic growth engine for elite creators and premium brands.",
-  keywords: ["Content Agency", "Video Editing", "Social Media Growth", "Visual Dominance", "Viral Content", "Blade Media", "Content Strategy", "Retention Editing"],
-  appleWebApp: {
-    title: "Blade Media",
-    statusBarStyle: "black-translucent",
-  },
-  authors: [{ name: "Piyush", url: "https://blademedia.in" }],
-  creator: "Blade Media",
-  publisher: "Blade Media",
-  metadataBase: new URL("https://blademedia.in"),
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    title: "Blade Media | High-Ticket Video Content & Growth Agency",
-    description: "Blade Media is the institutional content production and strategic growth engine for elite creators and premium brands.",
-    url: "https://blademedia.in",
-    siteName: "Blade Media",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Blade Media | High-Ticket Video Content & Growth Agency",
+export async function generateMetadata(): Promise<Metadata> {
+  let host = "";
+  try {
+    const headersList = await headers();
+    host = headersList.get("host") || "";
+  } catch (e) {
+    // Fail-safe for build time or environments where headers() is not available
+    console.warn("Could not retrieve host header in generateMetadata:", e);
+  }
+  
+  const isInnerCircle = host.includes("innercircle.in") || host.includes("innercircle");
+
+  if (isInnerCircle) {
+    return {
+      title: {
+        default: "Blade Inner Circle | The School of Modern Content",
+        template: "%s | Blade Inner Circle"
       },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Blade Media | High-Ticket Video Content & Growth Agency",
+      description: "The Blade Inner Circle is the elite community and training ground for modern content creators, high-ticket founders, and operators.",
+      keywords: ["Inner Circle", "Modern Content", "Creator Community", "High-Ticket Founders", "Blade Inner Circle"],
+      appleWebApp: {
+        title: "Blade Inner Circle",
+        statusBarStyle: "black-translucent",
+      },
+      authors: [{ name: "Piyush", url: "https://innercircle.in" }],
+      creator: "Blade Inner Circle",
+      publisher: "Blade Inner Circle",
+      metadataBase: new URL("https://innercircle.in"),
+      alternates: {
+        canonical: "/",
+      },
+      openGraph: {
+        title: "Blade Inner Circle | The School of Modern Content",
+        description: "The Blade Inner Circle is the elite community and training ground for modern content creators, high-ticket founders, and operators.",
+        url: "https://innercircle.in",
+        siteName: "Blade Inner Circle",
+        images: [
+          {
+            url: "/og-image.png",
+            width: 1200,
+            height: 630,
+            alt: "Blade Inner Circle | The School of Modern Content",
+          },
+        ],
+        locale: "en_US",
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "Blade Inner Circle | The School of Modern Content",
+        description: "The Blade Inner Circle is the elite community and training ground for modern content creators, high-ticket founders, and operators.",
+        images: ["/og-image.png"],
+      },
+      robots: {
+        index: true,
+        follow: true,
+      },
+      icons: {
+        icon: "/inner-circle-logo.png",
+        shortcut: "/inner-circle-logo.png",
+        apple: "/inner-circle-logo.png",
+      },
+      verification: {
+        google: "s1LJv7f1Cy938IT3wDll5_6ndlN2HaPPB-8mpmCXCf4",
+      },
+    };
+  }
+
+  return {
+    title: {
+      default: "Blade Media | High-Ticket Video Content & Growth Agency",
+      template: "%s | Blade Media"
+    },
     description: "Blade Media is the institutional content production and strategic growth engine for elite creators and premium brands.",
-    images: ["/og-image.png"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  icons: {
-    icon: "/blade-logo.png",
-    shortcut: "/blade-logo.png",
-    apple: "/blade-logo.png",
-  },
-  verification: {
-    google: "s1LJv7f1Cy938IT3wDll5_6ndlN2HaPPB-8mpmCXCf4",
-  },
-};
+    keywords: ["Content Agency", "Video Editing", "Social Media Growth", "Visual Dominance", "Viral Content", "Blade Media", "Content Strategy", "Retention Editing"],
+    appleWebApp: {
+      title: "Blade Media",
+      statusBarStyle: "black-translucent",
+    },
+    authors: [{ name: "Piyush", url: "https://blademedia.in" }],
+    creator: "Blade Media",
+    publisher: "Blade Media",
+    metadataBase: new URL("https://blademedia.in"),
+    alternates: {
+      canonical: "/",
+    },
+    openGraph: {
+      title: "Blade Media | High-Ticket Video Content & Growth Agency",
+      description: "Blade Media is the institutional content production and strategic growth engine for elite creators and premium brands.",
+      url: "https://blademedia.in",
+      siteName: "Blade Media",
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: "Blade Media | High-Ticket Video Content & Growth Agency",
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Blade Media | High-Ticket Video Content & Growth Agency",
+      description: "Blade Media is the institutional content production and strategic growth engine for elite creators and premium brands.",
+      images: ["/og-image.png"],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+    icons: {
+      icon: "/blade-logo.png",
+      shortcut: "/blade-logo.png",
+      apple: "/blade-logo.png",
+    },
+    verification: {
+      google: "s1LJv7f1Cy938IT3wDll5_6ndlN2HaPPB-8mpmCXCf4",
+    },
+  };
+}
 
 export default function RootLayout({
   children,
