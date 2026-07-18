@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -57,82 +57,48 @@ const allMembers: MemberCard[] = [
   }
 ];
 
+// Double the members list for a seamless infinite scroll loop
+const doubledMembers = [...allMembers, ...allMembers];
+
 const Members = () => {
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [dragConstraints, setDragConstraints] = useState({ left: 0, right: 0 });
-
-  useEffect(() => {
-    const updateConstraints = () => {
-      if (carouselRef.current) {
-        const containerWidth = carouselRef.current.offsetWidth;
-        const contentWidth = carouselRef.current.scrollWidth;
-        const maxDragLeft = Math.max(0, contentWidth - containerWidth);
-        setDragConstraints({
-          left: -maxDragLeft,
-          right: 0
-        });
-      }
-    };
-
-    updateConstraints();
-    window.addEventListener("resize", updateConstraints);
-
-    // Recalculate once images are fully loaded and layouts are settled
-    const timer = setTimeout(updateConstraints, 600);
-
-    return () => {
-      window.removeEventListener("resize", updateConstraints);
-      clearTimeout(timer);
-    };
-  }, []);
-
   return (
     <section 
-      className="py-24 bg-gradient-to-b from-black via-[#030303] to-black border-b border-white/5 relative overflow-hidden flex flex-col items-center justify-center"
-      style={{
-        backgroundImage: 'radial-gradient(rgba(243, 215, 167, 0.01) 1px, transparent 1px)',
-        backgroundSize: '24px 24px',
-      }}
+      className="py-24 bg-white border-b border-neutral-100 relative overflow-hidden flex flex-col items-center justify-center"
     >
-      {/* Soft Background Glows */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[40%] bg-[#F3D7A7]/2 rounded-full blur-[120px] pointer-events-none" />
-
       <div className="w-full relative z-10 flex flex-col items-center">
         
         {/* SECTION HEADER */}
-        <div className="mb-12 flex flex-col items-center text-center px-6">
+        <div className="mb-16 flex flex-col items-center text-center px-6">
           <div className="flex items-center gap-3 justify-center mb-4">
-            <div className="h-[1px] w-6 bg-[#F3D7A7]/40" />
-            <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.35em] text-[#F3D7A7]">
+            <div className="h-[1px] w-6 bg-neutral-200" />
+            <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.35em] text-neutral-400">
               Ecosystem
             </span>
-            <div className="h-[1px] w-6 bg-[#F3D7A7]/40" />
+            <div className="h-[1px] w-6 bg-neutral-200" />
           </div>
-          <h2 className="text-3xl md:text-5xl tracking-tight text-white text-center leading-tight">
-            <span className="font-['Helvetica',_sans-serif] font-bold">Our members</span> <span className="font-serif italic font-normal text-[#F3D7A7] lowercase tracking-normal normal-case">are working with</span>
+          <h2 className="text-3xl md:text-5xl tracking-tight text-neutral-950 text-center leading-tight">
+            <span className="font-['Helvetica',_sans-serif] font-bold">Our members</span> <span className="font-serif italic font-normal text-[#9A7B44] lowercase tracking-normal normal-case">are working with</span>
           </h2>
         </div>
 
-        {/* SCROLL & DRAG INDICATOR */}
-        <div className="mb-6 flex items-center gap-2 text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-white/30 font-mono select-none">
-          <span>Scroll & Drag</span>
-          <span className="animate-pulse">↔</span>
-        </div>
+        {/* INFINITE MARQUEE CAROUSEL */}
+        <div className="w-full flex whitespace-nowrap overflow-hidden relative select-none">
+          {/* Edge gradient overlays for smooth fade-outs */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
-        {/* CAROUSEL WRAPPER */}
-        <div 
-          ref={carouselRef} 
-          className="w-full overflow-hidden cursor-grab active:cursor-grabbing select-none"
-        >
           <motion.div
-            drag="x"
-            dragConstraints={dragConstraints}
-            dragElastic={0.15}
-            dragTransition={{ power: 0.2, timeConstant: 200 }}
-            className="flex gap-5 md:gap-6 px-6 md:px-12 lg:px-24 pb-8 w-max"
+            initial={{ x: 0 }}
+            animate={{ x: "-50%" }}
+            transition={{ 
+              duration: 35, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+            className="flex gap-5 md:gap-6 items-center w-max px-3"
           >
-            {allMembers.map((member, i) => (
-              <MemberPosterCard key={member.name} member={member} index={i} />
+            {doubledMembers.map((member, i) => (
+              <MemberPosterCard key={i} member={member} index={i} />
             ))}
           </motion.div>
         </div>
@@ -143,43 +109,29 @@ const Members = () => {
 };
 
 const MemberPosterCard = ({ member, index }: { member: MemberCard; index: number }) => {
-  return (
-    <motion.div
-      whileHover={{
-        y: -10,
-        scale: 1.02,
-        borderColor: "rgba(243, 215, 167, 0.3)",
-        boxShadow: "0 20px 40px rgba(243, 215, 167, 0.06)",
-        transition: { duration: 0.3 }
-      }}
-      className="group relative w-[180px] sm:w-[220px] md:w-[260px] aspect-[3/4] shrink-0 rounded-2xl md:rounded-3xl border border-white/10 bg-[#0a0a0c]/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-xl flex items-center justify-center select-none"
-    >
-      {/* 3D Specular Highlight Overlays */}
-      <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none z-10" />
-      <div className="absolute inset-0 border border-white/5 rounded-2xl md:rounded-3xl pointer-events-none z-10" />
+  const isCreator = member.name === "Ranveer Allahbadia" || member.name === "Saurabh Sachdeva";
 
+  return (
+    <div
+      className="relative w-[180px] sm:w-[220px] md:w-[260px] aspect-[3/4] shrink-0 rounded-2xl md:rounded-3xl border border-neutral-200/60 bg-neutral-50 overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.02)] flex items-center justify-center"
+    >
       {/* Poster Image */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
         <Image
           src={member.url}
           alt={member.name}
           fill
           sizes="(max-width: 768px) 30vw, 20vw"
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
+          className="object-cover pointer-events-none"
           priority={index < 4}
         />
       </div>
 
-      {/* Hover Glass Label with Card Name */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 bg-gradient-to-t from-black via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex flex-col justify-end">
-        <span className="text-[9px] md:text-[10px] font-mono text-[#F3D7A7] uppercase tracking-widest font-black">
-          {member.type === "creator" ? "Creator" : "Partner Brand"}
-        </span>
-        <h5 className="text-white text-xs md:text-sm font-bold font-sans tracking-tight leading-tight mt-0.5">
-          {member.name}
-        </h5>
-      </div>
-    </motion.div>
+      {/* Black shadow overlay on the bottom of Ranveer's and Saurabh's picture */}
+      {isCreator && (
+        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/85 via-black/40 to-transparent pointer-events-none z-10" />
+      )}
+    </div>
   );
 };
 
