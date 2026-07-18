@@ -184,6 +184,12 @@ export default function Home() {
           <motion.div key="innerCircle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-white bg-[#050505] min-h-screen">
             <InnerCircleHero user={user} onJoinWaitlist={() => router.push("/apply/register")} />
             <CohortMetrics />
+            <div 
+              className="h-[320px] w-full relative z-10 pointer-events-none" 
+              style={{ 
+                background: "linear-gradient(to bottom, #000000 0%, #0a0a0a 15%, #171717 35%, #2c2b29 55%, #5c5a54 70%, #9c9992 82%, #dcdad5 92%, #faf9f6 97%, #ffffff 100%)" 
+              }} 
+            />
             <Members />
             <CreatorsMap onActiveStateChange={setHideHeader} />
             <Manifesto />
