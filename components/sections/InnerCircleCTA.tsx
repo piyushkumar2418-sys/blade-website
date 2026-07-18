@@ -2,18 +2,10 @@
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { 
-  ArrowRight, MessageCircle, 
-  ShieldCheck, Zap, Award, Lock, Terminal 
+  ArrowRight, 
+  ShieldCheck, Zap, Award, Lock 
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-
-const InstagramIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-  </svg>
-);
 
 // 3D Parallax Tilt Card Component
 const InteractiveStatCard = ({ stat }: { stat: { icon: React.ReactNode; label: string; desc: string } }) => {
@@ -159,56 +151,73 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
         </div>
       </section>
 
-      {/* FINAL CTA */}
-      <section 
-        className="py-60 px-6 md:px-24 text-center bg-[#050505] relative overflow-hidden z-20"
+      {/* REAL PREMIUM FOOTER */}
+      <footer 
+        className="bg-black text-white border-t border-white/5 py-24 md:py-32 px-6 md:px-24 relative z-20 text-left"
         style={{
           backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px)',
           backgroundSize: '24px 24px',
         }}
       >
-        {/* Subtle decorative glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#F3D7A7]/5 rounded-full blur-[120px] pointer-events-none" />
-
-        <div className="max-w-4xl mx-auto relative z-10 space-y-32">
-          <div className="space-y-12 text-center">
-            <span className="text-white/20 text-[10px] font-bold uppercase tracking-[1em] block">Final Briefing</span>
-            <h2 className="text-6xl md:text-[100px] font-bold uppercase tracking-tighter leading-[0.8] text-white text-center">
-              The next step <br/> is to take action.
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start">
+          {/* Left Column */}
+          <div className="md:col-span-7 flex flex-col text-left space-y-10">
+            <h2 className="text-4xl md:text-7xl font-bold uppercase tracking-[-0.05em] leading-none text-white text-left font-sans">
+              Stop Consuming.<br />Start Operating.
             </h2>
-          </div>
-          
-          <div className="flex flex-col items-center gap-20 text-center">
-            <p className="text-white/40 text-sm md:text-base max-w-md uppercase tracking-[0.4em] leading-relaxed font-medium text-center">
-              Submit your admission portfolio for the August 2026 intake.
-            </p>
+            
             <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={onJoinWaitlist} 
-              className="bg-[#F3D7A7] text-black px-20 py-8 rounded-full font-bold uppercase tracking-[0.4em] text-[11px] hover:shadow-[0_0_40px_rgba(243,215,167,0.25)] transition-all duration-300 flex items-center gap-4 group cursor-none"
+              whileHover={{ scale: 1.01 }} 
+              whileTap={{ scale: 0.99 }}
+              onClick={onJoinWaitlist}
+              className="flex items-center justify-between w-full max-w-md px-8 py-6 bg-white text-black font-bold uppercase text-[10px] tracking-[0.2em] transition-all duration-300 hover:bg-[#F3D7A7]"
             >
-              Apply for Cohort 02
-              <Terminal size={14} className="group-hover:scale-110 transition-transform" />
+              <span>Apply for Cohort 02</span>
+              <span className="text-sm">→</span>
             </motion.button>
+
+            <div className="text-left font-sans">
+              <span className="text-white/30 text-[9px] uppercase tracking-[0.2em] font-bold block mb-1">Admissions Intake:</span>
+              <span className="text-[#F3D7A7] text-sm font-bold tracking-wider">
+                August 2026 Intake Now Active
+              </span>
+            </div>
           </div>
 
-          <div className="pt-40 text-center space-y-16">
-            <div className="flex items-center justify-center gap-12">
-              <a href="https://wa.me/917082176274" target="_blank" rel="noopener noreferrer" className="text-white/20 hover:text-white transition-all group">
-                <MessageCircle size={24} className="group-hover:scale-110 transition-transform" />
-              </a>
-              <a href="https://www.instagram.com/blade.media_/" target="_blank" rel="noopener noreferrer" className="text-white/20 hover:text-white transition-all group">
-                <InstagramIcon size={24} className="group-hover:scale-110 transition-transform" />
-              </a>
+          {/* Right Column */}
+          <div className="md:col-span-5 grid grid-cols-2 gap-8 w-full md:pl-12">
+            {/* Sub-column 1: Navigation */}
+            <div className="flex flex-col gap-4 text-left font-sans text-[11px] uppercase tracking-[0.15em] font-bold text-white/50">
+              <span className="text-white/20 text-[9px] tracking-[0.2em] font-bold mb-2">School</span>
+              <a href="/curriculum" className="hover:text-white transition-colors">Curriculum</a>
+              <a href="/apply/register" className="hover:text-white transition-colors">Apply Now</a>
+              <a href="/apply/login" className="hover:text-white transition-colors">Sign In</a>
+              <a href="/terms" className="hover:text-white transition-colors">Terms of Service</a>
+              <a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a>
             </div>
-            <div className="space-y-4">
-              <p className="text-[9px] font-bold uppercase tracking-[1.2em] text-white/30">Stop Consuming. Start Operating.</p>
-              <p className="text-[8px] font-bold uppercase tracking-[0.6em] text-white/10">© 2026 Blade // Institutional Access</p>
+
+            {/* Sub-column 2: Socials */}
+            <div className="flex flex-col gap-4 text-left font-sans text-[11px] uppercase tracking-[0.15em] font-bold text-white/50">
+              <span className="text-white/20 text-[9px] tracking-[0.2em] font-bold mb-2">Connect</span>
+              <a href="https://www.instagram.com/blade.media_/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1.5">Instagram <span className="text-[9px] opacity-60">↗</span></a>
+              <a href="https://wa.me/917082176274" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1.5">WhatsApp <span className="text-[9px] opacity-60">↗</span></a>
+            </div>
+
+            {/* Bottom row: Location & Legal */}
+            <div className="text-left text-white/40 text-[11px] mt-16 leading-relaxed font-sans uppercase tracking-wider">
+              <span className="text-white/20 text-[9px] tracking-[0.2em] font-bold block mb-1">HQ</span>
+              <span>New Delhi</span> <br />
+              <span className="font-bold text-white/20 text-[10px] tracking-[0.2em]">India, Asia</span>
             </div>
           </div>
         </div>
-      </section>
+        
+        {/* Copyright row */}
+        <div className="max-w-[1400px] mx-auto mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[9px] uppercase tracking-[0.6em] text-white/10 font-mono">
+          <span>© 2026 Blade // Institutional Access</span>
+          <span>Stop Consuming. Start Operating.</span>
+        </div>
+      </footer>
     </>
   );
 };
