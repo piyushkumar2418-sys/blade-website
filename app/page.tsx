@@ -185,10 +185,10 @@ export default function Home() {
             <InnerCircleHero user={user} onJoinWaitlist={() => router.push("/apply/register")} />
             <CohortMetrics />
             <Members />
-            <CreatorsMap onActiveStateChange={setHideHeader} />
-            <Manifesto />
             <SprintProtocol />
+            <Manifesto />
             <FounderAuthority />
+            <CreatorsMap onActiveStateChange={setHideHeader} />
             <InnerCircleCTA onJoinWaitlist={() => router.push("/apply/register")} />
           </motion.div>
         )}
