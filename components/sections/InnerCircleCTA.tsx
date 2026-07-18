@@ -163,7 +163,7 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
           {/* Left Column */}
           <div className="md:col-span-7 flex flex-col text-left space-y-10">
             <h2 className="text-4xl md:text-7xl font-bold uppercase tracking-[-0.05em] leading-none text-white text-left font-sans">
-              Stop Consuming.<br />Start Operating.
+              Stop Consuming.<br />Start Creating.
             </h2>
             
             <motion.button 
@@ -203,19 +203,26 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
               <a href="https://wa.me/917082176274" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1.5">WhatsApp <span className="text-[9px] opacity-60">↗</span></a>
             </div>
 
-            {/* Bottom row: Location & Legal */}
-            <div className="text-left text-white/40 text-[11px] mt-16 leading-relaxed font-sans uppercase tracking-wider">
-              <span className="text-white/20 text-[9px] tracking-[0.2em] font-bold block mb-1">HQ</span>
-              <span>New Delhi</span> <br />
-              <span className="font-bold text-white/20 text-[10px] tracking-[0.2em]">India, Asia</span>
+            {/* Bottom row: Location & Contact */}
+            <div className="text-left text-white/40 text-[11px] mt-16 leading-relaxed font-sans uppercase tracking-wider flex flex-col gap-6">
+              <div>
+                <span className="text-white/20 text-[9px] tracking-[0.2em] font-bold block mb-1">HQ</span>
+                <span>New Delhi</span> <br />
+                <span className="font-bold text-white/20 text-[10px] tracking-[0.2em]">India, Asia</span>
+              </div>
+              <div>
+                <span className="text-white/20 text-[9px] tracking-[0.2em] font-bold block mb-1">Get in touch</span>
+                <a href="mailto:info@blademedia.in" className="text-[#F3D7A7] hover:text-white text-xs font-mono tracking-wide transition-colors lowercase block mt-1">
+                  info@blademedia.in
+                </a>
+              </div>
             </div>
           </div>
         </div>
         
         {/* Copyright row */}
-        <div className="max-w-[1400px] mx-auto mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[9px] uppercase tracking-[0.6em] text-white/10 font-mono">
-          <span>© 2026 Blade // Institutional Access</span>
-          <span>Stop Consuming. Start Operating.</span>
+        <div className="max-w-[1400px] mx-auto mt-24 pt-8 border-t border-white/5 flex justify-center text-[9px] uppercase tracking-[0.6em] text-white/35 font-mono">
+          <span>© 2026 Blade. All rights reserved.</span>
         </div>
       </footer>
     </>
