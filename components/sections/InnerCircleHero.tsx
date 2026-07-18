@@ -133,7 +133,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
             <div className="flex flex-col">
               <span className="text-[8px] font-light tracking-[0.2em] text-white/40 uppercase">From the House of</span>
               <span className="text-[12px] font-bold tracking-[0.15em] text-white mt-0.5 uppercase">Blade Media</span>
-              <span className="text-[8px] font-light tracking-[0.15em] text-white/30 mt-1 uppercase">Delhi, India / Est. 2026</span>
+              <span className="text-[8px] font-light tracking-[0.15em] text-white/30 mt-1 uppercase">Delhi, India / Est. 2024</span>
             </div>
             <div className="flex flex-col items-end text-right tracking-[0.15em] text-[9px] text-white/80">
               <span className="font-light">CREATE // <span className="font-bold">MARKET</span></span>
@@ -185,7 +185,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
         >
           <span className="text-[8px] md:text-[9px] font-light tracking-[0.25em] text-white/40">From the House of</span>
           <span className="text-[15px] md:text-[18px] font-bold tracking-[0.15em] text-white mt-1.5 mb-2.5">Blade Media</span>
-          <span className="text-[8px] md:text-[9px] font-light tracking-[0.2em] text-white/40">Delhi, India / Est. 2026</span>
+          <span className="text-[8px] md:text-[9px] font-light tracking-[0.2em] text-white/40">Delhi, India / Est. 2024</span>
         </motion.div>
 
         {/* MIDDLE LEFT: Technical Document Code - Relocated to create balance */}
