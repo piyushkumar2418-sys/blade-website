@@ -153,7 +153,7 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
 
       {/* REAL PREMIUM FOOTER */}
       <footer 
-        className="bg-black text-white border-t border-white/5 py-24 md:py-32 px-6 md:px-24 relative z-20 text-left"
+        className="bg-black text-white border-t border-white/5 pt-24 md:pt-32 pb-12 md:pb-16 px-6 md:px-24 relative z-20 text-left"
         style={{
           backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px)',
           backgroundSize: '24px 24px',
@@ -221,7 +221,7 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
         </div>
         
         {/* Copyright row */}
-        <div className="max-w-[1400px] mx-auto mt-24 pt-8 border-t border-white/5 flex justify-center text-[9px] uppercase tracking-[0.6em] text-white/35 font-mono">
+        <div className="max-w-[1400px] mx-auto mt-16 md:mt-24 pt-8 border-t border-white/5 flex justify-center text-[9px] uppercase tracking-[0.6em] text-white/35 font-mono">
           <span>© 2026 Blade. All rights reserved.</span>
         </div>
       </footer>
