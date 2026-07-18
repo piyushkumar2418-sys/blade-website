@@ -267,9 +267,9 @@ export default function CohortMetrics() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-none text-white text-center"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold font-['Helvetica',_sans-serif] tracking-tight leading-none text-white text-center whitespace-nowrap"
           >
-            Why Blade <span className="text-[#F3D7A7] font-extrabold">Inner Circle?</span>
+            Why Blade <span className="text-[#F3D7A7]">Inner Circle?</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
