@@ -141,24 +141,24 @@ const SprintProtocol = () => {
             <div className="absolute -top-3 right-6 flex gap-2.5 z-20">
               <motion.div 
                 whileHover={{ scale: 1.2, rotate: -4 }}
-                className="w-9 h-9 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FFC800]/50 hover:bg-[#000]/40 transition-colors"
+                className="w-9 h-9 bg-white/5 border border-white/10 rounded-full flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FFC800]/50 hover:bg-[#000]/40 transition-colors"
                 title="Instagram"
               >
                 <img src="/logos/instagram-logo.svg" alt="Instagram" className="w-full h-full object-contain p-1.5" />
               </motion.div>
               <motion.div 
                 whileHover={{ scale: 1.2, rotate: 4 }}
-                className="w-9 h-9 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FF0000]/40 hover:bg-[#000]/40 transition-colors"
+                className="w-9 h-9 bg-white/5 border border-white/10 rounded-full flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FF0000]/40 hover:bg-[#000]/40 transition-colors"
                 title="YouTube"
               >
-                <img src="/logos/youtube-logo.webp" alt="YouTube" className="w-full h-full object-contain p-1.5" />
+                <img src="/logos/youtube-logo.webp" alt="YouTube" className="w-full h-full object-contain p-2 scale-105" />
               </motion.div>
               <motion.div 
                 whileHover={{ scale: 1.2, rotate: -3 }}
-                className="w-9 h-9 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#0A66C2]/40 hover:bg-[#000]/40 transition-colors"
+                className="w-9 h-9 bg-white/5 border border-white/10 rounded-full flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#0A66C2]/40 hover:bg-[#000]/40 transition-colors"
                 title="LinkedIn"
               >
-                <img src="/logos/linkedin-logo.webp" alt="LinkedIn" className="w-full h-full object-contain p-1.5" />
+                <img src="/logos/linkedin-logo.webp" alt="LinkedIn" className="w-full h-full object-contain scale-[1.65]" />
               </motion.div>
             </div>
 
