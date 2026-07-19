@@ -3,35 +3,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Download } from "lucide-react";
 
-// Original Brand-Colored SVGs
-const InstagramLogo = () => (
-  <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <defs>
-      <linearGradient id="instagram-grad" x1="0" y1="1" x2="1" y2="0">
-        <stop offset="0%" stopColor="#405DE6" />
-        <stop offset="25%" stopColor="#833AB4" />
-        <stop offset="50%" stopColor="#C13584" />
-        <stop offset="75%" stopColor="#E1306C" />
-        <stop offset="100%" stopColor="#F77737" />
-      </linearGradient>
-    </defs>
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#instagram-grad)" strokeWidth="2.5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="url(#instagram-grad)" strokeWidth="2.5" />
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="url(#instagram-grad)" strokeWidth="2.5" />
-  </svg>
-);
 
-const YouTubeLogo = () => (
-  <svg className="w-5 h-5 fill-current text-[#FF0000]" viewBox="0 0 24 24">
-    <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.507a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.507 9.388.507 9.388.507s7.518 0 9.388-.507a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-  </svg>
-);
 
-const LinkedInLogo = () => (
-  <svg className="w-5 h-5 fill-current text-[#0A66C2]" viewBox="0 0 24 24">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-  </svg>
-);
 
 const SprintProtocol = () => {
   return (
@@ -167,31 +140,25 @@ const SprintProtocol = () => {
             {/* Floating Logos (Continuous Floating and Interactive Tilt) */}
             <div className="absolute -top-3 right-6 flex gap-2.5 z-20">
               <motion.div 
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
                 whileHover={{ scale: 1.2, rotate: -4 }}
-                className="w-9 h-9 bg-white/[0.02] border border-white/10 rounded-lg flex items-center justify-center shadow-md hover:border-[#FFC800]/50 hover:bg-[#000]/40 transition-colors cursor-pointer"
+                className="w-9 h-9 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FFC800]/50 hover:bg-[#000]/40 transition-colors"
                 title="Instagram"
               >
-                <InstagramLogo />
+                <img src="/logos/instagram-logo.svg" alt="Instagram" className="w-full h-full object-contain p-1.5" />
               </motion.div>
               <motion.div 
-                animate={{ y: [-5, 5, -5] }}
-                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
                 whileHover={{ scale: 1.2, rotate: 4 }}
-                className="w-9 h-9 bg-white/[0.02] border border-white/10 rounded-lg flex items-center justify-center shadow-md hover:border-[#FF0000]/40 hover:bg-[#000]/40 transition-colors cursor-pointer"
+                className="w-9 h-9 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FF0000]/40 hover:bg-[#000]/40 transition-colors"
                 title="YouTube"
               >
-                <YouTubeLogo />
+                <img src="/logos/youtube-logo.webp" alt="YouTube" className="w-full h-full object-contain p-1.5" />
               </motion.div>
               <motion.div 
-                animate={{ y: [0, -7, 0] }}
-                transition={{ duration: 4.4, repeat: Infinity, ease: "easeInOut" }}
                 whileHover={{ scale: 1.2, rotate: -3 }}
-                className="w-9 h-9 bg-white/[0.02] border border-white/10 rounded-lg flex items-center justify-center shadow-md hover:border-[#0A66C2]/40 hover:bg-[#000]/40 transition-colors cursor-pointer"
+                className="w-9 h-9 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#0A66C2]/40 hover:bg-[#000]/40 transition-colors"
                 title="LinkedIn"
               >
-                <LinkedInLogo />
+                <img src="/logos/linkedin-logo.webp" alt="LinkedIn" className="w-full h-full object-contain p-1.5" />
               </motion.div>
             </div>
 
@@ -245,8 +212,6 @@ const SprintProtocol = () => {
                 {/* Floating Logos (Continuous Floating and Interactive Tilt) */}
                 <div className="flex gap-1.5">
                   <motion.span 
-                    animate={{ y: [0, -4, 0] }}
-                    transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: 5 }}
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FF8200]/40" 
                     title="Apollo"
@@ -254,8 +219,6 @@ const SprintProtocol = () => {
                     <img src="/logos/apollo-logo.jpg" alt="Apollo" className="w-full h-full object-contain p-0.5" />
                   </motion.span>
                   <motion.span 
-                    animate={{ y: [-3, 3, -3] }}
-                    transition={{ duration: 4.1, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: -5 }}
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FF7A59]/40" 
                     title="HubSpot"
@@ -263,13 +226,11 @@ const SprintProtocol = () => {
                     <img src="/logos/hubspot-logo.jpg" alt="HubSpot" className="w-full h-full object-contain p-0.5" />
                   </motion.span>
                   <motion.span 
-                    animate={{ y: [0, -5, 0] }}
-                    transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: 4 }}
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FF02F0]/40" 
                     title="ClickUp"
                   >
-                    <img src="/logos/clickup-logo.svg" alt="ClickUp" className="w-full h-full object-contain p-0.5" />
+                    <img src="/logos/clickup-logo.jpg" alt="ClickUp" className="w-full h-full object-contain p-0.5" />
                   </motion.span>
                 </div>
               </div>
@@ -315,8 +276,6 @@ const SprintProtocol = () => {
                 {/* Floating Logos (Continuous Floating and Interactive Tilt) */}
                 <div className="flex gap-1.5">
                   <motion.span 
-                    animate={{ y: [0, -3.5, 0] }}
-                    transition={{ duration: 3.3, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: -4 }}
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-white" 
                     title="Notion"
@@ -324,8 +283,6 @@ const SprintProtocol = () => {
                     <img src="/logos/notion-logo.png" alt="Notion" className="w-full h-full object-contain p-0.5 scale-110" />
                   </motion.span>
                   <motion.span 
-                    animate={{ y: [-4, 4, -4] }}
-                    transition={{ duration: 3.9, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: 5 }}
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FF1E82]/40" 
                     title="Frame.io"
@@ -333,8 +290,6 @@ const SprintProtocol = () => {
                     <img src="/logos/frameio-logo.webp" alt="Frame.io" className="w-full h-full object-contain scale-120" />
                   </motion.span>
                   <motion.span 
-                    animate={{ y: [0, -4.5, 0] }}
-                    transition={{ duration: 4.3, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: -3 }}
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#36C5F0]/40" 
                     title="Slack"
@@ -440,8 +395,6 @@ const SprintProtocol = () => {
                 {/* Floating Logos (Continuous Floating and Interactive Tilt) */}
                 <div className="flex gap-1.5 pr-12">
                   <motion.span 
-                    animate={{ y: [0, -3.2, 0] }}
-                    transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: -4 }}
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#D7FF28]/45" 
                     title="Higgsfield"
@@ -449,8 +402,6 @@ const SprintProtocol = () => {
                     <img src="/logos/higgsfield-logo.webp" alt="Higgsfield" className="w-full h-full object-cover" />
                   </motion.span>
                   <motion.span 
-                    animate={{ y: [-4, 4, -4] }}
-                    transition={{ duration: 4.0, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: 5 }}
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:shadow-[0_0_8px_rgba(158,122,255,0.4)]" 
                     title="Gemini"
@@ -458,8 +409,6 @@ const SprintProtocol = () => {
                     <img src="/logos/gemini-logo.webp" alt="Gemini" className="w-full h-full object-contain scale-115" />
                   </motion.span>
                   <motion.span 
-                    animate={{ y: [0, -4.8, 0] }}
-                    transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: -3 }}
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#D97706]/45" 
                     title="Claude"
