@@ -6,25 +6,46 @@ import SectionLabel from "../SectionLabel";
 
 const leadersData = [
   {
-    name: "Akhil",
-    role: "Co-Founder & Client Acquisition Lead",
-    description: "Specializes in building high-ticket client acquisition systems, outbound outreach strategies, and agency scale frameworks.",
-    imageSrc: "/leaders/akhil.jpg",
-    borderHighlight: "hover:border-[#FFC800]/50"
+    name: "Purbali",
+    shortRole: "Attention Psychology",
+    role: "Head of Creative & Video Strategy",
+    curriculumTitle: "Focus: Hook Engineering & Narrative",
+    description: "Expert in copywriting, storyline framing, and attention retention workflows that have generated over 500M+ views collectively.",
+    imageSrc: "/leaders/purbali.png",
+    borderHighlight: "hover:border-[#FF1E82]/50",
+    brands: [
+      { name: "Nykaa", src: "/logos/nykaa_white.png" },
+      { name: "Radio Mirchi", src: "/logos/mirchi_white.png" },
+      { name: "Red Bull", src: "/logos/redbull.png" }
+    ]
   },
   {
-    name: "Purbali",
-    role: "Head of Creative & Video Strategy",
-    description: "Expert in storytelling, narrative architecture, and the viral attention psychology frameworks that drive massive organic reach.",
-    imageSrc: "/leaders/purbali.png",
-    borderHighlight: "hover:border-[#FF1E82]/50"
+    name: "Akhil",
+    shortRole: "Client Acquisition",
+    role: "Co-Founder & Client Acquisition Lead",
+    curriculumTitle: "Focus: Outbound Sales & SOPs",
+    description: "Specializes in high-ticket outreach scripts, direct response negotiation, and onboarding workflows for creative agencies.",
+    imageSrc: "/leaders/akhil.jpg",
+    borderHighlight: "hover:border-[#FFC800]/50",
+    brands: [
+      { name: "Flipkart", src: "/logos/flipkart_user.png" },
+      { name: "FamApp", src: "/logos/famapp.png" },
+      { name: "Unacademy", src: "/logos/unacademy.png" }
+    ]
   },
   {
     name: "Shweta",
+    shortRole: "Operations & AI",
     role: "Head of AI Operations & Design",
-    description: "Leads automated workflows, system setup, task-board architectures, and AI Creative Studio integration for content efficiency.",
+    curriculumTitle: "Focus: Automations & AI Studio",
+    description: "Expert in building custom automation templates, task boards, and integrating state-of-the-art generative AI production toolsets.",
     imageSrc: "/leaders/shweta.png",
-    borderHighlight: "hover:border-[#8B5CF6]/50"
+    borderHighlight: "hover:border-[#8B5CF6]/50",
+    brands: [
+      { name: "Ogilvy", src: "/logos/ogilvy_white.png" },
+      { name: "McCann", src: "/logos/mcann.png" },
+      { name: "Koche", src: "/logos/koche_white.png" }
+    ]
   }
 ];
 
@@ -37,7 +58,7 @@ const Leaders = () => {
         backgroundSize: '24px 24px',
       }}
     >
-      {/* Background gradients */}
+      {/* Background glows */}
       <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-gradient-to-tr from-[#F3D7A7]/10 to-[#8B5CF6]/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] bg-[#F3D7A7]/5 rounded-full blur-[100px] pointer-events-none" />
 
@@ -48,7 +69,7 @@ const Leaders = () => {
             Learn from <br /> the Leaders.
           </h2>
           <p className="text-white/40 text-lg leading-relaxed max-w-xl font-light text-left pt-4">
-            Get direct mentorship from practitioners who live and breathe high-performance operations daily. No theorists allowed.
+            Direct mentorship from scaling practitioners who have built operations for top-tier global brands.
           </p>
         </div>
 
@@ -61,34 +82,69 @@ const Leaders = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: index * 0.15 }}
-              className={`relative aspect-[3/4] bg-[#0a0a0a] overflow-hidden grayscale hover:grayscale-0 group border border-white/5 rounded-2xl transition-all duration-500 ${leader.borderHighlight} shadow-2xl`}
+              className={`flex flex-col bg-[#080808] border border-white/5 rounded-2xl overflow-hidden hover:border-white/10 transition-all duration-300 shadow-2xl p-4`}
             >
-              <Image 
-                src={leader.imageSrc} 
-                alt={leader.name} 
-                fill
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.03]" 
-              />
-              
-              {/* Dark vignette overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-95 z-10" />
+              {/* Reference-aligned Image Container with Overlay Badge & Logos */}
+              <div className="relative aspect-[3/4] bg-[#0c0c0c] rounded-xl overflow-hidden group grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer">
+                <Image 
+                  src={leader.imageSrc} 
+                  alt={leader.name} 
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="w-full h-full object-cover object-top transition-transform duration-[1.2s] ease-out group-hover:scale-[1.03]" 
+                />
+                
+                {/* Dark vignette overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 transition-opacity z-10" />
 
-              {/* Text Card overlay */}
-              <div className="absolute bottom-6 left-6 right-6 z-20 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                <div className="bg-black/90 p-5 border border-white/10 hover:border-white/20 flex flex-col text-left backdrop-blur-lg rounded-xl transition-all duration-300 shadow-xl">
-                  <span className="text-white text-lg font-bold uppercase tracking-wide">
-                    {leader.name}
-                  </span>
-                  <span className="text-[#F3D7A7] text-[10px] font-semibold uppercase tracking-widest mt-1 leading-none">
-                    {leader.role}
-                  </span>
-                  <div className="h-[1px] w-full bg-white/15 my-3" />
+                {/* Bottom Overlay containing Name/Role Label & Brand Logos */}
+                <div className="absolute bottom-5 left-5 z-20 flex flex-col gap-2.5">
+                  
+                  {/* Name | Role Label Pill */}
+                  <div className="bg-black/95 px-3 py-1.5 border border-white/10 rounded-md text-[10px] font-bold text-white tracking-widest uppercase inline-flex items-center gap-1.5 select-none shadow-md">
+                    <span>{leader.name}</span>
+                    <span className="h-2.5 w-[1px] bg-white/25" />
+                    <span className="text-[#FFC800]">{leader.shortRole}</span>
+                  </div>
+
+                  {/* Brand Logos Row */}
+                  <div className="flex items-center gap-2 pl-0.5">
+                    {leader.brands.map((brand) => (
+                      <div 
+                        key={brand.name} 
+                        className="h-6 px-2 bg-white/5 border border-white/10 rounded flex items-center justify-center backdrop-blur-sm shadow-sm"
+                        title={brand.name}
+                      >
+                        <img 
+                          src={brand.src} 
+                          alt={brand.name} 
+                          className="h-3 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity" 
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                </div>
+              </div>
+
+              {/* Description Card area below image */}
+              <div className="pt-5 px-1 pb-1 space-y-2 flex-1 flex flex-col justify-between">
+                <div className="space-y-2">
+                  <h4 className="text-[10px] font-black uppercase tracking-widest text-[#F3D7A7] select-none">
+                    {leader.curriculumTitle}
+                  </h4>
                   <p className="text-white/50 text-[11px] leading-relaxed font-light">
                     {leader.description}
                   </p>
                 </div>
+                
+                <div className="pt-4 border-t border-white/5 mt-4">
+                  <span className="text-[9px] text-white/30 font-bold uppercase tracking-widest block">
+                    {leader.role}
+                  </span>
+                </div>
               </div>
+
             </motion.div>
           ))}
         </div>
