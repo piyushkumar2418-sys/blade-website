@@ -251,7 +251,7 @@ const SprintProtocol = () => {
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FF8200]/40" 
                     title="Apollo"
                   >
-                    <img src="/logos/apollo-logo.jpg" alt="Apollo" className="w-full h-full object-cover" />
+                    <img src="/logos/apollo-logo.jpg" alt="Apollo" className="w-full h-full object-contain p-0.5" />
                   </motion.span>
                   <motion.span 
                     animate={{ y: [-3, 3, -3] }}
@@ -260,7 +260,7 @@ const SprintProtocol = () => {
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FF7A59]/40" 
                     title="HubSpot"
                   >
-                    <img src="/logos/hubspot-logo.jpg" alt="HubSpot" className="w-full h-full object-cover" />
+                    <img src="/logos/hubspot-logo.jpg" alt="HubSpot" className="w-full h-full object-contain p-0.5" />
                   </motion.span>
                   <motion.span 
                     animate={{ y: [0, -5, 0] }}
@@ -269,7 +269,7 @@ const SprintProtocol = () => {
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#E21A22]/40" 
                     title="Zoho CRM"
                   >
-                    <img src="/logos/zoho-logo.png" alt="Zoho CRM" className="w-full h-full object-cover" />
+                    <img src="/logos/zoho-logo.png" alt="Zoho CRM" className="w-full h-full object-contain p-1" />
                   </motion.span>
                 </div>
               </div>
@@ -321,7 +321,7 @@ const SprintProtocol = () => {
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-white" 
                     title="Notion"
                   >
-                    <img src="/logos/notion-logo.png" alt="Notion" className="w-full h-full object-cover" />
+                    <img src="/logos/notion-logo.png" alt="Notion" className="w-full h-full object-contain p-0.5 scale-110" />
                   </motion.span>
                   <motion.span 
                     animate={{ y: [-4, 4, -4] }}
@@ -330,7 +330,7 @@ const SprintProtocol = () => {
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FF1E82]/40" 
                     title="Frame.io"
                   >
-                    <img src="/logos/frameio-logo.webp" alt="Frame.io" className="w-full h-full object-cover" />
+                    <img src="/logos/frameio-logo.webp" alt="Frame.io" className="w-full h-full object-contain scale-120" />
                   </motion.span>
                   <motion.span 
                     animate={{ y: [0, -4.5, 0] }}
@@ -339,7 +339,7 @@ const SprintProtocol = () => {
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#36C5F0]/40" 
                     title="Slack"
                   >
-                    <img src="/logos/slack-logo.png" alt="Slack" className="w-full h-full object-cover" />
+                    <img src="/logos/slack-logo.png" alt="Slack" className="w-full h-full object-contain p-0.5 scale-110" />
                   </motion.span>
                 </div>
               </div>
@@ -446,7 +446,7 @@ const SprintProtocol = () => {
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#D7FF28]/45" 
                     title="Higgsfield"
                   >
-                    <img src="/logos/higgsfield-logo.webp" alt="Higgsfield" className="w-full h-full object-cover" />
+                    <img src="/logos/higgsfield-logo.webp" alt="Higgsfield" className="w-full h-full object-contain p-0.5" />
                   </motion.span>
                   <motion.span 
                     animate={{ y: [-4, 4, -4] }}
@@ -455,7 +455,7 @@ const SprintProtocol = () => {
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:shadow-[0_0_8px_rgba(158,122,255,0.4)]" 
                     title="Gemini"
                   >
-                    <img src="/logos/gemini-logo.webp" alt="Gemini" className="w-full h-full object-cover" />
+                    <img src="/logos/gemini-logo.webp" alt="Gemini" className="w-full h-full object-contain scale-135" />
                   </motion.span>
                   <motion.span 
                     animate={{ y: [0, -4.8, 0] }}
@@ -464,7 +464,7 @@ const SprintProtocol = () => {
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#D97706]/45" 
                     title="Claude"
                   >
-                    <img src="/logos/claude-logo.jpg" alt="Claude" className="w-full h-full object-cover" />
+                    <img src="/logos/claude-logo.jpg" alt="Claude" className="w-full h-full object-contain p-0.5" />
                   </motion.span>
                 </div>
               </div>
