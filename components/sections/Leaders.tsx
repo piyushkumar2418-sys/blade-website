@@ -10,7 +10,7 @@ const leadersData = [
     role: "Head of Creative & Video Strategy",
     focusLabel: "FOCUS MODULE",
     description: "Master Hook engineering, storyboarding, and video flow architecture designed to capture attention and scale organic distribution.",
-    imageSrc: "/leaders/purbali.png",
+    imageSrc: "/leaders/purbali.jpg",
     logoSrc: "/logos/nykaa_white.png",
     bgClass: "bg-[#1c122b]",
     imgBgClass: "bg-[#120b1c]",
@@ -32,7 +32,7 @@ const leadersData = [
     role: "Head of AI Operations & Design",
     focusLabel: "FOCUS MODULE",
     description: "Deploy state-of-the-art AI creative suites, custom workflow automations, and digital design dashboards to maximize output.",
-    imageSrc: "/leaders/shweta.png",
+    imageSrc: "/leaders/shweta.jpg",
     logoSrc: "/logos/ogilvy_white.png",
     bgClass: "bg-[#0c1a24]",
     imgBgClass: "bg-[#071017]",
@@ -96,13 +96,13 @@ const Leaders = () => {
                 
                 {/* Left Side: Info (60% width on Desktop) */}
                 <div className="w-full sm:w-[60%] p-6 flex flex-col justify-between items-start text-left h-full">
-                  <div className="space-y-1 text-left">
-                    <h3 className="text-white text-lg font-bold tracking-tight select-none">
-                      {leader.name}
-                    </h3>
+                  <div className="space-y-1.5 text-left">
                     <p className="text-[10px] text-white/50 tracking-wider uppercase font-semibold select-none">
                       {leader.role}
                     </p>
+                    <h3 className="text-white text-lg font-bold tracking-tight select-none">
+                      {leader.name}
+                    </h3>
                   </div>
 
                   <div className="space-y-1.5 text-left my-4 sm:my-0">
