@@ -21,7 +21,7 @@ import InnerCircleHero from "@/components/sections/InnerCircleHero";
 import CohortMetrics from "@/components/sections/CohortMetrics";
 import Members from "@/components/sections/Members";
 import CreatorsMap from "@/components/sections/CreatorsMap";
-import Manifesto from "@/components/sections/Manifesto";
+import Leaders from "@/components/sections/Leaders";
 import SprintProtocol from "@/components/sections/SprintProtocol";
 import FounderAuthority from "@/components/sections/FounderAuthority";
 import InnerCircleCTA from "@/components/sections/InnerCircleCTA";
@@ -186,7 +186,7 @@ export default function Home() {
             <CohortMetrics />
             <Members />
             <SprintProtocol />
-            <Manifesto />
+            <Leaders />
             <FounderAuthority />
             <CreatorsMap onActiveStateChange={setHideHeader} />
             <InnerCircleCTA onJoinWaitlist={() => router.push("/apply/register")} />
