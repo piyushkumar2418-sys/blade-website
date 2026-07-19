@@ -29,90 +29,7 @@ const YouTubeLogo = () => (
 
 const LinkedInLogo = () => (
   <svg className="w-5 h-5 fill-current text-[#0A66C2]" viewBox="0 0 24 24">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-  </svg>
-);
-
-// HubSpot Orange
-const HubSpotLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#FF7A59]" fill="none" stroke="currentColor" strokeWidth="2.5">
-    <circle cx="12" cy="12" r="2.5" fill="currentColor" />
-    <line x1="12" y1="9.5" x2="12" y2="4.5" />
-    <line x1="13.77" y1="13.02" x2="18.1" y2="15.52" />
-    <line x1="10.23" y1="13.02" x2="5.9" y2="15.52" />
-    <circle cx="12" cy="3" r="2" fill="currentColor" />
-    <circle cx="19.5" cy="16.5" r="2" fill="currentColor" />
-    <circle cx="4.5" cy="16.5" r="2" fill="currentColor" />
-  </svg>
-);
-
-// Apollo Orange/Gold
-const ApolloLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#FF8200]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 2.5s4 4.5 4 10.5c0 1.5-.5 3-1.5 4.5L12 21.5l-2.5-4c-1-1.5-1.5-3-1.5-4.5 0-6 4-10.5 4-10.5z" />
-    <path d="M9 14.5h6" />
-  </svg>
-);
-
-// Zoho Colored blocks
-const ZohoLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5">
-    <rect x="2" y="2" width="9" height="9" fill="#E21A22" rx="1.5" />
-    <rect x="13" y="2" width="9" height="9" fill="#00A2E8" rx="1.5" />
-    <rect x="2" y="13" width="9" height="9" fill="#8DC63F" rx="1.5" />
-    <rect x="13" y="13" width="9" height="9" fill="#FBB040" rx="1.5" />
-  </svg>
-);
-
-// Notion B&W
-const NotionLogo = () => (
-  <svg className="w-5 h-5 text-white fill-current" viewBox="0 0 24 24">
-    <path d="M4.46 2.587c.228-.093.593-.162.998-.162h11.968c.552 0 .979.162 1.344.471.28.243.376.544.376 1.054v14.484c0 .543-.16.924-.469 1.206-.293.267-.732.392-1.25.392H4.992c-.443 0-.829-.092-1.156-.37-.323-.272-.47-.648-.47-1.228V4.025c0-.606.196-1.077.56-1.344.184-.136.326-.188.534-.094zm1.536 2.385v12.247c0 .193.076.368.21.459.088.062.24.116.483.116h8.796c.264 0 .42-.054.512-.116.12-.08.204-.266.204-.459V6.012c0-.23-.084-.403-.204-.492a.684.684 0 0 0-.512-.093H6.688c-.243 0-.395.031-.483.093-.134.089-.21.262-.21.492zm2.007 1.48c0-.256.126-.411.378-.411h1.365l3.227 4.962V5.98h1.666c.252 0 .378.155.378.411v6.786c0 .257-.126.411-.378.411h-1.253L8.381 8.358v4.819H6.713c-.252 0-.378-.154-.378-.411V6.452z"/>
-  </svg>
-);
-
-// Frame.io Hot Pink
-const FrameioLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#FF1E82] fill-current">
-    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-4h-2V9h2V7c0-1.66 1.34-3 3-3h2v2h-2c-.55 0-1 .45-1 1v2h3v2h-3v4z" />
-  </svg>
-);
-
-// Slack Multi-colored
-const SlackLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
-    <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52-2.523 2.528 2.528 0 0 1 2.522 2.523v2.52h-2.522zm1.26 0a2.528 2.528 0 0 1-2.52-2.52h5.043a2.528 2.528 0 0 1 2.522 2.52v5.042a2.528 2.528 0 0 1-2.522 2.52H8.822a2.528 2.528 0 0 1-2.52-2.52v-5.042z" fill="#36C5F0"/>
-    <path d="M8.822 5.043a2.528 2.528 0 0 1 2.52-2.522 2.528 2.528 0 0 1 2.522 2.522v2.52h-2.522zm0 1.26a2.528 2.528 0 0 1 2.52 2.52v5.043a2.528 2.528 0 0 1-2.52 2.522H3.78a2.528 2.528 0 0 1-2.52-2.522V8.822a2.528 2.528 0 0 1 2.52-2.52h5.043z" fill="#2EB67D"/>
-    <path d="M18.958 8.822a2.528 2.528 0 0 1 2.522-2.52 2.528 2.528 0 0 1 2.52 2.52v2.522h-2.52zm-1.26 0a2.528 2.528 0 0 1-2.52 2.52H10.13a2.528 2.528 0 0 1-2.522-2.52V3.78a2.528 2.528 0 0 1 2.522-2.52h5.047a2.528 2.528 0 0 1 2.52 2.52v5.042z" fill="#ECB22E"/>
-    <path d="M15.178 18.958a2.528 2.528 0 0 1-2.52 2.522 2.528 2.528 0 0 1-2.522-2.522v-2.52h2.522zm0-1.26a2.528 2.528 0 0 1-2.52 2.52H10.13a2.528 2.528 0 0 1-2.522-2.52V10.13a2.528 2.528 0 0 1 2.522-2.52h5.047a2.528 2.528 0 0 1 2.52 2.52v5.047z" fill="#E01E5A"/>
-  </svg>
-);
-
-// Higgsfield Neon Yellow-Green
-const HiggsfieldLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#D7FF28]" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M8 4c3 0 4 3 4 8s1 8 4 8 M16 4c-3 0-4 3-4 8s-1 8-4 8" />
-  </svg>
-);
-
-// Gemini AI Gradient
-const GeminiLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 text-white fill-current">
-    <defs>
-      <linearGradient id="gemini-grad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="#9E7AFF" />
-        <stop offset="50%" stopColor="#38BDF8" />
-        <stop offset="100%" stopColor="#FF7A59" />
-      </linearGradient>
-    </defs>
-    <path d="M12 2c0 5.5-4.5 10-10 10 5.5 0 10 4.5 10 10 0-5.5 4.5-10 10-10-5.5 0-10-4.5-10-10z" fill="url(#gemini-grad)" />
-  </svg>
-);
-
-// Claude Terracotta Orange
-const ClaudeLogo = () => (
-  <svg viewBox="0 0 16 16" className="w-5 h-5 text-[#D97706] fill-current">
-    <path d="m3.127 10.604 3.135-1.76.053-.153-.053-.085H6.11l-.525-.032-1.791-.048-1.554-.065-1.505-.08-.38-.081L0 7.832l.036-.234.32-.214.455.04 1.009.069 1.513.105 1.097.064 1.626.17h.259l.036-.105-.089-.065-.068-.064-1.566-1.062-1.695-1.121-.887-.646-.48-.327-.243-.306-.104-.67.435-.48.585.04.15.04.593.456 1.267.981 1.654 1.218.242.202.097-.068.012-.049-.109-.181-.9-1.626-.96-1.655-.428-.686-.113-.411a2 2 0 0 1-.068-.484l.496-.674L4.446 0l.662.089.279.242.411.94.666 1.48 1.033 2.014.302.597.162.553.06.17h.105v-.097l.085-1.134.157-1.392.154-1.792.052-.504.25-.605.497-.327.387.186.319.456-.045.294-.19 1.23-.37 1.93-.243 1.29h.142l.161-.16.654-.868 1.097-1.372.484-.545.565-.601.363-.287h.686l.505.751-.226.775-.707.895-.585.759-.839 1.13-.524.904.048.072.125-.012 1.897-.403 1.024-.186 1.223-.21.553.258.06.263-.218.536-1.307.323-1.533.307-2.284.54-.028.02.032.04 1.029.098.44.024h1.077l2.005.15.525.346.315.424-.053.323-.807.411-3.631-.863-.872-.218h-.12v.073l.726.71 1.331 1.202 1.667 1.55.084.383-.214.302-.226-.032-1.464-1.101-.565-.497-1.28-1.077h-.084v.113l.295.432 1.557 2.34.08.718-.112.234-.404.141-.444-.08-.911-1.28-.94-1.44-.759-1.291-.093.053-.448 4.821-.21.246-.484.186-.403-.307-.214-.496.214-.98.258-1.28.21-1.016.19-1.263.112-.42-.008-.028-.092.012-.953 1.307-1.448 1.957-1.146 1.227-.274.109-.477-.247.045-.44.266-.39 1.586-2.018.956-1.25.617-.723-.004-.105h-.036l-4.212z"/>
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
   </svg>
 );
 
@@ -331,28 +248,28 @@ const SprintProtocol = () => {
                     animate={{ y: [0, -4, 0] }}
                     transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: 5 }}
-                    className="w-5.5 h-5.5 rounded bg-white/[0.01] border border-white/10 flex items-center justify-center cursor-pointer hover:border-[#FF8200]/40" 
+                    className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FF8200]/40" 
                     title="Apollo"
                   >
-                    <ApolloLogo />
+                    <img src="/logos/what%20you'll%20learn/apollo%20logo.jpg" alt="Apollo" className="w-full h-full object-cover" />
                   </motion.span>
                   <motion.span 
                     animate={{ y: [-3, 3, -3] }}
                     transition={{ duration: 4.1, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: -5 }}
-                    className="w-5.5 h-5.5 rounded bg-white/[0.01] border border-white/10 flex items-center justify-center cursor-pointer hover:border-[#FF7A59]/40" 
+                    className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FF7A59]/40" 
                     title="HubSpot"
                   >
-                    <HubSpotLogo />
+                    <img src="/logos/what%20you'll%20learn/hubspot%20logo.jpg" alt="HubSpot" className="w-full h-full object-cover" />
                   </motion.span>
                   <motion.span 
                     animate={{ y: [0, -5, 0] }}
                     transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: 4 }}
-                    className="w-5.5 h-5.5 rounded bg-white/[0.01] border border-white/10 flex items-center justify-center cursor-pointer hover:border-[#E21A22]/40" 
+                    className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#E21A22]/40" 
                     title="Zoho CRM"
                   >
-                    <ZohoLogo />
+                    <img src="/logos/what%20you'll%20learn/zoho%20logo.png" alt="Zoho CRM" className="w-full h-full object-cover" />
                   </motion.span>
                 </div>
               </div>
@@ -401,28 +318,28 @@ const SprintProtocol = () => {
                     animate={{ y: [0, -3.5, 0] }}
                     transition={{ duration: 3.3, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: -4 }}
-                    className="w-5.5 h-5.5 rounded bg-white/[0.01] border border-white/10 flex items-center justify-center cursor-pointer hover:border-white" 
+                    className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-white" 
                     title="Notion"
                   >
-                    <NotionLogo />
+                    <img src="/logos/what%20you'll%20learn/Notion_app_logo.png" alt="Notion" className="w-full h-full object-cover" />
                   </motion.span>
                   <motion.span 
                     animate={{ y: [-4, 4, -4] }}
                     transition={{ duration: 3.9, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: 5 }}
-                    className="w-5.5 h-5.5 rounded bg-white/[0.01] border border-white/10 flex items-center justify-center cursor-pointer hover:border-[#FF1E82]/40" 
+                    className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FF1E82]/40" 
                     title="Frame.io"
                   >
-                    <FrameioLogo />
+                    <img src="/logos/what%20you'll%20learn/frame.io%20logo.webp" alt="Frame.io" className="w-full h-full object-cover" />
                   </motion.span>
                   <motion.span 
                     animate={{ y: [0, -4.5, 0] }}
                     transition={{ duration: 4.3, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: -3 }}
-                    className="w-5.5 h-5.5 rounded bg-white/[0.01] border border-white/10 flex items-center justify-center cursor-pointer hover:border-[#36C5F0]/40" 
+                    className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#36C5F0]/40" 
                     title="Slack"
                   >
-                    <SlackLogo />
+                    <img src="/logos/what%20you'll%20learn/slack%20logo.png" alt="Slack" className="w-full h-full object-cover" />
                   </motion.span>
                 </div>
               </div>
@@ -526,28 +443,28 @@ const SprintProtocol = () => {
                     animate={{ y: [0, -3.2, 0] }}
                     transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: -4 }}
-                    className="w-5.5 h-5.5 rounded bg-white/[0.01] border border-white/10 flex items-center justify-center cursor-pointer hover:border-[#D7FF28]/45" 
+                    className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#D7FF28]/45" 
                     title="Higgsfield"
                   >
-                    <HiggsfieldLogo />
+                    <img src="/logos/what%20you'll%20learn/higgsfield%20logo.webp" alt="Higgsfield" className="w-full h-full object-cover" />
                   </motion.span>
                   <motion.span 
                     animate={{ y: [-4, 4, -4] }}
                     transition={{ duration: 4.0, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: 5 }}
-                    className="w-5.5 h-5.5 rounded bg-white/[0.01] border border-white/10 flex items-center justify-center cursor-pointer hover:shadow-[0_0_8px_rgba(158,122,255,0.4)]" 
+                    className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:shadow-[0_0_8px_rgba(158,122,255,0.4)]" 
                     title="Gemini"
                   >
-                    <GeminiLogo />
+                    <img src="/logos/what%20you'll%20learn/gemini%20logo.webp" alt="Gemini" className="w-full h-full object-cover" />
                   </motion.span>
                   <motion.span 
                     animate={{ y: [0, -4.8, 0] }}
                     transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: -3 }}
-                    className="w-5.5 h-5.5 rounded bg-white/[0.01] border border-white/10 flex items-center justify-center cursor-pointer hover:border-[#D97706]/45" 
+                    className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#D97706]/45" 
                     title="Claude"
                   >
-                    <ClaudeLogo />
+                    <img src="/logos/what%20you'll%20learn/claude%20logo.jpg" alt="Claude" className="w-full h-full object-cover" />
                   </motion.span>
                 </div>
               </div>
