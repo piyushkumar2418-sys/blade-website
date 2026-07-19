@@ -266,10 +266,10 @@ const SprintProtocol = () => {
                     animate={{ y: [0, -5, 0] }}
                     transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.2, rotate: 4 }}
-                    className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#E21A22]/40" 
-                    title="Zoho CRM"
+                    className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#FF02F0]/40" 
+                    title="ClickUp"
                   >
-                    <img src="/logos/zoho-logo.png" alt="Zoho CRM" className="w-full h-full object-contain p-1" />
+                    <img src="/logos/clickup-logo.svg" alt="ClickUp" className="w-full h-full object-contain p-0.5" />
                   </motion.span>
                 </div>
               </div>
@@ -446,7 +446,7 @@ const SprintProtocol = () => {
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#D7FF28]/45" 
                     title="Higgsfield"
                   >
-                    <img src="/logos/higgsfield-logo.webp" alt="Higgsfield" className="w-full h-full object-contain p-0.5" />
+                    <img src="/logos/higgsfield-logo.webp" alt="Higgsfield" className="w-full h-full object-cover" />
                   </motion.span>
                   <motion.span 
                     animate={{ y: [-4, 4, -4] }}
@@ -455,7 +455,7 @@ const SprintProtocol = () => {
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:shadow-[0_0_8px_rgba(158,122,255,0.4)]" 
                     title="Gemini"
                   >
-                    <img src="/logos/gemini-logo.webp" alt="Gemini" className="w-full h-full object-contain scale-135" />
+                    <img src="/logos/gemini-logo.webp" alt="Gemini" className="w-full h-full object-contain scale-115" />
                   </motion.span>
                   <motion.span 
                     animate={{ y: [0, -4.8, 0] }}
