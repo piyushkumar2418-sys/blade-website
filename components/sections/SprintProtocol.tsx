@@ -158,7 +158,7 @@ const SprintProtocol = () => {
                 className="w-9 h-9 bg-white/5 border border-white/10 rounded-full flex items-center justify-center cursor-pointer overflow-hidden hover:border-[#0A66C2]/40 hover:bg-[#000]/40 transition-colors"
                 title="LinkedIn"
               >
-                <img src="/logos/linkedin-logo.webp" alt="LinkedIn" className="w-full h-full object-contain scale-[1.65]" />
+                <img src="/logos/linkedin-logo.webp" alt="LinkedIn" className="w-full h-full object-contain p-1.5" />
               </motion.div>
             </div>
 
