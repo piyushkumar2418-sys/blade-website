@@ -2,7 +2,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import SectionLabel from "../SectionLabel";
 
 const leadersData = [
   {
@@ -10,9 +9,6 @@ const leadersData = [
     role: "Content lead | Creative Director",
     description: "Creative Director with experience across India's top agencies and brands. Gain first-hand insights into campaign strategy, brand storytelling, creative leadership, and the systems behind award-worthy marketing.",
     imageSrc: "/leaders/purbali.jpg",
-    bgClass: "bg-[#1c122b]",
-    imgBgClass: "bg-[#120b1c]",
-    borderClass: "border-purple-500/10 hover:border-purple-500/20",
     brands: [
       { name: "SuperYou", src: "/logos/superyou.png" },
       { name: "Ogilvy", src: "/logos/ogilvy_white.png" }
@@ -23,9 +19,6 @@ const leadersData = [
     role: "Brand Strategist | Graphic Designer",
     description: "Master the intersection of strategy and design. Learn how branding, visual storytelling, and creative direction come together to build brands that stand out, connect with audiences, and leave a lasting impression.",
     imageSrc: "/leaders/akhil.jpg",
-    bgClass: "bg-[#201c10]",
-    imgBgClass: "bg-[#14120a]",
-    borderClass: "border-amber-500/10 hover:border-amber-500/20",
     brands: [
       { name: "The Ranveer Show", src: "/logos/ranveer.jpg" },
       { name: "Flipkart", src: "/logos/flipkart_user.png" }
@@ -36,9 +29,6 @@ const leadersData = [
     role: "Founder & CEO | Brand Strategist",
     description: "Master the art of building a founder-first brand. Discover how high-performing founders position themselves, grow their audience, and turn content into a long-term business asset through proven personal branding systems.",
     imageSrc: "/leaders/shweta.jpg",
-    bgClass: "bg-[#0c1a24]",
-    imgBgClass: "bg-[#071017]",
-    borderClass: "border-sky-500/10 hover:border-sky-500/20",
     brands: [
       { name: "Notion", src: "/logos/notion-logo.png" },
       { name: "Slack", src: "/logos/slack-logo.png" }
@@ -49,31 +39,58 @@ const leadersData = [
 const Leaders = () => {
   return (
     <section 
-      className="py-32 px-6 md:px-24 bg-[#030303] relative overflow-hidden border-b border-white/5"
+      className="py-20 px-6 md:px-24 bg-[#050505] text-white relative overflow-hidden border-b border-white/5"
       style={{
         backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px)',
         backgroundSize: '24px 24px',
       }}
     >
+      {/* Cursive Font & Glassy metallic styling with bright yellowish golden */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&display=swap');
+        
+        .font-cursive {
+          font-family: 'Dancing Script', cursive;
+        }
+
+        .glassy-card-leader {
+          background: rgba(10, 10, 12, 0.45);
+          backdrop-filter: blur(25px);
+          -webkit-backdrop-filter: blur(25px);
+          border: 1px solid rgba(255, 255, 255, 0.09);
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.03);
+        }
+
+        .glassy-card-leader:hover {
+          border-color: rgba(255, 200, 0, 0.35);
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45), 0 0 25px rgba(255, 200, 0, 0.1);
+        }
+      `}} />
+
       {/* Background glows */}
-      <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-gradient-to-tr from-[#F3D7A7]/5 to-[#8B5CF6]/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] bg-[#F3D7A7]/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-gradient-to-tr from-[#FFC800]/5 to-[#8B5CF6]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] bg-[#FFC800]/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* HEADER SECTION (Centered & On Top) */}
-        <div className="space-y-4 mb-20 text-center max-w-2xl mx-auto">
-          <SectionLabel>Mentorship</SectionLabel>
-          <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight leading-none text-white text-center">
-            Learn from the Leaders.
+        <div className="mb-16 flex flex-col items-center text-center">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-1.5 h-1.5 bg-[#FFC800] rounded-full animate-pulse" />
+            <span className="text-[9px] font-mono font-bold uppercase tracking-[0.4em] text-white/40">Mentorship</span>
+            <span className="w-1.5 h-1.5 bg-[#FFC800]/40 rounded-full" />
+          </div>
+          
+          <h2 className="text-2xl md:text-4xl font-extrabold uppercase tracking-tighter text-white leading-none select-none font-sans text-center whitespace-nowrap">
+            Meet the <span className="font-cursive text-[#FFC800] font-normal lowercase tracking-normal mx-0.5 pr-0.5 inline-block transform -rotate-3" style={{ textTransform: 'none', textShadow: '0 0 10px rgba(255, 200, 0, 0.4)' }}>minds</span> Behind Modern Brands.
           </h2>
-          <p className="text-white/40 text-sm leading-relaxed font-light text-center pt-2">
-            Direct training and campaign case studies led by our cohort instructors.
+          <p className="text-white/60 text-xs md:text-sm font-normal leading-relaxed font-sans max-w-2xl mx-auto text-center pt-3">
+            Go beyond theory with sessions led by founders, creative directors, strategists, and marketers working at the forefront of the industry.
           </p>
         </div>
 
         {/* CENTERED CARDS GRID */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full items-stretch justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full items-stretch justify-center">
           {leadersData.map((leader, index) => (
             <motion.div
               key={leader.name}
@@ -81,25 +98,25 @@ const Leaders = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
-              className={`flex flex-col sm:flex-row h-auto sm:h-[250px] ${leader.bgClass} border ${leader.borderClass} rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 group`}
+              className="flex flex-col sm:flex-row h-auto sm:h-[280px] glassy-card-leader rounded-2xl overflow-hidden transition-all duration-300 group"
             >
               
               {/* Left Side: Info (60% width on Desktop) */}
-              <div className="w-full sm:w-[60%] p-6 flex flex-col justify-between items-start text-left h-full">
+              <div className="w-full sm:w-[60%] p-6 md:p-8 flex flex-col justify-between items-start text-left h-full">
                 
-                {/* Title & Name Swapped (Title on Top, Name Below) */}
+                {/* Name Above in sans-serif title style, Role below it in Helvetica and White */}
                 <div className="space-y-1 text-left">
-                  <p className="text-[9px] text-[#F3D7A7]/70 tracking-widest uppercase font-bold select-none">
-                    {leader.role}
-                  </p>
-                  <h3 className="text-white text-base font-bold tracking-tight select-none">
+                  <h3 className="text-white text-xl font-bold tracking-tight select-none font-sans leading-none">
                     {leader.name}
                   </h3>
+                  <p className="text-[10px] sm:text-[11px] font-['Helvetica',_sans-serif] font-normal text-white uppercase tracking-wider select-none leading-normal">
+                    {leader.role}
+                  </p>
                 </div>
 
-                {/* Description (No Focus Mode title label) */}
+                {/* Description */}
                 <div className="my-4 sm:my-0 text-left">
-                  <p className="text-white/60 text-[10px] leading-relaxed font-light">
+                  <p className="text-white/60 text-xs font-normal leading-relaxed font-sans">
                     {leader.description}
                   </p>
                 </div>
@@ -109,7 +126,7 @@ const Leaders = () => {
                   {leader.brands.map((brand) => (
                     <div 
                       key={brand.name} 
-                      className="h-6 px-1.5 bg-white/5 border border-white/10 rounded flex items-center justify-center backdrop-blur-sm shadow-sm"
+                      className="h-6 px-2 bg-white/5 border border-white/10 rounded flex items-center justify-center backdrop-blur-sm shadow-sm"
                       title={brand.name}
                     >
                       <img 
@@ -124,7 +141,7 @@ const Leaders = () => {
               </div>
 
               {/* Right Side: Portrait Cutout (40% width on Desktop) */}
-              <div className={`w-full sm:w-[40%] h-48 sm:h-full relative ${leader.imgBgClass} overflow-hidden`}>
+              <div className="w-full sm:w-[40%] h-56 sm:h-full relative overflow-hidden bg-black/20">
                 <Image
                   src={leader.imageSrc}
                   alt={leader.name}
