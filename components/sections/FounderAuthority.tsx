@@ -40,9 +40,9 @@ const FounderAuthority = () => {
       }}
     >
       
-      {/* Abstract Blue Ink Smoke Background Effect (Inspired by Reference) */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-blue-600/15 to-sky-500/5 rounded-full blur-[140px] pointer-events-none animate-pulse" />
-      <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
+      {/* Brand Gold/Amber Background Glow (Inspired by Reference composition, but using Brand Colors) */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-[#FFC800]/8 to-[#F3D7A7]/2 rounded-full blur-[140px] pointer-events-none animate-pulse" />
+      <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-[#FFC800]/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto relative z-10">
         
@@ -65,8 +65,8 @@ const FounderAuthority = () => {
         {/* Infographic Stack (Timeline & Glassmorphic Cards) */}
         <div className="relative space-y-6">
           
-          {/* Vertical Timeline Line */}
-          <div className="absolute left-8 md:left-12 top-6 bottom-6 w-[2px] bg-gradient-to-b from-blue-500/10 via-blue-500/60 to-blue-500/10 pointer-events-none" />
+          {/* Vertical Timeline Line in Gold */}
+          <div className="absolute left-8 md:left-12 top-6 bottom-6 w-[2px] bg-gradient-to-b from-[#FFC800]/10 via-[#FFC800]/40 to-[#FFC800]/10 pointer-events-none" />
 
           {benefits.map((benefit, index) => (
             <motion.div
@@ -78,12 +78,12 @@ const FounderAuthority = () => {
               className="relative pl-20 md:pl-28 p-6 md:p-8 bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md border border-white/10 hover:border-white/20 rounded-2xl transition-all duration-300 flex flex-col sm:flex-row sm:items-center gap-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] group"
             >
               
-              {/* Timeline Glow Node */}
-              <div className="absolute left-8 md:left-12 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-blue-500 border-4 border-black shadow-[0_0_15px_rgba(59,130,246,0.8)] z-20 group-hover:scale-110 transition-transform duration-300" />
-              <div className="absolute left-8 md:left-12 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-blue-500/20 blur-sm pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              {/* Timeline Glow Node in Gold */}
+              <div className="absolute left-8 md:left-12 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#FFC800] border-4 border-black shadow-[0_0_15px_rgba(255,200,0,0.8)] z-20 group-hover:scale-110 transition-transform duration-300" />
+              <div className="absolute left-8 md:left-12 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#FFC800]/20 blur-sm pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-              {/* Icon Box */}
-              <div className="w-14 h-14 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-white/80 shadow-inner flex-shrink-0">
+              {/* Icon Box in Gold Accent */}
+              <div className="w-14 h-14 bg-[#FFC800]/5 border border-[#FFC800]/20 rounded-xl flex items-center justify-center text-[#FFC800]/80 shadow-inner flex-shrink-0">
                 {benefit.icon}
               </div>
 
