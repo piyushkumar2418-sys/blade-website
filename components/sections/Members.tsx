@@ -77,7 +77,7 @@ const Members = () => {
             <div className="h-[1px] w-6 bg-neutral-200" />
           </div>
           <h2 className="text-3xl md:text-5xl tracking-tight text-neutral-950 text-center leading-tight">
-            <span className="font-['Helvetica',_sans-serif] font-bold text-[#FFC800]">Our members</span> <span className="font-serif italic font-normal text-[#9A7B44] lowercase tracking-normal normal-case">are working with</span>
+            <span className="font-['Helvetica',_sans-serif] font-bold">Our members</span> <span className="font-serif italic font-normal text-[#9A7B44] lowercase tracking-normal normal-case">are working with</span>
           </h2>
         </div>
 
