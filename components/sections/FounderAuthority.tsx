@@ -1,151 +1,194 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { Briefcase, ArrowUpRight, FolderGit2, Video, Layers } from "lucide-react";
 
 const FounderAuthority = () => {
   return (
-    <section className="bg-black py-36 px-6 md:px-24 lg:px-32 text-white relative overflow-hidden border-b border-white/5 z-20">
+    <section 
+      className="bg-[#050505] py-28 px-6 md:px-24 text-white relative overflow-hidden border-b border-white/5 z-20"
+      style={{
+        backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px)',
+        backgroundSize: '24px 24px',
+      }}
+    >
       
-      {/* Subtle Noise Texture Overlay */}
-      <div 
-        className="absolute inset-0 opacity-[0.015] pointer-events-none mix-blend-overlay bg-repeat"
-        style={{
-          backgroundImage: `url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='noise'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23noise)'/></svg>")`
-        }}
-      />
-
-      {/* Ambient background lighting behind the hero portrait to separate it naturally */}
-      <div className="absolute top-1/2 right-[15%] -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#FFC800]/5 via-transparent to-transparent rounded-full blur-[120px] pointer-events-none" />
+      {/* Background ambient lighting */}
+      <div className="absolute top-[20%] left-[20%] w-[500px] h-[500px] bg-gradient-to-tr from-[#FFC800]/5 to-[#8B5CF6]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] bg-[#FFC800]/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+        
+        {/* Section Header */}
+        <div className="mb-20 flex flex-col items-start text-left max-w-3xl">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-1.5 h-1.5 bg-[#FFC800] rounded-full animate-pulse" />
+            <span className="text-[9px] font-mono font-bold uppercase tracking-[0.4em] text-white/40">Member Ecosystem</span>
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white leading-none select-none font-sans">
+            What You Get Inside <span className="text-[#FFC800]">The Circle.</span>
+          </h2>
+          <p className="text-white/60 text-xs md:text-sm font-normal leading-relaxed font-sans pt-4">
+            We don&apos;t just teach theory. We equip our members with the exact resources, networks, client pipelines, and video editing resources needed to scale.
+          </p>
+        </div>
+
+        {/* Bento Grid Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full items-stretch">
           
           {/* ========================================================
-              LEFT SIDE (40%): EDITORIAL COPY & LEAD HEADLINE
+              CARD 1 (7 Columns): BUILD YOUR OWN AGENCY
              ======================================================== */}
-          <div className="lg:col-span-5 text-left space-y-10">
-            
-            {/* Editorial Heavy Typography */}
-            <div className="space-y-4">
-              <span className="text-[10px] font-mono tracking-[0.35em] text-[#FFC800] uppercase block">
-                The Foundation
-              </span>
-              <h2 className="text-4xl md:text-5xl lg:text-[54px] font-black tracking-tight text-white leading-[1.05] font-sans">
-                The Classroom <br />
-                Came After <br />
-                The Work.
-              </h2>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            whileHover={{ y: -4 }}
+            className="lg:col-span-7 bg-zinc-950/40 border border-white/5 rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shadow-[0_20px_50px_rgba(0,0,0,0.5)] min-h-[320px]"
+          >
+            {/* Subtle glow */}
+            <div className="absolute -right-16 -top-16 w-48 h-48 bg-[#FFC800]/5 rounded-full blur-2xl group-hover:bg-[#FFC800]/10 transition-colors pointer-events-none" />
+
+            <div className="space-y-4 relative z-10 text-left">
+              <div className="w-10 h-10 bg-[#FFC800]/10 border border-[#FFC800]/20 rounded-xl flex items-center justify-center text-[#FFC800]">
+                <FolderGit2 size={20} />
+              </div>
+              
+              <h3 className="text-2xl font-bold tracking-tight text-white font-sans">
+                Build Your Own Agency
+              </h3>
+              
+              <p className="text-white/70 text-[13px] md:text-sm leading-relaxed font-sans max-w-xl">
+                We help you build your own agency right from naming it to getting you your first client through our networks. You get access to the SOPs, systems, templates, and frameworks that we use at Blade which you can use for yourself.
+              </p>
             </div>
 
-            {/* Description Copy (Used Exactly) */}
-            <p className="text-white/60 text-sm md:text-[15px] leading-relaxed font-sans max-w-md pt-2">
-              Before there was a curriculum, there were campaigns. Before there were lectures, there were client calls, edits at 2 a.m., failed experiments, and projects that taught us what actually works. Blade Inner Circle is simply a structured version of everything those years taught us.
-            </p>
-
-            {/* Premium Gold Outlined CTA Button */}
-            <div className="pt-2">
-              <button className="bg-black hover:bg-white/[0.03] text-[#FFC800] hover:text-[#FFD333] border border-[#FFC800]/30 hover:border-[#FFC800] font-sans font-bold text-[10px] md:text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all duration-300 shadow-[0_4px_12px_rgba(255,200,0,0.03)] hover:shadow-[0_4px_20px_rgba(255,200,0,0.12)]">
-                See What You&apos;ll Learn
-              </button>
+            {/* Micro details wireframe preview at bottom */}
+            <div className="mt-8 border-t border-white/5 pt-4 flex justify-between items-center text-[10px] font-mono text-white/30 uppercase tracking-wider relative z-10 w-full">
+              <span>SOP_VAULT_V2.1 // ACTIVE</span>
+              <span className="flex items-center gap-1 text-[#FFC800]">BLADE_SYSTEMS <ArrowUpRight size={10} /></span>
             </div>
-
-            {/* Separator Divider */}
-            <div className="h-[1px] w-full bg-white/10 max-w-md" />
-
-            {/* Elegant Statistic Blocks (Blade Media & Measurable Work Only) */}
-            <div className="grid grid-cols-2 gap-x-8 gap-y-6 pt-4 max-w-md">
-              
-              <div className="space-y-1">
-                <span className="text-2xl md:text-3xl font-bold tracking-tight text-white font-sans block">
-                  700M+
-                </span>
-                <span className="text-[9px] font-mono tracking-wider text-white/40 uppercase block">
-                  Views Generated
-                </span>
-              </div>
-              
-              <div className="space-y-1">
-                <span className="text-2xl md:text-3xl font-bold tracking-tight text-white font-sans block">
-                  3Cr+
-                </span>
-                <span className="text-[9px] font-mono tracking-wider text-white/40 uppercase block">
-                  Revenue Generated
-                </span>
-              </div>
-              
-              <div className="space-y-1">
-                <span className="text-2xl md:text-3xl font-bold tracking-tight text-white font-sans block">
-                  6+ Years
-                </span>
-                <span className="text-[9px] font-mono tracking-wider text-white/40 uppercase block">
-                  Building
-                </span>
-              </div>
-              
-              <div className="space-y-1">
-                <span className="text-base md:text-lg font-bold tracking-wider text-[#FFC800] font-mono uppercase block leading-none pt-1">
-                  Blade Media
-                </span>
-                <span className="text-[8px] font-mono tracking-wider text-white/40 uppercase block">
-                  Content & Marketing Agency
-                </span>
-              </div>
-
-            </div>
-
-          </div>
+          </motion.div>
 
           {/* ========================================================
-              RIGHT SIDE (60%): SINGLE HERO PORTRAIT WITH DEPTH & LIGHTING
+              CARD 2 (5 Columns): FREELANCE PROJECTS PIPELINE
              ======================================================== */}
-          <div className="lg:col-span-7 w-full flex items-center justify-center lg:justify-end relative">
-            
-            {/* Subtle soft lighting radial behind the card */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-gradient-to-tr from-[#FFC800]/5 via-transparent to-transparent rounded-full blur-[80px] pointer-events-none" />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            whileHover={{ y: -4 }}
+            className="lg:col-span-5 bg-zinc-950/40 border border-white/5 rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shadow-[0_20px_50px_rgba(0,0,0,0.5)] min-h-[320px]"
+          >
+            <div className="absolute -left-16 -bottom-16 w-44 h-44 bg-purple-500/5 rounded-full blur-2xl group-hover:bg-purple-500/10 transition-colors pointer-events-none" />
 
-            {/* Vertical Portrait Hero Frame */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-sm md:max-w-md aspect-[3/4.2] overflow-hidden rounded-[2.5rem] z-10 shadow-[0_30px_100px_rgba(0,0,0,0.95)] border border-white/5 group"
-            >
-              <Image
-                src="/leaders/founder.jpeg"
-                alt="Piyush - Curriculum Creator"
-                fill
-                sizes="(max-width: 768px) 100vw, 45vw"
-                className="object-cover object-top select-none filter brightness-[0.92] transition-transform duration-1000 group-hover:scale-[1.01]"
-                priority
-              />
+            <div className="space-y-4 relative z-10 text-left">
+              <div className="w-10 h-10 bg-purple-500/10 border border-purple-500/20 rounded-xl flex items-center justify-center text-purple-400">
+                <Briefcase size={20} />
+              </div>
               
-              {/* Soft Vignette & Shadow Blends inside the Luxury Card */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/15 to-transparent pointer-events-none" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_45%,rgba(0,0,0,0.4))] pointer-events-none" />
+              <h3 className="text-2xl font-bold tracking-tight text-white font-sans">
+                300+ Freelance Projects
+              </h3>
+              
+              <p className="text-white/70 text-[13px] md:text-sm leading-relaxed font-sans">
+                Gain direct access to our private, curated database of over 300+ freelance projects. Gigs range from budget-friendly content edits to high-ticket brand consulting campaigns.
+              </p>
+            </div>
 
-              {/* Edge Reflection Overlay */}
-              <div className="absolute inset-[1px] rounded-[2.5rem] border border-white/10 pointer-events-none opacity-40" />
-
-              {/* Understated Bottom Overlay Label */}
-              <div className="absolute bottom-8 left-8 text-left z-20 select-none">
-                <span className="text-[10px] font-mono tracking-[0.3em] text-[#FFC800] uppercase block mb-1">
-                  Blade Media
+            {/* Budget Chips visualizer */}
+            <div className="mt-8 flex items-center justify-between border-t border-white/5 pt-4 w-full relative z-10">
+              <div className="flex gap-2">
+                <span className="bg-white/5 border border-white/10 px-3 py-1 rounded-full text-[10px] font-mono text-white/80">
+                  ₹20K / Project
                 </span>
-                <span className="text-white font-bold text-xl md:text-2xl tracking-tight block">
-                  Piyush
-                </span>
-                <span className="text-white/40 font-mono text-[9px] uppercase tracking-wider block mt-0.5">
-                  Founder & Curriculum Creator
+                <span className="bg-[#FFC800]/10 border border-[#FFC800]/20 px-3 py-1 rounded-full text-[10px] font-mono text-[#FFC800] font-bold">
+                  ₹1 Lakh Max
                 </span>
               </div>
+              <span className="text-[10px] font-mono text-white/30">PROJECTS_ACTIVE</span>
+            </div>
+          </motion.div>
 
-            </motion.div>
+          {/* ========================================================
+              CARD 3 (5 Columns): PLACEMENT PROGRAM
+             ======================================================== */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            whileHover={{ y: -4 }}
+            className="lg:col-span-5 bg-zinc-950/40 border border-white/5 rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shadow-[0_20px_50px_rgba(0,0,0,0.5)] min-h-[320px]"
+          >
+            <div className="absolute -right-16 -bottom-16 w-44 h-44 bg-sky-500/5 rounded-full blur-2xl group-hover:bg-sky-500/10 transition-colors pointer-events-none" />
 
-          </div>
+            <div className="space-y-4 relative z-10 text-left">
+              <div className="w-10 h-10 bg-sky-500/10 border border-sky-500/20 rounded-xl flex items-center justify-center text-sky-400">
+                <Layers size={20} />
+              </div>
+              
+              <h3 className="text-2xl font-bold tracking-tight text-white font-sans">
+                Placement Program
+              </h3>
+              
+              <p className="text-white/70 text-[13px] md:text-sm leading-relaxed font-sans">
+                Get direct corporate placements. We are connected directly with the best marketing agencies, media houses, and creator-led startup companies who actively hire from our member pool.
+              </p>
+            </div>
+
+            {/* Hiring status label */}
+            <div className="mt-8 border-t border-white/5 pt-4 flex justify-between items-center text-[10px] font-mono text-white/30 uppercase tracking-wider relative z-10 w-full">
+              <span>HIRE_PARTNERS: 40+ ACTIVE</span>
+              <span className="text-green-400 font-bold flex items-center gap-1">
+                <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" /> OPEN
+              </span>
+            </div>
+          </motion.div>
+
+          {/* ========================================================
+              CARD 4 (7 Columns): 45-DAY CONTENT CHALLENGE
+             ======================================================== */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            whileHover={{ y: -4 }}
+            className="lg:col-span-7 bg-zinc-950/40 border border-white/5 rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shadow-[0_20px_50px_rgba(0,0,0,0.5)] min-h-[320px]"
+          >
+            <div className="absolute -left-16 -top-16 w-48 h-48 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition-colors pointer-events-none" />
+
+            <div className="space-y-4 relative z-10 text-left">
+              <div className="w-10 h-10 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center justify-center text-emerald-400">
+                <Video size={20} />
+              </div>
+              
+              <h3 className="text-2xl font-bold tracking-tight text-white font-sans">
+                45-Day Content Challenge
+              </h3>
+              
+              <p className="text-white/70 text-[13px] md:text-sm leading-relaxed font-sans max-w-xl">
+                If you want to create content, we help you with it by taking care of your editing part. Challenge yourself to build your personal brand while having direct, streamlined access to Blade&apos;s professional video editors to cut your videos.
+              </p>
+            </div>
+
+            {/* Video timeline visualizer element */}
+            <div className="mt-8 border-t border-white/5 pt-4 flex justify-between items-center text-[10px] font-mono text-white/30 uppercase tracking-wider relative z-10 w-full">
+              <span>EDIT_OPS_ACTIVE // PIPELINE</span>
+              <span className="flex gap-1 h-3 items-center">
+                <span className="w-6 bg-[#FFC800]/40 rounded-sm h-full" />
+                <span className="w-10 bg-purple-500/40 rounded-sm h-full" />
+                <span className="w-8 bg-sky-500/40 rounded-sm h-full" />
+              </span>
+            </div>
+          </motion.div>
 
         </div>
+
       </div>
     </section>
   );
