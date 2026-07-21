@@ -11,11 +11,11 @@ const leadersData = [
     imageSrc: "/leaders/purbali.jpg",
     bgClass: "bg-[#181024]",
     imgBgClass: "bg-[#100a18]",
-    borderClass: "border-purple-500/10 hover:border-purple-500/20",
+    borderClass: "border-purple-500/10",
     brands: [
-      { name: "Ogilvy", src: "/leaders/og.jpeg" },
-      { name: "Disney+ Hotstar", src: "/leaders/DH.jpeg" },
-      { name: "SuperYou", src: "/leaders/SU.jpeg" }
+      { name: "Ogilvy", src: "/leaders/og.jpeg", mixBlend: true },
+      { name: "Disney+ Hotstar", src: "/leaders/DH.jpeg", mixBlend: true },
+      { name: "SuperYou", src: "/leaders/SU.jpeg", mixBlend: false }
     ]
   },
   {
@@ -25,9 +25,9 @@ const leadersData = [
     imageSrc: "/leaders/akhil.jpg",
     bgClass: "bg-[#241d11]",
     imgBgClass: "bg-[#1a140b]",
-    borderClass: "border-amber-500/10 hover:border-amber-500/20",
+    borderClass: "border-amber-500/10",
     brands: [
-      { name: "The Ranveer Show", src: "/leaders/TR.jpeg" }
+      { name: "The Ranveer Show", src: "/leaders/TR.jpeg", mixBlend: false }
     ]
   },
   {
@@ -37,11 +37,10 @@ const leadersData = [
     imageSrc: "/leaders/shweta.jpg",
     bgClass: "bg-[#08131d]",
     imgBgClass: "bg-[#050c12]",
-    borderClass: "border-sky-500/10 hover:border-sky-500/20",
+    borderClass: "border-sky-500/10",
     brands: [
-      { name: "The Marketing Anatomy", src: "/leaders/TMA.jpeg" },
-      { name: "TX", src: "/leaders/TX.jpeg" },
-      { name: "Slice", src: "/leaders/SL.jpeg" }
+      { name: "TX", src: "/leaders/TX.jpeg", mixBlend: true },
+      { name: "Slice", src: "/leaders/SL.jpeg", mixBlend: false }
     ]
   }
 ];
@@ -68,10 +67,6 @@ const Leaders = () => {
           -webkit-backdrop-filter: blur(25px);
           box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.03);
         }
-
-        .glassy-card-leader:hover {
-          box-shadow: 0 25px 55px rgba(0, 0, 0, 0.45), 0 0 35px rgba(255, 200, 0, 0.1);
-        }
       `}} />
 
       {/* Background glows */}
@@ -96,7 +91,7 @@ const Leaders = () => {
           </p>
         </div>
 
-        {/* CENTERED CARDS GRID - Enlarged for readability and spacious layout */}
+        {/* CENTERED CARDS GRID */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 w-full items-stretch justify-center">
           {leadersData.map((leader, index) => (
             <motion.div
@@ -105,13 +100,13 @@ const Leaders = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
-              className={`flex flex-col sm:flex-row h-auto sm:h-[340px] glassy-card-leader ${leader.bgClass} border ${leader.borderClass} rounded-2xl overflow-hidden transition-all duration-300 group`}
+              className={`flex flex-col sm:flex-row h-auto sm:h-[340px] glassy-card-leader ${leader.bgClass} border ${leader.borderClass} rounded-2xl overflow-hidden transition-all duration-300`}
             >
               
-              {/* Left Side: Info (65% width on Desktop for wider text spacing) */}
+              {/* Left Side: Info (65% width on Desktop) */}
               <div className="w-full sm:w-[65%] p-6 md:p-7 flex flex-col justify-between items-start text-left h-full text-white">
                 
-                {/* Name Above in sans-serif title style, Role below it in Helvetica and White */}
+                {/* Name Above, Role below it in Helvetica and White */}
                 <div className="space-y-1 text-left w-full">
                   <h3 className="text-white text-lg sm:text-xl lg:text-xl xl:text-2xl font-bold tracking-tight select-none font-sans leading-none">
                     {leader.name}
@@ -129,14 +124,14 @@ const Leaders = () => {
                   </p>
                 </div>
 
-                {/* Brand Logos at Bottom Left (Added raw "as they are", no white container box wrapper) */}
+                {/* Brand Logos at Bottom Left (Removed containers, added mix-blend-screen for black background logos) */}
                 <div className="flex flex-wrap items-center gap-4 select-none pt-2">
                   {leader.brands.map((brand) => (
                     <img 
                       key={brand.name}
                       src={brand.src} 
                       alt={brand.name} 
-                      className="h-6 w-auto object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300" 
+                      className={`h-6 w-auto object-contain opacity-80 ${brand.mixBlend ? 'mix-blend-screen' : ''}`}
                     />
                   ))}
                 </div>
@@ -150,7 +145,7 @@ const Leaders = () => {
                   alt={leader.name}
                   fill
                   sizes="(max-width: 640px) 100vw, 15vw"
-                  className="object-cover object-top transition-transform duration-1000 group-hover:scale-105"
+                  className="object-cover object-top"
                 />
                 {/* Subtle shadow transition between text and image */}
                 <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-black/30 to-transparent pointer-events-none" />
