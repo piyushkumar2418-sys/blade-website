@@ -15,7 +15,7 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
   const faqItems = [
     {
       question: "When does Cohort 02 (August 2026) start?",
-      answer: "Cohort 02 is scheduled to launch live operations on August 3, 2026. Admission processing starts 3 weeks prior, allowing approved members to secure curriculum files and establish initial onboarding nodes."
+      answer: "Cohort 02 is scheduled to launch live operations on August 29, 2026. All curriculum slot lockups and onboarding nodes will be established before this date."
     },
     {
       question: "Are the programme conducted online or offline?",
@@ -23,7 +23,7 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
     },
     {
       question: "What are the Programme timings?",
-      answer: "Live sessions are conducted on weekends (Saturday and Sunday evenings) so that working professionals and students can easily participate. Recorded replays, templates, and resource files are uploaded to your member dashboard immediately after each session."
+      answer: "Live sessions are conducted every Tuesday and Thursday so that members can easily integrate the curriculum into their weekly schedule. Recorded replays, templates, and resource files are uploaded to your member dashboard immediately after each session."
     },
     {
       question: "Does BIC offer scholarships?",
