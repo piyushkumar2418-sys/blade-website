@@ -1,101 +1,109 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import { FolderGit2, Briefcase, Handshake, Video } from "lucide-react";
 
 const FounderAuthority = () => {
   const benefits = [
     {
       num: "01",
-      title: "Build Your Agency",
-      description: "We help you build your own agency right from naming it to getting your first client through our networks. You get access to the SOPs, systems, templates, and frameworks that we use at Blade which you can use for yourself.",
-      tag: "Blade SOPs & Templates"
+      title: "Build Your Own Agency",
+      description: "We help you build your own agency right from naming it to getting you your first client through our networks. You get access to the SOPs, systems, templates, and materials that we use at Blade which you can use for yourself.",
+      icon: <FolderGit2 className="w-6 h-6" />
     },
     {
       num: "02",
       title: "300+ Freelance Projects",
-      description: "Gain direct access to our private, curated database of over 300+ freelance projects. Gigs range from budget-friendly content edits to high-ticket brand consulting campaigns, with budgets from ₹20k to ₹1 Lakh per project.",
-      tag: "₹20k - ₹1L / Project"
+      description: "Gain access to 300+ freelance projects ranging from 20k/project to 1 lakh/project. Apply directly and earn while you learn through our curated contract pipeline.",
+      icon: <Briefcase className="w-6 h-6" />
     },
     {
       num: "03",
       title: "Placement Program",
-      description: "Get direct corporate placements. We are connected directly with the best marketing agencies, media houses, and creator-led startup companies who actively hire directly from our member pool.",
-      tag: "Direct Agency Hires"
+      description: "Get direct corporate placements. We are connected directly with the best agencies and companies who hire from us, offering direct interview pathways for our members.",
+      icon: <Handshake className="w-6 h-6" />
     },
     {
       num: "04",
       title: "45-Day Content Challenge",
-      description: "If you want to create content, we help you with it by taking care of your editing part. Challenge yourself to build your personal brand while having direct, streamlined access to Blade's professional video editors to cut your videos.",
-      tag: "Blade Editors Access"
+      description: "If you want to create content, we help you with it by taking care of your editing part with access to Blade's editors to cut and polish your content.",
+      icon: <Video className="w-6 h-6" />
     }
   ];
 
   return (
-    <section className="bg-black py-32 px-6 md:px-24 lg:px-32 text-white relative overflow-hidden border-b border-white/5 z-20">
+    <section 
+      className="bg-black py-32 px-6 md:px-24 text-white relative overflow-hidden border-b border-white/5 z-20"
+      style={{
+        backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px)',
+        backgroundSize: '32px 32px',
+      }}
+    >
       
-      {/* Subtle Ambient Radial Light (Very faint, singular, centered to keep it clean) */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-tr from-[#FFC800]/2 to-transparent rounded-full blur-[160px] pointer-events-none" />
+      {/* Abstract Blue Ink Smoke Background Effect (Inspired by Reference) */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-blue-600/15 to-sky-500/5 rounded-full blur-[140px] pointer-events-none animate-pulse" />
+      <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-4xl mx-auto relative z-10">
         
-        {/* Asymmetrical 2-Column Editorial Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+        {/* Centered Section Header */}
+        <div className="mb-20 flex flex-col items-center text-center max-w-3xl mx-auto">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-1.5 h-1.5 bg-[#FFC800] rounded-full animate-pulse" />
+            <span className="text-[9px] font-mono font-bold uppercase tracking-[0.4em] text-white/40">Member Ecosystem</span>
+            <span className="w-1.5 h-1.5 bg-[#FFC800]/40 rounded-full" />
+          </div>
           
-          {/* ========================================================
-              LEFT COLUMN (40%): STATIC EDITORIAL HEADLINE
-             ======================================================== */}
-          <div className="lg:col-span-5 text-left space-y-6 lg:sticky lg:top-32">
-            <span className="text-[10px] font-mono tracking-[0.35em] text-[#FFC800] uppercase block">
-              Member Ecosystem
-            </span>
-            <h2 className="text-4xl md:text-5xl lg:text-[56px] font-extrabold tracking-tight text-white leading-[1.05] font-sans">
-              What we <br />offer.
-            </h2>
-            <p className="text-white/50 text-sm md:text-base leading-relaxed font-sans max-w-sm pt-2">
-              We don&apos;t just teach skills. We provide the complete infrastructure, active project databases, placement channels, and execution resources to scale your career.
-            </p>
-          </div>
+          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white leading-none font-sans">
+            What We Offer <span className="text-[#FFC800]">Our Members.</span>
+          </h2>
+          <p className="text-white/50 text-xs md:text-sm font-normal leading-relaxed font-sans max-w-xl pt-4">
+            We don&apos;t just teach skills. We provide the complete infrastructure, active project databases, placement channels, and execution resources to scale.
+          </p>
+        </div>
 
-          {/* ========================================================
-              RIGHT COLUMN (60%): CUSTOM EDITORIAL ROW LIST
-             ======================================================== */}
-          <div className="lg:col-span-7 w-full text-left">
-            <div className="divide-y divide-white/10 border-t border-b border-white/10">
-              {benefits.map((benefit, index) => (
-                <motion.div
-                  key={benefit.num}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="py-8 md:py-10 flex flex-col md:flex-row gap-6 md:gap-8 items-start justify-between group hover:bg-white/[0.01] px-4 -mx-4 rounded-xl transition-all duration-300"
-                >
-                  {/* Left: Number */}
-                  <div className="font-mono text-xs md:text-sm text-[#FFC800] tracking-wider font-bold pt-1">
-                    {benefit.num}
-                  </div>
+        {/* Infographic Stack (Timeline & Glassmorphic Cards) */}
+        <div className="relative space-y-6">
+          
+          {/* Vertical Timeline Line */}
+          <div className="absolute left-8 md:left-12 top-6 bottom-6 w-[2px] bg-gradient-to-b from-blue-500/10 via-blue-500/60 to-blue-500/10 pointer-events-none" />
 
-                  {/* Middle: Details */}
-                  <div className="flex-1 space-y-3">
-                    <h3 className="text-xl md:text-2xl font-bold tracking-tight text-white font-sans">
-                      {benefit.title}
-                    </h3>
-                    <p className="text-white/60 text-xs md:text-sm leading-relaxed font-sans max-w-xl">
-                      {benefit.description}
-                    </p>
-                  </div>
+          {benefits.map((benefit, index) => (
+            <motion.div
+              key={benefit.num}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="relative pl-20 md:pl-28 p-6 md:p-8 bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md border border-white/10 hover:border-white/20 rounded-2xl transition-all duration-300 flex flex-col sm:flex-row sm:items-center gap-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] group"
+            >
+              
+              {/* Timeline Glow Node */}
+              <div className="absolute left-8 md:left-12 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-blue-500 border-4 border-black shadow-[0_0_15px_rgba(59,130,246,0.8)] z-20 group-hover:scale-110 transition-transform duration-300" />
+              <div className="absolute left-8 md:left-12 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-blue-500/20 blur-sm pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                  {/* Right: Premium tag status */}
-                  <div className="pt-1.5 md:pt-1 text-right">
-                    <span className="font-mono text-[9px] tracking-wider text-white/30 uppercase border border-white/10 rounded-full px-3 py-1 bg-white/[0.02]">
-                      {benefit.tag}
-                    </span>
-                  </div>
+              {/* Icon Box */}
+              <div className="w-14 h-14 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-white/80 shadow-inner flex-shrink-0">
+                {benefit.icon}
+              </div>
 
-                </motion.div>
-              ))}
-            </div>
-          </div>
+              {/* Number Index */}
+              <div className="text-3xl md:text-4xl font-extrabold text-white/90 tracking-tight font-sans flex-shrink-0">
+                {benefit.num}
+              </div>
+
+              {/* Content Description */}
+              <div className="space-y-1.5 text-left flex-1">
+                <h3 className="text-lg md:text-xl font-bold tracking-tight text-white font-sans">
+                  {benefit.title}
+                </h3>
+                <p className="text-white/60 text-xs md:text-sm leading-relaxed max-w-xl">
+                  {benefit.description}
+                </p>
+              </div>
+
+            </motion.div>
+          ))}
 
         </div>
 
