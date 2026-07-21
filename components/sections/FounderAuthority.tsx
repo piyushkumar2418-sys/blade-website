@@ -1,166 +1,148 @@
 "use client";
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 const FounderAuthority = () => {
-  const [activeId, setActiveId] = useState("piyush");
-
-  const instructors = [
-    {
-      id: "piyush",
-      name: "Piyush",
-      role: "Founder of Blade Media",
-      label: "BLADE MEDIA",
-      image: "/leaders/founder.jpeg",
-    },
-    {
-      id: "purbali",
-      name: "Purbali Mukherjee",
-      role: "Content Lead",
-      label: "CREATIVE LEAD",
-      image: "/leaders/purbali.jpg",
-    },
-    {
-      id: "akhil",
-      name: "Akhil Rajpal",
-      role: "Graphic Designer",
-      label: "BRAND STRATEGIST",
-      image: "/leaders/akhil.jpg",
-    },
-    {
-      id: "shweta",
-      name: "Shweta Kukreja",
-      role: "CEO & Brand Strategist",
-      label: "CEO FOUNDER",
-      image: "/leaders/shweta.jpg",
-    }
-  ];
-
   return (
-    <section 
-      className="bg-[#030303] py-24 px-6 md:px-24 text-white relative overflow-hidden border-b border-white/5"
-      style={{
-        backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px)',
-        backgroundSize: '32px 32px',
-      }}
-    >
-      {/* Background glow effects */}
-      <div className="absolute top-[20%] left-[10%] w-[400px] h-[400px] bg-gradient-to-tr from-[#FFC800]/5 to-transparent rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-[20%] right-[10%] w-[350px] h-[350px] bg-gradient-to-bl from-[#FFC800]/5 to-transparent rounded-full blur-[90px] pointer-events-none" />
+    <section className="bg-black py-36 px-6 md:px-24 lg:px-32 text-white relative overflow-hidden border-b border-white/5 z-20">
+      
+      {/* Subtle Noise Texture Overlay */}
+      <div 
+        className="absolute inset-0 opacity-[0.015] pointer-events-none mix-blend-overlay bg-repeat"
+        style={{
+          backgroundImage: `url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='noise'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23noise)'/></svg>")`
+        }}
+      />
+
+      {/* Ambient background lighting behind the hero portrait to separate it naturally */}
+      <div className="absolute top-1/2 right-[15%] -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#FFC800]/5 via-transparent to-transparent rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
           
           {/* ========================================================
-              LEFT COLUMN: EDITORIAL DESCRIPTION & CTA
+              LEFT SIDE (40%): EDITORIAL COPY & LEAD HEADLINE
              ======================================================== */}
-          <div className="lg:col-span-5 text-left space-y-8">
+          <div className="lg:col-span-5 text-left space-y-10">
             
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.05] font-sans">
-              The MBA <br />of Tomorrow
-            </h2>
+            {/* Editorial Heavy Typography */}
+            <div className="space-y-4">
+              <span className="text-[10px] font-mono tracking-[0.35em] text-[#FFC800] uppercase block">
+                The Foundation
+              </span>
+              <h2 className="text-4xl md:text-5xl lg:text-[54px] font-black tracking-tight text-white leading-[1.05] font-sans">
+                The Classroom <br />
+                Came After <br />
+                The Work.
+              </h2>
+            </div>
 
-            {/* User Description - Applied EXACTLY */}
-            <p className="text-white/70 text-sm md:text-base leading-relaxed font-sans max-w-lg">
+            {/* Description Copy (Used Exactly) */}
+            <p className="text-white/60 text-sm md:text-[15px] leading-relaxed font-sans max-w-md pt-2">
               Before there was a curriculum, there were campaigns. Before there were lectures, there were client calls, edits at 2 a.m., failed experiments, and projects that taught us what actually works. Blade Inner Circle is simply a structured version of everything those years taught us.
             </p>
 
-            {/* Bullet tags with dots */}
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-[9px] text-white/50 uppercase tracking-widest">
-              <span className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 bg-[#d4ff3a] rounded-full" /> ONLINE
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 bg-[#d4ff3a] rounded-full" /> SELF-PACED
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 bg-[#d4ff3a] rounded-full" /> CERTIFICATE
-              </span>
+            {/* Premium Gold Outlined CTA Button */}
+            <div className="pt-2">
+              <button className="bg-black hover:bg-white/[0.03] text-[#FFC800] hover:text-[#FFD333] border border-[#FFC800]/30 hover:border-[#FFC800] font-sans font-bold text-[10px] md:text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all duration-300 shadow-[0_4px_12px_rgba(255,200,0,0.03)] hover:shadow-[0_4px_20px_rgba(255,200,0,0.12)]">
+                See What You&apos;ll Learn
+              </button>
             </div>
 
-            {/* Neon Yellow Action Button */}
-            <div className="pt-2">
-              <button className="bg-[#d4ff3a] hover:bg-[#c2eb30] text-black font-sans font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all duration-300 shadow-[0_10px_20px_rgba(212,255,58,0.15)]">
-                Discover All Programs
-              </button>
+            {/* Separator Divider */}
+            <div className="h-[1px] w-full bg-white/10 max-w-md" />
+
+            {/* Elegant Statistic Blocks (Blade Media & Measurable Work Only) */}
+            <div className="grid grid-cols-2 gap-x-8 gap-y-6 pt-4 max-w-md">
+              
+              <div className="space-y-1">
+                <span className="text-2xl md:text-3xl font-bold tracking-tight text-white font-sans block">
+                  700M+
+                </span>
+                <span className="text-[9px] font-mono tracking-wider text-white/40 uppercase block">
+                  Views Generated
+                </span>
+              </div>
+              
+              <div className="space-y-1">
+                <span className="text-2xl md:text-3xl font-bold tracking-tight text-white font-sans block">
+                  3Cr+
+                </span>
+                <span className="text-[9px] font-mono tracking-wider text-white/40 uppercase block">
+                  Revenue Generated
+                </span>
+              </div>
+              
+              <div className="space-y-1">
+                <span className="text-2xl md:text-3xl font-bold tracking-tight text-white font-sans block">
+                  6+ Years
+                </span>
+                <span className="text-[9px] font-mono tracking-wider text-white/40 uppercase block">
+                  Building
+                </span>
+              </div>
+              
+              <div className="space-y-1">
+                <span className="text-base md:text-lg font-bold tracking-wider text-[#FFC800] font-mono uppercase block leading-none pt-1">
+                  Blade Media
+                </span>
+                <span className="text-[8px] font-mono tracking-wider text-white/40 uppercase block">
+                  Content & Marketing Agency
+                </span>
+              </div>
+
             </div>
 
           </div>
 
           {/* ========================================================
-              RIGHT COLUMN: INTERACTIVE ACCORDION CARDS
+              RIGHT SIDE (60%): SINGLE HERO PORTRAIT WITH DEPTH & LIGHTING
              ======================================================== */}
-          <div className="lg:col-span-7 w-full flex items-center justify-center">
-            <div className="flex gap-3 md:gap-4 h-[380px] md:h-[440px] w-full select-none">
-              {instructors.map((instructor) => {
-                const isExpanded = activeId === instructor.id;
+          <div className="lg:col-span-7 w-full flex items-center justify-center lg:justify-end relative">
+            
+            {/* Subtle soft lighting radial behind the card */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-gradient-to-tr from-[#FFC800]/5 via-transparent to-transparent rounded-full blur-[80px] pointer-events-none" />
 
-                return (
-                  <div
-                    key={instructor.id}
-                    onClick={() => setActiveId(instructor.id)}
-                    className={`relative h-full overflow-hidden rounded-2xl cursor-pointer border border-white/10 transition-all duration-500 ease-in-out ${
-                      isExpanded ? "flex-[2.5] md:flex-[3]" : "flex-[0.7] md:flex-[0.9]"
-                    }`}
-                  >
-                    <Image
-                      src={instructor.image}
-                      alt={instructor.name}
-                      fill
-                      sizes="(max-width: 768px) 50vw, 20vw"
-                      className="object-cover object-top transition-all duration-500"
-                      priority={instructor.id === "piyush"}
-                    />
-                    
-                    {/* Vignette Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
+            {/* Vertical Portrait Hero Frame */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-full max-w-sm md:max-w-md aspect-[3/4.2] overflow-hidden rounded-[2.5rem] z-10 shadow-[0_30px_100px_rgba(0,0,0,0.95)] border border-white/5 group"
+            >
+              <Image
+                src="/leaders/founder.jpeg"
+                alt="Piyush - Curriculum Creator"
+                fill
+                sizes="(max-width: 768px) 100vw, 45vw"
+                className="object-cover object-top select-none filter brightness-[0.92] transition-transform duration-1000 group-hover:scale-[1.01]"
+                priority
+              />
+              
+              {/* Soft Vignette & Shadow Blends inside the Luxury Card */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/15 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_45%,rgba(0,0,0,0.4))] pointer-events-none" />
 
-                    {/* Text Details Overlay */}
-                    <div className="absolute bottom-6 left-6 right-4 text-left text-white select-none">
-                      <AnimatePresence mode="wait">
-                        {isExpanded ? (
-                          <motion.div
-                            key="expanded"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.3 }}
-                            className="space-y-1"
-                          >
-                            <span className="text-[9px] font-mono tracking-widest text-[#d4ff3a] uppercase block">
-                              {instructor.label}
-                            </span>
-                            <span className="text-[10px] text-white/50 font-sans block">
-                              {instructor.role}
-                            </span>
-                            <span className="text-lg md:text-xl font-bold tracking-tight text-white block mt-1">
-                              {instructor.name}
-                            </span>
-                          </motion.div>
-                        ) : (
-                          <motion.div
-                            key="collapsed"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 0.7 }}
-                            exit={{ opacity: 0 }}
-                            className="space-y-0.5"
-                          >
-                            <span className="text-[8px] font-mono tracking-wider text-white/40 uppercase block truncate">
-                              {instructor.label.split(" ")[0]}
-                            </span>
-                            <span className="text-xs font-bold tracking-tight text-white block truncate">
-                              {instructor.name.split(" ")[0]}
-                            </span>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
+              {/* Edge Reflection Overlay */}
+              <div className="absolute inset-[1px] rounded-[2.5rem] border border-white/10 pointer-events-none opacity-40" />
 
-                  </div>
-                );
-              })}
-            </div>
+              {/* Understated Bottom Overlay Label */}
+              <div className="absolute bottom-8 left-8 text-left z-20 select-none">
+                <span className="text-[10px] font-mono tracking-[0.3em] text-[#FFC800] uppercase block mb-1">
+                  Blade Media
+                </span>
+                <span className="text-white font-bold text-xl md:text-2xl tracking-tight block">
+                  Piyush
+                </span>
+                <span className="text-white/40 font-mono text-[9px] uppercase tracking-wider block mt-0.5">
+                  Founder & Curriculum Creator
+                </span>
+              </div>
+
+            </motion.div>
+
           </div>
 
         </div>
