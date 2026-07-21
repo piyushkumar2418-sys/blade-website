@@ -13,9 +13,9 @@ const leadersData = [
     imgBgClass: "bg-[#100a18]",
     borderClass: "border-purple-500/10",
     brands: [
-      { name: "Ogilvy", src: "/leaders/og.jpeg", mixBlend: true },
-      { name: "Disney+ Hotstar", src: "/leaders/DH.jpeg", mixBlend: true },
-      { name: "SuperYou", src: "/leaders/SU.jpeg", mixBlend: false }
+      { name: "Ogilvy", src: "/logos/ogilvy_white.png", hClass: "h-8", mixBlend: false },
+      { name: "Disney+ Hotstar", src: "/leaders/DH.jpeg", hClass: "h-8", mixBlend: true },
+      { name: "SuperYou", src: "/leaders/SU.jpeg", hClass: "h-6", mixBlend: false }
     ]
   },
   {
@@ -27,7 +27,7 @@ const leadersData = [
     imgBgClass: "bg-[#1a140b]",
     borderClass: "border-amber-500/10",
     brands: [
-      { name: "The Ranveer Show", src: "/leaders/TR.jpeg", mixBlend: false }
+      { name: "The Ranveer Show", src: "/leaders/TR.jpeg", hClass: "h-9", mixBlend: false }
     ]
   },
   {
@@ -39,8 +39,8 @@ const leadersData = [
     imgBgClass: "bg-[#050c12]",
     borderClass: "border-sky-500/10",
     brands: [
-      { name: "TX", src: "/leaders/TX.jpeg", mixBlend: true },
-      { name: "Slice", src: "/leaders/SL.jpeg", mixBlend: false }
+      { name: "TX", src: "/leaders/TX.jpeg", hClass: "h-6", mixBlend: true },
+      { name: "Slice", src: "/leaders/SL.jpeg", hClass: "h-6", mixBlend: false }
     ]
   }
 ];
@@ -124,14 +124,14 @@ const Leaders = () => {
                   </p>
                 </div>
 
-                {/* Brand Logos at Bottom Left (Removed containers, added mix-blend-screen for black background logos) */}
+                {/* Brand Logos at Bottom Left */}
                 <div className="flex flex-wrap items-center gap-4 select-none pt-2">
                   {leader.brands.map((brand) => (
                     <img 
                       key={brand.name}
                       src={brand.src} 
                       alt={brand.name} 
-                      className={`h-6 w-auto object-contain opacity-80 ${brand.mixBlend ? 'mix-blend-screen' : ''}`}
+                      className={`${brand.hClass} w-auto object-contain opacity-80 ${brand.mixBlend ? 'mix-blend-screen' : ''}`}
                     />
                   ))}
                 </div>
