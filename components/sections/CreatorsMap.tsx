@@ -135,9 +135,6 @@ const CreatorsMap: React.FC<CreatorsMapProps> = ({ onActiveStateChange }) => {
         />
       </div>
 
-      {/* Top gradient overlay (in normal flow on parent container) to blend entry transition */}
-      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black to-transparent pointer-events-none z-[10]" />
-
       {/* Bottom gradient overlay (in normal flow on parent container) to blend exit transition */}
       <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#030303] to-transparent pointer-events-none z-[10]" />
     </div>
