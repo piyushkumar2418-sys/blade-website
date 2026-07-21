@@ -78,29 +78,8 @@ interface InnerCircleCTAProps {
 const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
   const router = useRouter();
 
-  const founderStats = [
-    { icon: <ShieldCheck size={24} />, label: "Proven Results", desc: "No guesswork. We only use steps that already work." },
-    { icon: <Zap size={24} />, label: "Fast Progress", desc: "Go from learning to running a real business in 60 days." },
-    { icon: <Award size={24} />, label: "Job Opportunities", desc: "Direct hiring for our best students." },
-    { icon: <Lock size={24} />, label: "Real Checklists", desc: "Get the same templates we used for 2.5 Billion+ views." },
-  ];
-
   return (
     <>
-      <section 
-        className="bg-[#050505] text-left relative z-20"
-        style={{
-          backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px)',
-          backgroundSize: '24px 24px',
-        }}
-      >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5 border border-white/5 text-left">
-          {founderStats.map((stat, idx) => (
-            <InteractiveStatCard key={idx} stat={stat} />
-          ))}
-        </div>
-      </section>
-
       {/* CURRICULUM SECTION */}
       <section 
         className="py-24 px-6 md:px-24 bg-[#050505] text-left relative z-20"
