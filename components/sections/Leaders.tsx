@@ -13,9 +13,9 @@ const leadersData = [
     imgBgClass: "bg-[#100a18]",
     borderClass: "border-purple-500/10",
     brands: [
-      { name: "Ogilvy", src: "/logos/ogilvy_white.png", hClass: "h-4.5 sm:h-5", mixBlend: false },
-      { name: "Disney+ Hotstar", src: "/leaders/DH.jpeg", hClass: "h-4.5 sm:h-5", mixBlend: true },
-      { name: "SuperYou", src: "/logos/superyou.png", hClass: "h-4.5 sm:h-5", mixBlend: false }
+      { name: "Ogilvy", src: "/leaders/og.jpeg" },
+      { name: "Disney+ Hotstar", src: "/leaders/DH.jpeg" },
+      { name: "SuperYou", src: "/leaders/SU.jpeg" }
     ]
   },
   {
@@ -27,7 +27,7 @@ const leadersData = [
     imgBgClass: "bg-[#1a140b]",
     borderClass: "border-amber-500/10",
     brands: [
-      { name: "The Ranveer Show", src: "/leaders/TR.jpeg", hClass: "h-6 sm:h-7", mixBlend: true }
+      { name: "The Ranveer Show", src: "/leaders/TR.jpeg" }
     ]
   },
   {
@@ -39,8 +39,8 @@ const leadersData = [
     imgBgClass: "bg-[#050c12]",
     borderClass: "border-sky-500/10",
     brands: [
-      { name: "TX", src: "/leaders/TX.jpeg", hClass: "h-4.5 sm:h-5", mixBlend: true },
-      { name: "Slice", src: "/leaders/SL.jpeg", hClass: "h-4.5 sm:h-5", mixBlend: true }
+      { name: "TEDx", src: "/leaders/TX.jpeg" },
+      { name: "Slice", src: "/leaders/SL.jpeg" }
     ]
   }
 ];
@@ -66,6 +66,15 @@ const Leaders = () => {
           backdrop-filter: blur(25px);
           -webkit-backdrop-filter: blur(25px);
           box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.03);
+        }
+
+        .brand-logo-pill {
+          width: 28px;
+          height: 28px;
+          border-radius: 7px;
+          object-fit: cover;
+          flex-shrink: 0;
+          border: 1px solid rgba(255, 255, 255, 0.08);
         }
       `}} />
 
@@ -124,15 +133,17 @@ const Leaders = () => {
                   </p>
                 </div>
 
-                {/* Brand Logos at Bottom Left - Guaranteed Single Row Non-wrapping */}
-                <div className="flex flex-row flex-nowrap items-center gap-2 sm:gap-2.5 select-none pt-2 w-full">
+                {/* Brand Logos at Bottom Left - Icon + Name pills in a single row */}
+                <div className="flex flex-row flex-nowrap items-center gap-3 select-none pt-2 w-full">
                   {leader.brands.map((brand) => (
-                    <img 
-                      key={brand.name}
-                      src={brand.src} 
-                      alt={brand.name} 
-                      className={`${brand.hClass} w-auto object-contain opacity-95 shrink-0 ${brand.mixBlend ? 'mix-blend-screen' : ''}`}
-                    />
+                    <div key={brand.name} className="flex items-center gap-1.5 shrink-0">
+                      <img 
+                        src={brand.src} 
+                        alt={brand.name} 
+                        className="brand-logo-pill"
+                      />
+                      <span className="text-[10px] sm:text-[11px] text-white/70 font-medium whitespace-nowrap">{brand.name}</span>
+                    </div>
                   ))}
                 </div>
 
