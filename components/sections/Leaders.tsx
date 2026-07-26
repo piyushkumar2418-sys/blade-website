@@ -13,9 +13,9 @@ const leadersData = [
     imgBgClass: "bg-[#100a18]",
     borderClass: "border-purple-500/10",
     brands: [
-      { name: "Ogilvy", src: "/logos/ogilvy_white.png", hClass: "h-8", mixBlend: false },
-      { name: "Disney+ Hotstar", src: "/leaders/DH.jpeg", hClass: "h-8", mixBlend: true },
-      { name: "SuperYou", src: "/leaders/SU.jpeg", hClass: "h-6", mixBlend: false }
+      { name: "Ogilvy", src: "/logos/ogilvy_white.png", hClass: "h-6 sm:h-7", mixBlend: false },
+      { name: "Disney+ Hotstar", src: "/leaders/DH.jpeg", hClass: "h-6 sm:h-7", mixBlend: true },
+      { name: "SuperYou", src: "/leaders/SU.jpeg", hClass: "h-5 sm:h-6", mixBlend: true }
     ]
   },
   {
@@ -27,7 +27,7 @@ const leadersData = [
     imgBgClass: "bg-[#1a140b]",
     borderClass: "border-amber-500/10",
     brands: [
-      { name: "The Ranveer Show", src: "/leaders/TR.jpeg", hClass: "h-9", mixBlend: false }
+      { name: "The Ranveer Show", src: "/leaders/TR.jpeg", hClass: "h-7 sm:h-8", mixBlend: true }
     ]
   },
   {
@@ -39,8 +39,8 @@ const leadersData = [
     imgBgClass: "bg-[#050c12]",
     borderClass: "border-sky-500/10",
     brands: [
-      { name: "TX", src: "/leaders/TX.jpeg", hClass: "h-6", mixBlend: true },
-      { name: "Slice", src: "/leaders/SL.jpeg", hClass: "h-6", mixBlend: false }
+      { name: "TX", src: "/leaders/TX.jpeg", hClass: "h-5 sm:h-6", mixBlend: true },
+      { name: "Slice", src: "/leaders/SL.jpeg", hClass: "h-5 sm:h-6", mixBlend: true }
     ]
   }
 ];
@@ -100,7 +100,7 @@ const Leaders = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
-              className={`flex flex-col sm:flex-row h-auto sm:h-[340px] glassy-card-leader ${leader.bgClass} border ${leader.borderClass} rounded-2xl overflow-hidden transition-all duration-300`}
+              className={`flex flex-col sm:flex-row h-auto sm:h-[350px] glassy-card-leader ${leader.bgClass} border ${leader.borderClass} rounded-2xl overflow-hidden transition-all duration-300`}
             >
               
               {/* Left Side: Info (65% width on Desktop) */}
@@ -124,14 +124,14 @@ const Leaders = () => {
                   </p>
                 </div>
 
-                {/* Brand Logos at Bottom Left */}
-                <div className="flex flex-wrap items-center gap-4 select-none pt-2">
+                {/* Brand Logos at Bottom Left - Single Row Non-wrapping */}
+                <div className="flex flex-row flex-nowrap items-center gap-3 sm:gap-4 select-none pt-2 w-full overflow-hidden">
                   {leader.brands.map((brand) => (
                     <img 
                       key={brand.name}
                       src={brand.src} 
                       alt={brand.name} 
-                      className={`${brand.hClass} w-auto object-contain opacity-80 ${brand.mixBlend ? 'mix-blend-screen' : ''}`}
+                      className={`${brand.hClass} w-auto object-contain opacity-95 shrink-0 ${brand.mixBlend ? 'mix-blend-screen' : ''}`}
                     />
                   ))}
                 </div>
