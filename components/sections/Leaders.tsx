@@ -13,9 +13,9 @@ const leadersData = [
     imgBgClass: "bg-[#100a18]",
     borderClass: "border-purple-500/10",
     brands: [
-      { name: "Ogilvy", src: "/logos/ogilvy_white.png", hClass: "h-6 sm:h-7", mixBlend: false },
-      { name: "Disney+ Hotstar", src: "/leaders/DH.jpeg", hClass: "h-6 sm:h-7", mixBlend: true },
-      { name: "SuperYou", src: "/leaders/SU.jpeg", hClass: "h-5 sm:h-6", mixBlend: true }
+      { name: "Ogilvy", src: "/logos/ogilvy_white.png", hClass: "h-4.5 sm:h-5", mixBlend: false },
+      { name: "Disney+ Hotstar", src: "/leaders/DH.jpeg", hClass: "h-4.5 sm:h-5", mixBlend: true },
+      { name: "SuperYou", src: "/logos/superyou.png", hClass: "h-4.5 sm:h-5", mixBlend: false }
     ]
   },
   {
@@ -27,7 +27,7 @@ const leadersData = [
     imgBgClass: "bg-[#1a140b]",
     borderClass: "border-amber-500/10",
     brands: [
-      { name: "The Ranveer Show", src: "/leaders/TR.jpeg", hClass: "h-7 sm:h-8", mixBlend: true }
+      { name: "The Ranveer Show", src: "/leaders/TR.jpeg", hClass: "h-6 sm:h-7", mixBlend: true }
     ]
   },
   {
@@ -39,8 +39,8 @@ const leadersData = [
     imgBgClass: "bg-[#050c12]",
     borderClass: "border-sky-500/10",
     brands: [
-      { name: "TX", src: "/leaders/TX.jpeg", hClass: "h-5 sm:h-6", mixBlend: true },
-      { name: "Slice", src: "/leaders/SL.jpeg", hClass: "h-5 sm:h-6", mixBlend: true }
+      { name: "TX", src: "/leaders/TX.jpeg", hClass: "h-4.5 sm:h-5", mixBlend: true },
+      { name: "Slice", src: "/leaders/SL.jpeg", hClass: "h-4.5 sm:h-5", mixBlend: true }
     ]
   }
 ];
@@ -48,7 +48,7 @@ const leadersData = [
 const Leaders = () => {
   return (
     <section 
-      className="py-20 px-6 md:px-24 bg-[#050505] text-white relative overflow-hidden border-b border-white/5"
+      className="py-20 px-4 sm:px-8 md:px-16 lg:px-20 bg-[#050505] text-white relative overflow-hidden border-b border-white/5"
       style={{
         backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px)',
         backgroundSize: '24px 24px',
@@ -92,7 +92,7 @@ const Leaders = () => {
         </div>
 
         {/* CENTERED CARDS GRID */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 w-full items-stretch justify-center">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 w-full items-stretch justify-center">
           {leadersData.map((leader, index) => (
             <motion.div
               key={leader.name}
@@ -100,11 +100,11 @@ const Leaders = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
-              className={`flex flex-col sm:flex-row h-auto sm:h-[350px] glassy-card-leader ${leader.bgClass} border ${leader.borderClass} rounded-2xl overflow-hidden transition-all duration-300`}
+              className={`flex flex-col sm:flex-row h-auto sm:min-h-[350px] sm:h-[360px] glassy-card-leader ${leader.bgClass} border ${leader.borderClass} rounded-2xl overflow-hidden transition-all duration-300`}
             >
               
-              {/* Left Side: Info (65% width on Desktop) */}
-              <div className="w-full sm:w-[65%] p-6 md:p-7 flex flex-col justify-between items-start text-left h-full text-white">
+              {/* Left Side: Info (70% width on Desktop) */}
+              <div className="w-full sm:w-[70%] p-5 sm:p-6 flex flex-col justify-between items-start text-left h-full text-white">
                 
                 {/* Name Above, Role below it in Helvetica and White */}
                 <div className="space-y-1 text-left w-full">
@@ -114,18 +114,18 @@ const Leaders = () => {
                   <p className="text-[10px] sm:text-[11px] font-['Helvetica',_sans-serif] font-normal text-white/90 uppercase tracking-wider select-none leading-normal pt-1">
                     {leader.role}
                   </p>
-                  <div className="h-[1px] w-full bg-white/10 mt-3 mb-4" />
+                  <div className="h-[1px] w-full bg-white/10 mt-3 mb-3" />
                 </div>
 
                 {/* Description */}
-                <div className="my-4 sm:my-0 text-left">
-                  <p className="text-white/70 text-xs sm:text-[13px] font-normal leading-relaxed font-sans">
+                <div className="my-3 sm:my-0 text-left">
+                  <p className="text-white/70 text-xs sm:text-[12.5px] font-normal leading-relaxed font-sans">
                     {leader.description}
                   </p>
                 </div>
 
-                {/* Brand Logos at Bottom Left - Single Row Non-wrapping */}
-                <div className="flex flex-row flex-nowrap items-center gap-3 sm:gap-4 select-none pt-2 w-full overflow-hidden">
+                {/* Brand Logos at Bottom Left - Guaranteed Single Row Non-wrapping */}
+                <div className="flex flex-row flex-nowrap items-center gap-2 sm:gap-2.5 select-none pt-2 w-full">
                   {leader.brands.map((brand) => (
                     <img 
                       key={brand.name}
@@ -138,8 +138,8 @@ const Leaders = () => {
 
               </div>
 
-              {/* Right Side: Portrait Cutout (35% width on Desktop) */}
-              <div className={`w-full sm:w-[35%] h-56 sm:h-full relative overflow-hidden ${leader.imgBgClass}`}>
+              {/* Right Side: Portrait Cutout (30% width on Desktop) */}
+              <div className={`w-full sm:w-[30%] h-56 sm:h-full relative overflow-hidden ${leader.imgBgClass}`}>
                 <Image
                   src={leader.imageSrc}
                   alt={leader.name}
