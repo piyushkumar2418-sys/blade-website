@@ -13,9 +13,9 @@ const leadersData = [
     imgBgClass: "bg-[#100a18]",
     borderClass: "border-purple-500/10",
     brands: [
-      { name: "Ogilvy", src: "/logos/ogilvy.svg", hClass: "h-5 sm:h-6" },
-      { name: "Disney+ Hotstar", src: "/logos/disney_hotstar.svg", hClass: "h-4 sm:h-5" },
-      { name: "SuperYou", src: "/logos/superyou.svg", hClass: "h-4 sm:h-5" }
+      { name: "Ogilvy", src: "/logos/ogilvy_white.png", hClass: "h-5 sm:h-6" },
+      { name: "Disney+ Hotstar", src: "/logos/dh_transparent.png", hClass: "h-7 sm:h-8" },
+      { name: "SuperYou", src: "/logos/superyou_transparent.png", hClass: "h-4 sm:h-5" }
     ]
   },
   {
@@ -27,7 +27,7 @@ const leadersData = [
     imgBgClass: "bg-[#1a140b]",
     borderClass: "border-amber-500/10",
     brands: [
-      { name: "The Ranveer Show", src: "/logos/trs.svg", hClass: "h-8 sm:h-9" }
+      { name: "The Ranveer Show", src: "/logos/trs_transparent.png", hClass: "h-9 sm:h-10" }
     ]
   },
   {
@@ -39,8 +39,8 @@ const leadersData = [
     imgBgClass: "bg-[#050c12]",
     borderClass: "border-sky-500/10",
     brands: [
-      { name: "TEDx", src: "/logos/tedx.svg", hClass: "h-5 sm:h-6" },
-      { name: "Slice", src: "/logos/slice.svg", hClass: "h-5 sm:h-6" }
+      { name: "TEDx", src: "/logos/tedx_transparent.png", hClass: "h-5 sm:h-6" },
+      { name: "Slice", src: "/logos/slice_transparent.png", hClass: "h-5 sm:h-6" }
     ]
   }
 ];
@@ -124,7 +124,7 @@ const Leaders = () => {
                   </p>
                 </div>
 
-                {/* Brand Logos - Clean SVGs in a single row */}
+                {/* Brand Logos - Real transparent PNGs in a single row */}
                 <div className="flex flex-row flex-nowrap items-center gap-4 sm:gap-5 select-none pt-3 w-full">
                   {leader.brands.map((brand) => (
                     <img 
