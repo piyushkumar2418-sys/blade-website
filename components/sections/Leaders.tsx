@@ -13,9 +13,9 @@ const leadersData = [
     imgBgClass: "bg-[#100a18]",
     borderClass: "border-purple-500/10",
     brands: [
-      { name: "Ogilvy", src: "/leaders/og.jpeg" },
-      { name: "Disney+ Hotstar", src: "/leaders/DH.jpeg" },
-      { name: "SuperYou", src: "/leaders/SU.jpeg" }
+      { name: "Ogilvy", src: "/logos/ogilvy.svg", hClass: "h-5 sm:h-6" },
+      { name: "Disney+ Hotstar", src: "/logos/disney_hotstar.svg", hClass: "h-4 sm:h-5" },
+      { name: "SuperYou", src: "/logos/superyou.svg", hClass: "h-4 sm:h-5" }
     ]
   },
   {
@@ -27,7 +27,7 @@ const leadersData = [
     imgBgClass: "bg-[#1a140b]",
     borderClass: "border-amber-500/10",
     brands: [
-      { name: "The Ranveer Show", src: "/leaders/TR.jpeg" }
+      { name: "The Ranveer Show", src: "/logos/trs.svg", hClass: "h-8 sm:h-9" }
     ]
   },
   {
@@ -39,8 +39,8 @@ const leadersData = [
     imgBgClass: "bg-[#050c12]",
     borderClass: "border-sky-500/10",
     brands: [
-      { name: "TEDx", src: "/leaders/TX.jpeg" },
-      { name: "Slice", src: "/leaders/SL.jpeg" }
+      { name: "TEDx", src: "/logos/tedx.svg", hClass: "h-5 sm:h-6" },
+      { name: "Slice", src: "/logos/slice.svg", hClass: "h-5 sm:h-6" }
     ]
   }
 ];
@@ -66,15 +66,6 @@ const Leaders = () => {
           backdrop-filter: blur(25px);
           -webkit-backdrop-filter: blur(25px);
           box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.03);
-        }
-
-        .brand-logo-pill {
-          width: 28px;
-          height: 28px;
-          border-radius: 7px;
-          object-fit: cover;
-          flex-shrink: 0;
-          border: 1px solid rgba(255, 255, 255, 0.08);
         }
       `}} />
 
@@ -115,7 +106,7 @@ const Leaders = () => {
               {/* Left Side: Info (70% width on Desktop) */}
               <div className="w-full sm:w-[70%] p-5 sm:p-6 flex flex-col justify-between items-start text-left h-full text-white">
                 
-                {/* Name Above, Role below it in Helvetica and White */}
+                {/* Name & Role */}
                 <div className="space-y-1 text-left w-full">
                   <h3 className="text-white text-lg sm:text-xl lg:text-xl xl:text-2xl font-bold tracking-tight select-none font-sans leading-none">
                     {leader.name}
@@ -133,17 +124,15 @@ const Leaders = () => {
                   </p>
                 </div>
 
-                {/* Brand Logos at Bottom Left - Icon + Name pills in a single row */}
-                <div className="flex flex-row flex-nowrap items-center gap-3 select-none pt-2 w-full">
+                {/* Brand Logos - Clean SVGs in a single row */}
+                <div className="flex flex-row flex-nowrap items-center gap-4 sm:gap-5 select-none pt-3 w-full">
                   {leader.brands.map((brand) => (
-                    <div key={brand.name} className="flex items-center gap-1.5 shrink-0">
-                      <img 
-                        src={brand.src} 
-                        alt={brand.name} 
-                        className="brand-logo-pill"
-                      />
-                      <span className="text-[10px] sm:text-[11px] text-white/70 font-medium whitespace-nowrap">{brand.name}</span>
-                    </div>
+                    <img 
+                      key={brand.name}
+                      src={brand.src} 
+                      alt={brand.name} 
+                      className={`${brand.hClass} w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-200 shrink-0`}
+                    />
                   ))}
                 </div>
 

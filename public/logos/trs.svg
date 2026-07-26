@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Headphones -->
+  <path d="M15 55 C15 30, 85 30, 85 55" stroke="white" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <rect x="8" y="52" width="14" height="22" rx="5" fill="white"/>
+  <rect x="78" y="52" width="14" height="22" rx="5" fill="white"/>
+  <!-- Face box -->
+  <rect x="28" y="42" width="44" height="30" rx="3" fill="#F5C518"/>
+  <!-- Brain top -->
+  <ellipse cx="50" cy="42" rx="16" ry="12" fill="#F08080"/>
+  <line x1="50" y1="30" x2="50" y2="42" stroke="#F08080" stroke-width="1"/>
+  <!-- Eyes -->
+  <text x="40" y="60" font-size="12" fill="white">~ ~</text>
+  <!-- TRS text -->
+  <text x="50" y="85" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18" font-weight="900" text-anchor="middle" fill="white">TRS</text>
+</svg>
