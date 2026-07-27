@@ -53,38 +53,38 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
         <div className="absolute top-[20%] right-[10%] w-[400px] h-[400px] bg-[#FFC800]/5 rounded-full blur-[130px] pointer-events-none" />
 
         <div className="max-w-[1280px] mx-auto text-left relative z-10">
-          <div className="bg-white/[0.01] border border-white/10 hover:border-[#FFC800]/25 rounded-[3.5rem] p-10 md:p-16 relative overflow-hidden text-left flex flex-col md:flex-row items-center gap-12 min-h-[500px] shadow-2xl backdrop-blur-3xl transition-all duration-500">
+          <div className="bg-white/[0.01] border border-white/10 hover:border-[#FFC800]/25 rounded-2xl md:rounded-[3.5rem] p-6 md:p-16 relative overflow-hidden text-left flex flex-col md:flex-row items-center gap-6 md:gap-12 min-h-0 md:min-h-[500px] shadow-2xl backdrop-blur-3xl transition-all duration-500">
             {/* Background details */}
             <div className="absolute top-16 right-[35%] w-12 h-12 border border-[#FFC800]/10 rounded-full hidden md:block text-left" />
             
-            <div className="flex-1 space-y-8 relative z-10 text-left">
-              <div className="space-y-4 text-left">
-                <span className="text-[#FFC800] text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block text-left">What you will learn</span>
-                <h2 className="text-white text-5xl md:text-[72px] font-bold uppercase tracking-tight leading-[0.85] mb-8 text-left">
-                  The exact systems <br /> behind ₹3Cr+ in <br /> revenue.
+            <div className="flex-1 space-y-4 md:space-y-8 relative z-10 text-left">
+              <div className="space-y-2 md:space-y-4 text-left">
+                <span className="text-[#FFC800] text-[9px] md:text-[10px] font-bold uppercase tracking-[0.4em] md:tracking-[0.5em] mb-2 md:mb-4 block text-left">What you will learn</span>
+                <h2 className="text-white text-2xl sm:text-4xl md:text-[72px] font-bold uppercase tracking-tight leading-[0.9] md:leading-[0.85] mb-3 md:mb-8 text-left">
+                  The exact systems <br /> behind ₹3Cr+ in <br className="hidden md:block"/> revenue.
                 </h2>
               </div>
-              <p className="text-white/40 text-lg md:text-xl font-medium max-w-xl leading-relaxed mb-10 text-left">
+              <p className="text-white/40 text-xs sm:text-base md:text-xl font-medium max-w-xl leading-snug md:leading-relaxed mb-4 md:mb-10 text-left">
                 We have broken down how to start your agency into five simple steps. No wasting time, just doing the work.
               </p>
               <motion.button 
                 whileTap={{ scale: 0.98 }}
                 onMouseEnter={() => router.prefetch("/curriculum")}
                 onClick={() => router.push("/curriculum")}
-                className="bg-white text-black px-12 py-5 rounded-full font-bold uppercase tracking-widest text-[11px] hover:bg-[#FFC800] transition-all duration-300 flex items-center gap-4 shadow-xl text-left"
+                className="bg-white text-black px-6 md:px-12 py-3 md:py-5 rounded-full font-bold uppercase tracking-widest text-[10px] md:text-[11px] hover:bg-[#FFC800] transition-all duration-300 flex items-center gap-3 md:gap-4 shadow-xl text-left"
               >
-                View Full Prospectus <ArrowRight size={20}/>
+                View Full Prospectus <ArrowRight size={16} className="md:w-5 md:h-5"/>
               </motion.button>
             </div>
 
-            <div className="flex flex-row md:flex-col gap-6 relative z-10 text-left">
-              <div className="bg-black/50 border border-white/5 rounded-[30px] p-8 w-40 md:w-52 text-center flex flex-col justify-center items-center shadow-xl text-left backdrop-blur-md">
-                 <span className="text-white text-5xl font-bold block tracking-tighter mb-1 text-left">60</span>
-                 <span className="text-[#FFC800] text-[10px] font-bold uppercase tracking-[0.3em] block text-left">Days</span>
+            <div className="flex flex-row md:flex-col gap-3 md:gap-6 relative z-10 text-left w-full md:w-auto justify-center">
+              <div className="bg-black/50 border border-white/5 rounded-xl md:rounded-[30px] p-4 md:p-8 w-28 md:w-52 text-center flex flex-col justify-center items-center shadow-xl text-left backdrop-blur-md">
+                 <span className="text-white text-2xl md:text-5xl font-bold block tracking-tighter mb-0.5 md:mb-1 text-left">60</span>
+                 <span className="text-[#FFC800] text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] block text-left">Days</span>
               </div>
-              <div className="bg-black/50 border border-white/5 rounded-[30px] p-8 w-40 md:w-52 text-center flex flex-col justify-center items-center shadow-xl text-left backdrop-blur-md">
-                 <span className="text-white text-5xl font-bold block tracking-tighter mb-1 text-left">5</span>
-                 <span className="text-[#FFC800] text-[10px] font-bold uppercase tracking-[0.3em] block text-left">Phases</span>
+              <div className="bg-black/50 border border-white/5 rounded-xl md:rounded-[30px] p-4 md:p-8 w-28 md:w-52 text-center flex flex-col justify-center items-center shadow-xl text-left backdrop-blur-md">
+                 <span className="text-white text-2xl md:text-5xl font-bold block tracking-tighter mb-0.5 md:mb-1 text-left">5</span>
+                 <span className="text-[#FFC800] text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] block text-left">Phases</span>
               </div>
             </div>
           </div>

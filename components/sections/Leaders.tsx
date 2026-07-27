@@ -139,13 +139,13 @@ const Leaders = () => {
               </div>
 
               {/* Right Side: Portrait Cutout (30% width on Desktop) */}
-              <div className={`w-full sm:w-[30%] h-36 sm:h-full relative overflow-hidden ${leader.imgBgClass}`}>
+              <div className={`w-full sm:w-[30%] h-64 sm:h-full relative overflow-hidden ${leader.imgBgClass}`}>
                 <Image
                   src={leader.imageSrc}
                   alt={leader.name}
                   fill
-                  sizes="(max-width: 640px) 100vw, 15vw"
-                  className="object-cover object-top"
+                  sizes="(max-width: 640px) 100vw, 25vw"
+                  className="object-cover object-[center_12%]"
                 />
                 {/* Subtle shadow transition between text and image */}
                 <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-black/30 to-transparent pointer-events-none" />
