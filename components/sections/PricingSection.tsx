@@ -24,6 +24,13 @@ const PricingSection = () => {
         backgroundSize: "32px 32px",
       }}
     >
+      <style dangerouslySetInnerHTML={{__html: `
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&display=swap');
+        .font-cursive {
+          font-family: 'Dancing Script', cursive;
+        }
+      `}} />
+
       {/* Background glows */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#FFC800]/6 to-[#8B5CF6]/3 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-0 right-[10%] w-[400px] h-[400px] bg-[#FFC800]/4 rounded-full blur-[120px] pointer-events-none" />
@@ -45,8 +52,8 @@ const PricingSection = () => {
             <span className="w-1.5 h-1.5 bg-[#FFC800]/40 rounded-full" />
           </div>
 
-          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white leading-none font-sans">
-            One Plan. <span className="text-[#FFC800]">Everything Included.</span>
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold uppercase tracking-tighter text-white leading-none select-none font-sans text-center">
+            One Plan. <span className="font-cursive text-[#F3D7A7] font-normal lowercase tracking-normal mx-0.5 pr-0.5 inline-block transform -rotate-3" style={{ textTransform: 'none', textShadow: '0 0 10px rgba(243, 215, 167, 0.4)' }}>Everything Included.</span>
           </h2>
           <p className="text-white/50 text-xs md:text-sm font-normal leading-relaxed font-sans max-w-xl pt-4">
             No hidden fees. No upsells. Get the complete Blade Inner Circle experience at a fraction of its real value.
