@@ -25,6 +25,7 @@ import Leaders from "@/components/sections/Leaders";
 import SprintProtocol from "@/components/sections/SprintProtocol";
 import FounderAuthority from "@/components/sections/FounderAuthority";
 import InnerCircleCTA from "@/components/sections/InnerCircleCTA";
+import PricingSection from "@/components/sections/PricingSection";
 
 export default function Home() {
   const { user } = useAuth();
@@ -188,6 +189,7 @@ export default function Home() {
             <SprintProtocol />
             <Leaders />
             <FounderAuthority />
+            <PricingSection />
             <CreatorsMap onActiveStateChange={setHideHeader} />
             <InnerCircleCTA onJoinWaitlist={() => router.push("/apply/register")} />
           </motion.div>
