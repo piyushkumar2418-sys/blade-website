@@ -69,10 +69,10 @@ const FounderAuthority = () => {
         </div>
 
         {/* Infographic Stack (Timeline & Glassmorphic Cards) */}
-        <div className="relative space-y-6">
+        <div className="relative grid grid-cols-2 sm:grid-cols-1 gap-2.5 sm:gap-6">
           
           {/* Vertical Timeline Line in Gold */}
-          <div className="absolute left-8 md:left-12 top-6 bottom-6 w-[2px] bg-gradient-to-b from-[#FFC800]/10 via-[#FFC800]/40 to-[#FFC800]/10 pointer-events-none" />
+          <div className="hidden sm:block absolute left-8 md:left-12 top-6 bottom-6 w-[2px] bg-gradient-to-b from-[#FFC800]/10 via-[#FFC800]/40 to-[#FFC800]/10 pointer-events-none" />
 
           {benefits.map((benefit, index) => (
             <motion.div
@@ -81,29 +81,32 @@ const FounderAuthority = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="relative pl-20 md:pl-28 p-6 md:p-8 bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md border border-white/10 hover:border-white/20 rounded-2xl transition-all duration-300 flex flex-col sm:flex-row sm:items-center gap-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] group"
+              className="relative p-3.5 sm:p-8 sm:pl-28 bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md border border-white/10 hover:border-white/20 rounded-xl sm:rounded-2xl transition-all duration-300 flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] group"
             >
               
               {/* Timeline Glow Node in Gold */}
-              <div className="absolute left-8 md:left-12 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#FFC800] border-4 border-black shadow-[0_0_15px_rgba(255,200,0,0.8)] z-20 group-hover:scale-110 transition-transform duration-300" />
-              <div className="absolute left-8 md:left-12 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#FFC800]/20 blur-sm pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="hidden sm:block absolute left-8 md:left-12 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#FFC800] border-4 border-black shadow-[0_0_15px_rgba(255,200,0,0.8)] z-20 group-hover:scale-110 transition-transform duration-300" />
+              <div className="hidden sm:block absolute left-8 md:left-12 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#FFC800]/20 blur-sm pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-              {/* Icon Box in Gold Accent */}
-              <div className="w-14 h-14 bg-[#FFC800]/5 border border-[#FFC800]/20 rounded-xl flex items-center justify-center text-[#FFC800]/80 shadow-inner flex-shrink-0">
-                {benefit.icon}
-              </div>
+              {/* Icon & Number Row on Mobile */}
+              <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+                {/* Icon Box in Gold Accent */}
+                <div className="w-9 h-9 sm:w-14 sm:h-14 bg-[#FFC800]/5 border border-[#FFC800]/20 rounded-lg sm:rounded-xl flex items-center justify-center text-[#FFC800]/80 shadow-inner flex-shrink-0">
+                  {benefit.icon}
+                </div>
 
-              {/* Number Index */}
-              <div className="text-3xl md:text-4xl font-extrabold text-white/90 tracking-tight font-sans flex-shrink-0">
-                {benefit.num}
+                {/* Number Index */}
+                <div className="text-xl sm:text-4xl font-extrabold text-white/90 tracking-tight font-sans flex-shrink-0">
+                  {benefit.num}
+                </div>
               </div>
 
               {/* Content Description */}
-              <div className="space-y-1.5 text-left flex-1">
-                <h3 className="text-lg md:text-xl font-bold tracking-tight text-white font-sans">
+              <div className="space-y-1 text-left flex-1">
+                <h3 className="text-xs sm:text-xl font-bold tracking-tight text-white font-sans leading-tight">
                   {benefit.title}
                 </h3>
-                <p className="text-white/60 text-xs md:text-sm leading-relaxed max-w-xl">
+                <p className="text-white/60 text-[10px] sm:text-sm leading-tight sm:leading-relaxed max-w-xl">
                   {benefit.description}
                 </p>
               </div>

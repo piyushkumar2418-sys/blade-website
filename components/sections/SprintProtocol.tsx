@@ -194,18 +194,18 @@ const SprintProtocol = () => {
         {/* ========================================================
             2x2 GRID FOR OTHER 4 MODULES (SAME SIZES, COMPACT)
            ======================================================== */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full items-stretch">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-6 w-full items-stretch">
           
           {/* CARD 2: CLIENT ACQUISITION */}
-          <div className="glassy-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between transition-all duration-300">
+          <div className="glassy-card rounded-2xl p-3.5 sm:p-6 relative overflow-hidden flex flex-col justify-between transition-all duration-300">
             
             {/* Top Area: Title */}
-            <div className="space-y-3 relative z-10">
+            <div className="space-y-2 sm:space-y-3 relative z-10">
               <div className="flex justify-between items-start">
                 
                 {/* Title with gradient number matching reference style */}
-                <h4 className="text-xl font-bold tracking-tighter text-white font-sans leading-none flex items-center gap-2">
-                  <span className="text-3xl font-black bg-gradient-to-br from-white via-[#FFC800] to-[#FFC800]/20 bg-clip-text text-transparent select-none">2</span>
+                <h4 className="text-xs sm:text-xl font-bold tracking-tighter text-white font-sans leading-tight flex items-center gap-1.5 sm:gap-2">
+                  <span className="text-xl sm:text-3xl font-black bg-gradient-to-br from-white via-[#FFC800] to-[#FFC800]/20 bg-clip-text text-transparent select-none">2</span>
                   <span>Client Acquisition</span>
                 </h4>
                 
@@ -261,20 +261,20 @@ const SprintProtocol = () => {
           </div>
 
           {/* CARD 3: CONTENT OPERATIONS */}
-          <div className="glassy-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between transition-all duration-300">
+          <div className="glassy-card rounded-2xl p-3.5 sm:p-6 relative overflow-hidden flex flex-col justify-between transition-all duration-300">
             
             {/* Top Area: Title */}
-            <div className="space-y-3 relative z-10">
+            <div className="space-y-2 sm:space-y-3 relative z-10">
               <div className="flex justify-between items-start">
                 
                 {/* Title with gradient number matching reference style */}
-                <h4 className="text-xl font-bold tracking-tighter text-white font-sans leading-none flex items-center gap-2">
-                  <span className="text-3xl font-black bg-gradient-to-br from-white via-[#FFC800] to-[#FFC800]/20 bg-clip-text text-transparent select-none">3</span>
+                <h4 className="text-xs sm:text-xl font-bold tracking-tighter text-white font-sans leading-tight flex items-center gap-1.5 sm:gap-2">
+                  <span className="text-xl sm:text-3xl font-black bg-gradient-to-br from-white via-[#FFC800] to-[#FFC800]/20 bg-clip-text text-transparent select-none">3</span>
                   <span>Content Operations</span>
                 </h4>
                 
                 {/* Floating Logos (Continuous Floating and Interactive Tilt) */}
-                <div className="flex gap-1.5">
+                <div className="hidden sm:flex gap-1.5">
                   <motion.span 
                     whileHover={{ scale: 1.2, rotate: -4 }}
                     className="w-7 h-7 rounded bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer overflow-hidden hover:border-white" 
@@ -301,21 +301,21 @@ const SprintProtocol = () => {
             </div>
 
             {/* Glassy Topics Panel - Words Only */}
-            <div className="w-full glassy-panel rounded-lg p-4 my-4 flex-1 flex flex-col justify-center space-y-2 shadow-inner">
-              <div className="space-y-2 text-[11px] md:text-xs font-bold text-white/80 font-sans tracking-tight">
-                <div className="flex items-center gap-2">
+            <div className="w-full glassy-panel rounded-lg p-2.5 sm:p-4 my-2 sm:my-4 flex-1 flex flex-col justify-center space-y-1.5 sm:space-y-2 shadow-inner">
+              <div className="space-y-1.5 sm:space-y-2 text-[10px] sm:text-xs font-bold text-white/80 font-sans tracking-tight">
+                <div className="flex items-center gap-1.5">
                   <span className="text-[#FFC800] font-black select-none">+</span>
                   <span>How to build standard operating procedures (SOPs)?</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
                   <span className="text-[#FFC800] font-black select-none">+</span>
                   <span>Workflow architecture & automated task boards</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
                   <span className="text-[#FFC800] font-black select-none">+</span>
                   <span>How to hire, manage & scale remote editing teams?</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
                   <span className="text-[#FFC800] font-black select-none">+</span>
                   <span>Setting up seamless review & approval automation</span>
                 </div>
@@ -325,14 +325,14 @@ const SprintProtocol = () => {
           </div>
 
           {/* CARD 4: FOUNDER THINKING */}
-          <div className="glassy-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between transition-all duration-300">
+          <div className="glassy-card rounded-2xl p-3.5 sm:p-6 relative overflow-hidden flex flex-col justify-between transition-all duration-300">
             
             {/* Top Area: Title */}
-            <div className="space-y-3 relative z-10">
+            <div className="space-y-2 sm:space-y-3 relative z-10">
               
               {/* Title with gradient number matching reference style */}
-              <h4 className="text-xl font-bold tracking-tighter text-white font-sans leading-none flex items-center gap-2">
-                <span className="text-3xl font-black bg-gradient-to-br from-white via-[#FFC800] to-[#FFC800]/20 bg-clip-text text-transparent select-none">4</span>
+              <h4 className="text-xs sm:text-xl font-bold tracking-tighter text-white font-sans leading-tight flex items-center gap-1.5 sm:gap-2">
+                <span className="text-xl sm:text-3xl font-black bg-gradient-to-br from-white via-[#FFC800] to-[#FFC800]/20 bg-clip-text text-transparent select-none">4</span>
                 <span>Founder Thinking</span>
               </h4>
             </div>

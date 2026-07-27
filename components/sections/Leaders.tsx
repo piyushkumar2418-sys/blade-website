@@ -104,28 +104,28 @@ const Leaders = () => {
             >
               
               {/* Left Side: Info (70% width on Desktop) */}
-              <div className="w-full sm:w-[70%] p-5 sm:p-6 flex flex-col justify-between items-start text-left h-full text-white">
+              <div className="w-full sm:w-[70%] p-4 sm:p-6 flex flex-col justify-between items-start text-left h-full text-white">
                 
                 {/* Name & Role */}
                 <div className="space-y-1 text-left w-full">
-                  <h3 className="text-white text-lg sm:text-xl lg:text-xl xl:text-2xl font-bold tracking-tight select-none font-sans leading-none">
+                  <h3 className="text-white text-base sm:text-xl lg:text-xl xl:text-2xl font-bold tracking-tight select-none font-sans leading-none">
                     {leader.name}
                   </h3>
                   <p className="text-[10px] sm:text-[11px] font-['Helvetica',_sans-serif] font-normal text-white/90 uppercase tracking-wider select-none leading-normal pt-1">
                     {leader.role}
                   </p>
-                  <div className="h-[1px] w-full bg-white/10 mt-3 mb-3" />
+                  <div className="h-[1px] w-full bg-white/10 mt-2 mb-2 sm:mt-3 sm:mb-3" />
                 </div>
 
                 {/* Description */}
-                <div className="my-3 sm:my-0 text-left">
-                  <p className="text-white/70 text-xs sm:text-[12.5px] font-normal leading-relaxed font-sans">
+                <div className="my-2 sm:my-0 text-left">
+                  <p className="text-white/70 text-[11px] sm:text-[12.5px] font-normal leading-relaxed font-sans">
                     {leader.description}
                   </p>
                 </div>
 
                 {/* Brand Logos - Real transparent PNGs in a single row */}
-                <div className="flex flex-row flex-nowrap items-center gap-4 sm:gap-5 select-none pt-3 w-full">
+                <div className="flex flex-row flex-nowrap items-center gap-3 sm:gap-5 select-none pt-2 sm:pt-3 w-full">
                   {leader.brands.map((brand) => (
                     <img 
                       key={brand.name}
@@ -139,7 +139,7 @@ const Leaders = () => {
               </div>
 
               {/* Right Side: Portrait Cutout (30% width on Desktop) */}
-              <div className={`w-full sm:w-[30%] h-56 sm:h-full relative overflow-hidden ${leader.imgBgClass}`}>
+              <div className={`w-full sm:w-[30%] h-36 sm:h-full relative overflow-hidden ${leader.imgBgClass}`}>
                 <Image
                   src={leader.imageSrc}
                   alt={leader.name}
