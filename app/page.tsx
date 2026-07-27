@@ -20,7 +20,6 @@ import AgencyFooter from "@/components/sections/AgencyFooter";
 import InnerCircleHero from "@/components/sections/InnerCircleHero";
 import CohortMetrics from "@/components/sections/CohortMetrics";
 import Members from "@/components/sections/Members";
-import CreatorsMap from "@/components/sections/CreatorsMap";
 import Leaders from "@/components/sections/Leaders";
 import SprintProtocol from "@/components/sections/SprintProtocol";
 import FounderAuthority from "@/components/sections/FounderAuthority";
@@ -190,7 +189,6 @@ export default function Home() {
             <Leaders />
             <FounderAuthority />
             <PricingSection />
-            <CreatorsMap onActiveStateChange={setHideHeader} />
             <InnerCircleCTA onJoinWaitlist={() => router.push("/apply/register")} />
           </motion.div>
         )}

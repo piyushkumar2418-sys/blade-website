@@ -3,6 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Target, Laptop, ShieldCheck, Zap } from "lucide-react";
+import CreatorsMap from "@/components/sections/CreatorsMap";
 
 // --- ANIMATION VARIANTS ---
 const fadeUp = {
@@ -97,6 +98,9 @@ export default function CurriculumClient() {
           <ArrowLeft size={14} /> Back to {from === "dashboard" ? "Dashboard" : "Entry"}
         </button>
       </nav>
+
+      {/* CREATORS MAP SECTION */}
+      <CreatorsMap />
 
       {/* HERO SECTION */}
       <section className="pt-40 pb-24 px-6 md:px-24 border-b border-black/5">
