@@ -77,7 +77,7 @@ const PricingSection = () => {
           </div>
 
           {/* Card */}
-          <div className="relative bg-white/[0.03] backdrop-blur-xl border border-[#FFC800]/20 rounded-3xl p-8 sm:p-10 shadow-[0_30px_80px_rgba(0,0,0,0.5),_inset_0_1px_1px_rgba(255,255,255,0.04)] overflow-hidden">
+          <div className="relative bg-white/[0.03] backdrop-blur-xl border border-[#FFC800]/20 rounded-3xl p-6 sm:p-10 shadow-[0_30px_80px_rgba(0,0,0,0.5),_inset_0_1px_1px_rgba(255,255,255,0.04)] overflow-hidden">
             {/* Subtle corner glow */}
             <div className="absolute top-0 right-0 w-48 h-48 bg-[#FFC800]/5 rounded-full blur-[60px] pointer-events-none -translate-y-1/2 translate-x-1/2" />
 
@@ -145,8 +145,8 @@ const PricingSection = () => {
             <motion.a
               href="/apply/register"
               whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="block w-full py-4 bg-[#FFC800] hover:bg-[#FFD54F] text-black font-bold text-sm sm:text-base uppercase tracking-wider text-center rounded-xl transition-colors duration-200 shadow-[0_0_25px_rgba(255,200,0,0.3)] relative z-10"
+              whileTap={{ scale: 0.96 }}
+              className="flex items-center justify-center min-h-[52px] w-full py-4 bg-[#FFC800] hover:bg-[#FFD54F] text-black font-bold text-sm sm:text-base uppercase tracking-wider text-center rounded-xl transition-all duration-200 shadow-[0_0_25px_rgba(255,200,0,0.3)] active:scale-95 relative z-10"
             >
               Apply for Cohort 02 →
             </motion.a>

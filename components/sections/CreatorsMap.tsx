@@ -40,18 +40,24 @@ const CreatorsMap: React.FC<CreatorsMapProps> = ({ onActiveStateChange }) => {
       wrapperRef.current.style.top = "0px";
       wrapperRef.current.style.bottom = "auto";
       wrapperRef.current.style.left = "0px";
+      wrapperRef.current.style.right = "0px";
+      wrapperRef.current.style.width = "100%";
     } else if (scrollTop >= offsetTop && scrollTop <= offsetTop + limit) {
       // Container top is at/above viewport top - pin full-screen to viewport
       wrapperRef.current.style.position = "fixed";
       wrapperRef.current.style.top = "0px";
       wrapperRef.current.style.bottom = "auto";
       wrapperRef.current.style.left = "0px";
+      wrapperRef.current.style.right = "0px";
+      wrapperRef.current.style.width = "100%";
     } else {
       // Scrolled past the container - pin to bottom of container to scroll out of view
       wrapperRef.current.style.position = "absolute";
       wrapperRef.current.style.top = "auto";
       wrapperRef.current.style.bottom = "0px";
       wrapperRef.current.style.left = "0px";
+      wrapperRef.current.style.right = "0px";
+      wrapperRef.current.style.width = "100%";
     }
 
     // 2. Scroll position inside the iframe. Only scroll when the container is pinned/active.

@@ -83,7 +83,7 @@ const Leaders = () => {
             <span className="w-1.5 h-1.5 bg-[#FFC800]/40 rounded-full" />
           </div>
           
-          <h2 className="text-2xl md:text-4xl font-extrabold uppercase tracking-tighter text-white leading-none select-none font-sans text-center whitespace-nowrap">
+          <h2 className="text-2xl md:text-4xl font-extrabold uppercase tracking-tighter text-white leading-none select-none font-sans text-center md:whitespace-nowrap">
             Meet the <span className="font-cursive text-[#FFC800] font-normal lowercase tracking-normal mx-0.5 pr-0.5 inline-block transform -rotate-3" style={{ textTransform: 'none', textShadow: '0 0 10px rgba(255, 200, 0, 0.4)' }}>minds</span> Behind Modern Brands.
           </h2>
           <p className="text-white/60 text-xs md:text-sm font-normal leading-relaxed font-sans max-w-2xl mx-auto text-center pt-3">

@@ -90,10 +90,10 @@ export default function CurriculumClient() {
   return (
     <main className="bg-white text-black min-h-screen selection:bg-[#F3D7A7]">
       {/* MINIMAL NAVIGATION */}
-      <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-8 py-8 mix-blend-difference text-white">
+      <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-4 sm:px-8 py-4 sm:py-8 mix-blend-difference text-white">
         <button 
           onClick={handleBack}
-          className="flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest hover:text-[#D4AF37] transition-colors cursor-pointer"
+          className="flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest hover:text-[#D4AF37] transition-colors cursor-pointer min-h-[44px] px-2"
         >
           <ArrowLeft size={14} /> Back to {from === "dashboard" ? "Dashboard" : "Entry"}
         </button>

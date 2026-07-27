@@ -72,7 +72,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
           >
             {/* Asymmetric layout: top line shifted right, second line shifted left */}
             <span className="block md:pl-[20%]">The School of</span>
-            <span className="block text-white md:pl-[8%] md:whitespace-nowrap flex items-center gap-4">
+            <span className="block text-white md:pl-[8%] flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-4">
               <span>Modern Content.</span>
               
               {/* Technical Registration Mark Device */}
@@ -286,7 +286,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.4 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="absolute left-6 bottom-[18%] origin-bottom-left -rotate-90 z-20 pointer-events-auto text-[8px] md:text-[9px] font-light uppercase tracking-[0.3em] text-white select-none whitespace-nowrap"
+          className="hidden lg:block absolute left-6 bottom-[18%] origin-bottom-left -rotate-90 z-20 pointer-events-auto text-[8px] md:text-[9px] font-light uppercase tracking-[0.3em] text-white select-none whitespace-nowrap"
         >
           For those building on the internet. <span className="text-[#F3D7A7] ml-1">↗</span>
         </motion.div>

@@ -115,7 +115,7 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
                 <div key={idx} className="py-6 transition-all duration-300">
                   <button
                     onClick={() => setOpenFaqIdx(isOpen ? null : idx)}
-                    className="w-full flex items-center justify-between gap-6 text-left cursor-pointer group"
+                    className="w-full min-h-[48px] flex items-center justify-between gap-4 text-left cursor-pointer group py-2"
                   >
                     <span className={`text-base md:text-lg font-bold uppercase tracking-tight transition-colors duration-300 ${
                       isOpen ? "text-[#FFC800]" : "text-white/80 group-hover:text-white"
@@ -168,9 +168,9 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
             
             <motion.button 
               whileHover={{ scale: 1.01 }} 
-              whileTap={{ scale: 0.99 }}
+              whileTap={{ scale: 0.96 }}
               onClick={onJoinWaitlist}
-              className="flex items-center justify-between w-full max-w-md px-8 py-6 bg-white text-black font-bold uppercase text-[10px] tracking-[0.2em] transition-all duration-300 hover:bg-[#FFC800]"
+              className="flex items-center justify-between w-full max-w-md px-8 py-5 min-h-[52px] bg-white text-black font-bold uppercase text-[10px] tracking-[0.2em] transition-all duration-300 hover:bg-[#FFC800] active:scale-95"
             >
               <span>Apply for Cohort 02</span>
               <span className="text-sm">→</span>

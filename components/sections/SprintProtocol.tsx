@@ -85,7 +85,7 @@ const SprintProtocol = () => {
             <span className="w-1.5 h-1.5 bg-[#FFC800]/40 rounded-full" />
           </div>
           
-          <h2 className="text-2xl md:text-4xl font-extrabold uppercase tracking-tighter text-white leading-none whitespace-nowrap select-none font-sans">
+          <h2 className="text-2xl md:text-4xl font-extrabold uppercase tracking-tighter text-white leading-none md:whitespace-nowrap select-none font-sans">
             What You&apos;ll <span className="font-cursive text-[#FFC800] font-normal lowercase tracking-normal mx-0.5 pr-0.5 inline-block transform -rotate-3" style={{ textTransform: 'none', textShadow: '0 0 10px rgba(255, 200, 0, 0.4)' }}>learn</span> in this Cohort
           </h2>
         </div>
