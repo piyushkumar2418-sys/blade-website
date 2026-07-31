@@ -170,7 +170,7 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
               whileHover={{ scale: 1.01 }} 
               whileTap={{ scale: 0.96 }}
               onClick={onJoinWaitlist}
-              className="flex items-center justify-between w-full max-w-md px-8 py-5 min-h-[52px] bg-white text-black font-bold uppercase text-[10px] tracking-[0.2em] transition-all duration-300 hover:bg-[#FFC800] active:scale-95"
+              className="flex items-center justify-between w-full max-w-md px-8 py-5 min-h-[52px] bg-[#F3D7A7] hover:bg-[#F5E2BD] text-black font-bold uppercase text-[10px] tracking-[0.2em] transition-all duration-300 shadow-[0_0_25px_rgba(243,215,167,0.3)] active:scale-95 rounded-xl"
             >
               <span>Apply for Cohort 02</span>
               <span className="text-sm">→</span>

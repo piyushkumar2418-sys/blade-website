@@ -146,7 +146,7 @@ const PricingSection = () => {
               href="/apply/register"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.96 }}
-              className="flex items-center justify-center min-h-[48px] sm:min-h-[52px] w-full py-3.5 sm:py-4 bg-[#FFC800] hover:bg-[#FFD54F] text-black font-bold text-xs sm:text-base uppercase tracking-wider text-center rounded-xl transition-all duration-200 shadow-[0_0_25px_rgba(255,200,0,0.3)] active:scale-95 relative z-10"
+              className="flex items-center justify-center min-h-[48px] sm:min-h-[52px] w-full py-3.5 sm:py-4 bg-[#F3D7A7] hover:bg-[#F5E2BD] text-black font-bold text-xs sm:text-base uppercase tracking-wider text-center rounded-xl transition-all duration-200 shadow-[0_0_25px_rgba(243,215,167,0.35)] active:scale-95 relative z-10"
             >
               Apply for Cohort 02 →
             </motion.a>
