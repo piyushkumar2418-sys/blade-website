@@ -148,8 +148,7 @@ const PricingSection = () => {
               whileTap={{ scale: 0.96 }}
               className="flex items-center justify-center min-h-[48px] sm:min-h-[52px] w-full py-3.5 sm:py-4 bg-[#FFC800] hover:bg-[#FFD54F] text-black font-bold text-xs sm:text-base uppercase tracking-wider text-center rounded-xl transition-all duration-200 shadow-[0_0_25px_rgba(255,200,0,0.3)] active:scale-95 relative z-10"
             >
-              <span className="font-cursive text-black text-2xl sm:text-3xl font-normal lowercase tracking-normal" style={{ textTransform: 'none' }}>Apply for Cohort 02</span>
-              <span className="ml-2 text-black font-sans font-bold">→</span>
+              Apply for Cohort 02 →
             </motion.a>
 
             <p className="text-center text-white/30 text-[10px] mt-3 sm:mt-4 font-mono">

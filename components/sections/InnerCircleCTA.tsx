@@ -93,13 +93,6 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
 
       {/* FAQ SECTION */}
       <section className="py-24 px-6 md:px-24 bg-[#050505] text-white border-t border-white/5 relative overflow-hidden text-left z-20">
-        <style dangerouslySetInnerHTML={{__html: `
-          @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&display=swap');
-          .font-cursive {
-            font-family: 'Dancing Script', cursive;
-          }
-        `}} />
-
         {/* Subtle glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#FFC800]/[0.02] rounded-full blur-[120px] pointer-events-none" />
 
@@ -109,8 +102,8 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
             <span className="text-[#FFC800] text-[10px] uppercase tracking-[0.5em] font-mono font-bold block">
               FAQ
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold uppercase tracking-tighter text-[#FFC800] leading-none select-none font-sans">
-              Frequently Asked <span className="font-cursive text-[#FFC800] font-normal lowercase tracking-normal mx-0.5 pr-0.5 inline-block transform -rotate-3" style={{ textTransform: 'none', textShadow: '0 0 10px rgba(255, 200, 0, 0.4)' }}>Questions.</span>
+            <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white leading-none font-sans">
+              Frequently Asked <span className="text-[#FFC800]">Questions.</span>
             </h2>
           </div>
 
@@ -177,10 +170,10 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
               whileHover={{ scale: 1.01 }} 
               whileTap={{ scale: 0.96 }}
               onClick={onJoinWaitlist}
-              className="flex items-center justify-between w-full max-w-md px-8 py-5 min-h-[52px] bg-black border border-[#FFC800]/50 rounded-xl text-black font-bold uppercase transition-all duration-300 hover:border-[#FFC800] hover:shadow-[0_0_25px_rgba(255,200,0,0.2)] active:scale-95"
+              className="flex items-center justify-between w-full max-w-md px-8 py-5 min-h-[52px] bg-white text-black font-bold uppercase text-[10px] tracking-[0.2em] transition-all duration-300 hover:bg-[#FFC800] active:scale-95"
             >
-              <span className="font-cursive text-[#FFC800] text-2xl font-normal lowercase tracking-normal" style={{ textTransform: 'none', textShadow: '0 0 10px rgba(255, 200, 0, 0.4)' }}>Apply for Cohort 02</span>
-              <span className="text-base text-[#FFC800]">→</span>
+              <span>Apply for Cohort 02</span>
+              <span className="text-sm">→</span>
             </motion.button>
 
             <div className="text-left font-sans">
