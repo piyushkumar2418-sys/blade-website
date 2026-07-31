@@ -99,11 +99,11 @@ const InnerCircleCTA = ({ onJoinWaitlist }: InnerCircleCTAProps) => {
         <div className="max-w-4xl mx-auto relative z-10">
           {/* Header */}
           <div className="text-left mb-16 space-y-4">
-            <span className="text-[#FFC800] text-[10px] uppercase tracking-[0.5em] font-mono font-bold block">
+            <span className="text-[#F3D7A7] text-[10px] uppercase tracking-[0.5em] font-mono font-bold block">
               FAQ
             </span>
             <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white leading-none font-sans">
-              Frequently Asked <span className="text-[#FFC800]">Questions.</span>
+              Frequently Asked <span className="text-[#F3D7A7]">Questions.</span>
             </h2>
           </div>
 
