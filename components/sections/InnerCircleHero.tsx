@@ -71,7 +71,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
             className="text-[11vw] md:text-[5.8vw] lg:text-[5.6vw] font-black leading-[0.82] tracking-[-0.05em] uppercase text-left relative z-20 selection:bg-white selection:text-black font-sans w-full max-w-5xl select-none flex flex-col gap-2 md:gap-3"
           >
             <span className="block text-white">The School of</span>
-            <span className="block text-white flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-4">
+            <span className="block text-white md:pl-[8.5vw] lg:pl-[8.2vw] flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-4">
               <span>Modern Content.</span>
               
               {/* Technical Registration Mark Device */}
