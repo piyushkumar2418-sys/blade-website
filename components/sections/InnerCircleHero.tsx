@@ -62,17 +62,16 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
       {/* Main Container */}
       <div className="relative w-full h-full z-20 px-6 md:px-12 flex flex-col justify-between pt-24 pb-8 md:pt-0">
         
-        {/* CENTER VISUAL ANCHOR: MAIN HEADLINE (Two-line layout with horizontal offset, Preserved Exactly) */}
-        <div className="flex-grow flex flex-col justify-center items-start md:pl-16">
+        {/* CENTER VISUAL ANCHOR: MAIN HEADLINE */}
+        <div className="flex-grow flex flex-col justify-center items-start md:pl-[20vw] lg:pl-[21vw]">
           <motion.h1 
             initial={{ y: 50, opacity: 0 }} 
             animate={{ y: 0, opacity: 1 }} 
             transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }} 
-            className="text-[11vw] md:text-[6.3vw] font-black leading-[0.82] tracking-[-0.05em] uppercase text-left relative z-20 selection:bg-white selection:text-black font-sans w-full max-w-5xl select-none flex flex-col gap-2 md:gap-3"
+            className="text-[11vw] md:text-[5.8vw] lg:text-[5.6vw] font-black leading-[0.82] tracking-[-0.05em] uppercase text-left relative z-20 selection:bg-white selection:text-black font-sans w-full max-w-5xl select-none flex flex-col gap-2 md:gap-3"
           >
-            {/* Asymmetric layout: top line shifted right, second line shifted left */}
-            <span className="block md:pl-[20%]">The School of</span>
-            <span className="block text-white md:pl-[8%] flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-4">
+            <span className="block text-white">The School of</span>
+            <span className="block text-white flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-4">
               <span>Modern Content.</span>
               
               {/* Technical Registration Mark Device */}
