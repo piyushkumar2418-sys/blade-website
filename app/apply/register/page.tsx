@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import CohortRegisterPageClient from "./CohortRegisterPageClient";
 
 export const metadata: Metadata = {
@@ -11,5 +12,17 @@ export const metadata: Metadata = {
 };
 
 export default function RegisterPage() {
-  return <CohortRegisterPageClient />;
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white text-black flex items-center justify-center font-sans">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-6 h-6 border-2 border-black/10 border-t-black rounded-full animate-spin" />
+          <span className="text-[10px] uppercase tracking-[0.3em] text-black/40">Loading admission portal...</span>
+        </div>
+      </div>
+    }>
+      <CohortRegisterPageClient />
+    </Suspense>
+  );
 }
+

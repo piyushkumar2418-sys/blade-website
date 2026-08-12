@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { ArrowRight, AlertCircle, CheckCircle2, Zap, ShieldCheck, Plus, Minus } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { ArrowRight, AlertCircle, CheckCircle2, Zap, ShieldCheck, Plus, Minus, Award } from "lucide-react";
 
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
@@ -14,6 +14,7 @@ interface FAQItem {
 
 export default function CohortRegisterPageClient() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { user, profile, loading } = useAuth();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,6 +29,7 @@ export default function CohortRegisterPageClient() {
     portfolioLink: "",
     primaryFocus: "Learn a High-Income Skill",
     whyReady: "",
+    applyForScholarship: false,
     commitment: false,
   });
 
@@ -49,6 +51,13 @@ export default function CohortRegisterPageClient() {
       answer: "No. Sending in your application is completely free. Payment and workspace access details are only sent if your application gets approved."
     }
   ];
+
+  useEffect(() => {
+    // Pre-select scholarship option if URL has ?scholarship=true
+    if (searchParams.get("scholarship") === "true") {
+      setFormData(prev => ({ ...prev, applyForScholarship: true }));
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -114,6 +123,8 @@ export default function CohortRegisterPageClient() {
           portfolioLink: formData.portfolioLink,
           primaryFocus: formData.primaryFocus,
           whyReady: formData.whyReady,
+          applyForScholarship: formData.applyForScholarship,
+          scholarshipStatus: formData.applyForScholarship ? "requested" : "none",
           uid: user?.uid,
           cohort: "Cohort 02",
         }),
@@ -338,10 +349,87 @@ export default function CohortRegisterPageClient() {
                 </div>
               </div>
 
+              {/* Scholarship Option Section */}
+              <div className="space-y-6 text-left border-t border-black/5 pt-8">
+                <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7] text-left">
+                  03. Scholarship Preference
+                </h3>
+                <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/40 block text-left">
+                  Would you like to apply for a 100% Scholarship for Cohort 02? *
+                </label>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Option A: Standard Admission */}
+                  <div
+                    onClick={() => handleInputChange("applyForScholarship", false)}
+                    className={`cursor-pointer p-5 rounded-2xl border transition-all duration-300 ${
+                      !formData.applyForScholarship
+                        ? "bg-black border-black text-white shadow-md"
+                        : "bg-[#F5F5F7] border-black/[0.05] text-black hover:border-black/20"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3.5">
+                      <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all ${
+                        !formData.applyForScholarship ? "border-[#F3D7A7] bg-[#F3D7A7]" : "border-black/30"
+                      }`}>
+                        {!formData.applyForScholarship && <div className="w-1.5 h-1.5 rounded-full bg-black" />}
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-tight">Standard Admission</p>
+                        <p className={`text-[10px] font-medium tracking-wider ${!formData.applyForScholarship ? "text-white/60" : "text-black/40"}`}>
+                          ₹6,499 One-Time Pass
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Option B: 100% Scholarship */}
+                  <div
+                    onClick={() => handleInputChange("applyForScholarship", true)}
+                    className={`cursor-pointer p-5 rounded-2xl border transition-all duration-300 ${
+                      formData.applyForScholarship
+                        ? "bg-black border-black text-white shadow-md"
+                        : "bg-[#F5F5F7] border-black/[0.05] text-black hover:border-black/20"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3.5">
+                      <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all ${
+                        formData.applyForScholarship ? "border-[#F3D7A7] bg-[#F3D7A7]" : "border-black/30"
+                      }`}>
+                        {formData.applyForScholarship && <div className="w-1.5 h-1.5 rounded-full bg-black" />}
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-tight flex items-center gap-1.5">
+                          <span>Apply for Scholarship</span>
+                          <Award size={12} className="text-[#F3D7A7]" />
+                        </p>
+                        <p className={`text-[10px] font-medium tracking-wider ${formData.applyForScholarship ? "text-[#F3D7A7]" : "text-black/40"}`}>
+                          100% Fee Waiver (Merit & Need)
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {formData.applyForScholarship && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-[11px] text-black/80 font-medium bg-[#F3D7A7]/20 border border-[#F3D7A7]/40 p-4 rounded-2xl leading-relaxed flex items-start gap-3"
+                  >
+                    <Award size={16} className="text-black shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-bold block uppercase tracking-wider text-[10px] text-black mb-0.5">★ Scholarship Consideration Requested</span>
+                      Your portfolio and responses will be evaluated by the admissions board for full fee waiver eligibility.
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+
               {/* Commitment Section */}
               <div className="space-y-8 text-left pt-6">
                 <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F3D7A7] text-left">
-                  03. Institutional Commitment
+                  04. Institutional Commitment
                 </h3>
                 
                 <div 
