@@ -1,9 +1,10 @@
 "use client";
+
 import React from "react";
 import { motion } from "framer-motion";
-import { Check, Zap } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
-const featuresList = [
+const planBenefits = [
   "Access to weekly live classes with industry experts",
   "Access to 300+ paid freelance gigs (₹20K–₹1L per project)",
   "Access to a community of creators and founders",
@@ -16,144 +17,153 @@ const featuresList = [
 
 const PricingSection = () => {
   return (
-    <section
-      className="bg-[#050505] py-16 sm:py-32 px-4 sm:px-8 md:px-16 lg:px-20 text-white relative overflow-hidden border-b border-white/5"
-      style={{
-        backgroundImage:
-          "radial-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px)",
-        backgroundSize: "32px 32px",
-      }}
-    >
-      <style dangerouslySetInnerHTML={{__html: `
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&display=swap');
-        .font-cursive {
-          font-family: 'Dancing Script', cursive;
-        }
-      `}} />
+    <section className="bg-[#f7f3eb] text-black py-16 sm:py-24 px-4 sm:px-6 md:px-10 relative overflow-hidden border-b border-black/10">
+      {/* Abstract Ribbon Wave Background Pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-30 z-0 bg-center bg-cover bg-no-repeat"
+        style={{ backgroundImage: "url('/images/one-plan-waves.png')" }}
+      />
 
-      {/* Background glows */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#FFC800]/6 to-[#8B5CF6]/3 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-0 right-[10%] w-[400px] h-[400px] bg-[#FFC800]/4 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="max-w-4xl mx-auto relative z-10">
-        {/* Section Header */}
+      <div className="relative z-10 max-w-6xl mx-auto space-y-10 md:space-y-12">
+        {/* Top Hero Banner - Matching ONE PLAN SVG */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="mb-8 sm:mb-14 flex flex-col items-center text-center"
+          className="relative w-full rounded-[2.5rem] sm:rounded-[3rem] overflow-hidden border border-black/15 shadow-[0_25px_60px_rgba(0,0,0,0.18)] bg-black"
         >
-          <div className="flex items-center gap-2 mb-2 sm:mb-3">
-            <span className="w-1.5 h-1.5 bg-[#FFC800] rounded-full animate-pulse" />
-            <span className="text-[9px] font-mono font-bold uppercase tracking-[0.4em] text-white/40">
-              Investment
-            </span>
-            <span className="w-1.5 h-1.5 bg-[#FFC800]/40 rounded-full" />
-          </div>
+          <div className="relative w-full aspect-[16/9] min-h-[360px] sm:min-h-[440px] md:min-h-[500px]">
+            {/* Surreal Retro Artwork Image */}
+            <img
+              src="/images/one-plan-hero.jpg"
+              alt="Blade Cohort 02 One Plan"
+              className="w-full h-full object-cover object-center"
+            />
+            {/* Vignette Contrast Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/50" />
 
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold uppercase tracking-tighter text-white leading-none select-none font-sans text-center">
-            One Plan. <span className="font-cursive text-[#F3D7A7] font-normal lowercase tracking-normal mx-0.5 pr-0.5 inline-block transform -rotate-3" style={{ textTransform: 'none', textShadow: '0 0 10px rgba(243, 215, 167, 0.4)' }}>Everything Included.</span>
-          </h2>
-          <p className="text-white/50 text-xs md:text-sm font-normal leading-relaxed font-sans max-w-xl pt-2 sm:pt-4">
-            No hidden fees. No upsells. Get the complete Blade Inner Circle experience at a fraction of its real value.
-          </p>
+            {/* Top-Left Banner Text */}
+            <div className="absolute top-6 sm:top-10 left-6 sm:left-10 z-10">
+              <h2
+                className="text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tighter text-[#ff9bb3] font-sans"
+                style={{ textShadow: "0 4px 20px rgba(0,0,0,0.9)" }}
+              >
+                COHORT 02
+              </h2>
+            </div>
+
+            {/* Bottom-Left Banner Text */}
+            <div className="absolute bottom-6 sm:bottom-10 left-6 sm:left-10 z-10">
+              <p className="text-[#e3c788] text-xs sm:text-base md:text-lg font-semibold tracking-[0.35em] uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                SEPTEMBER 2026
+              </p>
+            </div>
+
+            {/* Top-Right Banner Text */}
+            <div className="absolute top-6 sm:top-10 right-6 sm:right-10 z-10 text-right">
+              <h2
+                className="text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tighter text-[#ff9bb3] font-sans"
+                style={{ textShadow: "0 4px 20px rgba(0,0,0,0.9)" }}
+              >
+                ONE PLAN
+              </h2>
+              <p className="text-[#e3c788] text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase mt-1 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                A 2 MONTH PROGRAM
+              </p>
+            </div>
+
+            {/* Bottom-Right Banner Text */}
+            <div className="absolute bottom-6 sm:bottom-10 right-6 sm:right-10 z-10 text-right">
+              <p className="text-[#e3c788] text-xs sm:text-base md:text-lg font-semibold tracking-[0.35em] uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                UPTO 100% SCHOLARSHIP
+              </p>
+            </div>
+          </div>
         </motion.div>
 
-        {/* Pricing Card */}
+        {/* Bottom Section: Two Main Cards Layout */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.15 }}
-          className="relative mx-auto max-w-xl"
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch"
         >
-          {/* Popular badge */}
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
-            <div className="flex items-center gap-1.5 bg-[#FFC800] text-black px-4 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(255,200,0,0.4)]">
-              <Zap className="w-3.5 h-3.5" />
-              Cohort 02 — Limited Seats
+          {/* Left Card: Main Pricing Card */}
+          <div className="bg-[#2a2b2e]/95 backdrop-blur-xl border border-white/15 rounded-[2.5rem] sm:rounded-[3rem] p-8 sm:p-10 text-white shadow-[0_30px_70px_rgba(0,0,0,0.3)] flex flex-col justify-between relative overflow-hidden">
+            {/* Corner Glow */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#d9b465]/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/2" />
+
+            <div>
+              {/* Price Display */}
+              <div className="text-center mb-8">
+                <div className="flex items-baseline justify-center gap-2">
+                  <span className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight text-white font-sans">
+                    ₹6,499
+                  </span>
+                </div>
+                <p className="text-white/60 text-xs sm:text-sm font-medium mt-3 tracking-wide">
+                  One-time payment · No recurring charges
+                </p>
+              </div>
+
+              {/* Divider */}
+              <div className="w-full h-px bg-white/10 my-6" />
+
+              {/* Bullet Benefits List */}
+              <div className="space-y-4 mb-4">
+                {planBenefits.map((benefit, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#f3d7a7] shrink-0 mt-2 shadow-[0_0_10px_rgba(243,215,167,0.8)]" />
+                    <span className="text-white/90 text-sm sm:text-base font-normal leading-relaxed">
+                      {benefit}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Card */}
-          <div className="relative bg-white/[0.03] backdrop-blur-xl border border-[#FFC800]/20 rounded-3xl p-6 sm:p-10 shadow-[0_30px_80px_rgba(0,0,0,0.5),_inset_0_1px_1px_rgba(255,255,255,0.04)] overflow-hidden">
-            {/* Subtle corner glow */}
-            <div className="absolute top-0 right-0 w-48 h-48 bg-[#FFC800]/5 rounded-full blur-[60px] pointer-events-none -translate-y-1/2 translate-x-1/2" />
+          {/* Right Card: Scholarship Program Card */}
+          <div className="bg-[#2a2b2e]/95 backdrop-blur-xl border border-white/15 rounded-[2.5rem] sm:rounded-[3rem] p-8 sm:p-10 text-white shadow-[0_30px_70px_rgba(0,0,0,0.3)] flex flex-col justify-between relative overflow-hidden">
+            {/* Corner Glow */}
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#ff9bb3]/10 rounded-full blur-3xl pointer-events-none translate-y-1/2 -translate-x-1/2" />
 
-            {/* Plan Title */}
-            <div className="text-center mb-6 sm:mb-8 relative z-10">
-              <h3 className="text-lg sm:text-xl font-bold text-white/90 tracking-tight font-sans mb-1">
-                Blade Inner Circle
-              </h3>
-              <p className="text-white/40 text-xs font-mono uppercase tracking-widest">
-                Complete Access Pass
-              </p>
-            </div>
-
-            {/* Pricing */}
-            <div className="text-center mb-6 sm:mb-8 relative z-10">
-              {/* Struck-through original price */}
-              <div className="flex items-center justify-center gap-2.5 mb-1.5 sm:mb-2">
-                <span className="text-white/30 text-lg sm:text-xl font-medium line-through decoration-red-500/70 decoration-2">
-                  ₹17,999
-                </span>
-                <span className="bg-red-500/15 text-red-400 text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border border-red-500/20">
-                  64% Off
-                </span>
+            <div>
+              {/* Card Header */}
+              <div className="text-center mb-8 pb-4 border-b border-white/10">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold uppercase tracking-wider text-white font-sans">
+                  SCHOLARSHIP PROGRAM
+                </h3>
               </div>
 
-              {/* Actual price */}
-              <div className="flex items-baseline justify-center gap-1">
-                <span className="text-[#FFC800] text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter leading-none" style={{ textShadow: '0 0 30px rgba(255, 200, 0, 0.3)' }}>
-                  ₹6,499
-                </span>
+              {/* Text Description */}
+              <div className="text-center text-white/85 text-sm sm:text-base leading-relaxed space-y-6 max-w-md mx-auto py-4">
+                <p className="font-semibold text-white">
+                  100% scholarships are available for Cohort 02.
+                </p>
+                <p>
+                  We believe access to the right environment shouldn&apos;t depend only on your ability to pay.
+                </p>
+                <p>
+                  Scholarships are awarded selectively based on portfolio, potential, and financial need.
+                </p>
+                <p className="text-white/70 italic">
+                  If you believe you belong in the Circle but the fee is a barrier, you can apply for a full scholarship.
+                </p>
               </div>
-              <p className="text-white/30 text-xs mt-2 font-mono">
-                One-time payment · No recurring charges
-              </p>
             </div>
 
-            {/* Divider */}
-            <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6 sm:mb-8" />
-
-            {/* Features List */}
-            <div className="space-y-3 sm:space-y-3.5 mb-6 sm:mb-8 relative z-10">
-              <p className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-white/40 mb-3 sm:mb-4">
-                Everything you get
-              </p>
-              {featuresList.map((feature, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.3 + idx * 0.06 }}
-                  className="flex items-start gap-2.5 sm:gap-3"
-                >
-                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#FFC800]/10 border border-[#FFC800]/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Check className="w-3 h-3 text-[#FFC800]" />
-                  </div>
-                  <span className="text-white/75 text-xs sm:text-sm leading-relaxed font-sans">
-                    {feature}
-                  </span>
-                </motion.div>
-              ))}
+            {/* Action Pill Button matching ONE PLAN SVG screenshot */}
+            <div className="pt-8 flex justify-center">
+              <a
+                href="/apply/register"
+                className="w-full max-w-xs py-4 sm:py-5 rounded-full bg-[#3c3e44] hover:bg-[#4d5058] border border-white/25 text-white font-black text-base sm:text-lg uppercase tracking-[0.25em] text-center shadow-[0_15px_35px_rgba(0,0,0,0.5)] transition-all duration-300 flex items-center justify-center gap-2 active:scale-[0.98]"
+              >
+                <span>APPLY NOW!</span>
+              </a>
             </div>
-
-            {/* CTA Button */}
-            <motion.a
-              href="/apply/register"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.96 }}
-              className="flex items-center justify-center min-h-[48px] sm:min-h-[52px] w-full py-3.5 sm:py-4 bg-[#F3D7A7] hover:bg-[#F5E2BD] text-black font-bold text-xs sm:text-base uppercase tracking-wider text-center rounded-xl transition-all duration-200 shadow-[0_0_25px_rgba(243,215,167,0.35)] active:scale-95 relative z-10"
-            >
-              Apply for Cohort 02 →
-            </motion.a>
-
-            <p className="text-center text-white/30 text-[10px] mt-3 sm:mt-4 font-mono">
-              Seats fill up fast — apply early to secure your spot
-            </p>
           </div>
         </motion.div>
       </div>
@@ -162,3 +172,4 @@ const PricingSection = () => {
 };
 
 export default PricingSection;
+
