@@ -32,9 +32,9 @@ const PricingSection = () => {
         }
       `}} />
 
-      {/* Background Ambient Glows */}
-      <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-gradient-to-tr from-[#FFC800]/6 to-[#8B5CF6]/4 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 right-[15%] w-[450px] h-[450px] bg-[#FF9BB3]/4 rounded-full blur-[130px] pointer-events-none" />
+      {/* Brand Ambient Glows - Gold & Subtle Warm Yellow */}
+      <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-gradient-to-tr from-[#FFC800]/6 to-[#F3D7A7]/4 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 right-[15%] w-[450px] h-[450px] bg-[#F3D7A7]/4 rounded-full blur-[130px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
@@ -46,11 +46,11 @@ const PricingSection = () => {
           className="mb-12 sm:mb-16 flex flex-col items-center text-center"
         >
           <div className="flex items-center gap-2 mb-3">
-            <span className="w-1.5 h-1.5 bg-[#FFC800] rounded-full animate-pulse" />
+            <span className="w-1.5 h-1.5 bg-[#F3D7A7] rounded-full animate-pulse" />
             <span className="text-[9px] font-mono font-bold uppercase tracking-[0.4em] text-white/40">
               Investment & Access
             </span>
-            <span className="w-1.5 h-1.5 bg-[#FFC800]/40 rounded-full" />
+            <span className="w-1.5 h-1.5 bg-[#F3D7A7]/40 rounded-full" />
           </div>
 
           <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tighter text-white leading-none select-none font-sans text-center">
@@ -61,8 +61,8 @@ const PricingSection = () => {
           </p>
         </motion.div>
 
-        {/* 2-Column Grid Layout: Pricing Card + Scholarship Card */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto">
+        {/* 2-Column Grid Layout: Pricing Card + Shorter Scholarship Card */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start max-w-5xl mx-auto">
           
           {/* CARD 1: Main Pricing Card */}
           <motion.div
@@ -81,9 +81,9 @@ const PricingSection = () => {
             </div>
 
             {/* Card Content */}
-            <div className="relative bg-white/[0.03] backdrop-blur-xl border border-[#FFC800]/25 rounded-3xl p-6 sm:p-9 shadow-[0_30px_80px_rgba(0,0,0,0.5),_inset_0_1px_1px_rgba(255,255,255,0.04)] overflow-hidden flex flex-col justify-between h-full">
-              {/* Subtle corner glow */}
-              <div className="absolute top-0 right-0 w-48 h-48 bg-[#FFC800]/5 rounded-full blur-[60px] pointer-events-none -translate-y-1/2 translate-x-1/2" />
+            <div className="relative bg-white/[0.03] backdrop-blur-xl border border-[#F3D7A7]/25 rounded-3xl p-6 sm:p-9 shadow-[0_30px_80px_rgba(0,0,0,0.5),_inset_0_1px_1px_rgba(255,255,255,0.04)] overflow-hidden flex flex-col justify-between h-full">
+              {/* Corner glow */}
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#F3D7A7]/5 rounded-full blur-[60px] pointer-events-none -translate-y-1/2 translate-x-1/2" />
 
               <div>
                 {/* Plan Title */}
@@ -108,7 +108,7 @@ const PricingSection = () => {
                   </div>
 
                   <div className="flex items-baseline justify-center gap-1">
-                    <span className="text-[#FFC800] text-4xl sm:text-6xl font-black tracking-tighter leading-none" style={{ textShadow: '0 0 25px rgba(255, 200, 0, 0.3)' }}>
+                    <span className="text-[#F3D7A7] text-4xl sm:text-6xl font-black tracking-tighter leading-none" style={{ textShadow: '0 0 25px rgba(243, 215, 167, 0.3)' }}>
                       ₹6,499
                     </span>
                   </div>
@@ -127,8 +127,8 @@ const PricingSection = () => {
                   </p>
                   {featuresList.map((feature, idx) => (
                     <div key={idx} className="flex items-start gap-2.5 sm:gap-3">
-                      <div className="w-4 h-4 rounded-full bg-[#FFC800]/10 border border-[#FFC800]/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Check className="w-3 h-3 text-[#FFC800]" />
+                      <div className="w-4 h-4 rounded-full bg-[#F3D7A7]/10 border border-[#F3D7A7]/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Check className="w-3 h-3 text-[#F3D7A7]" />
                       </div>
                       <span className="text-white/75 text-xs sm:text-sm leading-relaxed font-sans">
                         {feature}
@@ -156,7 +156,7 @@ const PricingSection = () => {
           </motion.div>
 
 
-          {/* CARD 2: Scholarship Program Card */}
+          {/* CARD 2: Shorter & Sleek Scholarship Program Card */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -164,60 +164,57 @@ const PricingSection = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative flex flex-col justify-between"
           >
-            {/* Scholarship badge */}
+            {/* Scholarship badge using brand gold #F3D7A7 */}
             <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20 w-max">
-              <div className="flex items-center gap-1.5 bg-[#FF9BB3] text-black px-4 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(255,155,179,0.4)]">
+              <div className="flex items-center gap-1.5 bg-[#F3D7A7] text-black px-4 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(243,215,167,0.4)]">
                 <Award className="w-3.5 h-3.5 shrink-0" />
                 Upto 100% Scholarship
               </div>
             </div>
 
-            {/* Card Content */}
-            <div className="relative bg-white/[0.03] backdrop-blur-xl border border-[#FF9BB3]/25 rounded-3xl p-6 sm:p-9 shadow-[0_30px_80px_rgba(0,0,0,0.5),_inset_0_1px_1px_rgba(255,255,255,0.04)] overflow-hidden flex flex-col justify-between h-full">
-              {/* Subtle corner glow */}
-              <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#FF9BB3]/5 rounded-full blur-[60px] pointer-events-none translate-y-1/2 -translate-x-1/2" />
+            {/* Compact Card Content */}
+            <div className="relative bg-white/[0.03] backdrop-blur-xl border border-[#F3D7A7]/20 rounded-3xl p-6 sm:p-7 shadow-[0_20px_60px_rgba(0,0,0,0.5),_inset_0_1px_1px_rgba(255,255,255,0.04)] overflow-hidden flex flex-col justify-between">
+              {/* Corner glow */}
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#F3D7A7]/5 rounded-full blur-[50px] pointer-events-none translate-y-1/2 -translate-x-1/2" />
 
               <div>
                 {/* Title */}
-                <div className="text-center mb-6 relative z-10 pt-2">
+                <div className="text-center mb-4 relative z-10 pt-2">
                   <h3 className="text-lg sm:text-xl font-bold text-white/90 tracking-tight font-sans mb-1">
                     Scholarship Program
                   </h3>
-                  <p className="text-[#FF9BB3]/80 text-xs font-mono uppercase tracking-widest">
+                  <p className="text-[#F3D7A7]/80 text-xs font-mono uppercase tracking-widest">
                     Financial Need & Merit Based
                   </p>
                 </div>
 
-                {/* Main Content Paragraphs */}
-                <div className="space-y-4 my-6 text-white/80 text-xs sm:text-sm leading-relaxed relative z-10 text-center">
-                  <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
-                    <p className="font-bold text-white text-sm sm:text-base text-[#F3D7A7]">
+                {/* Compact Content Paragraphs */}
+                <div className="space-y-3.5 my-4 text-white/80 text-xs sm:text-sm leading-relaxed relative z-10 text-center">
+                  <div className="p-3.5 rounded-2xl bg-[#F3D7A7]/10 border border-[#F3D7A7]/20">
+                    <p className="font-bold text-[#F3D7A7] text-xs sm:text-sm">
                       100% scholarships are available for Cohort 02.
                     </p>
                   </div>
-                  <p>
-                    We believe access to the right environment shouldn&apos;t depend only on your ability to pay.
+                  <p className="text-white/75 text-xs sm:text-sm">
+                    We believe access to the right environment shouldn&apos;t depend only on your ability to pay. Scholarships are awarded selectively based on portfolio, potential, and financial need.
                   </p>
-                  <p>
-                    Scholarships are awarded selectively based on portfolio quality, potential, and financial need.
-                  </p>
-                  <p className="text-white/60 italic text-xs pt-2">
+                  <p className="text-white/50 italic text-[11px] pt-1">
                     If you believe you belong in the Circle but the fee is a barrier, you can apply for a full scholarship.
                   </p>
                 </div>
               </div>
 
-              {/* CTA Button */}
-              <div className="relative z-10 pt-4">
+              {/* CTA Button using brand outline / glass styling */}
+              <div className="relative z-10 pt-2">
                 <motion.a
                   href="/apply/register?scholarship=true"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.96 }}
-                  className="flex items-center justify-center min-h-[48px] sm:min-h-[52px] w-full py-3.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs sm:text-sm uppercase tracking-wider text-center rounded-xl transition-all duration-200 shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-95"
+                  className="flex items-center justify-center min-h-[46px] sm:min-h-[48px] w-full py-3 bg-white/10 hover:bg-[#F3D7A7] hover:text-black border border-[#F3D7A7]/30 text-white font-bold text-xs sm:text-sm uppercase tracking-wider text-center rounded-xl transition-all duration-200 shadow-[0_0_20px_rgba(243,215,167,0.15)] active:scale-95"
                 >
                   Apply for Scholarship →
                 </motion.a>
-                <p className="text-center text-white/30 text-[10px] mt-3 font-mono">
+                <p className="text-center text-white/30 text-[10px] mt-2.5 font-mono">
                   Applications reviewed by admissions committee within 24h
                 </p>
               </div>
@@ -231,6 +228,7 @@ const PricingSection = () => {
 };
 
 export default PricingSection;
+
 
 
 
