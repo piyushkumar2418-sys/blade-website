@@ -2,91 +2,227 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { Check, Zap, Award } from "lucide-react";
+
+const featuresList = [
+  "Access to weekly live classes with industry experts",
+  "Access to 300+ paid freelance gigs (₹20K–₹1L per project)",
+  "Access to a community of creators and founders",
+  "Placement opportunities at top media companies & agencies",
+  "Access to our SOPs and growth systems built over the last 7 years",
+  "1-on-1 portfolio reviews and career mentorship sessions",
+  "Lifetime access to recorded sessions and resource library",
+  "45-day content challenge with Blade's editing support",
+];
 
 const PricingSection = () => {
   return (
-    <section className="relative w-full h-screen min-h-screen bg-[#f7f3eb] flex items-center justify-center p-0 m-0 border-0 overflow-hidden select-none">
-      {/* Background Ribbon Pattern - Edge to Edge */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-35 z-0 bg-center bg-cover bg-no-repeat"
-        style={{ backgroundImage: "url('/images/one-plan-waves.png')" }}
-      />
+    <section
+      className="bg-[#050505] py-16 sm:py-28 px-4 sm:px-8 md:px-12 text-white relative overflow-hidden border-b border-white/5 selection:bg-[#F3D7A7] selection:text-black"
+      style={{
+        backgroundImage:
+          "radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px)",
+        backgroundSize: "32px 32px",
+      }}
+    >
+      <style dangerouslySetInnerHTML={{__html: `
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&display=swap');
+        .font-cursive {
+          font-family: 'Dancing Script', cursive;
+        }
+      `}} />
 
-      {/* Full Screen Single-View SVG Layout Container (No Side Borders) */}
-      <div className="relative w-full h-full max-w-[1440px] aspect-[1440/810] max-h-screen mx-auto flex items-center justify-center p-0 m-0 z-10">
-        
-        {/* SVG Base Layout */}
-        <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-          <img
-            src="/images/one-plan-full.svg"
-            alt="One Plan - Everything Included"
-            className="w-full h-full object-contain pointer-events-none select-none"
-          />
+      {/* Background Ambient Glows */}
+      <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-gradient-to-tr from-[#FFC800]/6 to-[#8B5CF6]/4 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 right-[15%] w-[450px] h-[450px] bg-[#FF9BB3]/4 rounded-full blur-[130px] pointer-events-none" />
 
-          {/* ANIMATION 1: Top Hero Banner Image Box */}
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-12 sm:mb-16 flex flex-col items-center text-center"
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-1.5 h-1.5 bg-[#FFC800] rounded-full animate-pulse" />
+            <span className="text-[9px] font-mono font-bold uppercase tracking-[0.4em] text-white/40">
+              Investment & Access
+            </span>
+            <span className="w-1.5 h-1.5 bg-[#FFC800]/40 rounded-full" />
+          </div>
+
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tighter text-white leading-none select-none font-sans text-center">
+            One Plan. <span className="font-cursive text-[#F3D7A7] font-normal lowercase tracking-normal mx-0.5 pr-0.5 inline-block transform -rotate-3" style={{ textTransform: 'none', textShadow: '0 0 12px rgba(243, 215, 167, 0.4)' }}>Everything Included.</span>
+          </h2>
+          <p className="text-white/50 text-xs md:text-sm font-normal leading-relaxed font-sans max-w-xl pt-3 sm:pt-4">
+            No hidden fees. No upsells. Get the complete Blade Inner Circle experience at a fraction of its real value.
+          </p>
+        </motion.div>
+
+        {/* 2-Column Grid Layout: Pricing Card + Scholarship Card */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto">
+          
+          {/* CARD 1: Main Pricing Card */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ 
-              opacity: 1, 
-              y: [0, -5, 0] 
-            }}
-            transition={{
-              y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-              opacity: { duration: 0.6 }
-            }}
-            whileHover={{ scale: 1.01 }}
-            className="absolute left-[16.0%] top-[0%] w-[68.0%] h-[40.0%] rounded-[3rem] cursor-pointer group pointer-events-auto border border-transparent hover:border-[#ff9bb3]/40 transition-all duration-300 shadow-none hover:shadow-[0_20px_50px_rgba(255,155,179,0.25)]"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="relative flex flex-col justify-between"
           >
-            {/* Ambient Top Image Hover Highlight */}
-            <div className="w-full h-full rounded-[3rem] bg-gradient-to-tr from-[#ff9bb3]/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            {/* Popular badge */}
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20 w-max">
+              <div className="flex items-center gap-1.5 bg-[#F3D7A7] text-black px-4 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(243,215,167,0.4)]">
+                <Zap className="w-3.5 h-3.5 shrink-0" />
+                Cohort 02 — Limited Seats
+              </div>
+            </div>
+
+            {/* Card Content */}
+            <div className="relative bg-white/[0.03] backdrop-blur-xl border border-[#FFC800]/25 rounded-3xl p-6 sm:p-9 shadow-[0_30px_80px_rgba(0,0,0,0.5),_inset_0_1px_1px_rgba(255,255,255,0.04)] overflow-hidden flex flex-col justify-between h-full">
+              {/* Subtle corner glow */}
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#FFC800]/5 rounded-full blur-[60px] pointer-events-none -translate-y-1/2 translate-x-1/2" />
+
+              <div>
+                {/* Plan Title */}
+                <div className="text-center mb-6 relative z-10 pt-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-white/90 tracking-tight font-sans mb-1">
+                    Blade Inner Circle
+                  </h3>
+                  <p className="text-white/40 text-xs font-mono uppercase tracking-widest">
+                    Complete Access Pass
+                  </p>
+                </div>
+
+                {/* Pricing */}
+                <div className="text-center mb-6 relative z-10">
+                  <div className="flex items-center justify-center gap-2.5 mb-1.5">
+                    <span className="text-white/30 text-base sm:text-lg font-medium line-through decoration-red-500/70 decoration-2">
+                      ₹17,999
+                    </span>
+                    <span className="bg-red-500/15 text-red-400 text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border border-red-500/20">
+                      64% Off
+                    </span>
+                  </div>
+
+                  <div className="flex items-baseline justify-center gap-1">
+                    <span className="text-[#FFC800] text-4xl sm:text-6xl font-black tracking-tighter leading-none" style={{ textShadow: '0 0 25px rgba(255, 200, 0, 0.3)' }}>
+                      ₹6,499
+                    </span>
+                  </div>
+                  <p className="text-white/30 text-xs mt-2 font-mono">
+                    One-time payment · No recurring charges
+                  </p>
+                </div>
+
+                {/* Divider */}
+                <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6" />
+
+                {/* Features List */}
+                <div className="space-y-3 mb-8 relative z-10">
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-white/40 mb-3">
+                    Everything you get
+                  </p>
+                  {featuresList.map((feature, idx) => (
+                    <div key={idx} className="flex items-start gap-2.5 sm:gap-3">
+                      <div className="w-4 h-4 rounded-full bg-[#FFC800]/10 border border-[#FFC800]/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Check className="w-3 h-3 text-[#FFC800]" />
+                      </div>
+                      <span className="text-white/75 text-xs sm:text-sm leading-relaxed font-sans">
+                        {feature}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* CTA Button */}
+              <div className="relative z-10 pt-2">
+                <motion.a
+                  href="/apply/register"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.96 }}
+                  className="flex items-center justify-center min-h-[48px] sm:min-h-[52px] w-full py-3.5 bg-[#F3D7A7] hover:bg-[#F5E2BD] text-black font-bold text-xs sm:text-sm uppercase tracking-wider text-center rounded-xl transition-all duration-200 shadow-[0_0_25px_rgba(243,215,167,0.35)] active:scale-95"
+                >
+                  Apply for Cohort 02 →
+                </motion.a>
+                <p className="text-center text-white/30 text-[10px] mt-3 font-mono">
+                  Seats fill up fast — apply early to secure your spot
+                </p>
+              </div>
+            </div>
           </motion.div>
 
-          {/* ANIMATION 2: Left Pricing Box */}
-          <motion.a
-            href="/apply/payment"
-            title="Confirm Seat - ₹6,499"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            whileHover={{ y: -6, scale: 1.015 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="absolute left-[14.3%] top-[43.3%] w-[37.2%] h-[46.8%] rounded-[2.5rem] cursor-pointer group pointer-events-auto border border-transparent hover:border-[#f3d7a7]/60 transition-all duration-300 shadow-none hover:shadow-[0_25px_60px_rgba(243,215,167,0.25)]"
-          >
-            <span className="sr-only">Confirm Seat - ₹6,499</span>
-            {/* Ambient Gold Glow on Hover */}
-            <div className="w-full h-full rounded-[2.5rem] bg-[#f3d7a7]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-          </motion.a>
 
-          {/* ANIMATION 3: Right Scholarship Program Box */}
+          {/* CARD 2: Scholarship Program Card */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            whileHover={{ y: -6, scale: 1.015 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="absolute left-[55.6%] top-[43.3%] w-[26.4%] h-[29.5%] rounded-[2.5rem] cursor-pointer group pointer-events-auto border border-transparent hover:border-[#ff9bb3]/60 transition-all duration-300 shadow-none hover:shadow-[0_25px_60px_rgba(255,155,179,0.25)]"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative flex flex-col justify-between"
           >
-            {/* Ambient Pink Glow on Hover */}
-            <div className="w-full h-full rounded-[2.5rem] bg-[#ff9bb3]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-          </motion.div>
+            {/* Scholarship badge */}
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20 w-max">
+              <div className="flex items-center gap-1.5 bg-[#FF9BB3] text-black px-4 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(255,155,179,0.4)]">
+                <Award className="w-3.5 h-3.5 shrink-0" />
+                Upto 100% Scholarship
+              </div>
+            </div>
 
-          {/* ANIMATION 4: APPLY NOW! Pill Button */}
-          <motion.a
-            href="/apply/register"
-            title="Apply for Cohort 02"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ 
-              opacity: 1, 
-              scale: [1, 1.04, 1] 
-            }}
-            transition={{
-              scale: { repeat: Infinity, duration: 2.5, ease: "easeInOut" },
-              opacity: { duration: 0.5 }
-            }}
-            whileHover={{ scale: 1.1, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="absolute left-[62.2%] top-[79.7%] w-[13.1%] h-[7.0%] rounded-full cursor-pointer pointer-events-auto flex items-center justify-center border-2 border-transparent hover:border-white/60 transition-all duration-300 shadow-[0_10px_25px_rgba(0,0,0,0.3)] hover:shadow-[0_0_35px_rgba(255,255,255,0.4)]"
-          >
-            <span className="sr-only">Apply Now</span>
-          </motion.a>
+            {/* Card Content */}
+            <div className="relative bg-white/[0.03] backdrop-blur-xl border border-[#FF9BB3]/25 rounded-3xl p-6 sm:p-9 shadow-[0_30px_80px_rgba(0,0,0,0.5),_inset_0_1px_1px_rgba(255,255,255,0.04)] overflow-hidden flex flex-col justify-between h-full">
+              {/* Subtle corner glow */}
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#FF9BB3]/5 rounded-full blur-[60px] pointer-events-none translate-y-1/2 -translate-x-1/2" />
+
+              <div>
+                {/* Title */}
+                <div className="text-center mb-6 relative z-10 pt-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-white/90 tracking-tight font-sans mb-1">
+                    Scholarship Program
+                  </h3>
+                  <p className="text-[#FF9BB3]/80 text-xs font-mono uppercase tracking-widest">
+                    Financial Need & Merit Based
+                  </p>
+                </div>
+
+                {/* Main Content Paragraphs */}
+                <div className="space-y-4 my-6 text-white/80 text-xs sm:text-sm leading-relaxed relative z-10 text-center">
+                  <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                    <p className="font-bold text-white text-sm sm:text-base text-[#F3D7A7]">
+                      100% scholarships are available for Cohort 02.
+                    </p>
+                  </div>
+                  <p>
+                    We believe access to the right environment shouldn&apos;t depend only on your ability to pay.
+                  </p>
+                  <p>
+                    Scholarships are awarded selectively based on portfolio quality, potential, and financial need.
+                  </p>
+                  <p className="text-white/60 italic text-xs pt-2">
+                    If you believe you belong in the Circle but the fee is a barrier, you can apply for a full scholarship.
+                  </p>
+                </div>
+              </div>
+
+              {/* CTA Button */}
+              <div className="relative z-10 pt-4">
+                <motion.a
+                  href="/apply/register?scholarship=true"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.96 }}
+                  className="flex items-center justify-center min-h-[48px] sm:min-h-[52px] w-full py-3.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs sm:text-sm uppercase tracking-wider text-center rounded-xl transition-all duration-200 shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-95"
+                >
+                  Apply for Scholarship →
+                </motion.a>
+                <p className="text-center text-white/30 text-[10px] mt-3 font-mono">
+                  Applications reviewed by admissions committee within 24h
+                </p>
+              </div>
+            </div>
+          </motion.div>
 
         </div>
       </div>
@@ -95,6 +231,7 @@ const PricingSection = () => {
 };
 
 export default PricingSection;
+
 
 
 
