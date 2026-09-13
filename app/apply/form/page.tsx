@@ -26,8 +26,8 @@ const fadeUp = {
   },
 };
 
-const joiningFee = "Rs. 749";
-const originalPrice = "Rs. 4,999";
+const joiningFee = "Rs. 6,499";
+const originalPrice = "Rs. 17,999";
 
 const benefits = [
   {
@@ -84,7 +84,7 @@ export default function PaymentPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const upiLink = useMemo(() => {
-    return `upi://pay?pa=${paymentConfig.upiId}&pn=${encodeURIComponent(paymentConfig.upiName)}&am=749&cu=INR`;
+    return `upi://pay?pa=${paymentConfig.upiId}&pn=${encodeURIComponent(paymentConfig.upiName)}&am=6499&cu=INR`;
   }, []);
 
   const qrImageUrl = useMemo(() => {

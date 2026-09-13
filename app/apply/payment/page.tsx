@@ -26,8 +26,8 @@ const fadeUp = {
   },
 };
 
-const joiningFee = "Rs. 749";
-const originalPrice = "Rs. 4,999";
+const joiningFee = "Rs. 6,499";
+const originalPrice = "Rs. 17,999";
 
 const benefits = [
   {
@@ -83,10 +83,13 @@ export default function PaymentPage() {
   const [copiedField, setCopiedField] = useState("");
 
   const upiLink = useMemo(() => {
-    return `upi://pay?pa=${paymentConfig.upiId}&pn=${encodeURIComponent(paymentConfig.upiName)}&am=749&cu=INR`;
+    return `upi://pay?pa=${paymentConfig.upiId}&pn=${encodeURIComponent(paymentConfig.upiName)}&am=6499&cu=INR`;
   }, []);
 
-  const qrImageUrl = "/payment-qr.jpg";
+  const qrImageUrl = useMemo(() => {
+    const encodedLink = encodeURIComponent(upiLink);
+    return `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodedLink}`;
+  }, [upiLink]);
 
   const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -304,7 +307,12 @@ function PaymentMethodPanel({ selectedMethod, qrImageUrl, onCopy, copiedField, o
     return (
       <div className="mt-8 flex flex-col items-center gap-6 rounded-3xl border border-black/5 bg-[#faf8f2] p-8 md:flex-row">
         <div className="bg-white p-3 rounded-2xl border border-black/10">
-          <img src={qrImageUrl} alt="UPI QR" className="h-64 w-64 object-cover" />
+          <img 
+            src={qrImageUrl} 
+            alt="UPI QR" 
+            className="h-64 w-64 object-cover" 
+            onError={(e) => { (e.target as HTMLImageElement).src = '/payment-qr.jpg'; }}
+          />
         </div>
         <div className="flex-1">
           <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-black/45">SCAN TO PAY</p>

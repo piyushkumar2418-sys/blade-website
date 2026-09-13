@@ -345,7 +345,7 @@ export default function Profile() {
                                     <div className="text-[10px] font-bold uppercase tracking-widest text-green-600 flex items-center gap-2 md:justify-end">
                                       <div className="w-1.5 h-1.5 rounded-full bg-green-600 animate-pulse" /> Admission Confirmed
                                     </div>
-                                    <button onClick={() => router.push("/apply/payment")} className="mt-6 px-6 py-4 bg-black text-white text-[10px] font-bold uppercase tracking-widest hover:bg-[#D4AF37] hover:text-black transition-all">Secure Seat (Pay Rs. 749)</button>
+                                    <button onClick={() => router.push("/apply/payment")} className="mt-6 px-6 py-4 bg-black text-white text-[10px] font-bold uppercase tracking-widest hover:bg-[#D4AF37] hover:text-black transition-all">Secure Seat (Pay Rs. 6,499)</button>
                                   </>
                                 ) : (
                                   <>
