@@ -224,7 +224,7 @@ export default function CurriculumClient() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-6xl md:text-[9vw] font-bold uppercase tracking-[-0.06em] mb-12 leading-[0.8]">Earn your <br/> entry.</h2>
           <button 
-            onClick={() => router.push("/apply/login")}
+            onClick={() => router.push("/apply/register")}
             className="bg-black text-white px-20 py-8 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#D4AF37] transition-all flex items-center gap-4 mx-auto shadow-2xl cursor-pointer"
           >
             Apply Now <ArrowUpRight size={18}/>

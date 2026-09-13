@@ -16,9 +16,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Name and email are required.' }, { status: 400 });
     }
 
-    // Generate a unique waitlist access key (e.g., BIC-SEP26-XXXX)
+    // Generate a unique waitlist access key (e.g., BIC-OCT26-XXXX)
     const randomSuffix = Math.floor(1000 + Math.random() * 9000); // 4-digit number
-    const waitlistKey = `BIC-SEP26-${randomSuffix}`;
+    const waitlistKey = `BIC-OCT26-${randomSuffix}`;
 
     let docId = '';
     try {

@@ -17,6 +17,21 @@ const nextConfig: NextConfig = {
         destination: '/?mode=inner-circle',
         permanent: false,
       },
+      {
+        source: '/cohort',
+        destination: '/?mode=inner-circle',
+        permanent: false,
+      },
+      {
+        source: '/inner-circle',
+        destination: '/?mode=inner-circle',
+        permanent: false,
+      },
+      {
+        source: '/innercircle',
+        destination: '/?mode=inner-circle',
+        permanent: false,
+      },
     ];
   },
   async headers() {

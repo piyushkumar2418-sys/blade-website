@@ -25,6 +25,7 @@ export default function CohortRegisterPageClient() {
 
   const [formData, setFormData] = useState({
     name: "",
+    email: "",
     phone: "",
     portfolioLink: "",
     primaryFocus: "Learn a High-Income Skill",
@@ -68,8 +69,9 @@ export default function CohortRegisterPageClient() {
     if (profile) {
       setFormData(prev => ({
         ...prev,
-        name: profile.name || "",
-        phone: profile.phone || "",
+        name: profile.name || prev.name || "",
+        email: profile.email || prev.email || "",
+        phone: profile.phone || prev.phone || "",
       }));
     }
 
@@ -84,7 +86,12 @@ export default function CohortRegisterPageClient() {
           });
           const data = await res.json();
           if (data.success && data.applications && data.applications.length > 0) {
-            setHasExistingApp(true);
+            const hasCohort2App = data.applications.some((app: any) => 
+              app.cohort === 'Cohort 02' || (!app.cohort && app.status !== 'rejected')
+            );
+            if (hasCohort2App) {
+              setHasExistingApp(true);
+            }
           }
         } catch (err) {
           console.error("Error checking existing application:", err);
@@ -100,7 +107,9 @@ export default function CohortRegisterPageClient() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.phone || !formData.portfolioLink || !formData.whyReady || !formData.commitment) {
+    const effectiveEmail = (user?.email || profile?.email || formData.email || "").trim();
+
+    if (!formData.name || !effectiveEmail || !formData.phone || !formData.portfolioLink || !formData.whyReady || !formData.commitment) {
       toast.warning("Incomplete Form", {
         description: "Please fill out all fields and agree to the sprint commitment.",
       });
@@ -117,7 +126,7 @@ export default function CohortRegisterPageClient() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: formData.name,
-          email: user?.email,
+          email: effectiveEmail,
           phone: formData.phone,
           instagram: (profile as any)?.instagram || 'not provided',
           portfolioLink: formData.portfolioLink,
@@ -261,16 +270,21 @@ export default function CohortRegisterPageClient() {
                     />
                   </div>
 
-                  {/* Email field (Read Only) */}
+                  {/* Email field */}
                   <div className="space-y-2 text-left">
                     <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30 block">
                       Verified Email *
                     </label>
                     <input 
                       type="email"
-                      readOnly
-                      value={user.email || ""}
-                      className="w-full bg-[#F5F5F7] border border-black/[0.03] rounded-xl px-6 py-4 text-base font-bold tracking-tight text-black/40 cursor-not-allowed outline-none"
+                      required
+                      readOnly={Boolean(user?.email || profile?.email)}
+                      value={user?.email || profile?.email || formData.email || ""}
+                      onChange={(e) => handleInputChange("email", e.target.value)}
+                      placeholder="name@email.com"
+                      className={`w-full bg-[#F5F5F7] border border-black/[0.03] rounded-xl px-6 py-4 text-base font-bold tracking-tight ${
+                        Boolean(user?.email || profile?.email) ? "text-black/40 cursor-not-allowed" : "focus:bg-white focus:border-[#F3D7A7]/50"
+                      } outline-none transition-all duration-500`}
                     />
                   </div>
 

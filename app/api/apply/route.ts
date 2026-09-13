@@ -50,6 +50,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Name and email are required.' }, { status: 400 });
     }
 
+    const normalizedEmail = email.toLowerCase().trim();
+
     let docId = '';
     try {
       if (!adminDb) {
@@ -59,7 +61,7 @@ export async function POST(req: NextRequest) {
       // 1. Log the lead to Firestore
       const docRef = await adminDb.collection('applications').add({
         name,
-        email,
+        email: normalizedEmail,
         phone: phone || 'not provided',
         instagram: instagram || 'not provided',
         ...otherData,
@@ -74,7 +76,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Dispatch Human-Centric Confirmation Email
-    const emailResult = await sendApplicationEmail(email, name);
+    const emailResult = await sendApplicationEmail(normalizedEmail, name);
 
     if (!emailResult.success) {
       console.error('Email Dispatch Failure:', emailResult.error);
@@ -91,13 +93,15 @@ export async function POST(req: NextRequest) {
             timestamp: new Date().toISOString(),
             applicationId: docId,
             name,
-            email,
+            email: normalizedEmail,
             phone: phone || 'not provided',
             instagram: instagram || 'not provided',
             portfolioLink: otherData.portfolioLink || '',
             primaryFocus: otherData.primaryFocus || '',
             whyReady: otherData.whyReady || '',
             cohort: otherData.cohort || 'Cohort 02',
+            applyForScholarship: otherData.applyForScholarship ? 'Yes' : 'No',
+            scholarshipStatus: otherData.scholarshipStatus || (otherData.applyForScholarship ? 'requested' : 'none'),
           }),
         });
       } catch (webhookError) {
