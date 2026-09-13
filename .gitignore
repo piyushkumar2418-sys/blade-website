@@ -43,3 +43,6 @@ next-env.d.ts
 service-account.json
 .vercel
 .env*
+scratch/
+*.log
+lint_results.txt

@@ -1,0 +1,8 @@
+- `[ ]` Build premium, clean, minimal registration layout at `/apply/register` with brand fonts & Instrument Serif cursive accents
+- `[ ]` Simplify copy tone to an 8th-grade reading level
+- `[ ]` Implement the 8-Week Roadmap grid and metric highlights
+- `[ ]` Implement the boxed registration form, capturing portfolio, focus, and statement of readiness
+- `[ ]` Append the Q&A / FAQ accordion at the bottom of the page
+- `[ ]` Gating auth verification, database applications log, and Resend API routing
+- `[ ]` Update landing page CTA links and redirect `/waitlist` to `/apply/register`
+- `[ ]` Verify build compiles cleanly with Next.js and TypeScript

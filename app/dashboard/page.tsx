@@ -16,6 +16,7 @@ interface Application {
   id: string;
   uid: string;
   status: string;
+  cohort?: string;
   createdAt?: Timestamp;
 }
 
@@ -308,10 +309,12 @@ export default function Profile() {
                      <div key={app.id} className="bg-white border border-black/5 p-8 md:p-12 hover:shadow-xl transition-all group">
                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
                           <div className="space-y-4 text-left">
-                             <div className="flex items-center gap-3">
-                                <span className="bg-black text-white text-[8px] font-bold uppercase tracking-widest px-2 py-0.5">May 2026</span>
-                                <span className="text-[10px] text-black/30 font-bold uppercase tracking-widest">ID: {app.id.slice(0, 8).toUpperCase()}</span>
-                             </div>
+                              <div className="flex items-center gap-3">
+                                 <span className="bg-black text-white text-[8px] font-bold uppercase tracking-widest px-2 py-0.5">
+                                   {app.cohort === 'Cohort 01' ? 'May 2026' : 'October 2026'}
+                                 </span>
+                                 <span className="text-[10px] text-black/30 font-bold uppercase tracking-widest">ID: {app.id.slice(0, 8).toUpperCase()}</span>
+                              </div>
                              <h4 className="text-2xl font-bold uppercase tracking-tight">Admission Portfolio Submission</h4>
                              <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-black/40">
                                 <span className="flex items-center gap-2"><Clock size={14} /> Submitted on {app.createdAt ? new Date(app.createdAt.seconds * 1000).toLocaleDateString() : 'Just now'}</span>

@@ -33,7 +33,7 @@ export const ApplicationEmail: React.FC<ApplicationEmailProps> = ({ name }) => (
           fontWeight: 'bold', 
           textTransform: 'uppercase'
         }}>
-          Cohort 02 — August 2026
+          Cohort 02 — October 2026
         </span>
       </div>
     </div>

@@ -26,7 +26,7 @@ export default function CurriculumPage() {
     "hasCourseInstance": {
       "@type": "CourseInstance",
       "courseMode": "Online",
-      "startDate": "2026-08-29",
+      "startDate": "2026-10-27",
     }
   };
 

@@ -255,7 +255,7 @@ export default function AdminDashboard() {
 
   const generateICSBase64 = (sessionName: string, dateString: string) => {
     if (dateString === 'TBA') return null;
-    const months: Record<string, string> = { 'May': '05', 'Jun': '06', 'Jul': '07' };
+    const months: Record<string, string> = { 'May': '05', 'Jun': '06', 'Jul': '07', 'Aug': '08', 'Sep': '09' };
     const parts = dateString.split(' ');
     if (parts.length < 3) return null;
     const day = parts[1].padStart(2, '0');

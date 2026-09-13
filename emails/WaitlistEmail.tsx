@@ -32,7 +32,7 @@ export const WaitlistEmail: React.FC<WaitlistEmailProps> = ({ name, waitlistKey 
           fontWeight: 'bold', 
           textTransform: 'uppercase'
         }}>
-          Cohort 02 — August 2026 Waitlist
+          Cohort 02 — October 2026 Waitlist
         </span>
       </div>
     </div>
@@ -63,7 +63,7 @@ export const WaitlistEmail: React.FC<WaitlistEmailProps> = ({ name, waitlistKey 
         color: 'rgba(255, 255, 255, 0.7)', 
         margin: '0 0 24px 0'
       }}>
-        We have successfully logged your request for early access to the Blade Inner Circle August 2026 intake.
+        We have successfully logged your request for early access to the Blade Inner Circle October 2026 intake.
       </p>
       
       {/* Priority key container */}
@@ -104,7 +104,7 @@ export const WaitlistEmail: React.FC<WaitlistEmailProps> = ({ name, waitlistKey 
         color: 'rgba(255, 255, 255, 0.7)', 
         margin: '0 0 20px 0'
       }}>
-        When the application period opens in July, waitlisted applicants will receive exclusive 24-hour early access to complete their admission portfolios before public release.
+        When the application period opens in August, waitlisted applicants will receive exclusive 24-hour early access to complete their admission portfolios before public release.
       </p>
       <p style={{ 
         fontSize: '15px', 

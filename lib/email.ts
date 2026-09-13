@@ -62,7 +62,7 @@ export async function sendWaitlistEmail(to: string, name: string, waitlistKey: s
     to,
     subject: 'Waitlist Key: Verified.',
     react: React.createElement(WaitlistEmail, { name, waitlistKey }),
-    text: `Hi ${name}, we have logged your request for early access to Cohort 02 (August 2026). Your access key is: ${waitlistKey}.`,
+    text: `Hi ${name}, we have logged your request for early access to Cohort 02 (October 2026). Your access key is: ${waitlistKey}.`,
   });
 }
 
@@ -70,7 +70,7 @@ export async function sendWaitlistEmail(to: string, name: string, waitlistKey: s
  * Sends the official Admission Confirmed email with the secure payment link.
  */
 export async function sendAdmissionConfirmedEmail(to: string, name: string) {
-  const BATCH_COHORT_NAME = "Cohort 02 (August 2026)";
+  const BATCH_COHORT_NAME = "Cohort 02 (October 2026)";
   
   const htmlContent = `
 <!DOCTYPE html>
@@ -90,7 +90,7 @@ export async function sendAdmissionConfirmedEmail(to: string, name: string) {
             <td style="padding: 50px 40px 30px 40px; text-align: left; border-bottom: 1px solid rgba(0,0,0,0.05);">
               <img src="https://blademedia.in/blade-logo.png" alt="Blade Inner Circle" style="width: 48px; height: auto; margin-bottom: 24px;" />
               <p style="margin: 0; font-size: 10px; font-weight: 800; letter-spacing: 0.3em; text-transform: uppercase; color: #9b7328;">
-                Cohort 02 — August 2026
+                Cohort 02 — October 2026
               </p>
               <h1 style="margin: 16px 0 0 0; font-size: 32px; font-weight: 800; letter-spacing: -0.04em; text-transform: uppercase; color: #000000; line-height: 1.1;">
                 Admission<br/>Confirmed.
@@ -117,7 +117,7 @@ export async function sendAdmissionConfirmedEmail(to: string, name: string) {
                 <h3 style="margin: 0 0 16px 0; font-size: 11px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #000000;">Important Details</h3>
                 
                 <p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5; color: #4a4a4a;">
-                  <strong style="color: #000000;">Orientation Date:</strong> August 29th, 2026<br/>
+                  <strong style="color: #000000;">Orientation Date:</strong> October 27th, 2026<br/>
                   <span style="font-size: 13px; color: #777;">(The meeting link will be shared a few days prior)</span>
                 </p>
                 <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4a4a4a;">

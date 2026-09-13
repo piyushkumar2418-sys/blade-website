@@ -90,7 +90,7 @@ export default function WaitlistHero({ onJoinWaitlist }: WaitlistHeroProps) {
         <span className="font-serif italic font-normal text-[#F3D7A7] lowercase tracking-normal normal-case">modern content.</span>
       </motion.h1>
 
-      {/* August Intake tag with gold border glow */}
+      {/* October Intake tag with gold border glow */}
       <motion.div 
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -98,7 +98,7 @@ export default function WaitlistHero({ onJoinWaitlist }: WaitlistHeroProps) {
         className="flex justify-center relative z-10 text-center mb-10"
       >
         <span className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#F3D7A7]/5 border border-[#F3D7A7]/25 rounded-full text-[#F3D7A7] text-[10px] font-bold uppercase tracking-[0.25em] shadow-[0_0_35px_rgba(243,215,167,0.08)] backdrop-blur-md transition-all duration-300 hover:border-[#F3D7A7]/40 hover:shadow-[0_0_45px_rgba(243,215,167,0.15)] hover:scale-102">
-          August 2026 Intake | Waitlist Live
+          October 2026 Intake | Waitlist Live
         </span>
       </motion.div>
 

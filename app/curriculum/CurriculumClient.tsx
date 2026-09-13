@@ -229,7 +229,7 @@ export default function CurriculumClient() {
           >
             Apply Now <ArrowUpRight size={18}/>
           </button>
-          <p className="mt-8 text-black/45 text-[10px] uppercase tracking-[0.4em] font-bold">Next Batch: Commencing August 29th, 2026</p>
+          <p className="mt-8 text-black/45 text-[10px] uppercase tracking-[0.4em] font-bold">Next Batch: Commencing October 27th, 2026</p>
         </div>
       </section>
 

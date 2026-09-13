@@ -13,15 +13,15 @@ export default function WaitlistFAQ() {
 
   const faqs: FAQItem[] = [
     {
-      question: "When does Cohort 02 (August 2026) start?",
-      answer: "Cohort 02 is scheduled to launch live operations on August 3, 2026. Waitlist processing starts 3 weeks prior, allowing approved members to secure curriculum files and establish initial onboarding nodes."
+      question: "When does Cohort 02 (October 2026) start?",
+      answer: "Cohort 02 is scheduled to launch live operations on October 27, 2026. Waitlist processing starts 3 weeks prior, allowing approved members to secure curriculum files and establish initial onboarding nodes."
     },
     {
       question: "How does waitlist verification work?",
       answer: "Once you lock your data vectors in the waitlist terminal, our systems register your intent. We review applications on a rolling basis. If approved, you will receive a verified Priority Access Code via email, which bypasses general public clearance."
     },
     {
-      question: "What is the capacity for the August cohort?",
+      question: "What is the capacity for the October cohort?",
       answer: "We do not enforce rigid numeric limits, but admissions are strictly bounded by mentor bandwidth, 1:1 critique channels, and placement slots inside the Blade Media editor network."
     },
     {

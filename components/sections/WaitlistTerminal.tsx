@@ -187,7 +187,7 @@ export default function WaitlistTerminal({ isOpen = false, onClose, inline = fal
       <div className="flex-1 overflow-y-auto p-8 space-y-4 text-xs md:text-sm text-white/80 select-text leading-relaxed">
         <div className="text-white/30 space-y-1">
           <p>BLADE CORE OPERATING SYSTEM v3.1</p>
-          <p>INITIALIZING WAITLIST PROTOCOL FOR COHORT 02 (AUGUST 2026)...</p>
+          <p>INITIALIZING WAITLIST PROTOCOL FOR COHORT 02 (OCTOBER 2026)...</p>
           <p>WARNING: UNIQUE IDENTITY footprint REQUIRED.</p>
           <p>--------------------------------------------------</p>
         </div>
@@ -257,7 +257,7 @@ export default function WaitlistTerminal({ isOpen = false, onClose, inline = fal
 
         {step === "goal" && (
           <TerminalPrompt
-            prompt="[CORE INTENT] Briefly state your August cohort objective:"
+            prompt="[CORE INTENT] Briefly state your October cohort objective:"
             placeholder="e.g. Scaling video agency to 5 clients..."
             value={inputValue}
             onChange={setInputValue}

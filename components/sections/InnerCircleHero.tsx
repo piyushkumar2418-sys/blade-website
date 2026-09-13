@@ -152,7 +152,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
           <div className="flex items-end justify-between border-t border-white/5 pt-6">
             <div className="flex flex-col">
               <span className="text-[9px] font-bold tracking-[0.2em] text-[#F3D7A7] uppercase">Cohort 02 / Admissions</span>
-              <span className="text-[9px] font-light tracking-[0.15em] text-white/60 mt-0.5 uppercase">August 2026 Intake</span>
+              <span className="text-[9px] font-light tracking-[0.15em] text-white/60 mt-0.5 uppercase">October 2026 Intake</span>
             </div>
             <button 
               onClick={onJoinWaitlist}
@@ -263,7 +263,7 @@ export default function InnerCircleHero({ user, onJoinWaitlist }: InnerCircleHer
           className="absolute bottom-[26%] right-12 pointer-events-auto flex flex-col text-left font-['Helvetica',_sans-serif] select-none"
         >
           <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#F3D7A7]">Cohort 02 / Admissions</span>
-          <span className="text-[9px] font-light uppercase tracking-[0.2em] text-white/60 mt-1">August 2026</span>
+          <span className="text-[9px] font-light uppercase tracking-[0.2em] text-white/60 mt-1">October 2026</span>
           
           <button
             onClick={onJoinWaitlist}

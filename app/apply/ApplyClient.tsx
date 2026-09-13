@@ -116,7 +116,7 @@ export default function ApplyClient() {
                   </h1>
                   <p className="text-sm text-white/40 leading-relaxed max-w-md font-light text-left">
                     Admissions for Cohort 01 (May 2026) are officially closed and the sprint is currently in progress. 
-                    We are now accepting applications for the exclusive August 2026 Cohort 02.
+                    We are now accepting applications for the exclusive October 2026 Cohort 02.
                   </p>
                </div>
 

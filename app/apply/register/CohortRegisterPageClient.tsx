@@ -36,7 +36,7 @@ export default function CohortRegisterPageClient() {
   const faqs: FAQItem[] = [
     {
       question: "When does Cohort 02 start?",
-      answer: "Cohort 02 starts live classes on August 29, 2026. We will open setup materials two weeks earlier so you can get ready."
+      answer: "Cohort 02 starts live classes on October 27, 2026. We will open setup materials two weeks earlier so you can get ready."
     },
     {
       question: "How does the selection process work?",
@@ -236,7 +236,7 @@ export default function CohortRegisterPageClient() {
               <h1 className="text-4xl font-extrabold uppercase tracking-tighter mb-2 text-left leading-none">
                 Admission <span className="font-serif italic font-normal text-[#F3D7A7] lowercase tracking-normal normal-case">portfolio.</span>
               </h1>
-              <p className="text-black/30 text-[10px] font-bold uppercase tracking-[0.2em] text-left">August 2026 Batch // Cohort 02 Entry</p>
+              <p className="text-black/30 text-[10px] font-bold uppercase tracking-[0.2em] text-left">October 2026 Batch // Cohort 02 Entry</p>
             </header>
 
             <form onSubmit={handleSubmit} className="space-y-12 text-left">
