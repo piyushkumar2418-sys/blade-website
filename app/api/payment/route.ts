@@ -14,31 +14,63 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
-    // Find the application by email
+    const cleanEmail = email.toLowerCase().trim();
+
+    // 1. Find or create the application by email
     const applicationsRef = adminDb.collection('applications');
-    const snapshot = await applicationsRef.where('email', '==', email.toLowerCase().trim()).limit(1).get();
+    const snapshot = await applicationsRef.where('email', '==', cleanEmail).limit(1).get();
 
-    if (snapshot.empty) {
-      return NextResponse.json({ error: 'Application not found for this email. Please use the email you applied with.' }, { status: 404 });
+    if (!snapshot.empty) {
+      const doc = snapshot.docs[0];
+      await doc.ref.update({
+        status: 'booked',
+        cohort: 'Cohort 02',
+        paymentConfirmedAt: new Date().toISOString(),
+        paymentPhone: phone || '',
+        paymentName: name || '',
+        transactionId: transactionId || '',
+        amountPaid: '6499'
+      });
+    } else {
+      const directDocRef = applicationsRef.doc(cleanEmail);
+      const directDoc = await directDocRef.get();
+      if (directDoc.exists) {
+        await directDocRef.update({
+          status: 'booked',
+          cohort: 'Cohort 02',
+          paymentConfirmedAt: new Date().toISOString(),
+          paymentPhone: phone || '',
+          paymentName: name || '',
+          transactionId: transactionId || '',
+          amountPaid: '6499'
+        });
+      } else {
+        // Fallback: create application entry so payment verification is never lost
+        await directDocRef.set({
+          name: name || '',
+          email: cleanEmail,
+          phone: phone || '',
+          status: 'booked',
+          cohort: 'Cohort 02',
+          paymentConfirmedAt: new Date().toISOString(),
+          paymentPhone: phone || '',
+          paymentName: name || '',
+          transactionId: transactionId || '',
+          amountPaid: '6499',
+          createdAt: new Date().toISOString(),
+          source: 'direct_payment'
+        });
+      }
     }
-
-    const doc = snapshot.docs[0];
-    
-    // 1. Update application status
-    await doc.ref.update({
-      status: 'booked',
-      paymentConfirmedAt: new Date().toISOString(),
-      paymentPhone: phone || '',
-      paymentName: name || '',
-      transactionId: transactionId || ''
-    });
 
     // 2. Save payment proof submission entry
     await adminDb.collection('submissions').add({
       name: name || '',
-      email: email.toLowerCase().trim(),
+      email: cleanEmail,
       phone: phone || '',
       transactionId: transactionId || '',
+      amount: '6499',
+      cohort: 'Cohort 02',
       createdAt: new Date().toISOString(),
       status: 'pending'
     });
